@@ -1,10 +1,20 @@
 const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
-const User = require('./models/User');
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
+
+/* --- Models --- */
+const User = require('./models/User');
+const Category = require('./models/Category');
+const Question = require('./models/Question');
+const Quiz = require('./models/Quiz');
+
+/* --- Utils --- */
 const utilsUsers = require('./utils/bulkCreate/Users');
+const utilsCategories = require('./utils/bulkCreate/Categories');
+const utilsQuizzes = require('./utils/bulkCreate/Quizzes');
+const utilsQuestions = require('./utils/bulkCreate/Questions');
 
 const server = new ApolloServer({
     typeDefs,
@@ -19,10 +29,13 @@ mongoose
         useCreateIndex: true,
     })
     .then(async() => {
-        mongoose.connection.db.dropDatabase();
+        await mongoose.connection.db.dropDatabase();
         console.info('MONGODB CONNECTED');
         try {
             await User.collection.insertMany(utilsUsers);
+            await Category.collection.insertMany(utilsCategories);
+            await Quiz.collection.insertMany(utilsQuizzes);
+            await Question.collection.insertMany(utilsQuestions);
             console.log('BulkCreate Succesful');
         } catch (err) {
             console.log('BulkCreate Error', err);
