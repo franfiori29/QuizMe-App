@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { request, gql } from 'graphql-request';
 import HomeRoutes from './routes/home_routes';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import store from "./src/store";
-
+import store from './src/store';
 
 const query = gql`
 	{
@@ -20,10 +20,12 @@ export default function App() {
 	}, []);
 
 	return (
-    	<Provider store={store}>
-		      <SafeAreaProvider>
-			        <HomeRoutes />
-		      </SafeAreaProvider>
-	    </Provider>
+		<Provider store={store}>
+			<SafeAreaProvider>
+				<SafeAreaView style={{ flex: 1 }}>
+					<HomeRoutes />
+				</SafeAreaView>
+			</SafeAreaProvider>
+		</Provider>
 	);
 }
