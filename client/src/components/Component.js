@@ -8,7 +8,7 @@ const Component = () => {
 
 	const dispatch = useDispatch();
 
-	const onIncrement = () => {		
+	const onIncrement = () => {
 		dispatch(increment());
 	};
 
