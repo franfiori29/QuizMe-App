@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Component from '@components/Component';
 import { request, gql } from 'graphql-request';
+import { Provider } from 'react-redux';
+import store from "./src/store";
 
 const query = gql`
 	{
@@ -19,11 +21,13 @@ export default function App() {
 		);
 	}, []);
 	return (
-		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<Component />
-			<StatusBar style="auto" />
-		</View>
+		<Provider store={store}>
+			<View style={styles.container}>
+				<Text>Open up App.js to start working on your app!</Text>
+				<Component />
+				<StatusBar style='auto' />
+			</View>
+		</Provider>
 	);
 }
 
