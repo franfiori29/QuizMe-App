@@ -108,7 +108,8 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode
 
-.expo/*
+.expo
+.expo-shared
 
 
 # yarn v2
