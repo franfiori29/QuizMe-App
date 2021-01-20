@@ -1,16 +1,26 @@
 const { gql } = require('apollo-server');
 
-module.exports = gql`
+module.exports = gql `
 	type User {
-		username: String!
-		password: String!
-		email: String!
+		firstName: String!
+		lastName: String!
+		email: String
+		password: String
+		accountId: String
+		socialAccount: String
+		countryCode: Int!
+		roleId: Int
 	}
 
 	input UserInput {
-		username: String!
-		password: String!
-		email: String!
+		firstName: String!
+		lastName: String!
+		email: String
+		password: String
+		accountId: String
+		socialAccount: String
+		countryCode: Int!
+		roleId: Int
 	}
 
 	type Query {
@@ -19,6 +29,7 @@ module.exports = gql`
 	}
 
 	type Mutation {
-		createUser(input: UserInput): User
+		createUser(input: UserInput): User!
+		compareUser(password: String): User
 	}
 `;
