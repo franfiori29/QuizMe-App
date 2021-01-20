@@ -12,10 +12,10 @@ const query = gql`
 `;
 
 export default function App() {
-	useEffect(() => {
-		request('http://localhost:4000/', query).then((data) =>
-			console.log(data)
-		);
-	}, []);
+	// useEffect(() => {
+	// 	request('http://localhost:4000/', query).then((data) =>
+	// 		console.log(data)
+	// 	);
+	// }, []);
 	return <Quiz />;
 }

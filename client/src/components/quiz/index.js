@@ -1,55 +1,62 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import { Link } from 'react-router-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
 const Quiz = () => {
 	return (
-		<ContainerPpal>
-			<ContainerTop>
-				<BackButtonContainer>
-					<BackButton> X </BackButton>
-				</BackButtonContainer>
-				<Banner source={{ uri: 'https://picsum.photos/200/200' }} />
-				<Title>Título del Quiz</Title>
-				<QuantityContainer>
-					<TouchableOpacity>
-						<Text>c/Preguntas</Text>
-					</TouchableOpacity>
-					<TouchableOpacity>
-						<Text>Likes</Text>
-					</TouchableOpacity>
-				</QuantityContainer>
-			</ContainerTop>
-			<ContainerBottom>
-				<Description>
-					Lorem Ipsum is simply dummy text of the printing and
-					typesetting industry. Lorem Ipsum has been the industry's
-					standard dummy text ever since the 1500s, when an unknown
-					printer took a galley of type and scrambled it to make a
-					type specimen book. It has survived not only five centuries,
-					but also the leap into electronic typesetting, remaining
-					essentially unchanged.
-				</Description>
-				<StartButton>
-					<Text>Start Quiz</Text>
-				</StartButton>
-			</ContainerBottom>
-		</ContainerPpal>
+		<SafeAreaView style={{ flex: 1 }}>
+			<ContainerPpal>
+				<ContainerTop>
+					<Banner source={{ uri: 'https://picsum.photos/200/200' }} />
+					<BackButtonContainer>
+						<Link to='/home'>
+							<BackButton>X</BackButton>
+						</Link>
+					</BackButtonContainer>
+					<Title>Título del Quiz</Title>
+					<QuantityContainer>
+						<TouchableOpacity>
+							<Text>10 Preguntas</Text>
+						</TouchableOpacity>
+						<TouchableOpacity>
+							<Text>38 Likes</Text>
+						</TouchableOpacity>
+					</QuantityContainer>
+				</ContainerTop>
+				<ContainerBottom>
+					<Description>
+						Lorem Ipsum is simply dummy text of the printing and
+						typesetting industry. Lorem Ipsum has been the
+						industry's standard dummy text ever since the 1500s,
+						when an unknown printer took a galley of type and
+						scrambled it to make a type specimen book. It has
+						survived not only five centuries, but also the leap into
+						electronic typesetting, remaining essentially unchanged.
+					</Description>
+					<StartButton>
+						<Text adjustsFontSizeToFit={true}>Start Quiz</Text>
+					</StartButton>
+				</ContainerBottom>
+			</ContainerPpal>
+		</SafeAreaView>
 	);
 };
 
 const ContainerPpal = styled.View`
 	flex: 1;
-	background-color: #fff;
 	align-items: center;
 	justify-content: space-between;
 `;
+
 const ContainerTop = styled.View`
 	height: 50%;
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
 `;
+
 const ContainerBottom = styled.View`
 	height: 50%;
 	width: 100%;
@@ -65,7 +72,6 @@ const BackButtonContainer = styled.TouchableOpacity`
 	height: 50px;
 	left: 10px;
 	top: 10px;
-	z-index: 1;
 	color: white;
 	align-items: center;
 	justify-content: center;
@@ -100,12 +106,11 @@ const Description = styled.Text`
 `;
 
 const StartButton = styled.TouchableOpacity`
-	width: 200px;
-	border-width: 2px;
-	border-radius: 15px;
-	background-color: rgba(0, 0, 0, 0.4);
+	border: 2px solid black;
 	padding: 10px;
-	text-align: center;
+	width: 200px;
+	justify-content: center;
+	align-items: center;
 `;
 
 const Banner = styled.Image`
