@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
 import { request, gql } from 'graphql-request';
-import Quiz from './src/components/quiz';
+import HomeRoutes from './routes/home_routes';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const query = gql`
 	{
 		getUsers {
-			username
+			email
 		}
 	}
 `;
@@ -15,5 +15,9 @@ export default function App() {
 	useEffect(() => {
 		request('http://localhost:4000/', query).then(console.log);
 	}, []);
-	return <Quiz />;
+	return (
+		<SafeAreaProvider>
+			<HomeRoutes />
+		</SafeAreaProvider>
+	);
 }
