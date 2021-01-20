@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
 import { request, gql } from 'graphql-request';
+import HomeRoutes from './routes/home_routes';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import store from "./src/store";
-import Quiz from './src/components/quiz';
+
 
 const query = gql`
 	{
 		getUsers {
-			username
+			email
 		}
 	}
 `;
@@ -19,8 +20,10 @@ export default function App() {
 	}, []);
 
 	return (
-		<Provider store={store}>
-			<Quiz />
-		</Provider>
+    	<Provider store={store}>
+		      <SafeAreaProvider>
+			        <HomeRoutes />
+		      </SafeAreaProvider>
+	    </Provider>
 	);
 }
