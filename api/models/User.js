@@ -1,14 +1,14 @@
 const { model, Schema } = require('mongoose');
 const bcrypt = require('bcrypt');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    password: {
-        type: String,
-    },
-    accountId: String,
-    socialAccount: String,
+    password: { type: String },
+    profilePic: { type: String },
+    accountId: { type: String, default: null },
+    socialAccount: { type: String, default: null },
     countryCode: { type: Number, required: true },
     email: {
         type: String,
@@ -18,6 +18,8 @@ const userSchema = new Schema({
     },
     roleId: { type: Number, default: 1 },
 }, { timestamps: true });
+
+userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
 
 userSchema.methods.compare = function(password, isReset) {
     if (this.password || this.reset_code)
@@ -30,9 +32,8 @@ userSchema.methods.compare = function(password, isReset) {
 
 userSchema.pre('save', function(next) {
     const that = this;
-    if (that.accountId) {
-        delete that.password;
-    } else {
+    if (that.accountId) delete that.password;
+    else {
         if (
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(
                 that.password
@@ -41,9 +42,7 @@ userSchema.pre('save', function(next) {
             const salt = bcrypt.genSaltSync(10);
             const hash = bcrypt.hashSync(that.password, salt);
             that.password = hash;
-        } else {
-            throw new Error('Input valid Password');
-        }
+        } else throw new Error('Input valid Password');
     }
     next();
 });
