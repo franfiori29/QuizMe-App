@@ -10,17 +10,17 @@ import Login from '../src/components/login';
 import SignUp from '../src/components/signup';
 
 const HomeRoutes = () => {
-	const Stack = createStackNavigator();
+	const {Navigator, Screen} = createStackNavigator();
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='Login'>
-				<Stack.Screen name='Login' component={Login} />
-				<Stack.Screen name='SignUp' component={SignUp} />
-				<Stack.Screen name='Home' component={HomeScreen} />
-				<Stack.Screen name='QuizIndex' component={QuizIndex} />
-				<Stack.Screen options={{headerShown: true}} name='Quiz' component={Quiz} />
-			</Stack.Navigator>
+			<Navigator screenOptions={{headerShown: false}} initialRouteName='Login'>
+				<Screen name='Login' component={Login} />
+				<Screen name='SignUp' component={SignUp} />
+				<Screen name='Home' component={HomeScreen} />
+				<Screen name='QuizIndex' component={QuizIndex} />
+				<Screen name='Quiz' component={Quiz} />
+			</Navigator>
 		</NavigationContainer>
 	);
 };
