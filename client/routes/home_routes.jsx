@@ -4,11 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
 //~~~Components~~~
-import QuizIndex from '../src/components/quiz_index/index';
-import Quiz from '../src/components/quiz';
-import HomeScreen from '../src/components/home_screen';
-import Login from '../src/components/login';
-import SignUp from '../src/components/signup';
+import QuizIndex from '@components/quiz_index/index';
+import Quiz from '@components/quiz';
+import HomeScreen from '@components/home_screen';
+import Login from '@components/login';
+import SignUp from '@components/signup';
+import UserMenu from '@components/user_menu';
 
 const HomeRoutes = () => {
 	const { Navigator, Screen } = createStackNavigator();
@@ -22,6 +23,7 @@ const HomeRoutes = () => {
 				<Screen name="Login" component={Login} />
 				<Screen name="SignUp" component={SignUp} />
 				<Screen name="Home" component={HomeScreen} />
+				<Screen name="UserMenu" component={UserMenu} />
 				<Screen name="QuizIndex" component={QuizIndex} />
 				<Screen name="Quiz" component={Quiz} />
 			</Navigator>

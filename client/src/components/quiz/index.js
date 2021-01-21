@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Image } from 'react-native';
 
 const Quiz = ({ navigation }) => {
 	return (
