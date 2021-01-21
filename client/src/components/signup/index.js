@@ -4,15 +4,26 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
+import { useDispatch } from 'react-redux';
+import { getUser, setToken } from '@redux/user';
+import axios from 'axios';
+import { REACT_APP_API } from '@env';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function SignUp({ navigation }) {
+	const dispatch = useDispatch()
+
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrortext] = useState('');
-	const [userEmail, setUserEmail] = useState('');
-	const [userPassword, setUserPassword] = useState('');
-	const [user, setUser] = useState('');
+
+	const [user, setUser] = useState({
+		email: '',
+		firstName: '',
+		password: '',
+		lastName: '',
+		countryCode: '',
+	});
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
@@ -20,31 +31,56 @@ export default function SignUp({ navigation }) {
 		navigation.navigate('Login');
 	};
 
-	const handleSubmitPress = () => {
-		setErrortext('');
+	const handleInputChange = (inputName, inputValue) => {
+		setUser((user) => ({
+			...user,
+			[inputName]: inputValue, // <-- Put square brackets
+		}));
+	};
+
+	const handleSubmitPress = () => {		
 		const emailRegex = /\S+@\S+/;
-		if (userEmail && !emailRegex.test(userEmail)) {
-			alert('Ingrese un Email válido');
+		if (user.email && !emailRegex.test(user.email)) {
+			setErrortext('Ingrese un Email válido');
 			return;
 		}
-		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
-		if (userPassword && !passwordRegex.test(userPassword)) {
-			alert('Caracteres inválidos en contraseña');
+		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/;
+		if (user.password && !passwordRegex.test(user.password)) {
+			setErrortext('Caracteres inválidos en contraseña');
 			return;
 		}
-		if (!userEmail) {
-			alert('El campo Contraseña es requerido');
+		if (!user.email) {
+			setErrortext('El campo Contraseña es requerido');
 			return;
 		}
-		if (!userPassword) {
-			alert('El campo Contraseña es requerido');
+		if (!user.password) {
+			setErrortext('El campo Contraseña es requerido');
 			return;
 		}
-		if (!user) {
-			alert('El campo Usuario es requerido');
+		if(!user.firstName){
+			setErrortext('El campo Nombre es requerido')
+			return;
+		}
+		if (!user.lastName) {
+			setErrortext('El campo Apellido es requerido');
+			return;
+		}if (!user.countryCode) {
+			setErrortext('El campo Codigo de pais es requerido');
 			return;
 		} else {
-			navigation.navigate('Home');
+			axios.post(`${REACT_APP_API}/auth/register`, user)
+			.then((token) => {
+				axios.get(`${REACT_APP_API}/auth/me`, {
+						headers: {
+							Authorization: `Bearer ${token.data}`,
+						},
+					})
+					.then((user) => {
+						dispatch(getUser(user.data));
+						dispatch(setToken(token.data));
+					});
+				navigation.navigate('Home');
+			});
 		}
 	};
 
@@ -63,21 +99,10 @@ export default function SignUp({ navigation }) {
 				<InputSignUp
 					width={WIDTH}
 					placeholder={'Email'}
-					onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-			</InputContainer>
-			<InputContainer>
-				<IconImage
-					name={'ios-person-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputSignUp
-					width={WIDTH}
-					placeholder={'Usuario'}
-					onChangeText={(User) => setUser(User)}
+					value={user.email}
+					onChangeText={(value) =>
+						handleInputChange('email', value)
+					}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
 				/>
@@ -91,8 +116,9 @@ export default function SignUp({ navigation }) {
 				<InputSignUp
 					width={WIDTH}
 					placeholder={'Contraseña'}
-					onChangeText={(UserPassword) =>
-						setUserPassword(UserPassword)
+					value={user.password}
+					onChangeText={(value) =>
+						handleInputChange('password', value)
 					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
@@ -106,6 +132,68 @@ export default function SignUp({ navigation }) {
 					/>
 				</Button>
 			</InputContainer>
+			<InputContainer>
+				<IconImage
+					name={'ios-person-outline'}
+					size={28}
+					color={'rgba(255,255,255,0.7)'}
+				/>
+				<InputSignUp
+					width={WIDTH}
+					placeholder={'Nombre'}
+					value={user.firstName}
+					onChangeText={(value) =>
+						handleInputChange('firstName', value)
+					}
+					placeholderTextColor={'rgba(255,255,255,0.7)'}
+					underlineColorAndroid='transparent'
+				/>
+			</InputContainer>
+			<InputContainer>
+				<IconImage
+					name={'ios-person-outline'}
+					size={28}
+					color={'rgba(255,255,255,0.7)'}
+				/>
+				<InputSignUp
+					width={WIDTH}
+					placeholder={'Apellido'}
+					value={user.lastName}
+					onChangeText={(value) =>
+						handleInputChange('lastName', value)
+					}
+					placeholderTextColor={'rgba(255,255,255,0.7)'}
+					underlineColorAndroid='transparent'
+				/>
+			</InputContainer>
+			<InputContainer>
+				<IconImage
+					name={'ios-person-outline'}
+					size={28}
+					color={'rgba(255,255,255,0.7)'}
+				/>
+				<InputSignUp
+					width={WIDTH}
+					placeholder={'Codigo de pais'}
+					value={user.countryCode}
+					onChangeText={(value) =>
+						handleInputChange('countryCode', value)
+					}
+					placeholderTextColor={'rgba(255,255,255,0.7)'}
+					underlineColorAndroid='transparent'
+				/>
+			</InputContainer>
+			<TextView>
+				<Text>
+					<Text
+						style={{ fontWeight: '500', color: 'blue' }}
+						onPress={handleLoginPress}
+					>
+						{errortext}
+					</Text>
+				</Text>
+			</TextView>
+
 			<ButtonSignUp width={WIDTH} onPress={handleSubmitPress}>
 				<Description>Registrarse</Description>
 			</ButtonSignUp>

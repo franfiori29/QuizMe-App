@@ -73,11 +73,11 @@ server.post('/register', async function (req, res, next) {
 			)
 		);
 	} catch (error) {
-		if (error.message === 'Input valid password')
-			return res.status(400).json({ message: 'Invalid password' });
+		if (error.message === 'Input valid password' )
+			return res.status(400).json({ message: 'Invalid password' +error });
 		if (error.message.includes('unique'))
-			return res.status(400).json({ message: 'email must be unique' });
-		return res.status(500).json({ message: 'Internal Server Error' });
+			return res.status(400).json({ message: 'email must be unique' +error });
+		return res.status(500).json({ message: 'Internal Server Error' +error });
 	}
 });
 
