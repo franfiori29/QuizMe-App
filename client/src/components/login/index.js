@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Dimensions, Text } from 'react-native';
+import axios from 'axios';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { REACT_APP_API } from '@env';
+
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
+import { useDispatch } from 'react-redux';
+import { getUser, setToken } from '@redux/user';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function Login({ navigation }) {
-	const [hidePass, setHidePass] = useState(true);
-	const [userPassword, setUserPassword] = useState('');
-	const [errortext, setErrorText] = useState('');
+	const dispatch = useDispatch();
 	const [email, setEmail] = useState('');
+	const [userPassword, setUserPassword] = useState('');
+	const [hidePass, setHidePass] = useState(true);
+	const [errortext, setErrorText] = useState('');
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
-	const handleSignUp = () => {
-		navigation.navigate('SignUp');
-	};
-
-	const handleSubmitPress = () => {
+	const handleLoginPress = () => {
+		let input = {
+			email: email,
+			password: userPassword,
+		};
 		setErrorText('');
 		const emailRegex = /\S+@\S+/;
 		if (!emailRegex.test(email)) {
@@ -28,7 +34,7 @@ export default function Login({ navigation }) {
 			return;
 		}
 		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
-		if (!passwordRegex.test(userPassword)) {
+		if (!true) {
 			alert('Caracteres inválidos en contraseña');
 			return;
 		}
@@ -40,8 +46,24 @@ export default function Login({ navigation }) {
 			alert('El campo Contraseña es requerido');
 			return;
 		} else {
-			navigation.navigate('Home');
+			axios.post(`${REACT_APP_API}/auth/login`, input).then((token) => {
+				axios
+					.get(`${REACT_APP_API}/auth/me`, {
+						headers: {
+							Authorization: `Bearer ${token.data}`,
+						},
+					})
+					.then((user) => {
+						dispatch(getUser(user.data));
+						dispatch(setToken(token.data));
+					});
+				navigation.navigate('Home');
+			});
 		}
+	};
+
+	const handleSignUp = () => {
+		navigation.navigate('SignUp');
 	};
 
 	return (
@@ -57,11 +79,12 @@ export default function Login({ navigation }) {
 					color={'rgba(255,255,255,0.7)'}
 				/>
 				<InputLogin
+					onChangeText={(UserEmail) => setEmail(UserEmail)}
 					width={WIDTH}
 					placeholder={'Email'}
 					onChangeText={(Email) => setEmail(Email)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
+					underlineColorAndroid="transparent"
 				/>
 			</InputContainer>
 			<InputContainer>
@@ -71,6 +94,9 @@ export default function Login({ navigation }) {
 					color={'rgba(255,255,255,0.7)'}
 				/>
 				<InputLogin
+					onChangeText={(UserPassword) =>
+						setUserPassword(UserPassword)
+					}
 					width={WIDTH}
 					placeholder={'Contraseña'}
 					onChangeText={(UserPassword) =>
@@ -78,7 +104,7 @@ export default function Login({ navigation }) {
 					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
+					underlineColorAndroid="transparent"
 				/>
 				<Button onPress={onPress}>
 					<Icon
@@ -88,14 +114,14 @@ export default function Login({ navigation }) {
 					/>
 				</Button>
 			</InputContainer>
-			<ButtonLogin width={WIDTH} onPress={handleSubmitPress}>
+			<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
 				<Description>Iniciar sesión</Description>
 			</ButtonLogin>
 			<SocialIconGoogle
 				width={WIDTH}
-				title='Sign In With Google'
+				title="Sign In With Google"
 				button
-				type='google'
+				type="google"
 			/>
 			<TextView>
 				<Text>
@@ -163,11 +189,11 @@ const ButtonLogin = styled.TouchableOpacity`
 	background-color: #000000;
 	justify-content: center;
 	margin-top: 20px;
-	padding: 1rem 4.6rem;
+	padding: 16px 70px;
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
-	font-size: 16;
+	font-size: 16px;
 	text-align: center;
 `;
 const TextView = styled.View`
