@@ -6,6 +6,7 @@ module.exports = gql `
 		lastName: String!
 		email: String
 		password: String
+		profilePic: String!
 		accountId: String
 		socialAccount: String
 		countryCode: Int!
@@ -17,6 +18,7 @@ module.exports = gql `
 		lastName: String!
 		email: String
 		password: String
+		profilePic: String!
 		accountId: String
 		socialAccount: String
 		countryCode: Int!
