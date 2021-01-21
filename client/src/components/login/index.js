@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
 
@@ -10,13 +10,38 @@ const { width: WIDTH } = Dimensions.get('window');
 
 export default function Login({ navigation }) {
 	const [hidePass, setHidePass] = useState(true);
+	const [userPassword, setUserPassword] = useState('');
+	const [errortext, setErrorText] = useState('');
+	const [email, setEmail] = useState('');
+
 	const onPress = () => setHidePass((prevState) => !prevState);
 
-	const handleLoginPress = () => {
-		navigation.navigate('Home');
-	};
 	const handleSignUp = () => {
 		navigation.navigate('SignUp');
+	};
+
+	const handleSubmitPress = () => {
+		setErrorText('');
+		const emailRegex = /\S+@\S+/;
+		if (!emailRegex.test(email)) {
+			alert('Ingrese un Email válido');
+			return;
+		}
+		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
+		if (!passwordRegex.test(userPassword)) {
+			alert('Caracteres inválidos en contraseña');
+			return;
+		}
+		if (!email) {
+			alert('El campo Email es requerido');
+			return;
+		}
+		if (!userPassword) {
+			alert('El campo Contraseña es requerido');
+			return;
+		} else {
+			navigation.navigate('Home');
+		}
 	};
 
 	return (
@@ -33,7 +58,8 @@ export default function Login({ navigation }) {
 				/>
 				<InputLogin
 					width={WIDTH}
-					placeholder={'Usuario'}
+					placeholder={'Email'}
+					onChangeText={(Email) => setEmail(Email)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
 				/>
@@ -47,6 +73,9 @@ export default function Login({ navigation }) {
 				<InputLogin
 					width={WIDTH}
 					placeholder={'Contraseña'}
+					onChangeText={(UserPassword) =>
+						setUserPassword(UserPassword)
+					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
@@ -59,9 +88,15 @@ export default function Login({ navigation }) {
 					/>
 				</Button>
 			</InputContainer>
-			<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
+			<ButtonLogin width={WIDTH} onPress={handleSubmitPress}>
 				<Description>Iniciar sesión</Description>
 			</ButtonLogin>
+			<SocialIconGoogle
+				width={WIDTH}
+				title='Sign In With Google'
+				button
+				type='google'
+			/>
 			<TextView>
 				<Text>
 					¿No tienes una cuenta?{' '}
@@ -138,4 +173,8 @@ const Description = styled.Text`
 const TextView = styled.View`
 	align-items: center;
 	margin-top: 20px;
+`;
+const SocialIconGoogle = styled(SocialIcon)`
+	width: ${(props) => props.width - 55}px;
+	border-radius: null !important;
 `;
