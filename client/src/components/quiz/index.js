@@ -1,116 +1,104 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Image } from 'react-native';
 
-const Quiz = () => {
+const Quiz = ({ navigation }) => {
 	return (
-		<ContainerPpal>
-			<ContainerTop>
-				<BackButtonContainer>
-					<BackButton> X </BackButton>
-				</BackButtonContainer>
-				<Banner source={{ uri: 'https://picsum.photos/200/200' }} />
-				<Title>Título del Quiz</Title>
-				<QuantityContainer>
-					<TouchableOpacity>
-						<Text>c/Preguntas</Text>
-					</TouchableOpacity>
-					<TouchableOpacity>
-						<Text>Likes</Text>
-					</TouchableOpacity>
-				</QuantityContainer>
-			</ContainerTop>
-			<ContainerBottom>
-				<Description>
-					Lorem Ipsum is simply dummy text of the printing and
-					typesetting industry. Lorem Ipsum has been the industry's
-					standard dummy text ever since the 1500s, when an unknown
-					printer took a galley of type and scrambled it to make a
-					type specimen book. It has survived not only five centuries,
-					but also the leap into electronic typesetting, remaining
-					essentially unchanged.
-				</Description>
-				<StartButton>
-					<Text>Start Quiz</Text>
-				</StartButton>
-			</ContainerBottom>
-		</ContainerPpal>
+		<Screen>
+			<Header>
+				<Exit onPress={() => navigation.goBack()}>
+					<Icon name='ios-close' size={28} />
+					<Text>Abandonar!</Text>
+				</Exit>
+				<Text style={{ width: '33%', textAlign: 'center' }}>2600</Text>
+				<Text style={{ width: '33%', textAlign: 'center' }}>3/10</Text>
+			</Header>
+			<View style={{ position: 'relative' }}>
+				<TimeBar></TimeBar>
+				<Text style={{ position: 'absolute', right: 10 }}>Ayuda!</Text>
+			</View>
+			<MiddleScreen>
+				<Text
+					style={{ marginTop: 50, fontWeight: 'bold', fontSize: 20 }}
+				>
+					Cual es el verdadero nombre de Paco
+				</Text>
+				<QuizImg source={{ uri: 'https://picsum.photos/200/200' }} />
+			</MiddleScreen>
+			<BottomScreen>
+				<Option>
+					<Text style={{ alignSelf: 'center' }}>Franco</Text>
+				</Option>
+				<Option>
+					<Text style={{ alignSelf: 'center' }}>Juan</Text>
+				</Option>
+				<Option>
+					<Text style={{ alignSelf: 'center' }}>Matias</Text>
+				</Option>
+				<Option>
+					<Text style={{ alignSelf: 'center' }}>Ailin</Text>
+				</Option>
+			</BottomScreen>
+		</Screen>
 	);
 };
 
-const ContainerPpal = styled.View`
+const Option = styled.TouchableOpacity`
+	border: 1px solid black;
+	width: 100%;
 	flex: 1;
-	background-color: #fff;
-	align-items: center;
-	justify-content: space-between;
-`;
-const ContainerTop = styled.View`
-	height: 50%;
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
-`;
-const ContainerBottom = styled.View`
-	height: 50%;
-	width: 100%;
-	justify-content: space-around;
-	align-items: center;
-`;
-
-const BackButtonContainer = styled.TouchableOpacity`
-	position: absolute;
-	background-color: rgba(0, 0, 0, 0.7);
-	border-radius: 100px;
-	width: 50px;
-	height: 50px;
-	left: 10px;
-	top: 10px;
-	z-index: 1;
-	color: white;
-	align-items: center;
 	justify-content: center;
 `;
 
-const BackButton = styled.Text`
-	color: white;
-	text-align: center;
-	font-weight: 900;
-	font-size: 30px;
+const TimeBar = styled.View`
+	background-color: blue;
+	height: 20px;
+	width: 80%;
 `;
 
-const Title = styled.Text`
-	font-size: 35px;
-	text-align: center;
-	text-transform: uppercase;
-	margin-top: 30px;
-`;
-
-const QuantityContainer = styled.View`
-	width: 90%;
-	height: 20%;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-evenly;
-`;
-
-const Description = styled.Text`
-	padding: 20px;
-	margin: 20px 0;
-	text-align: center;
-`;
-
-const StartButton = styled.TouchableOpacity`
-	width: 200px;
-	border-width: 2px;
-	border-radius: 15px;
-	background-color: rgba(0, 0, 0, 0.4);
-	padding: 10px;
-	text-align: center;
-`;
-
-const Banner = styled.Image`
+const QuizImg = styled.Image`
+	z-index: 3;
 	height: 70%;
+	width: 90%;
+`;
+
+const MiddleScreen = styled.View`
+	height: 40%;
 	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+`;
+
+const BottomScreen = styled.View`
+	background-color: #55f;
+	height: 40%;
+	width: 100%;
+	margin-top: auto;
+	align-items: center;
+	justify-content: space-between;
+`;
+
+const Screen = styled.View`
+	flex: 1;
+	border: 1px solid black;
+`;
+
+const Header = styled.View`
+	width: 100%;
+	height: 8%;
+	padding: 10px;
+	background-color: #55f;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+const Exit = styled.TouchableOpacity`
+	width: 33%;
+	align-items: center;
+	justify-content: center;
 `;
 
 export default Quiz;
