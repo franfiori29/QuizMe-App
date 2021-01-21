@@ -15,10 +15,10 @@ const query = gql`
 `;
 
 export default function App() {
-	useEffect(() => {
+	/* useEffect(() => {
 		request('http://localhost:4000/', query).then(console.log);
 	}, []);
-
+ */
 	return (
 		<Provider store={store}>
 			<SafeAreaProvider>

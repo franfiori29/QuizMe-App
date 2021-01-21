@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native';
-import backgroundImage from '../../assets/img/backgroundImage.jpg';
-import logoPrueba from '.../../assets/img/logoPrueba.jpg';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import backgroundImage from '@assets/img/backgroundImage.jpg';
+import logoPrueba from '@assets/img/logoPrueba.jpg';
 
 const { width: WIDTH } = Dimensions.get('window');
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrortext] = useState('');
 	const onPress = () => setHidePass((prevState) => !prevState);
+
+	const handleLoginPress = () => {
+		navigation.navigate('Login');
+	};
+	const handleSignUpPress = () => {
+		navigation.navigate('Home');
+	};
 
 	return (
 		<Container source={backgroundImage}>
@@ -65,13 +73,18 @@ export default function SignUp() {
 					/>
 				</Button>
 			</InputContainer>
-			<ButtonSignUp width={WIDTH}>
+			<ButtonSignUp width={WIDTH} onPress={handleSignUpPress}>
 				<Description>Registrarse</Description>
 			</ButtonSignUp>
 			<TextView>
 				<Text>
 					¿Tienes una cuenta?{' '}
-					<Text style={{ fontWeight: '500' }}>Iniciar sesión</Text>
+					<Text
+						style={{ fontWeight: '500', color: 'blue' }}
+						onPress={handleLoginPress}
+					>
+						Iniciar sesión
+					</Text>
 				</Text>
 			</TextView>
 		</Container>
