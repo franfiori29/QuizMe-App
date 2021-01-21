@@ -178,7 +178,7 @@ const ButtonSignUp = styled.TouchableOpacity`
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
-	font-size: 16;
+	font-size: 16px;
 	text-align: center;
 `;
 const TextView = styled.View`
