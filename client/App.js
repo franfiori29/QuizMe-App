@@ -1,37 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Component from '@components/Component';
 import { request, gql } from 'graphql-request';
+import HomeRoutes from './routes/home_routes';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 const query = gql`
 	{
 		getUsers {
-			username
+			email
 		}
 	}
 `;
 
 export default function App() {
 	useEffect(() => {
-		request('http://localhost:4000/', query).then((data) =>
-			console.log(data)
-		);
+		request('http://localhost:4000/', query).then(console.log);
 	}, []);
+
 	return (
-		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<Component />
-			<StatusBar style="auto" />
-		</View>
+		<Provider store={store}>
+			<SafeAreaProvider>
+				<SafeAreaView style={{ flex: 1 }}>
+					<HomeRoutes />
+				</SafeAreaView>
+			</SafeAreaProvider>
+		</Provider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
