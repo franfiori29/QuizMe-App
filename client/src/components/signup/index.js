@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
 
@@ -11,13 +10,42 @@ const { width: WIDTH } = Dimensions.get('window');
 export default function SignUp({ navigation }) {
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrortext] = useState('');
+	const [userEmail, setUserEmail] = useState('');
+	const [userPassword, setUserPassword] = useState('');
+	const [user, setUser] = useState('');
+
 	const onPress = () => setHidePass((prevState) => !prevState);
 
 	const handleLoginPress = () => {
 		navigation.navigate('Login');
 	};
-	const handleSignUpPress = () => {
-		navigation.navigate('Home');
+
+	const handleSubmitPress = () => {
+		setErrortext('');
+		const emailRegex = /\S+@\S+/;
+		if (userEmail && !emailRegex.test(userEmail)) {
+			alert('Ingrese un Email válido');
+			return;
+		}
+		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
+		if (userPassword && !passwordRegex.test(userPassword)) {
+			alert('Caracteres inválidos en contraseña');
+			return;
+		}
+		if (!userEmail) {
+			alert('El campo Contraseña es requerido');
+			return;
+		}
+		if (!userPassword) {
+			alert('El campo Contraseña es requerido');
+			return;
+		}
+		if (!user) {
+			alert('El campo Usuario es requerido');
+			return;
+		} else {
+			navigation.navigate('Home');
+		}
 	};
 
 	return (
@@ -35,6 +63,7 @@ export default function SignUp({ navigation }) {
 				<InputSignUp
 					width={WIDTH}
 					placeholder={'Email'}
+					onChangeText={(UserEmail) => setUserEmail(UserEmail)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
 				/>
@@ -48,6 +77,7 @@ export default function SignUp({ navigation }) {
 				<InputSignUp
 					width={WIDTH}
 					placeholder={'Usuario'}
+					onChangeText={(User) => setUser(User)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
 				/>
@@ -61,6 +91,9 @@ export default function SignUp({ navigation }) {
 				<InputSignUp
 					width={WIDTH}
 					placeholder={'Contraseña'}
+					onChangeText={(UserPassword) =>
+						setUserPassword(UserPassword)
+					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
@@ -73,7 +106,7 @@ export default function SignUp({ navigation }) {
 					/>
 				</Button>
 			</InputContainer>
-			<ButtonSignUp width={WIDTH} onPress={handleSignUpPress}>
+			<ButtonSignUp width={WIDTH} onPress={handleSubmitPress}>
 				<Description>Registrarse</Description>
 			</ButtonSignUp>
 			<TextView>
