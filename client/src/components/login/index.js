@@ -1,19 +1,46 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Dimensions, Text } from 'react-native';
+import axios from 'axios';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
+import { useDispatch } from 'react-redux';
+import { getUser, setToken } from '@redux/user';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function Login({ navigation }) {
+	const dispatch = useDispatch();
+
 	const [hidePass, setHidePass] = useState(true);
+
+	const email = useRef();
+	const password = useRef();
+
 	const onPress = () => setHidePass((prevState) => !prevState);
 
 	const handleLoginPress = () => {
-		navigation.navigate('Home');
+		let input = {
+			email: email.current.value,
+			password: password.current.value,
+		};
+		axios
+			.post('http://192.168.1.12:4000/auth/login', input)
+			.then((token) => {
+				axios
+					.get('http://192.168.1.12:4000/auth/me', {
+						headers: {
+							Authorization: `Bearer ${token.data}`,
+						},
+					})
+					.then((user) => {
+						dispatch(getUser(user.data));
+						dispatch(setToken(token.data));
+					});
+				navigation.navigate('Home');
+			});
 	};
 	const handleSignUp = () => {
 		navigation.navigate('SignUp');
@@ -32,10 +59,11 @@ export default function Login({ navigation }) {
 					color={'rgba(255,255,255,0.7)'}
 				/>
 				<InputLogin
+					ref={email}
 					width={WIDTH}
 					placeholder={'Usuario'}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
+					underlineColorAndroid="transparent"
 				/>
 			</InputContainer>
 			<InputContainer>
@@ -45,11 +73,12 @@ export default function Login({ navigation }) {
 					color={'rgba(255,255,255,0.7)'}
 				/>
 				<InputLogin
+					ref={password}
 					width={WIDTH}
 					placeholder={'Contraseña'}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
+					underlineColorAndroid="transparent"
 				/>
 				<Button onPress={onPress}>
 					<Icon
@@ -128,11 +157,11 @@ const ButtonLogin = styled.TouchableOpacity`
 	background-color: #000000;
 	justify-content: center;
 	margin-top: 20px;
-	padding: 1rem 4.6rem;
+	padding: 16px 70px;
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
-	font-size: 16;
+	font-size: 16px;
 	text-align: center;
 `;
 const TextView = styled.View`
