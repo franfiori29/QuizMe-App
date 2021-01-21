@@ -3,6 +3,7 @@ import { Dimensions, Text } from 'react-native';
 import axios from 'axios';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { REACT_APP_API } from '@env';
 
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
@@ -13,34 +14,30 @@ const { width: WIDTH } = Dimensions.get('window');
 
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
-
+	const [email, setEmail] = useState('');
+	const [userPassword, setUserPassword] = useState('');
 	const [hidePass, setHidePass] = useState(true);
-
-	const email = useRef();
-	const password = useRef();
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
 	const handleLoginPress = () => {
 		let input = {
-			email: email.current.value,
-			password: password.current.value,
+			email: email,
+			password: userPassword,
 		};
-		axios
-			.post('http://192.168.1.12:4000/auth/login', input)
-			.then((token) => {
-				axios
-					.get('http://192.168.1.12:4000/auth/me', {
-						headers: {
-							Authorization: `Bearer ${token.data}`,
-						},
-					})
-					.then((user) => {
-						dispatch(getUser(user.data));
-						dispatch(setToken(token.data));
-					});
-				navigation.navigate('Home');
-			});
+		axios.post(`${REACT_APP_API}/auth/login`, input).then((token) => {
+			axios
+				.get(`${REACT_APP_API}/auth/me`, {
+					headers: {
+						Authorization: `Bearer ${token.data}`,
+					},
+				})
+				.then((user) => {
+					dispatch(getUser(user.data));
+					dispatch(setToken(token.data));
+				});
+			navigation.navigate('Home');
+		});
 	};
 	const handleSignUp = () => {
 		navigation.navigate('SignUp');
@@ -59,7 +56,7 @@ export default function Login({ navigation }) {
 					color={'rgba(255,255,255,0.7)'}
 				/>
 				<InputLogin
-					ref={email}
+					onChangeText={(UserEmail) => setEmail(UserEmail)}
 					width={WIDTH}
 					placeholder={'Usuario'}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
@@ -73,7 +70,9 @@ export default function Login({ navigation }) {
 					color={'rgba(255,255,255,0.7)'}
 				/>
 				<InputLogin
-					ref={password}
+					onChangeText={(UserPassword) =>
+						setUserPassword(UserPassword)
+					}
 					width={WIDTH}
 					placeholder={'Contraseña'}
 					secureTextEntry={hidePass}
