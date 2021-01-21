@@ -12,7 +12,7 @@ const HomeScreen = ({ navigation }) => {
 				<Hamburger onPress={() => navigation.navigate('UserMenu')}>
 					<Icon name='ios-menu-outline' size={28} />
 				</Hamburger>
-				<Text style={{ fontSize: '20px' }}>QuizMeUp</Text>
+				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
 				<Icon name='ios-search-outline' size={28} />
 			</Header>
 			<IntroContainer>
@@ -182,7 +182,7 @@ const HomeScreen = ({ navigation }) => {
 				style={{ margin: '40px auto' }}
 			/>
 			<BottomBar>
-				<Text style={{ fontSize: '20px' }}>QuizMeUp</Text>
+				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
 			</BottomBar>
 		</Screen>
 	);
