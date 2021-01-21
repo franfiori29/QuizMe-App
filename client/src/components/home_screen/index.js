@@ -116,7 +116,7 @@ const HomeScreen = ({ navigation }) => {
 				<ScrollCategory
 					horizontal={true}
 					centerContent={true}
-					pagingEnabled={true}
+					overScrollMode='never'
 				>
 					<Category>
 						<CategoryName>html</CategoryName>
