@@ -23,12 +23,12 @@ export default function SignUp({ navigation }) {
 	const handleSubmitPress = () => {
 		setErrortext('');
 		const emailRegex = /\S+@\S+/;
-		if (!emailRegex.test(userEmail)) {
+		if (userEmail && !emailRegex.test(userEmail)) {
 			alert('Ingrese un Email válido');
 			return;
 		}
 		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
-		if (!passwordRegex.test(userPassword)) {
+		if (userPassword && !passwordRegex.test(userPassword)) {
 			alert('Caracteres inválidos en contraseña');
 			return;
 		}
