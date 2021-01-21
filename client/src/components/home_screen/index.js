@@ -190,7 +190,6 @@ const HomeScreen = ({ navigation }) => {
 
 const Screen = styled.ScrollView`
 	flex: 1;
-	border: 1px solid red;
 `;
 
 const Header = styled.View`
