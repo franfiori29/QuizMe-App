@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { REACT_APP_API } from '@env';
 
+import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logoPrueba from '@assets/img/logoPrueba.jpg';
 import { useDispatch } from 'react-redux';
@@ -17,6 +18,7 @@ export default function Login({ navigation }) {
 	const [email, setEmail] = useState('');
 	const [userPassword, setUserPassword] = useState('');
 	const [hidePass, setHidePass] = useState(true);
+	const [errortext, setErrorText] = useState('');
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
@@ -25,20 +27,41 @@ export default function Login({ navigation }) {
 			email: email,
 			password: userPassword,
 		};
-		axios.post(`${REACT_APP_API}/auth/login`, input).then((token) => {
-			axios
-				.get(`${REACT_APP_API}/auth/me`, {
-					headers: {
-						Authorization: `Bearer ${token.data}`,
-					},
-				})
-				.then((user) => {
-					dispatch(getUser(user.data));
-					dispatch(setToken(token.data));
-				});
-			navigation.navigate('Home');
-		});
+		setErrorText('');
+		const emailRegex = /\S+@\S+/;
+		if (!emailRegex.test(email)) {
+			alert('Ingrese un Email válido');
+			return;
+		}
+		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
+		if (!true) {
+			alert('Caracteres inválidos en contraseña');
+			return;
+		}
+		if (!email) {
+			alert('El campo Email es requerido');
+			return;
+		}
+		if (!userPassword) {
+			alert('El campo Contraseña es requerido');
+			return;
+		} else {
+			axios.post(`${REACT_APP_API}/auth/login`, input).then((token) => {
+				axios
+					.get(`${REACT_APP_API}/auth/me`, {
+						headers: {
+							Authorization: `Bearer ${token.data}`,
+						},
+					})
+					.then((user) => {
+						dispatch(getUser(user.data));
+						dispatch(setToken(token.data));
+					});
+				navigation.navigate('Home');
+			});
+		}
 	};
+
 	const handleSignUp = () => {
 		navigation.navigate('SignUp');
 	};
@@ -58,7 +81,8 @@ export default function Login({ navigation }) {
 				<InputLogin
 					onChangeText={(UserEmail) => setEmail(UserEmail)}
 					width={WIDTH}
-					placeholder={'Usuario'}
+					placeholder={'Email'}
+					onChangeText={(Email) => setEmail(Email)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid="transparent"
 				/>
@@ -75,6 +99,9 @@ export default function Login({ navigation }) {
 					}
 					width={WIDTH}
 					placeholder={'Contraseña'}
+					onChangeText={(UserPassword) =>
+						setUserPassword(UserPassword)
+					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid="transparent"
@@ -90,6 +117,12 @@ export default function Login({ navigation }) {
 			<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
 				<Description>Iniciar sesión</Description>
 			</ButtonLogin>
+			<SocialIconGoogle
+				width={WIDTH}
+				title="Sign In With Google"
+				button
+				type="google"
+			/>
 			<TextView>
 				<Text>
 					¿No tienes una cuenta?{' '}
@@ -166,4 +199,8 @@ const Description = styled.Text`
 const TextView = styled.View`
 	align-items: center;
 	margin-top: 20px;
+`;
+const SocialIconGoogle = styled(SocialIcon)`
+	width: ${(props) => props.width - 55}px;
+	border-radius: null !important;
 `;
