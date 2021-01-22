@@ -45,6 +45,7 @@ server.get('/me', async (req, res, next) => {
 });
 
 server.post('/register', async function (req, res, next) {
+	console.log(req.body);
 	try {
 		const user = await User.create(req.body);
 		const {

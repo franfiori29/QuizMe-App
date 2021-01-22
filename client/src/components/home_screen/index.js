@@ -1,11 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 
+
 const HomeScreen = ({ navigation }) => {
+	const { info: user } = useSelector((state) => state.user);
 	return (
 		<Screen centerContent={true}>
 			<Header>
@@ -19,7 +22,9 @@ const HomeScreen = ({ navigation }) => {
 			</Header>
 			<IntroContainer>
 				<IntroImg source={{ uri: 'https://picsum.photos/100/100' }} />
-				<IntroTitle>¡Bienvenido, Cosme Fulatino!</IntroTitle>
+				<IntroTitle>
+					¡Bienvenido, {user.firstName} {user.lastName} !
+				</IntroTitle>
 				<IntroText>
 					{' '}
 					Aca te mostramos unas sugerencias para que te pongas a

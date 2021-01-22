@@ -140,11 +140,36 @@ export default function SignUp({ navigation }) {
 				/>
 				<InputSignUp
 					width={WIDTH}
-					placeholder={'Nombre'}
-					value={user.firstName}
-					onChangeText={(value) =>
-						handleInputChange('firstName', value)
-					}
+					placeholder={'First name'}
+					onChangeText={(User) => setUser(User)}
+					placeholderTextColor={'rgba(255,255,255,0.7)'}
+					underlineColorAndroid='transparent'
+				/>
+			</InputContainer>
+			<InputContainer>
+				<IconImage
+					name={'ios-person-outline'}
+					size={28}
+					color={'rgba(255,255,255,0.7)'}
+				/>
+				<InputSignUp
+					width={WIDTH}
+					placeholder={'Last name'}
+					onChangeText={(User) => setUser(User)}
+					placeholderTextColor={'rgba(255,255,255,0.7)'}
+					underlineColorAndroid='transparent'
+				/>
+			</InputContainer>
+			<InputContainer>
+				<IconImage
+					name={'ios-person-outline'}
+					size={28}
+					color={'rgba(255,255,255,0.7)'}
+				/>
+				<InputSignUp
+					width={WIDTH}
+					placeholder={'Código de país'}
+					onChangeText={(User) => setUser(User)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
 				/>
