@@ -54,8 +54,8 @@ export default function Login({ navigation }) {
 					.then((user) => {
 						dispatch(getUser(user.data));
 						dispatch(setToken(token.data));
+						navigation.navigate('Home');
 					});
-				navigation.navigate('Home');
 			});
 		}
 	};
