@@ -198,8 +198,6 @@ const UserText = styled.Text`
 `;
 
 const InfoBoxWrapper = styled.View`
-	border-top-color: '#ccc';
-	border-top-width: 1;
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	height: 100px;
