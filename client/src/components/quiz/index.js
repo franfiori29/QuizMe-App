@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Quiz = ({ navigation }) => {
+const Quiz = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
+	const question = params.question;
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -57,41 +58,24 @@ const Quiz = ({ navigation }) => {
 							color: theme.text,
 						}}
 					>
-						Cual es el verdadero nombre de Paco
+						{question.title}
 					</Text>
 					<QuizImg
-						source={{ uri: 'https://picsum.photos/200/200' }}
+						source={{
+							uri: question.image
+								? question.image
+								: params.imagePapi,
+						}}
 					/>
 				</MiddleScreen>
 				<BottomScreen>
-					<Option>
-						<Text
-							style={{ alignSelf: 'center', color: theme.text }}
-						>
-							Franco
-						</Text>
-					</Option>
-					<Option>
-						<Text
-							style={{ alignSelf: 'center', color: theme.text }}
-						>
-							Juan
-						</Text>
-					</Option>
-					<Option>
-						<Text
-							style={{ alignSelf: 'center', color: theme.text }}
-						>
-							Matias
-						</Text>
-					</Option>
-					<Option>
-						<Text
-							style={{ alignSelf: 'center', color: theme.text }}
-						>
-							Ailin
-						</Text>
-					</Option>
+					{question.options.map((option, i) => (
+						<Option key={i}>
+							<Text style={{ alignSelf: 'center' }}>
+								{option.title}
+							</Text>
+						</Option>
+					))}
 				</BottomScreen>
 			</Screen>
 		</ThemeProvider>

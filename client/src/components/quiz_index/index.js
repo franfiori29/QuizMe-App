@@ -3,44 +3,42 @@ import { Text, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
-const QuizIndex = ({ navigation }) => {
+const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
+	const quiz = params.quiz;
 
 	return (
 		<ThemeProvider theme={theme}>
 			<ContainerPpal>
 				<ContainerTop>
-					<Banner source={{ uri: 'https://picsum.photos/200/200' }} />
+					<Banner source={{ uri: quiz.image }} />
 					<BackButtonContainer
 						onPress={() => navigation.navigate('Home')}
 					>
 						<BackButton>X</BackButton>
 					</BackButtonContainer>
-					<Title>Título del Quiz</Title>
+					<Title>{quiz.title}</Title>
 					<QuantityContainer>
 						<TouchableOpacity>
 							<Text style={{ color: theme.text }}>
-								10 Preguntas
+								{quiz.questions.length}Preguntas
 							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity>
-							<Text style={{ color: theme.text }}>38 Likes</Text>
+							<Text style={{ color: theme.text }}>
+								{quiz.likes} Likes
+							</Text>
 						</TouchableOpacity>
 					</QuantityContainer>
 				</ContainerTop>
 				<ContainerBottom>
-					<Description>
-						Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry. Lorem Ipsum has been the
-						industry's standard dummy text ever since the 1500s,
-						when an unknown printer took a galley of type and
-						scrambled it to make a type specimen book. It has
-						survived not only five centuries, but also the leap into
-						electronic typesetting, remaining essentially unchanged.
-					</Description>
+					<Description>{quiz.description}</Description>
 					<StartButton
 						onPress={() =>
-							navigation.navigate('Quiz', { userId: 'jane' })
+							navigation.navigate('Quiz', {
+								question: quiz.questions[0],
+								imagePapi: quiz.image,
+							})
 						}
 					>
 						<Text

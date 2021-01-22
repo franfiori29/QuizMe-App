@@ -14,10 +14,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //~~~Reducers~~~
 import globalSlice from '@redux/global';
 import userSlice from '@redux/user';
+import quizSlice from '@redux/quizzes';
 
 const rootReducer = combineReducers({
 	global: globalSlice,
 	user: userSlice,
+	quiz: quizSlice,
 });
 
 const persistConfig = {

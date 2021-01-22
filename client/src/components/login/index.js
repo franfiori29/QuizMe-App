@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 
 const { width: WIDTH } = Dimensions.get('window');
-console.log('ota');
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState('');

@@ -21,7 +21,7 @@ export default function Profile({ navigation }) {
 				</HeaderButton>
 				<Text style={{ fontSize: 20 }}>QuizMe App</Text>
 				<HeaderButton>
-					<Icon name='ios-search-outline' size={28} />
+					<Icon name='ios-home-outline' size={28} onPress={() => navigation.navigate('Home')}/>
 				</HeaderButton>
 			</Header>
 			<View style={styles.userInfoSection}>
@@ -45,8 +45,7 @@ export default function Profile({ navigation }) {
 						},
 					]}
 				>
-					{user.firstName}
-					{user.lastName}
+					{user.firstName} {user.lastName}
 				</Title>
 				<View style={styles.row}>
 					{/* <Icon name="map-marker-radius" color="#777777" size={20}/> */}
@@ -78,8 +77,7 @@ export default function Profile({ navigation }) {
 			<View style={styles.menuWrapper}>
 				<TouchableRipple onPress={() => {}}>
 					<View style={styles.menuItem}>
-						
-						<Text style={[styles.menuItemText, {marginTop:10,}]}>
+						<Text style={[styles.menuItemText, { marginTop: 10 }]}>
 							Convertirme a Premium
 						</Text>
 					</View>
@@ -98,7 +96,9 @@ export default function Profile({ navigation }) {
 				</TouchableRipple>
 				<TouchableRipple onPress={() => {}}>
 					<View style={styles.menuItem}>
-						<Text style={styles.menuItemText}>Ajustes</Text>
+						<Text style={styles.menuItemText}>
+							Ajustes de perfil
+						</Text>
 					</View>
 				</TouchableRipple>
 			</View>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 	userInfoSection: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginBottom: 25,
+		marginBottom: 15,
 	},
 	title: {
 		fontSize: 24,
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
 	},
 	row: {
 		flexDirection: 'row',
-		marginBottom: 5,
 	},
 	infoBoxWrapper: {
 		borderBottomColor: '#dddddd',
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	menuWrapper: {
-		marginTop: 10,
+		marginTop: 5,
 	},
 	menuItem: {
 		flexDirection: 'row',

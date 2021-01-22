@@ -22,14 +22,13 @@ const HomeRoutes = () => {
 				screenOptions={{ headerShown: false }}
 				initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'}
 			>
-				<Screen name="Login" component={Login} />
-				<Screen name="SignUp" component={SignUp} />
-				<Screen name="Home" component={HomeScreen} />
-				<Screen name="UserMenu" component={UserMenu} />
-				<Screen name="QuizIndex" component={QuizIndex} />
-				<Screen name="Quiz" component={Quiz} />
-				<Screen name="Profile" component={Profile} />
-
+				<Screen name='Login' component={Login} />
+				<Screen name='SignUp' component={SignUp} />
+				<Screen name='Home' component={HomeScreen} />
+				<Screen name='UserMenu' component={UserMenu} />
+				<Screen name='QuizIndex' component={QuizIndex} />
+				<Screen name='Quiz' component={Quiz} />
+				<Screen name='Profile' component={Profile} />
 			</Navigator>
 		</NavigationContainer>
 	);
