@@ -9,8 +9,8 @@ import styled, { ThemeProvider } from 'styled-components/native';
 
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
-	const { theme } = useSelector((state) => state.global);
-	const { quizzes } = useSelector((state) => state.quiz);
+	const { theme, language } = useSelector((state) => state.global);
+	const { quizzes, categories } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -49,7 +49,6 @@ const HomeScreen = ({ navigation }) => {
 						¡Bienvenido, {user.firstName} {user.lastName} !
 					</IntroTitle>
 					<IntroText>
-						{' '}
 						Aca te mostramos unas sugerencias para que te pongas a
 						viciar y nos compres la membresia
 					</IntroText>
@@ -114,21 +113,13 @@ const HomeScreen = ({ navigation }) => {
 						centerContent={true}
 						overScrollMode='never'
 					>
-						<Category>
-							<CategoryName>html</CategoryName>
-						</Category>
-						<Category>
-							<CategoryName>css</CategoryName>
-						</Category>
-						<Category>
-							<CategoryName>javascript</CategoryName>
-						</Category>
-						<Category>
-							<CategoryName>react</CategoryName>
-						</Category>
-						<Category>
-							<CategoryName>mongo</CategoryName>
-						</Category>
+						{categories.map((category) => (
+							<Category>
+								<CategoryName>
+									{category[`description_${language}`]}
+								</CategoryName>
+							</Category>
+						))}
 					</ScrollCategory>
 				</View>
 				<QuizCards>
