@@ -81,11 +81,17 @@ const HomeScreen = ({ navigation }) => {
 									/>
 									<QuizInfo>
 										<QuizTitle>{quiz.title}</QuizTitle>
-										<Text>{quiz.description}</Text>
-										<Text>{quiz.likes} Likes</Text>
+										<StyledText>
+											{quiz.description}
+										</StyledText>
+										<StyledText>
+											{quiz.likes} Likes
+										</StyledText>
 									</QuizInfo>
 									<QuizCheck>
-										<Text>Completado</Text>
+										<Text style={{ color: theme.text }}>
+											Completado
+										</Text>
 										<Icon
 											name='checkmark-circle-outline'
 											size={20}
@@ -132,17 +138,13 @@ const HomeScreen = ({ navigation }) => {
 						/>
 						<QuizInfo>
 							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<StyledText style={{ color: theme.text }}>
-								Descripcion breve del Quiz
-							</StyledText>
-							<StyledText style={{ color: theme.text }}>
+							<StyledText>Descripcion breve del Quiz</StyledText>
+							<StyledText>
 								Jugado 77898798 Veces - 1903 Likes
 							</StyledText>
 						</QuizInfo>
 						<QuizCheck>
-							<StyledText style={{ color: theme.text }}>
-								Completado
-							</StyledText>
+							<StyledText>Completado</StyledText>
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
@@ -156,17 +158,13 @@ const HomeScreen = ({ navigation }) => {
 						/>
 						<QuizInfo>
 							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<StyledText style={{ color: theme.text }}>
-								Descripcion breve del Quiz
-							</StyledText>
-							<StyledText style={{ color: theme.text }}>
+							<StyledText>Descripcion breve del Quiz</StyledText>
+							<StyledText>
 								Jugado 77898798 Veces - 1903 Likes
 							</StyledText>
 						</QuizInfo>
 						<QuizCheck>
-							<StyledText style={{ color: theme.text }}>
-								Completado
-							</StyledText>
+							<StyledText>Completado</StyledText>
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
