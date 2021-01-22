@@ -9,7 +9,7 @@ server.get('/me', async (req, res, next) => {
 		const { _id } = req.user;
 		const result = await User.findById(
 			_id,
-			'_id firstName lastName email countryCode roleId updatedAt',
+			'_id firstName lastName email countryCode roleId updatedAt'
 		);
 		if (req.user.updatedAt === result.updatedAt.toISOString()) {
 			return res.json(result);
@@ -37,7 +37,7 @@ server.get('/me', async (req, res, next) => {
 					updatedAt,
 					premium,
 				},
-				SECRET,
+				SECRET
 			);
 			return res.json(result);
 		}
@@ -47,7 +47,6 @@ server.get('/me', async (req, res, next) => {
 });
 
 server.post('/register', async function (req, res, next) {
-	console.log(req.body);
 	try {
 		const user = await User.create(req.body);
 		const {
@@ -74,8 +73,8 @@ server.post('/register', async function (req, res, next) {
 					updatedAt,
 					premium,
 				},
-				SECRET,
-			),
+				SECRET
+			)
 		);
 	} catch (error) {
 		if (error.message === 'Input valid password')
@@ -104,7 +103,7 @@ server.get(
 	'/google',
 	passport.authenticate('google', {
 		scope: ['profile', 'email'],
-	}),
+	})
 );
 
 server.get(
@@ -134,17 +133,17 @@ server.get(
 				updatedAt,
 				premium,
 			},
-			SECRET,
+			SECRET
 		);
 		res.redirect(`${FRONT}/?jwt=${token}`);
-	},
+	}
 );
 
 server.get(
 	'/facebook',
 	passport.authenticate('facebook', {
 		scope: ['email', 'user_photos'],
-	}),
+	})
 );
 
 server.get(
@@ -174,10 +173,10 @@ server.get(
 				updatedAt,
 				premium,
 			},
-			SECRET,
+			SECRET
 		);
 		res.redirect(`${FRONT}/?jwt=${token}`);
-	},
+	}
 );
 
 module.exports = server;
