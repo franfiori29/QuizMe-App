@@ -55,11 +55,14 @@ const UserMenu = ({ navigation }) => {
 			<MenuTouchOption>
 				<Text>
 					Mi Correo:{' '}
-					<Text style={{ fontWeight: 'bold' }}>cosme@mail.com</Text>
+					<Text style={{ fontWeight: 'bold' }}>{user.email}</Text>
 				</Text>
 			</MenuTouchOption>
 			<AccType>
-				<Text>Usuario: CosmeFulatino420</Text>
+				<Text>
+					Usuario: {user.firstName}
+					{user.lastName}
+				</Text>
 				<AccTypeButton>
 					<Text style={{ color: 'blue', textTransform: 'uppercase' }}>
 						Validar Cuenta
