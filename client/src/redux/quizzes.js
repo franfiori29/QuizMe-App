@@ -27,27 +27,34 @@ const queryAllQuizzes = gql`
 				}
 			}
 		}
+		getCategories {
+			_id
+			description_en
+			description_es
+		}
 	}
 `;
 
 export const getQuizzes = createAsyncThunk(
-	'quizz/getAll',
+	'quiz/getAll',
 	async (payload, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryAllQuizzes);
-		return clientRequest.getQuizzes;
+		return clientRequest;
 	}
 );
 
 const quizSlice = createSlice({
-	name: 'user',
+	name: 'quiz',
 	initialState: {
 		quiz: {},
 		quizzes: [],
+		categories: [],
 	},
 	extraReducers: {
 		[getQuizzes.fulfilled]: (state, action) => {
-			state.quizzes = action.payload;
+			state.quizzes = action.payload.getQuizzes;
+			state.categories = action.payload.getCategories;
 		},
 	},
 });

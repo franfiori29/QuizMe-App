@@ -27,8 +27,8 @@ module.exports = gql`
 
 	type Category {
 		_id: ID!
-		description_en: String!
-		description_es: String!
+		description_en: String
+		description_es: String
 	}
 
 	input InputOption {
@@ -56,6 +56,7 @@ module.exports = gql`
 	extend type Query {
 		getQuiz(id: ID!): Quiz
 		getQuizzes: [Quiz!]!
+		getCategories: [Category!]!
 	}
 
 	extend type Mutation {

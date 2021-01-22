@@ -1,5 +1,6 @@
 const Quiz = require('../../models/Quiz.js');
 const Question = require('../../models/Question.js');
+const Category = require('../../models/Category.js');
 
 module.exports = {
 	Query: {
@@ -15,6 +16,10 @@ module.exports = {
 				.populate('categoryId')
 				.populate('questions');
 			return quizzes;
+		},
+		getCategories: async () => {
+			const categories = await Category.find();
+			return categories;
 		},
 	},
 	Mutation: {
