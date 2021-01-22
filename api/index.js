@@ -27,11 +27,11 @@ app.use((_, res, next) => {
 	res.header('Access-Control-Allow-Credentials', 'true');
 	res.header(
 		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 	);
 	res.header(
 		'Access-Control-Allow-Methods',
-		'GET, POST, PUT, DELETE, OPTIONS',
+		'GET, POST, PUT, DELETE, OPTIONS'
 	);
 	next();
 });
@@ -57,6 +57,9 @@ const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: ({ req }) => ({ user: req.user }),
+	playground: {
+		endpoint: 'playground',
+	},
 });
 
 server.applyMiddleware({ app });
