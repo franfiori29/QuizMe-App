@@ -34,7 +34,7 @@ const UserMenu = ({ navigation }) => {
 				<UserName>
 					{user.firstName} {user.lastName}
 				</UserName>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={()=> navigation.navigate("Profile")}>
 					<UserText>VER PERFIL</UserText>
 				</TouchableOpacity>
 			</UserContainer>

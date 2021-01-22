@@ -10,6 +10,7 @@ import HomeScreen from '@components/home_screen';
 import Login from '@components/login';
 import SignUp from '@components/signup';
 import UserMenu from '@components/user_menu';
+import Profile from '../src/components/profile';
 
 const HomeRoutes = () => {
 	const { Navigator, Screen } = createStackNavigator();
@@ -27,6 +28,8 @@ const HomeRoutes = () => {
 				<Screen name="UserMenu" component={UserMenu} />
 				<Screen name="QuizIndex" component={QuizIndex} />
 				<Screen name="Quiz" component={Quiz} />
+				<Screen name="Profile" component={Profile} />
+
 			</Navigator>
 		</NavigationContainer>
 	);
