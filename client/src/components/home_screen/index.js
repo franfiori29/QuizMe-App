@@ -4,42 +4,202 @@ import { View, Text, Button } from 'react-native';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';
-import styled from 'styled-components/native';
-
+import styled, { ThemeProvider } from 'styled-components/native';
 
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
+	const { theme } = useSelector((state) => state.global);
+
 	return (
-		<Screen centerContent={true}>
-			<Header>
-				<HeaderButton onPress={() => navigation.navigate('UserMenu')}>
-					<Icon name='ios-menu-outline' size={28} />
-				</HeaderButton>
-				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
-				<HeaderButton>
-					<Icon name='ios-search-outline' size={28} />
-				</HeaderButton>
-			</Header>
-			<IntroContainer>
-				<IntroImg source={{ uri: 'https://picsum.photos/100/100' }} />
-				<IntroTitle>
-					¡Bienvenido, {user.firstName} {user.lastName} !
-				</IntroTitle>
-				<IntroText>
-					{' '}
-					Aca te mostramos unas sugerencias para que te pongas a
-					viciar y nos compres la membresia
-				</IntroText>
-			</IntroContainer>
-			<View>
-				<SelectorContainer>
-					<SelectorButton>
-						<SelectorText>Seguidos</SelectorText>
-					</SelectorButton>
-					<SelectorButton>
-						<SelectorText>Populares</SelectorText>
-					</SelectorButton>
-				</SelectorContainer>
+		<ThemeProvider theme={theme}>
+			<Screen centerContent={true}>
+				<Header>
+					<HeaderButton
+						onPress={() => navigation.navigate('UserMenu')}
+					>
+						<Icon
+							name='ios-menu-outline'
+							color={theme.text}
+							size={28}
+						/>
+					</HeaderButton>
+					<StyledText style={{ fontSize: 20, color: theme.text }}>
+						QuizMeUp
+					</StyledText>
+					<HeaderButton>
+						<Icon
+							name='ios-search-outline'
+							color={theme.text}
+							size={28}
+						/>
+					</HeaderButton>
+				</Header>
+				<IntroContainer>
+					<IntroImg
+						source={{ uri: 'https://picsum.photos/100/100' }}
+					/>
+					<IntroTitle>
+						¡Bienvenido, {user.firstName} {user.lastName} !
+					</IntroTitle>
+					<IntroText>
+						{' '}
+						Aca te mostramos unas sugerencias para que te pongas a
+						viciar y nos compres la membresia
+					</IntroText>
+				</IntroContainer>
+				<View>
+					<SelectorContainer>
+						<SelectorButton>
+							<SelectorText>Seguidos</SelectorText>
+						</SelectorButton>
+						<SelectorButton>
+							<SelectorText>Populares</SelectorText>
+						</SelectorButton>
+					</SelectorContainer>
+					<QuizCards>
+						<QuizCard
+							onPress={() => navigation.navigate('QuizIndex')}
+						>
+							<QuizImg
+								source={{
+									uri: 'https://picsum.photos/100/100',
+								}}
+							/>
+							<QuizInfo>
+								<QuizTitle>Titulo del Quiz</QuizTitle>
+								<StyledText style={{ color: theme.text }}>
+									Descripcion breve del Quiz
+								</StyledText>
+								<StyledText style={{ color: theme.text }}>
+									Jugado 77898798 Veces - 1903 Likes
+								</StyledText>
+							</QuizInfo>
+							<QuizCheck>
+								<StyledText style={{ color: theme.text }}>
+									Completado
+								</StyledText>
+								<Icon
+									name='checkmark-circle-outline'
+									size={20}
+									style={{ color: 'green' }}
+								/>
+							</QuizCheck>
+						</QuizCard>
+						<QuizCard
+							onPress={() => navigation.navigate('QuizIndex')}
+						>
+							<QuizImg
+								source={{
+									uri: 'https://picsum.photos/100/100',
+								}}
+							/>
+							<QuizInfo>
+								<QuizTitle>Titulo del Quiz</QuizTitle>
+								<StyledText style={{ color: theme.text }}>
+									Descripcion breve del Quiz
+								</StyledText>
+								<StyledText style={{ color: theme.text }}>
+									Jugado 77898798 Veces - 1903 Likes
+								</StyledText>
+							</QuizInfo>
+							<QuizCheck>
+								<StyledText style={{ color: theme.text }}>
+									Completado
+								</StyledText>
+								<Icon
+									name='checkmark-circle-outline'
+									size={20}
+									style={{ color: 'green' }}
+								/>
+							</QuizCheck>
+						</QuizCard>
+						<QuizCard
+							onPress={() => navigation.navigate('QuizIndex')}
+						>
+							<QuizImg
+								source={{
+									uri: 'https://picsum.photos/100/100',
+								}}
+							/>
+							<QuizInfo>
+								<QuizTitle>Titulo del Quiz</QuizTitle>
+								<StyledText style={{ color: theme.text }}>
+									Descripcion breve del Quiz
+								</StyledText>
+								<StyledText style={{ color: theme.text }}>
+									Jugado 77898798 Veces - 1903 Likes
+								</StyledText>
+							</QuizInfo>
+							<QuizCheck>
+								<StyledText style={{ color: theme.text }}>
+									Completado
+								</StyledText>
+								<Icon
+									name='checkmark-circle-outline'
+									size={20}
+									style={{ color: 'green' }}
+								/>
+							</QuizCheck>
+						</QuizCard>
+						<QuizCard
+							onPress={() => navigation.navigate('QuizIndex')}
+						>
+							<QuizImg
+								source={{
+									uri: 'https://picsum.photos/100/100',
+								}}
+							/>
+							<QuizInfo>
+								<QuizTitle>Titulo del Quiz</QuizTitle>
+								<StyledText style={{ color: theme.text }}>
+									Descripcion breve del Quiz
+								</StyledText>
+								<StyledText style={{ color: theme.text }}>
+									Jugado 77898798 Veces - 1903 Likes
+								</StyledText>
+							</QuizInfo>
+							<QuizCheck>
+								<StyledText style={{ color: theme.text }}>
+									Completado
+								</StyledText>
+								<Icon
+									name='checkmark-circle-outline'
+									size={20}
+									style={{ color: 'green' }}
+								/>
+							</QuizCheck>
+						</QuizCard>
+					</QuizCards>
+				</View>
+				<CategoryContainer>
+					<CategoryImg
+						source={{ uri: 'https://picsum.photos/75/75' }}
+					/>
+					<CategoryTitle>¡Busca por categorias!</CategoryTitle>
+				</CategoryContainer>
+				<View>
+					<ScrollCategory
+						horizontal={true}
+						centerContent={true}
+						overScrollMode='never'
+					>
+						<Category>
+							<CategoryName>html</CategoryName>
+						</Category>
+						<Category>
+							<CategoryName>css</CategoryName>
+						</Category>
+						<Category>
+							<CategoryName>javascript</CategoryName>
+						</Category>
+						<Category>
+							<CategoryName>react</CategoryName>
+						</Category>
+						<Category>
+							<CategoryName>mongo</CategoryName>
+						</Category>
+					</ScrollCategory>
+				</View>
 				<QuizCards>
 					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 						<QuizImg
@@ -47,11 +207,17 @@ const HomeScreen = ({ navigation }) => {
 						/>
 						<QuizInfo>
 							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
+							<StyledText style={{ color: theme.text }}>
+								Descripcion breve del Quiz
+							</StyledText>
+							<StyledText style={{ color: theme.text }}>
+								Jugado 77898798 Veces - 1903 Likes
+							</StyledText>
 						</QuizInfo>
 						<QuizCheck>
-							<Text>Completado</Text>
+							<StyledText style={{ color: theme.text }}>
+								Completado
+							</StyledText>
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
@@ -65,47 +231,17 @@ const HomeScreen = ({ navigation }) => {
 						/>
 						<QuizInfo>
 							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
+							<StyledText style={{ color: theme.text }}>
+								Descripcion breve del Quiz
+							</StyledText>
+							<StyledText style={{ color: theme.text }}>
+								Jugado 77898798 Veces - 1903 Likes
+							</StyledText>
 						</QuizInfo>
 						<QuizCheck>
-							<Text>Completado</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: 'green' }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-						</QuizInfo>
-						<QuizCheck>
-							<Text>Completado</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: 'green' }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-						</QuizInfo>
-						<QuizCheck>
-							<Text>Completado</Text>
+							<StyledText style={{ color: theme.text }}>
+								Completado
+							</StyledText>
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
@@ -114,90 +250,36 @@ const HomeScreen = ({ navigation }) => {
 						</QuizCheck>
 					</QuizCard>
 				</QuizCards>
-			</View>
-			<CategoryContainer>
-				<CategoryImg source={{ uri: 'https://picsum.photos/75/75' }} />
-				<CategoryTitle>¡Busca por categorias!</CategoryTitle>
-			</CategoryContainer>
-			<View>
-				<ScrollCategory
-					horizontal={true}
-					centerContent={true}
-					overScrollMode='never'
-				>
-					<Category>
-						<CategoryName>html</CategoryName>
-					</Category>
-					<Category>
-						<CategoryName>css</CategoryName>
-					</Category>
-					<Category>
-						<CategoryName>javascript</CategoryName>
-					</Category>
-					<Category>
-						<CategoryName>react</CategoryName>
-					</Category>
-					<Category>
-						<CategoryName>mongo</CategoryName>
-					</Category>
-				</ScrollCategory>
-			</View>
-			<QuizCards>
-				<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-					<QuizImg
-						source={{ uri: 'https://picsum.photos/100/100' }}
+				<CategoryContainer>
+					<CategoryImg
+						source={{ uri: 'https://picsum.photos/75/75' }}
 					/>
-					<QuizInfo>
-						<QuizTitle>Titulo del Quiz</QuizTitle>
-						<Text>Descripcion breve del Quiz</Text>
-						<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-					</QuizInfo>
-					<QuizCheck>
-						<Text>Completado</Text>
-						<Icon
-							name='checkmark-circle-outline'
-							size={20}
-							style={{ color: 'green' }}
-						/>
-					</QuizCheck>
-				</QuizCard>
-				<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-					<QuizImg
-						source={{ uri: 'https://picsum.photos/100/100' }}
-					/>
-					<QuizInfo>
-						<QuizTitle>Titulo del Quiz</QuizTitle>
-						<Text>Descripcion breve del Quiz</Text>
-						<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-					</QuizInfo>
-					<QuizCheck>
-						<Text>Completado</Text>
-						<Icon
-							name='checkmark-circle-outline'
-							size={20}
-							style={{ color: 'green' }}
-						/>
-					</QuizCheck>
-				</QuizCard>
-			</QuizCards>
-			<CategoryContainer>
-				<CategoryImg source={{ uri: 'https://picsum.photos/75/75' }} />
-				<CategoryTitle>¿No encontraste uno que te guste?</CategoryTitle>
-			</CategoryContainer>
-			<Button
-				title='Dame un Quiz Random'
-				style={{ margin: '40px auto' }}
-				onPress={() => navigation.navigate('QuizIndex')}
-			/>
-			<BottomBar>
-				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
-			</BottomBar>
-		</Screen>
+					<CategoryTitle>
+						¿No encontraste uno que te guste?
+					</CategoryTitle>
+				</CategoryContainer>
+				<Button
+					title='Dame un Quiz Random'
+					style={{ margin: '40px auto' }}
+					onPress={() => navigation.navigate('QuizIndex')}
+				/>
+				<BottomBar>
+					<StyledText style={{ fontSize: 20, color: theme.text }}>
+						QuizMeUp
+					</StyledText>
+				</BottomBar>
+			</Screen>
+		</ThemeProvider>
 	);
 };
 
 const Screen = styled.ScrollView`
 	flex: 1;
+	background-color: ${(props) => props.theme.bg};
+`;
+
+const StyledText = styled.Text`
+	color: ${(props) => props.theme.text};
 `;
 
 const Header = styled.View`
@@ -235,11 +317,13 @@ const IntroTitle = styled.Text`
 	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
+	color: ${(props) => props.theme.text};
 `;
 
 const IntroText = styled.Text`
 	text-align: center;
 	padding: 0 10px;
+	color: ${(props) => props.theme.text};
 `;
 
 const SelectorContainer = styled.View`
@@ -262,6 +346,7 @@ const SelectorText = styled.Text`
 	font-size: 20px;
 	text-align: center;
 	text-transform: uppercase;
+	color: ${(props) => props.theme.text};
 `;
 
 const QuizCards = styled.View`
@@ -293,6 +378,7 @@ const QuizInfo = styled.View`
 const QuizTitle = styled.Text`
 	font-size: 18px;
 	font-weight: bold;
+	color: ${(props) => props.theme.text};
 `;
 
 const QuizCheck = styled.View`
@@ -321,6 +407,7 @@ const CategoryTitle = styled.Text`
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
+	color: ${(props) => props.theme.text};
 `;
 
 const ScrollCategory = styled.ScrollView`
@@ -335,7 +422,7 @@ const Category = styled.TouchableOpacity`
 	height: 60px;
 	width: 200px;
 	margin: auto 20px;
-	border: 2px solid black;
+	border: 2px solid ${(props) => props.theme.text};
 	justify-content: center;
 	align-items: center;
 `;
@@ -344,6 +431,7 @@ const CategoryName = styled.Text`
 	font-size: 18px;
 	text-align: center;
 	text-transform: uppercase;
+	color: ${(props) => props.theme.text};
 `;
 
 const BottomBar = styled.View`

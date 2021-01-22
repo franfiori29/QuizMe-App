@@ -7,12 +7,11 @@ import { REACT_APP_API } from '@env';
 
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import logoPrueba from '@assets/img/logoPrueba.jpg';
 import { useDispatch } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 
 const { width: WIDTH } = Dimensions.get('window');
-console.log("otra");
+console.log('ota');
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState('');
@@ -69,7 +68,7 @@ export default function Login({ navigation }) {
 	return (
 		<Container source={backgroundImage}>
 			<LogoView>
-				<Logo source={logoPrueba} />
+				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
 				<LogoText>QuizMe App</LogoText>
 			</LogoView>
 			<InputContainer>
@@ -84,7 +83,7 @@ export default function Login({ navigation }) {
 					placeholder={'Email'}
 					onChangeText={(Email) => setEmail(Email)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid="transparent"
+					underlineColorAndroid='transparent'
 				/>
 			</InputContainer>
 			<InputContainer>
@@ -104,7 +103,7 @@ export default function Login({ navigation }) {
 					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid="transparent"
+					underlineColorAndroid='transparent'
 				/>
 				<Button onPress={onPress}>
 					<Icon
@@ -119,9 +118,9 @@ export default function Login({ navigation }) {
 			</ButtonLogin>
 			<SocialIconGoogle
 				width={WIDTH}
-				title="Sign In With Google"
+				title='Sign In With Google'
 				button
-				type="google"
+				type='google'
 			/>
 			<TextView>
 				<Text>
@@ -152,6 +151,7 @@ const LogoView = styled.View`
 const Logo = styled.Image`
 	width: 100px;
 	height: 100px;
+	border-radius: 100px;
 `;
 const LogoText = styled.Text`
 	color: white;
