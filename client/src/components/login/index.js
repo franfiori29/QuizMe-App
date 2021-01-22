@@ -8,7 +8,7 @@ import strings from './strings';
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logo from '@assets/logo.png';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
 
 const { width: WIDTH } = Dimensions.get('window');
