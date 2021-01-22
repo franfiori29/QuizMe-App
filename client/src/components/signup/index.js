@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Dimensions, Text } from 'react-native';
+import { REACT_APP_API } from '@root/env';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
@@ -10,7 +11,6 @@ import axios from 'axios';
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function SignUp({ navigation }) {
-	const { REACT_APP_API } = process.env.APP_MANIFEST.extra;
 	const dispatch = useDispatch();
 
 	const [hidePass, setHidePass] = useState(true);

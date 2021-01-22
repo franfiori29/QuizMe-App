@@ -16,6 +16,7 @@ module.exports = function (api) {
 						'@assets': './assets',
 						'@constants': './src/constants',
 						'@redux': './src/redux',
+						'@root': './',
 					},
 				},
 			],
