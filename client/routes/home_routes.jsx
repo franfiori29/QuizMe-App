@@ -14,6 +14,7 @@ import UserMenu from '@components/user_menu';
 const HomeRoutes = () => {
 	const { Navigator, Screen } = createStackNavigator();
 	const { info: user } = useSelector((state) => state.user);
+	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)
 	return (
 		<NavigationContainer>
 			<Navigator
