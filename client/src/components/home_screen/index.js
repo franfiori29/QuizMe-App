@@ -7,11 +7,15 @@ import { getQuizzes } from '@redux/quizzes';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
 
+//Assets
+import strings from './strings';
+
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
 	const { quizzes, categories } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
+	const s = strings[language];
 
 	useEffect(() => {
 		dispatch(getQuizzes());
@@ -31,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
 						/>
 					</HeaderButton>
 					<StyledText style={{ fontSize: 20, color: theme.text }}>
-						QuizMeUp
+						QuizMeApp
 					</StyledText>
 					<HeaderButton>
 						<Icon
@@ -46,20 +50,17 @@ const HomeScreen = ({ navigation }) => {
 						source={{ uri: 'https://picsum.photos/100/100' }}
 					/>
 					<IntroTitle>
-						¡Bienvenido, {user.firstName} {user.lastName} !
+						¡{s.title} {user.firstName} {user.lastName} !
 					</IntroTitle>
-					<IntroText>
-						Aca te mostramos unas sugerencias para que te pongas a
-						viciar y nos compres la membresia
-					</IntroText>
+					<IntroText>{s.introTitle}</IntroText>
 				</IntroContainer>
 				<View>
 					<SelectorContainer>
 						<SelectorButton>
-							<SelectorText>Seguidos</SelectorText>
+							<SelectorText>{s.selector1}</SelectorText>
 						</SelectorButton>
 						<SelectorButton>
-							<SelectorText>Populares</SelectorText>
+							<SelectorText>{s.selector2}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
 					<QuizCards>
@@ -89,7 +90,7 @@ const HomeScreen = ({ navigation }) => {
 									</QuizInfo>
 									<QuizCheck>
 										<Text style={{ color: theme.text }}>
-											Completado
+											{s.completed}
 										</Text>
 										<Icon
 											name='checkmark-circle-outline'
@@ -105,7 +106,7 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryImg
 						source={{ uri: 'https://picsum.photos/75/75' }}
 					/>
-					<CategoryTitle>¡Busca por categorias!</CategoryTitle>
+					<CategoryTitle>{s.search}</CategoryTitle>
 				</CategoryContainer>
 				<View>
 					<ScrollCategory
@@ -135,7 +136,7 @@ const HomeScreen = ({ navigation }) => {
 							</StyledText>
 						</QuizInfo>
 						<QuizCheck>
-							<StyledText>Completado</StyledText>
+							<StyledText>{s.completed}</StyledText>
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
@@ -155,7 +156,7 @@ const HomeScreen = ({ navigation }) => {
 							</StyledText>
 						</QuizInfo>
 						<QuizCheck>
-							<StyledText>Completado</StyledText>
+							<StyledText>{s.completed}</StyledText>
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
@@ -168,18 +169,16 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryImg
 						source={{ uri: 'https://picsum.photos/75/75' }}
 					/>
-					<CategoryTitle>
-						¿No encontraste uno que te guste?
-					</CategoryTitle>
+					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
 				<Button
-					title='Dame un Quiz Random'
+					title={s.randomButton}
 					style={{ margin: '40px auto' }}
 					onPress={() => navigation.navigate('QuizIndex')}
 				/>
 				<BottomBar>
 					<StyledText style={{ fontSize: 20, color: theme.text }}>
-						QuizMeUp
+						QuizMeApp
 					</StyledText>
 				</BottomBar>
 			</Screen>
