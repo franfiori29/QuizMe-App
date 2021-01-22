@@ -2,9 +2,11 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
+import strings from './strings';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
-	const { theme } = useSelector((state) => state.global);
+	const { theme, language } = useSelector((state) => state.global);
+	const s = strings[language];
 	const quiz = params.quiz;
 
 	return (
@@ -21,7 +23,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					<QuantityContainer>
 						<TouchableOpacity>
 							<Text style={{ color: theme.text }}>
-								{quiz.questions.length}Preguntas
+								{quiz.questions.length} {s.quest}
 							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity>
@@ -45,7 +47,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 							adjustsFontSizeToFit={true}
 							style={{ color: theme.text }}
 						>
-							Start Quiz
+							{s.startBtn}
 						</Text>
 					</StartButton>
 				</ContainerBottom>

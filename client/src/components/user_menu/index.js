@@ -10,11 +10,15 @@ import { logout } from '@redux/user';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
 
+//Assets
+import strings from './strings';
+
 const UserMenu = ({ navigation }) => {
 	const { language } = useSelector((state) => state.global);
 	const { theme } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
+	const s = strings[language];
 
 	const handleLogout = () => {
 		dispatch(logout());
@@ -46,12 +50,12 @@ const UserMenu = ({ navigation }) => {
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Profile')}
 					>
-						<UserText>VER PERFIL</UserText>
+						<UserText>{s.profile.toUpperCase()}</UserText>
 					</TouchableOpacity>
 				</UserContainer>
 				<AccType>
 					<Text style={{ color: theme.text }}>
-						Tipo de cuenta: Pobre
+						{s.acc} {s.poor}
 					</Text>
 					<AccTypeButton>
 						<Text
@@ -60,27 +64,25 @@ const UserMenu = ({ navigation }) => {
 								textTransform: 'uppercase',
 							}}
 						>
-							Hacete Premium
+							{s.premiumBtn}
 						</Text>
 					</AccTypeButton>
 				</AccType>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>
-						Suscripciones a escuelas
-					</Text>
+					<Text style={{ color: theme.text }}>{s.subs}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>Mis Quizzes</Text>
+					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>
-						Mi Correo:{' '}
+						{s.email}{' '}
 						<Text style={{ fontWeight: 'bold' }}>{user.email}</Text>
 					</Text>
 				</MenuTouchOption>
 				<AccType>
 					<Text style={{ color: theme.text }}>
-						Usuario: {user.firstName} {user.lastName}
+						{s.user} {user.firstName} {user.lastName}
 					</Text>
 					<AccTypeButton>
 						<Text
@@ -89,49 +91,45 @@ const UserMenu = ({ navigation }) => {
 								textTransform: 'uppercase',
 							}}
 						>
-							Validar Cuenta
+							{s.validate}
 						</Text>
 					</AccTypeButton>
 				</AccType>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>
-						Cambiar Contraseña
-					</Text>
+					<Text style={{ color: theme.text }}>{s.pass}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>
-						Configuración de notificaciones
-					</Text>
+					<Text style={{ color: theme.text }}>{s.notif}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					onPress={() => dispatch(switchTheme())}
 					style={{ justifyContent: 'space-between' }}
 				>
-					<Text style={{ color: theme.text }}>Modo Nocturno</Text>
+					<Text style={{ color: theme.text }}>{s.dark}</Text>
 					<Text style={{ fontWeight: 'bold', color: theme.text }}>
-						{theme.mode === 'light' ? 'Desactivado' : 'Activado'}
+						{theme.mode === 'light' ? s.dark2 : s.dark1}
 					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					style={{ justifyContent: 'space-between' }}
 					onPress={() => dispatch(changeLanguage())}
 				>
-					<Text style={{ color: theme.text }}>Lenguaje</Text>
+					<Text style={{ color: theme.text }}>{s.lang}</Text>
 					<Text style={{ fontWeight: 'bold', color: theme.text }}>
 						{language.toUpperCase()}
 					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>Centro de Ayuda</Text>
+					<Text style={{ color: theme.text }}>{s.help}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>¡Valóranos!</Text>
+					<Text style={{ color: theme.text }}>{s.rate}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>Información</Text>
+					<Text style={{ color: theme.text }}>{s.info}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption style={{ justifyContent: 'space-between' }}>
-					<Text style={{ color: theme.text }}>Versión</Text>
+					<Text style={{ color: theme.text }}>{s.versión}</Text>
 					<Text style={{ color: '#999' }}>0.0.1(Alpha)</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
@@ -150,7 +148,7 @@ const UserMenu = ({ navigation }) => {
 							fontSize: 16,
 						}}
 					>
-						Cerrar sesión
+						{s.logout}
 					</Text>
 				</MenuTouchOption>
 			</Screen>

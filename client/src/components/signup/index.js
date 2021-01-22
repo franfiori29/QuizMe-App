@@ -4,14 +4,17 @@ import { REACT_APP_API } from '@root/env';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 import axios from 'axios';
+import strings from './strings';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function SignUp({ navigation }) {
 	const dispatch = useDispatch();
+	const { language } = useSelector((state) => state.global);
+	const s = strings[language];
 
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrortext] = useState('');
@@ -88,7 +91,7 @@ export default function SignUp({ navigation }) {
 		<Container source={backgroundImage}>
 			<LogoView>
 				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
-				<LogoText>QuizMe App</LogoText>
+				<LogoText>QuizMeApp</LogoText>
 			</LogoView>
 			<InputContainer>
 				<IconImage
@@ -98,7 +101,7 @@ export default function SignUp({ navigation }) {
 				/>
 				<InputSignUp
 					width={WIDTH}
-					placeholder={'Email'}
+					placeholder={s.email}
 					value={user.email}
 					onChangeText={(value) => handleInputChange('email', value)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
@@ -113,7 +116,7 @@ export default function SignUp({ navigation }) {
 				/>
 				<InputSignUp
 					width={WIDTH}
-					placeholder={'Contraseña'}
+					placeholder={s.pass}
 					value={user.password}
 					onChangeText={(value) =>
 						handleInputChange('password', value)
@@ -138,7 +141,7 @@ export default function SignUp({ navigation }) {
 				/>
 				<InputSignUp
 					width={WIDTH}
-					placeholder={'Nombre'}
+					placeholder={s.name}
 					value={user.firstName}
 					onChangeText={(value) =>
 						handleInputChange('firstName', value)
@@ -155,7 +158,7 @@ export default function SignUp({ navigation }) {
 				/>
 				<InputSignUp
 					width={WIDTH}
-					placeholder={'Apellido'}
+					placeholder={s.lastName}
 					value={user.lastName}
 					onChangeText={(value) =>
 						handleInputChange('lastName', value)
@@ -193,16 +196,16 @@ export default function SignUp({ navigation }) {
 			</TextView>
 
 			<ButtonSignUp width={WIDTH} onPress={handleSubmitPress}>
-				<Description>Registrarse</Description>
+				<Description>{s.signup}</Description>
 			</ButtonSignUp>
 			<TextView>
 				<Text>
-					¿Tienes una cuenta?{' '}
+					{s.acc}
 					<Text
 						style={{ fontWeight: '500', color: 'blue' }}
 						onPress={handleLoginPress}
 					>
-						Iniciar sesión
+						{s.login}
 					</Text>
 				</Text>
 			</TextView>

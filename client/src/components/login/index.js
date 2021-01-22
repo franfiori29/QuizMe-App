@@ -4,10 +4,10 @@ import { REACT_APP_API } from '@root/env';
 import axios from 'axios';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import strings from './strings';
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 
 const { width: WIDTH } = Dimensions.get('window');
@@ -17,6 +17,8 @@ export default function Login({ navigation }) {
 	const [userPassword, setUserPassword] = useState('');
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrorText] = useState('');
+	const { language } = useSelector((state) => state.global);
+	const s = strings[language];
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
@@ -68,7 +70,7 @@ export default function Login({ navigation }) {
 		<Container source={backgroundImage}>
 			<LogoView>
 				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
-				<LogoText>QuizMe App</LogoText>
+				<LogoText>QuizMeApp</LogoText>
 			</LogoView>
 			<InputContainer>
 				<IconImage
@@ -79,7 +81,7 @@ export default function Login({ navigation }) {
 				<InputLogin
 					onChangeText={(UserEmail) => setEmail(UserEmail)}
 					width={WIDTH}
-					placeholder={'Email'}
+					placeholder={s.email}
 					onChangeText={(Email) => setEmail(Email)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
@@ -96,7 +98,7 @@ export default function Login({ navigation }) {
 						setUserPassword(UserPassword)
 					}
 					width={WIDTH}
-					placeholder={'Contraseña'}
+					placeholder={s.pass}
 					onChangeText={(UserPassword) =>
 						setUserPassword(UserPassword)
 					}
@@ -113,22 +115,22 @@ export default function Login({ navigation }) {
 				</Button>
 			</InputContainer>
 			<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
-				<Description>Iniciar sesión</Description>
+				<Description>{s.login}</Description>
 			</ButtonLogin>
 			<SocialIconGoogle
 				width={WIDTH}
-				title='Sign In With Google'
+				title={s.google}
 				button
 				type='google'
 			/>
 			<TextView>
 				<Text>
-					¿No tienes una cuenta?{' '}
+					{s.acc}
 					<Text
 						style={{ fontWeight: '500', color: 'blue' }}
 						onPress={handleSignUp}
 					>
-						Regístrate
+						{s.signup}
 					</Text>
 				</Text>
 			</TextView>
