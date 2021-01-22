@@ -71,7 +71,12 @@ const Quiz = ({ navigation, route: { params } }) => {
 				<BottomScreen>
 					{question.options.map((option, i) => (
 						<Option key={i}>
-							<Text style={{ alignSelf: 'center' }}>
+							<Text
+								style={{
+									alignSelf: 'center',
+									color: theme.text,
+								}}
+							>
 								{option.title}
 							</Text>
 						</Option>
