@@ -1,14 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
+import { REACT_APP_API } from '@env';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
-
+import request, { gql, GraphQLClient } from 'graphql-request';
+import { getQuizzes } from '@redux/quizzes';
 
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
+	const { quizzes } = useSelector((state) => state.quiz);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getQuizzes());
+	}, []);
 	return (
 		<Screen centerContent={true}>
 			<Header>
@@ -41,78 +49,34 @@ const HomeScreen = ({ navigation }) => {
 					</SelectorButton>
 				</SelectorContainer>
 				<QuizCards>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-						</QuizInfo>
-						<QuizCheck>
-							<Text>Completado</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: 'green' }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-						</QuizInfo>
-						<QuizCheck>
-							<Text>Completado</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: 'green' }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-						</QuizInfo>
-						<QuizCheck>
-							<Text>Completado</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: 'green' }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<Text>Descripcion breve del Quiz</Text>
-							<Text>Jugado 77898798 Veces - 1903 Likes</Text>
-						</QuizInfo>
-						<QuizCheck>
-							<Text>Completado</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: 'green' }}
-							/>
-						</QuizCheck>
-					</QuizCard>
+					{!!quizzes.length &&
+						quizzes.map((quiz) => (
+							<QuizCard
+								key={quiz._id}
+								onPress={() =>
+									navigation.navigate('QuizIndex', { quiz })
+								}
+							>
+								<QuizImg
+									source={{
+										uri: quiz.image,
+									}}
+								/>
+								<QuizInfo>
+									<QuizTitle>{quiz.title}</QuizTitle>
+									<Text>{quiz.description}</Text>
+									<Text>{quiz.likes} Likes</Text>
+								</QuizInfo>
+								<QuizCheck>
+									<Text>Completado</Text>
+									<Icon
+										name='checkmark-circle-outline'
+										size={20}
+										style={{ color: 'green' }}
+									/>
+								</QuizCheck>
+							</QuizCard>
+						))}
 				</QuizCards>
 			</View>
 			<CategoryContainer>

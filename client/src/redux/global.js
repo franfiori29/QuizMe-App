@@ -8,7 +8,7 @@ const globalSlice = createSlice({
 	reducers: {
 		changeLanguage: (state) => {
 			state.language = state.language === 'en' ? 'es' : 'en';
-		},
+		}
 	},
 });
 

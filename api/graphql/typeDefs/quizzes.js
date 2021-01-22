@@ -55,6 +55,7 @@ module.exports = gql`
 
 	extend type Query {
 		getQuiz(id: ID!): Quiz
+		getQuizzes: [Quiz!]!
 	}
 
 	extend type Mutation {

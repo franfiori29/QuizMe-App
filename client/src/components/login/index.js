@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 
 const { width: WIDTH } = Dimensions.get('window');
-console.log("otra");
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState('');
@@ -84,7 +83,7 @@ export default function Login({ navigation }) {
 					placeholder={'Email'}
 					onChangeText={(Email) => setEmail(Email)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid="transparent"
+					underlineColorAndroid='transparent'
 				/>
 			</InputContainer>
 			<InputContainer>
@@ -104,7 +103,7 @@ export default function Login({ navigation }) {
 					}
 					secureTextEntry={hidePass}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid="transparent"
+					underlineColorAndroid='transparent'
 				/>
 				<Button onPress={onPress}>
 					<Icon
@@ -119,9 +118,9 @@ export default function Login({ navigation }) {
 			</ButtonLogin>
 			<SocialIconGoogle
 				width={WIDTH}
-				title="Sign In With Google"
+				title='Sign In With Google'
 				button
-				type="google"
+				type='google'
 			/>
 			<TextView>
 				<Text>

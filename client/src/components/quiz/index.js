@@ -3,7 +3,8 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Quiz = ({ navigation }) => {
+const Quiz = ({ navigation, route: { params } }) => {
+	const question = params.question;
 	return (
 		<Screen>
 			<Header>
@@ -22,23 +23,22 @@ const Quiz = ({ navigation }) => {
 				<Text
 					style={{ marginTop: 50, fontWeight: 'bold', fontSize: 20 }}
 				>
-					Cual es el verdadero nombre de Paco
+					{question.title}
 				</Text>
-				<QuizImg source={{ uri: 'https://picsum.photos/200/200' }} />
+				<QuizImg
+					source={{
+						uri: question.image ? question.image : params.imagePapi,
+					}}
+				/>
 			</MiddleScreen>
 			<BottomScreen>
-				<Option>
-					<Text style={{ alignSelf: 'center' }}>Franco</Text>
-				</Option>
-				<Option>
-					<Text style={{ alignSelf: 'center' }}>Juan</Text>
-				</Option>
-				<Option>
-					<Text style={{ alignSelf: 'center' }}>Matias</Text>
-				</Option>
-				<Option>
-					<Text style={{ alignSelf: 'center' }}>Ailin</Text>
-				</Option>
+				{question.options.map((option, i) => (
+					<Option key={i}>
+						<Text style={{ alignSelf: 'center' }}>
+							{option.title}
+						</Text>
+					</Option>
+				))}
 			</BottomScreen>
 		</Screen>
 	);
