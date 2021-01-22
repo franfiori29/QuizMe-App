@@ -70,7 +70,7 @@ export default function Login({ navigation }) {
 	return (
 		<Container source={backgroundImage}>
 			<LogoView>
-				<Logo source={{ uri: logo }} />
+				<Logo source={logo} />
 				<LogoText>QuizMe App</LogoText>
 			</LogoView>
 			<InputContainer>
