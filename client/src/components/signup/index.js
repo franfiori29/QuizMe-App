@@ -6,11 +6,11 @@ import backgroundImage from '@assets/img/backgroundImage.jpg';
 import { useDispatch } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 import axios from 'axios';
-import { REACT_APP_API } from '@env';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function SignUp({ navigation }) {
+	const { REACT_APP_API } = process.env.APP_MANIFEST.extra;
 	const dispatch = useDispatch();
 
 	const [hidePass, setHidePass] = useState(true);
