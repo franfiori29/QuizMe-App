@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { ApolloServer } = require('apollo-server-express');
 
-const typeDefs = require('./graphql/typeDefs');
+const typeDefs = require('./graphql/typeDefs/index.js');
 const resolvers = require('./graphql/resolvers');
 const passport = require('./passport');
 const routes = require('./routes');
@@ -27,16 +27,16 @@ app.use((_, res, next) => {
 	res.header('Access-Control-Allow-Credentials', 'true');
 	res.header(
 		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+		'Origin, X-Requested-With, Content-Type, Accept, Authorization',
 	);
 	res.header(
 		'Access-Control-Allow-Methods',
-		'GET, POST, PUT, DELETE, OPTIONS'
+		'GET, POST, PUT, DELETE, OPTIONS',
 	);
 	next();
 });
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
 
 app.use(passport.initialize());
@@ -53,7 +53,12 @@ app.all('*', function (req, res, next) {
 
 app.use('/', routes);
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+	typeDefs,
+	resolvers,
+	context: ({ req }) => ({ user: req.user }),
+});
+
 server.applyMiddleware({ app });
 
 mongoose
@@ -67,10 +72,10 @@ mongoose
 		await mongoose.connection.db.dropDatabase();
 		console.info('MONGODB CONNECTED');
 		try {
-			await User.create(utilsUsers);
 			await Category.create(utilsCategories);
-			await Quiz.create(utilsQuizzes);
 			await Question.create(utilsQuestions);
+			await Quiz.create(utilsQuizzes);
+			await User.create(utilsUsers);
 			console.log('BulkCreate Succesful');
 		} catch (err) {
 			console.log('BulkCreate Error', err);

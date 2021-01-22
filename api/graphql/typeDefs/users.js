@@ -1,37 +1,42 @@
 const { gql } = require('apollo-server');
 
-module.exports = gql `
+module.exports = gql`
+	enum Role {
+		USER
+		ORG
+		ADMIN
+	}
+
 	type User {
+		_id: ID!
 		firstName: String!
 		lastName: String!
-		email: String
-		password: String
+		email: String!
 		profilePic: String!
 		accountId: String
 		socialAccount: String
 		countryCode: Int!
-		roleId: Int
+		role: Role!
 	}
 
 	input UserInput {
+		_id: ID!
 		firstName: String!
 		lastName: String!
-		email: String
+		email: String!
 		password: String
 		profilePic: String!
 		accountId: String
 		socialAccount: String
 		countryCode: Int!
-		roleId: Int
+		role: Role!
 	}
 
 	type Query {
-		sayHi: String!
 		getUsers: [User]!
 	}
 
 	type Mutation {
-		createUser(input: UserInput): User!
-		compareUser(password: String): User
+		updateUser(user: UserInput): User!
 	}
 `;

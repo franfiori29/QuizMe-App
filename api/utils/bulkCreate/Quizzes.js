@@ -1,45 +1,93 @@
-const quizzes = [{
-        title: 'Geometry Area of Polygons',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et nisi id purus elementum elementum. Aliquam euismod nisl quis tincidunt ultricies. Ut dignissim condimentum metus, dignissim cursus lacus blandit viverra. Donec a viverra arcu, ut accumsan erat. Nam lobortis sapien ut lacus porttitor aliquam.',
-        img: 'https://as1.ftcdn.net/jpg/01/01/61/12/500_F_101611264_vIPhn0Rqwvxzt6nlHVGzZ6ODUxZSFhf1.jpg',
-        likes: 8,
-        categoryId: 'sadsad',
-    },
-    {
-        title: 'Physical Science: Forces',
-        description: 'Quisque laoreet ante quis ex dignissim accumsan. Nam imperdiet hendrerit neque sit amet ultricies. Quisque eget nisi in nisl mollis dictum. Nunc lobortis cursus molestie.',
-        img: 'https://thefactfactor.com/wp-content/uploads/2019/10/Force-01.png',
-        likes: 8,
-        categoryId: 'sadsad',
-    },
-    {
-        title: '2019 in Music',
-        description: 'Fusce id faucibus nibh. Ut a vestibulum odio, quis pharetra ipsum. Maecenas cursus ex ac erat facilisis vestibulum. Maecenas consequat bibendum nulla non luctus',
-        img: 'https://i.ytimg.com/vi/pBixRXM6nV4/maxresdefault.jpg',
-        likes: 8,
-        categoryId: 'sadsad',
-    },
-    {
-        title: 'Bizarre Sports',
-        description: 'Vestibulum auctor nisl quis enim rhoncus condimentum. Etiam elementum suscipit libero, ut pharetra nunc viverra sed.',
-        img: 'https://i.ytimg.com/vi/RSiua8GslHA/maxresdefault.jpg',
-        likes: 8,
-        categoryId: 'sadsad',
-    },
-    {
-        title: 'Star Wars Trivia',
-        description: 'Sed rhoncus magna vel diam bibendum, id facilisis justo porta. Vivamus placerat a mauris pretium bibendum. Nullam nec tristique dolor. Aenean convallis nunc ac ligula maximus, a sodales tellus rhoncus. ',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg',
-        likes: 8,
-        categoryId: 'sadsad',
-    },
-    {
-        title: 'Modulo 1 - Soy Henry',
-        description: 'Vivamus viverra fermentum augue, eget pulvinar massa tincidunt ut. Cras ultrices ante eros, ac aliquam velit facilisis ac. Suspendisse posuere, tellus vel suscipit efficitur, nunc velit aliquam turpis, non porta massa diam a tellus.',
-        img: 'https://henry-social-resources.s3-sa-east-1.amazonaws.com/LOGO-REDES-01_og.jpg',
-        likes: 8,
-        categoryId: 'sadsad',
-    },
+const mongoose = require('mongoose');
+
+const quizzes = [
+	{
+		title: 'Fórmulas matemáticas',
+		description:
+			'Resuelve las más difíciles fórmulas matemáticas conocidas por el hombre!',
+		image:
+			'https://i.pinimg.com/736x/c8/e5/75/c8e5753370bad54c7977d485e0a0e29d.jpg',
+		likes: 8,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00001'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0001'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0002'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0003'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0004'),
+		],
+	},
+	{
+		title: 'Fisica: Fuerza',
+		description:
+			'Adentrate en el maravilloso mundo de la fisica. Solo tu puedes hacerlo',
+		image:
+			'https://thefactfactor.com/wp-content/uploads/2019/10/Force-01.png',
+		likes: 2,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00002'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0005'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0006'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0007'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0008'),
+		],
+	},
+	{
+		title: 'Adivina la banda',
+		description: 'Adivina la banda a partir de la tapa del disco',
+		image:
+			'https://www.educaciontrespuntocero.com/wp-content/uploads/2019/10/music.jpg',
+		likes: 8,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00003'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0009'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0010'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0011'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0012'),
+		],
+	},
+	{
+		title: 'Soccer Trivia!',
+		description:
+			'Are you the best soccer fan? Then this trivia is for you!',
+		image: 'https://i.ytimg.com/vi/RSiua8GslHA/maxresdefault.jpg',
+		likes: 1,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00004'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0013'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0014'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0015'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0016'),
+		],
+	},
+	{
+		title: 'Star Wars Trivia',
+		description:
+			'Demostrale a tus amigos que eres el más fanático de Star Wars!',
+		image:
+			'https://www.3dnatives.com/es/wp-content/uploads/sites/4/article_starwars.jpg',
+		likes: 52,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00005'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0017'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0018'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0019'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0020'),
+		],
+	},
+	{
+		title: '¿Quién es el actor?',
+		description: '¿Eres un cinéfilo? Demuéstralo!',
+		image:
+			'https://upload.wikimedia.org/wikipedia/commons/3/37/A_Traditional_Wooden_Slate_Clapperboard.jpg',
+		likes: 25,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00006'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0021'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0022'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0023'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0024'),
+		],
+	},
 ];
 
 module.exports = quizzes;
