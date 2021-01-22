@@ -2,39 +2,35 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
-const QuizIndex = ({ navigation }) => {
+const QuizIndex = ({ navigation, route: { params } }) => {
+	const quiz = params.quiz;
 	return (
 		<ContainerPpal>
 			<ContainerTop>
-				<Banner source={{ uri: 'https://picsum.photos/200/200' }} />
+				<Banner source={{ uri: quiz.image }} />
 				<BackButtonContainer
 					onPress={() => navigation.navigate('Home')}
 				>
 					<BackButton>X</BackButton>
 				</BackButtonContainer>
-				<Title>Título del Quiz</Title>
+				<Title>{quiz.title}</Title>
 				<QuantityContainer>
 					<TouchableOpacity>
-						<Text>10 Preguntas</Text>
+						<Text>{quiz.questions.length} Preguntas</Text>
 					</TouchableOpacity>
 					<TouchableOpacity>
-						<Text>38 Likes</Text>
+						<Text>{quiz.likes} Likes</Text>
 					</TouchableOpacity>
 				</QuantityContainer>
 			</ContainerTop>
 			<ContainerBottom>
-				<Description>
-					Lorem Ipsum is simply dummy text of the printing and
-					typesetting industry. Lorem Ipsum has been the industry's
-					standard dummy text ever since the 1500s, when an unknown
-					printer took a galley of type and scrambled it to make a
-					type specimen book. It has survived not only five centuries,
-					but also the leap into electronic typesetting, remaining
-					essentially unchanged.
-				</Description>
+				<Description>{quiz.description}</Description>
 				<StartButton
 					onPress={() =>
-						navigation.navigate('Quiz', { userId: 'jane' })
+						navigation.navigate('Quiz', {
+							question: quiz.questions[0],
+							imagePapi: quiz.image,
+						})
 					}
 				>
 					<Text adjustsFontSizeToFit={true}>Start Quiz</Text>

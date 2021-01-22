@@ -9,35 +9,13 @@ import styled from 'styled-components/native';
 import request, { gql, GraphQLClient } from 'graphql-request';
 import { getQuizzes } from '@redux/quizzes';
 
-const query = gql`
-	{
-		getQuizzes {
-			_id
-			title
-			description
-			image
-			likes
-			categoryId {
-				description_es
-			}
-		}
-	}
-`;
-
 const HomeScreen = ({ navigation }) => {
-	const { info: user, token } = useSelector((state) => state.user);
+	const { info: user } = useSelector((state) => state.user);
 	const { quizzes } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const client = new GraphQLClient(`${REACT_APP_API}/graphql`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
-		client
-			.request(query)
-			.then((data) => dispatch(getQuizzes(data.getQuizzes)));
+		dispatch(getQuizzes());
 	}, []);
 	return (
 		<Screen centerContent={true}>
@@ -75,7 +53,9 @@ const HomeScreen = ({ navigation }) => {
 						quizzes.map((quiz) => (
 							<QuizCard
 								key={quiz._id}
-								onPress={() => navigation.navigate('QuizIndex')}
+								onPress={() =>
+									navigation.navigate('QuizIndex', { quiz })
+								}
 							>
 								<QuizImg
 									source={{
