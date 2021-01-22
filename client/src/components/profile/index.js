@@ -19,19 +19,18 @@ export default function Profile({ navigation }) {
 				<HeaderButton onPress={() => navigation.goBack()}>
 					<Icon name='ios-arrow-back' size={28} />
 				</HeaderButton>
-				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
+				<Text style={{ fontSize: 20 }}>QuizMe App</Text>
 				<HeaderButton>
 					<Icon name='ios-search-outline' size={28} />
 				</HeaderButton>
 			</Header>
 			<View style={styles.userInfoSection}>
-				<View style={{ flexDirection: 'row', marginTop: 30 }}>
+				<View style={{ flexDirection: 'row', marginTop: 20 }}>
 					<Avatar.Image
 						source={{
-							uri:
-								'https://api.adorable.io/avatars/80/abott@adorable.png',
+							uri: 'https://picsum.photos/100/100',
 						}}
-						size={130}
+						size={120}
 					/>
 					<View style={{ marginLeft: 20 }}></View>
 				</View>
@@ -41,7 +40,7 @@ export default function Profile({ navigation }) {
 					style={[
 						styles.title,
 						{
-							marginTop: 15,
+							marginTop: 10,
 							marginBottom: 5,
 						},
 					]}
@@ -51,10 +50,7 @@ export default function Profile({ navigation }) {
 				</Title>
 				<View style={styles.row}>
 					{/* <Icon name="map-marker-radius" color="#777777" size={20}/> */}
-					<Text style={{ color: '#777777' }}>
-						{/* {user.email} */}
-						ailu@mail.com
-					</Text>
+					<Text style={{ color: '#777777' }}>{user.email}</Text>
 				</View>
 				<View style={styles.row}>
 					{/* <Icon name="phone" color="#777777" size={20}/> */}
@@ -82,7 +78,8 @@ export default function Profile({ navigation }) {
 			<View style={styles.menuWrapper}>
 				<TouchableRipple onPress={() => {}}>
 					<View style={styles.menuItem}>
-						<Text style={styles.menuItemText}>
+						
+						<Text style={[styles.menuItemText, {marginTop:10,}]}>
 							Convertirme a Premium
 						</Text>
 					</View>
