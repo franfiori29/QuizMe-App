@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 //==> Actions
@@ -31,7 +31,7 @@ const UserMenu = ({ navigation }) => {
 					<HeaderButton onPress={() => navigation.goBack()}>
 						<Icon name='ios-close' color={theme.text} size={28} />
 					</HeaderButton>
-					<HeaderText>QuizMeUp</HeaderText>
+					<HeaderText>QuizMeApp</HeaderText>
 					<HeaderButton>
 						<Icon
 							name='ios-search-outline'
@@ -129,7 +129,7 @@ const UserMenu = ({ navigation }) => {
 					<Text style={{ color: theme.text }}>{s.info}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption style={{ justifyContent: 'space-between' }}>
-					<Text style={{ color: theme.text }}>{s.versión}</Text>
+					<Text style={{ color: theme.text }}>{s.version}</Text>
 					<Text style={{ color: '#999' }}>0.0.1(Alpha)</Text>
 				</MenuTouchOption>
 				<MenuTouchOption

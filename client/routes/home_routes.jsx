@@ -10,7 +10,7 @@ import HomeScreen from '@components/home_screen';
 import Login from '@components/login';
 import SignUp from '@components/signup';
 import UserMenu from '@components/user_menu';
-import Profile from '../src/components/profile';
+import Profile from '@components/profile';
 
 const HomeRoutes = () => {
 	const { Navigator, Screen } = createStackNavigator();
