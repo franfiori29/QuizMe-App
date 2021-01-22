@@ -9,7 +9,7 @@ server.get('/me', async (req, res, next) => {
 		const { _id } = req.user;
 		const result = await User.findById(
 			_id,
-			'_id firstName lastName email countryCode roleId updatedAt'
+			'_id firstName lastName email countryCode roleId updatedAt',
 		);
 		if (req.user.updatedAt === result.updatedAt.toISOString()) {
 			return res.json(result);
@@ -21,21 +21,23 @@ server.get('/me', async (req, res, next) => {
 				email: userEmail,
 				profile_pic,
 				countryCode,
-				roleId,
+				role,
 				updatedAt,
+				premium,
 			} = result;
 			result.jwt = jwt.sign(
 				{
 					_id,
 					firstName,
 					lastName,
-					profile_pic,
 					email: userEmail,
+					profile_pic,
 					countryCode,
-					roleId,
+					role,
 					updatedAt,
+					premium,
 				},
-				SECRET
+				SECRET,
 			);
 			return res.json(result);
 		}
@@ -51,11 +53,12 @@ server.post('/register', async function (req, res, next) {
 			_id,
 			firstName,
 			lastName,
+			email: userEmail,
 			profile_pic,
-			email,
 			countryCode,
-			roleId,
+			role,
 			updatedAt,
+			premium,
 		} = user;
 		return res.send(
 			jwt.sign(
@@ -63,21 +66,28 @@ server.post('/register', async function (req, res, next) {
 					_id,
 					firstName,
 					lastName,
+					email: userEmail,
 					profile_pic,
-					email,
 					countryCode,
-					roleId,
+					role,
 					updatedAt,
+					premium,
 				},
-				SECRET
-			)
+				SECRET,
+			),
 		);
 	} catch (error) {
-		if (error.message === 'Input valid password' )
-			return res.status(400).json({ message: 'Invalid password' +error });
+		if (error.message === 'Input valid password')
+			return res
+				.status(400)
+				.json({ message: 'Invalid password' + error });
 		if (error.message.includes('unique'))
-			return res.status(400).json({ message: 'email must be unique' +error });
-		return res.status(500).json({ message: 'Internal Server Error' +error });
+			return res
+				.status(400)
+				.json({ message: 'email must be unique' + error });
+		return res
+			.status(500)
+			.json({ message: 'Internal Server Error' + error });
 	}
 });
 
@@ -93,7 +103,7 @@ server.get(
 	'/google',
 	passport.authenticate('google', {
 		scope: ['profile', 'email'],
-	})
+	}),
 );
 
 server.get(
@@ -101,35 +111,39 @@ server.get(
 	passport.authenticate('google'),
 	function (req, res) {
 		const {
-			id,
-			first_name,
-			last_name,
+			_id,
+			firstName,
+			lastName,
+			email: userEmail,
 			profile_pic,
-			email,
-			is_admin,
+			countryCode,
+			role,
 			updatedAt,
+			premium,
 		} = req.user.dataValues;
 		const token = jwt.sign(
 			{
-				id,
-				first_name,
-				last_name,
+				_id,
+				firstName,
+				lastName,
+				email: userEmail,
 				profile_pic,
-				email,
-				is_admin,
+				countryCode,
+				role,
 				updatedAt,
+				premium,
 			},
-			SECRET
+			SECRET,
 		);
 		res.redirect(`${FRONT}/?jwt=${token}`);
-	}
+	},
 );
 
 server.get(
 	'/facebook',
 	passport.authenticate('facebook', {
 		scope: ['email', 'user_photos'],
-	})
+	}),
 );
 
 server.get(
@@ -137,28 +151,32 @@ server.get(
 	passport.authenticate('facebook'),
 	function (req, res) {
 		const {
-			id,
-			first_name,
-			last_name,
+			_id,
+			firstName,
+			lastName,
+			email: userEmail,
 			profile_pic,
-			email,
-			is_admin,
+			countryCode,
+			role,
 			updatedAt,
+			premium,
 		} = req.user.dataValues;
 		const token = jwt.sign(
 			{
-				id,
-				first_name,
-				last_name,
+				_id,
+				firstName,
+				lastName,
+				email: userEmail,
 				profile_pic,
-				email,
-				is_admin,
+				countryCode,
+				role,
 				updatedAt,
+				premium,
 			},
-			SECRET
+			SECRET,
 		);
 		res.redirect(`${FRONT}/?jwt=${token}`);
-	}
+	},
 );
 
 module.exports = server;
