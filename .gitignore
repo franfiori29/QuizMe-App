@@ -112,7 +112,7 @@ dist
 
 .expo
 .expo-shared
-
+env.js
 
 # yarn v2
 .yarn/cache
