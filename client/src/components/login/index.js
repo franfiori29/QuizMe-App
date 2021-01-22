@@ -7,7 +7,6 @@ import { REACT_APP_API } from '@env';
 
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import logoPrueba from '@assets/img/logoPrueba.jpg';
 import { useDispatch } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 
@@ -68,7 +67,7 @@ export default function Login({ navigation }) {
 	return (
 		<Container source={backgroundImage}>
 			<LogoView>
-				<Logo source={logoPrueba} />
+				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
 				<LogoText>QuizMe App</LogoText>
 			</LogoView>
 			<InputContainer>
@@ -151,6 +150,7 @@ const LogoView = styled.View`
 const Logo = styled.Image`
 	width: 100px;
 	height: 100px;
+	border-radius: 100px;
 `;
 const LogoText = styled.Text`
 	color: white;

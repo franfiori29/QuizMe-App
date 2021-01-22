@@ -1,51 +1,108 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import styled from 'styled-components/native';
+import { useSelector } from 'react-redux';
+
+//Styles ==>
+import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Quiz = ({ navigation, route: { params } }) => {
+	const { theme } = useSelector((state) => state.global);
 	const question = params.question;
+
 	return (
-		<Screen>
-			<Header>
-				<Exit onPress={() => navigation.goBack()}>
-					<Icon name='ios-close' size={28} />
-					<Text>Abandonar!</Text>
-				</Exit>
-				<Text style={{ width: '33%', textAlign: 'center' }}>2600</Text>
-				<Text style={{ width: '33%', textAlign: 'center' }}>3/10</Text>
-			</Header>
-			<View style={{ position: 'relative' }}>
-				<TimeBar></TimeBar>
-				<Text style={{ position: 'absolute', right: 10 }}>Ayuda!</Text>
-			</View>
-			<MiddleScreen>
-				<Text
-					style={{ marginTop: 50, fontWeight: 'bold', fontSize: 20 }}
-				>
-					{question.title}
-				</Text>
-				<QuizImg
-					source={{
-						uri: question.image ? question.image : params.imagePapi,
-					}}
-				/>
-			</MiddleScreen>
-			<BottomScreen>
-				{question.options.map((option, i) => (
-					<Option key={i}>
-						<Text style={{ alignSelf: 'center' }}>
-							{option.title}
-						</Text>
-					</Option>
-				))}
-			</BottomScreen>
-		</Screen>
+		<ThemeProvider theme={theme}>
+			<Screen>
+				<Header>
+					<Exit onPress={() => navigation.goBack()}>
+						<Icon name='ios-close' color={theme.text} size={28} />
+						<Text style={{ color: theme.text }}>Abandonar!</Text>
+					</Exit>
+					<Text
+						style={{
+							width: '33%',
+							textAlign: 'center',
+							color: theme.text,
+						}}
+					>
+						2600
+					</Text>
+					<Text
+						style={{
+							width: '33%',
+							textAlign: 'center',
+							color: theme.text,
+						}}
+					>
+						3/10
+					</Text>
+				</Header>
+				<View style={{ position: 'relative' }}>
+					<TimeBar></TimeBar>
+					<Text
+						style={{
+							position: 'absolute',
+							right: 10,
+							color: theme.text,
+						}}
+					>
+						Ayuda!
+					</Text>
+				</View>
+				<MiddleScreen>
+					<Text
+						style={{
+							marginTop: 50,
+							fontWeight: 'bold',
+							fontSize: 20,
+							color: theme.text,
+						}}
+					>
+						{question.title}
+					</Text>
+					<QuizImg
+						source={{
+							uri: question.image
+								? question.image
+								: params.imagePapi,
+						}}
+					/>
+				</MiddleScreen>
+				<BottomScreen>
+					{question.options.map((option, i) => (
+						<Option key={i}>
+							<Text style={{ alignSelf: 'center' }}>
+								{option.title}
+							</Text>
+						</Option>
+					))}
+				</BottomScreen>
+			</Screen>
+		</ThemeProvider>
 	);
 };
 
-const Option = styled.TouchableOpacity`
+const Screen = styled.View`
+	flex: 1;
 	border: 1px solid black;
+	background-color: ${(props) => props.theme.bg};
+`;
+
+const Header = styled.View`
+	width: 100%;
+	height: 8%;
+	padding: 10px;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: ${(props) => props.theme.bg};
+`;
+
+const Option = styled.TouchableOpacity`
+	border-bottom-width: 1px;
+	border-bottom-color: #ccc;
+	border-top-width: 1px;
+	border-top-color: #ccc;
 	width: 100%;
 	flex: 1;
 	justify-content: center;
@@ -71,27 +128,12 @@ const MiddleScreen = styled.View`
 `;
 
 const BottomScreen = styled.View`
-	background-color: #55f;
+	background-color: ${(props) => props.theme.bg};
 	height: 40%;
 	width: 100%;
 	margin-top: auto;
 	align-items: center;
 	justify-content: space-between;
-`;
-
-const Screen = styled.View`
-	flex: 1;
-	border: 1px solid black;
-`;
-
-const Header = styled.View`
-	width: 100%;
-	height: 8%;
-	padding: 10px;
-	background-color: #55f;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
 `;
 
 const Exit = styled.TouchableOpacity`

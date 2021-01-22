@@ -3,7 +3,6 @@ import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import logoPrueba from '@assets/img/logoPrueba.jpg';
 import { useDispatch } from 'react-redux';
 import { getUser, setToken } from '@redux/user';
 import axios from 'axios';
@@ -12,7 +11,7 @@ import { REACT_APP_API } from '@env';
 const { width: WIDTH } = Dimensions.get('window');
 
 export default function SignUp({ navigation }) {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrortext] = useState('');
@@ -38,7 +37,7 @@ export default function SignUp({ navigation }) {
 		}));
 	};
 
-	const handleSubmitPress = () => {		
+	const handleSubmitPress = () => {
 		const emailRegex = /\S+@\S+/;
 		if (user.email && !emailRegex.test(user.email)) {
 			setErrortext('Ingrese un Email válido');
@@ -57,20 +56,21 @@ export default function SignUp({ navigation }) {
 			setErrortext('El campo Contraseña es requerido');
 			return;
 		}
-		if(!user.firstName){
-			setErrortext('El campo Nombre es requerido')
+		if (!user.firstName) {
+			setErrortext('El campo Nombre es requerido');
 			return;
 		}
 		if (!user.lastName) {
 			setErrortext('El campo Apellido es requerido');
 			return;
-		}if (!user.countryCode) {
+		}
+		if (!user.countryCode) {
 			setErrortext('El campo Codigo de pais es requerido');
 			return;
 		} else {
-			axios.post(`${REACT_APP_API}/auth/register`, user)
-			.then((token) => {
-				axios.get(`${REACT_APP_API}/auth/me`, {
+			axios.post(`${REACT_APP_API}/auth/register`, user).then((token) => {
+				axios
+					.get(`${REACT_APP_API}/auth/me`, {
 						headers: {
 							Authorization: `Bearer ${token.data}`,
 						},
@@ -87,7 +87,7 @@ export default function SignUp({ navigation }) {
 	return (
 		<Container source={backgroundImage}>
 			<LogoView>
-				<Logo source={logoPrueba} />
+				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
 				<LogoText>QuizMe App</LogoText>
 			</LogoView>
 			<InputContainer>
@@ -100,9 +100,7 @@ export default function SignUp({ navigation }) {
 					width={WIDTH}
 					placeholder={'Email'}
 					value={user.email}
-					onChangeText={(value) =>
-						handleInputChange('email', value)
-					}
+					onChangeText={(value) => handleInputChange('email', value)}
 					placeholderTextColor={'rgba(255,255,255,0.7)'}
 					underlineColorAndroid='transparent'
 				/>
@@ -226,6 +224,7 @@ const LogoView = styled.View`
 const Logo = styled.Image`
 	width: 100px;
 	height: 100px;
+	border-radius: 100px;
 `;
 const LogoText = styled.Text`
 	color: white;
