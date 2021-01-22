@@ -9,11 +9,13 @@ const HomeScreen = ({ navigation }) => {
 	return (
 		<Screen centerContent={true}>
 			<Header>
-				<Hamburger onPress={() => navigation.navigate('UserMenu')}>
+				<HeaderButton onPress={() => navigation.navigate('UserMenu')}>
 					<Icon name='ios-menu-outline' size={28} />
-				</Hamburger>
+				</HeaderButton>
 				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
-				<Icon name='ios-search-outline' size={28} />
+				<HeaderButton>
+					<Icon name='ios-search-outline' size={28} />
+				</HeaderButton>
 			</Header>
 			<IntroContainer>
 				<IntroImg source={{ uri: 'https://picsum.photos/100/100' }} />
@@ -34,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
 					</SelectorButton>
 				</SelectorContainer>
 				<QuizCards>
-					<QuizCard>
+					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 						<QuizImg
 							source={{ uri: 'https://picsum.photos/100/100' }}
 						/>
@@ -52,7 +54,7 @@ const HomeScreen = ({ navigation }) => {
 							/>
 						</QuizCheck>
 					</QuizCard>
-					<QuizCard>
+					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 						<QuizImg
 							source={{ uri: 'https://picsum.photos/100/100' }}
 						/>
@@ -70,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
 							/>
 						</QuizCheck>
 					</QuizCard>
-					<QuizCard>
+					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 						<QuizImg
 							source={{ uri: 'https://picsum.photos/100/100' }}
 						/>
@@ -88,7 +90,7 @@ const HomeScreen = ({ navigation }) => {
 							/>
 						</QuizCheck>
 					</QuizCard>
-					<QuizCard>
+					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 						<QuizImg
 							source={{ uri: 'https://picsum.photos/100/100' }}
 						/>
@@ -136,7 +138,7 @@ const HomeScreen = ({ navigation }) => {
 				</ScrollCategory>
 			</View>
 			<QuizCards>
-				<QuizCard>
+				<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 					<QuizImg
 						source={{ uri: 'https://picsum.photos/100/100' }}
 					/>
@@ -154,7 +156,7 @@ const HomeScreen = ({ navigation }) => {
 						/>
 					</QuizCheck>
 				</QuizCard>
-				<QuizCard>
+				<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
 					<QuizImg
 						source={{ uri: 'https://picsum.photos/100/100' }}
 					/>
@@ -180,6 +182,7 @@ const HomeScreen = ({ navigation }) => {
 			<Button
 				title='Dame un Quiz Random'
 				style={{ margin: '40px auto' }}
+				onPress={() => navigation.navigate('QuizIndex')}
 			/>
 			<BottomBar>
 				<Text style={{ fontSize: 20 }}>QuizMeUp</Text>
@@ -196,13 +199,14 @@ const Header = styled.View`
 	width: 100%;
 	height: 65px;
 	padding: 10px;
-	background-color: #55f;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	border-bottom-width: 1px;
+	border-bottom-color: #ccc;
 `;
 
-const Hamburger = styled.TouchableOpacity`
+const HeaderButton = styled.TouchableOpacity`
 	align-items: center;
 	justify-content: center;
 `;
@@ -241,7 +245,10 @@ const SelectorContainer = styled.View`
 const SelectorButton = styled.TouchableOpacity`
 	width: 50%;
 	height: 65px;
-	border: 1px solid black;
+	border-bottom-width: 1px;
+	border-bottom-color: #ccc;
+	border-top-width: 1px;
+	border-top-color: #ccc;
 	align-items: center;
 	justify-content: center;
 `;
@@ -258,7 +265,8 @@ const QuizCards = styled.View`
 const QuizCard = styled.TouchableOpacity`
 	width: 100%;
 	height: 100px;
-	border: 1px solid black;
+	border-bottom-width: 1px;
+	border-bottom-color: #ccc;
 	align-items: center;
 	flex-direction: row;
 	padding: 0 10px;
@@ -312,9 +320,9 @@ const CategoryTitle = styled.Text`
 
 const ScrollCategory = styled.ScrollView`
 	border-top-width: 1px;
-	border-top-color: black;
+	border-top-color: #ccc;
 	border-bottom-width: 1px;
-	border-bottom-color: black;
+	border-bottom-color: #ccc;
 	height: 80px;
 `;
 
@@ -335,12 +343,13 @@ const CategoryName = styled.Text`
 
 const BottomBar = styled.View`
 	width: 100%;
-	height: 40px;
+	height: 50px;
 	padding: 10px;
-	background-color: #55f;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	margin-top: 20px;
+	border-top-width: 1px;
+	border-top-color: #ccc;
 `;
 export default HomeScreen;
