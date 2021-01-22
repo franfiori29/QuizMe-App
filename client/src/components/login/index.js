@@ -7,8 +7,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import strings from './strings';
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setToken } from '@redux/user';
+import logo from '@assets/logo.png';
+import { useDispatch } from 'react-redux';
+import { getUser, setToken } from '@redux/reducers/user';
 
 const { width: WIDTH } = Dimensions.get('window');
 export default function Login({ navigation }) {
@@ -33,8 +34,8 @@ export default function Login({ navigation }) {
 			alert('Ingrese un Email válido');
 			return;
 		}
-		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/g;
-		if (!true) {
+		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ!\s]+$/g;
+		if (!passwordRegex.test(userPassword)) {
 			alert('Caracteres inválidos en contraseña');
 			return;
 		}
@@ -69,8 +70,8 @@ export default function Login({ navigation }) {
 	return (
 		<Container source={backgroundImage}>
 			<LogoView>
-				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
-				<LogoText>QuizMeApp</LogoText>
+				<Logo source={{ uri: logo }} />
+				<LogoText>QuizMe App</LogoText>
 			</LogoView>
 			<InputContainer>
 				<IconImage

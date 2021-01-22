@@ -12,9 +12,9 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //~~~Reducers~~~
-import globalSlice from '@redux/global';
-import userSlice from '@redux/user';
-import quizSlice from '@redux/quizzes';
+import globalSlice from '@redux/reducers/global';
+import userSlice from '@redux/reducers/user';
+import quizSlice from '@redux/reducers/quizzes';
 
 const rootReducer = combineReducers({
 	global: globalSlice,

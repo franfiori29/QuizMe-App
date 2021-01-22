@@ -3,8 +3,8 @@ import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 //==> Actions
-import { changeLanguage, switchTheme } from '@redux/global';
-import { logout } from '@redux/user';
+import { changeLanguage, switchTheme } from '@redux/reducers/global';
+import { logout } from '@redux/reducers/user';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';

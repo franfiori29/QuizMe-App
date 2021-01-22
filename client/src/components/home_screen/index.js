@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
-import { getQuizzes } from '@redux/quizzes';
+import { getQuizzes } from '@redux/reducers/quizzes';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';

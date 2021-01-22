@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { lightTheme, darkTheme } from '../../Theme';
+import { lightTheme, darkTheme } from '@root/Theme';
 
 const globalSlice = createSlice({
 	name: 'global',

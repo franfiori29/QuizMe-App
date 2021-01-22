@@ -4,8 +4,8 @@ import { REACT_APP_API } from '@root/env';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setToken } from '@redux/user';
+import { useDispatch } from 'react-redux';
+import { getUser, setToken } from '@redux/reducers/user';
 import axios from 'axios';
 import strings from './strings';
 

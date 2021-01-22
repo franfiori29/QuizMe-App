@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getClient } from '../constants/api';
+import { getClient } from '@constants/api';
 import { gql } from 'graphql-request';
 
 const queryAllQuizzes = gql`
