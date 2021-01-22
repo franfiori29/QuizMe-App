@@ -7,7 +7,6 @@ module.exports = {
 			const foundQuiz = await Quiz.findById(id)
 				.populate('categoryId')
 				.populate('questions');
-			console.log('foundQuiz :>> ', foundQuiz);
 			if (!foundQuiz) throw new Error('Could not find quiz');
 			return foundQuiz;
 		},
