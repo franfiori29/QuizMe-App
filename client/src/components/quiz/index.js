@@ -1,15 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+const TIME = 10;
 
 const Quiz = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
-	const question = params.question;
+	const questions = params.questions;
+	console.log(questions);
+	const [current, setCurrent] = useState(0);
+	const [correct, setCorrect] = useState(0);
+	const [timer, setTimer] = useState(TIME);
 
+	const [selected, setSelected] = useState({ id: -1, correct: false });
+
+	const nextQuestion = (result) => {
+		if (current >= questions.length - 1) {
+			navigation.navigate('QuizResults', {
+				correct: result ? correct + 1 : correct,
+				total: questions.length,
+				imageQuiz: params.imageQuiz,
+			});
+		} else {
+			if (result) {
+				setCorrect((c) => c + 1);
+				console.log('Le pegaste Capo');
+			}
+		}
+		setCurrent((curr) => curr + 1);
+	};
+	useEffect(() => {
+		setTimer(TIME);
+		let i;
+		if (current < questions.length) {
+			i = setInterval(() => {
+				setTimer((t) => t - 1);
+			}, 1000);
+		}
+
+		return () => clearInterval(i);
+	}, [current]);
+
+	useEffect(() => {
+		if (timer <= 0) {
+			nextQuestion(false);
+		}
+	}, [timer]);
+
+	const handleOptionPress = (result, i) => {
+		setSelected({ id: i, correct: result });
+		setTimer(TIME);
+		setTimeout(() => {
+			setSelected({ id: -1, correct: false });
+			nextQuestion(result);
+		}, 800);
+	};
+
+	const question = questions[current];
+	if (!question) return null;
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -46,7 +97,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 							color: theme.text,
 						}}
 					>
-						Ayuda!
+						{timer}
 					</Text>
 				</View>
 				<MiddleScreen>
@@ -64,13 +115,23 @@ const Quiz = ({ navigation, route: { params } }) => {
 						source={{
 							uri: question.image
 								? question.image
-								: params.imagePapi,
+								: params.imageQuiz,
 						}}
 					/>
 				</MiddleScreen>
 				<BottomScreen>
 					{question.options.map((option, i) => (
-						<Option key={i}>
+						<Option
+							selectedColor={
+								selected.id === i
+									? selected.correct
+										? '#0f0'
+										: '#f00'
+									: false
+							}
+							key={i}
+							onPress={() => handleOptionPress(option.result, i)}
+						>
 							<Text
 								style={{
 									alignSelf: 'center',
@@ -111,6 +172,8 @@ const Option = styled.TouchableOpacity`
 	width: 100%;
 	flex: 1;
 	justify-content: center;
+	background-color: ${(props) =>
+		props.selectedColor ? props.selectedColor : 'transparent'};
 `;
 
 const TimeBar = styled.View`
