@@ -14,7 +14,9 @@ const ScrollCategory = ({ categories, handleSelect }) => {
 		>
 			{categories.map((category) => (
 				<Category
-					selectedColor={selected === category._id ? 'white' : false}
+					selectedColor={
+						selected === category._id ? '#01493d' : false
+					}
 					key={category._id}
 					onPress={() => {
 						setSelected(category._id);

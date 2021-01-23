@@ -21,6 +21,8 @@ const HomeScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const s = strings[language];
 
+	const handleSelect = () => {};
+
 	useEffect(() => {
 		dispatch(getQuizzes());
 	}, []);
@@ -84,7 +86,10 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryTitle>{s.search}</CategoryTitle>
 				</CategoryContainer>
 				<View>
-					<ScrollCategory categories={categories} />
+					<ScrollCategory
+						categories={categories}
+						handleSelect={handleSelect}
+					/>
 				</View>
 				<CategoryContainer>
 					<CategoryImg
