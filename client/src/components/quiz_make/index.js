@@ -125,7 +125,7 @@ const QuizMake = ({ navigation }) => {
 						handleSelect={handleSelect}
 					/>
 					<Text style={{ fontSize: 20, color: theme.text }}>
-						Tiempo de cada pregunta
+						Tiempo de cada pregunta (En segundos)
 					</Text>
 					<TextInput
 						style={{
@@ -135,7 +135,9 @@ const QuizMake = ({ navigation }) => {
 							color: theme.text,
 						}}
 						keyboardType='numeric'
-						onChangeText={(text) => setTime(text)}
+						onChangeText={(text) =>
+							setTime(text.replace(/[^0-9]+/, ''))
+						}
 						value={time.toString()}
 					/>
 					<Text style={{ fontSize: 20, color: theme.text }}>
