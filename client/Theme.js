@@ -1,7 +1,7 @@
 export const darkTheme = {
 	mode: 'dark',
-	bg: '#222b2d',
-	text: '#767d92',
+	bg: '#1b1a1f',
+	text: '#f7fdff',
 	primary: '#04aa8c',
 };
 export const lightTheme = {

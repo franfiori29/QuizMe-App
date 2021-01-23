@@ -76,7 +76,11 @@ const UserMenu = ({ navigation }) => {
 					<Text style={{ color: theme.text }}>{s.subs}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('MyQuizzes')}
+					>
+						<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
+					</TouchableOpacity>
 				</MenuTouchOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>

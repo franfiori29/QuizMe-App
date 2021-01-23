@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
 import { getQuizzes } from '@redux/reducers/quizzes';
 
+/* --- Components --- */
+import QuizCards from '@components/utils/QuizCards';
+import ScrollCategory from '@components/utils/ScrollCategory';
+
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -16,6 +20,8 @@ const HomeScreen = ({ navigation }) => {
 	const { quizzes, categories } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 	const s = strings[language];
+
+	const handleSelect = () => {};
 
 	useEffect(() => {
 		dispatch(getQuizzes());
@@ -55,6 +61,14 @@ const HomeScreen = ({ navigation }) => {
 					<IntroText>{s.introTitle}</IntroText>
 				</IntroContainer>
 				<View>
+					<Button
+						color={theme.primary}
+						title={s.createQuiz}
+						style={{ margin: '40px auto' }}
+						onPress={() => navigation.navigate('QuizMake')}
+					/>
+				</View>
+				<View>
 					<SelectorContainer>
 						<SelectorButton>
 							<SelectorText>{s.selector1}</SelectorText>
@@ -63,44 +77,7 @@ const HomeScreen = ({ navigation }) => {
 							<SelectorText>{s.selector2}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards>
-						{!!quizzes.length &&
-							quizzes.map((quiz) => (
-								<QuizCard
-									key={quiz._id}
-									onPress={() =>
-										navigation.navigate('QuizIndex', {
-											quiz,
-										})
-									}
-								>
-									<QuizImg
-										source={{
-											uri: quiz.image,
-										}}
-									/>
-									<QuizInfo>
-										<QuizTitle>{quiz.title}</QuizTitle>
-										<StyledText>
-											{quiz.description}
-										</StyledText>
-										<StyledText>
-											{quiz.likes} Likes
-										</StyledText>
-									</QuizInfo>
-									<QuizCheck>
-										<Text style={{ color: theme.primary }}>
-											{s.completed}
-										</Text>
-										<Icon
-											name='checkmark-circle-outline'
-											size={20}
-											style={{ color: theme.primary }}
-										/>
-									</QuizCheck>
-								</QuizCard>
-							))}
-					</QuizCards>
+					<QuizCards navigation={navigation} quizzes={quizzes} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg
@@ -110,61 +87,10 @@ const HomeScreen = ({ navigation }) => {
 				</CategoryContainer>
 				<View>
 					<ScrollCategory
-						horizontal={true}
-						centerContent={true}
-						overScrollMode='never'
-					>
-						{categories.map((category) => (
-							<Category key={category._id}>
-								<CategoryName>
-									{category[`description_${language}`]}
-								</CategoryName>
-							</Category>
-						))}
-					</ScrollCategory>
+						categories={categories}
+						handleSelect={handleSelect}
+					/>
 				</View>
-				<QuizCards>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<StyledText>Descripcion breve del Quiz</StyledText>
-							<StyledText>
-								Jugado 77898798 Veces - 1903 Likes
-							</StyledText>
-						</QuizInfo>
-						<QuizCheck>
-							<StyledText>{s.completed}</StyledText>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: theme.primary }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-					<QuizCard onPress={() => navigation.navigate('QuizIndex')}>
-						<QuizImg
-							source={{ uri: 'https://picsum.photos/100/100' }}
-						/>
-						<QuizInfo>
-							<QuizTitle>Titulo del Quiz</QuizTitle>
-							<StyledText>Descripcion breve del Quiz</StyledText>
-							<StyledText>
-								Jugado 77898798 Veces - 1903 Likes
-							</StyledText>
-						</QuizInfo>
-						<QuizCheck>
-							<StyledText>{s.completed}</StyledText>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: theme.primary }}
-							/>
-						</QuizCheck>
-					</QuizCard>
-				</QuizCards>
 				<CategoryContainer>
 					<CategoryImg
 						source={{ uri: 'https://picsum.photos/75/75' }}
@@ -263,45 +189,6 @@ const SelectorText = styled.Text`
 	color: ${(props) => props.theme.primary};
 `;
 
-const QuizCards = styled.View`
-	width: 100%;
-`;
-const QuizCard = styled.TouchableOpacity`
-	width: 100%;
-	height: 100px;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-	align-items: center;
-	flex-direction: row;
-	padding: 0 10px;
-`;
-
-const QuizImg = styled.Image`
-	z-index: 3;
-	height: 70px;
-	width: 70px;
-	border-radius: 25px;
-`;
-
-const QuizInfo = styled.View`
-	height: 100%;
-	padding: 15px;
-	justify-content: space-around;
-`;
-
-const QuizTitle = styled.Text`
-	font-size: 18px;
-	font-weight: bold;
-	color: ${(props) => props.theme.text};
-`;
-
-const QuizCheck = styled.View`
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	flex-direction: row-reverse;
-	align-items: center;
-`;
 const CategoryContainer = styled.View`
 	height: 150px;
 	width: 100%;
@@ -322,30 +209,6 @@ const CategoryTitle = styled.Text`
 	font-weight: bold;
 	text-align: center;
 	color: ${(props) => props.theme.text};
-`;
-
-const ScrollCategory = styled.ScrollView`
-	border-top-width: 1px;
-	border-top-color: #ccc;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-	height: 80px;
-`;
-
-const Category = styled.TouchableOpacity`
-	height: 60px;
-	width: 200px;
-	margin: auto 20px;
-	border: 2px solid ${(props) => props.theme.primary};
-	justify-content: center;
-	align-items: center;
-`;
-
-const CategoryName = styled.Text`
-	font-size: 18px;
-	text-align: center;
-	text-transform: uppercase;
-	color: ${(props) => props.theme.primary};
 `;
 
 const BottomBar = styled.View`
