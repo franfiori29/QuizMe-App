@@ -23,8 +23,9 @@ const userSchema = new Schema(
 			default: 'USER',
 		},
 		premium: { type: Boolean, default: false },
+		correctQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
 
 userSchema.plugin(uniqueValidator, {
@@ -35,7 +36,7 @@ userSchema.methods.compare = function (password, isReset) {
 	if (this.password || this.reset_code)
 		return bcrypt.compareSync(
 			password.toString(),
-			isReset ? this.reset_code : this.password,
+			isReset ? this.reset_code : this.password
 		);
 	else return false;
 };
@@ -46,7 +47,7 @@ userSchema.pre('save', function (next) {
 	else {
 		if (
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(
-				that.password,
+				that.password
 			)
 		) {
 			const salt = bcrypt.genSaltSync(10);

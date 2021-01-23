@@ -9,6 +9,7 @@ const users = [
 		lastName: 'Contreras',
 		countryCode: 1,
 		role: 'ADMIN',
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
 	},
 	{
 		email: 'emi@mail.com',
@@ -16,6 +17,7 @@ const users = [
 		firstName: 'Emiliano',
 		lastName: 'Alfonso',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0001')],
 	},
 	{
 		email: 'fran@mail.com',
@@ -23,6 +25,7 @@ const users = [
 		firstName: 'Fran',
 		lastName: 'Fiori',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
 		email: 'paco@mail.com',
@@ -30,6 +33,7 @@ const users = [
 		firstName: 'Paco',
 		lastName: 'Ortiz',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
 		email: 'tincho@mail.com',
@@ -37,6 +41,7 @@ const users = [
 		firstName: 'Tincho',
 		lastName: 'Sanchez',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
 		email: 'bruno@mail.com',
@@ -44,6 +49,7 @@ const users = [
 		firstName: 'Bruno',
 		lastName: 'Gallardo',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
 		email: 'santi@mail.com',
@@ -51,6 +57,7 @@ const users = [
 		firstName: 'Santi',
 		lastName: 'Calisaya',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
 		email: 'ailu@mail.com',
@@ -58,6 +65,7 @@ const users = [
 		firstName: 'Ailin',
 		lastName: 'Nakaganeku',
 		countryCode: 1,
+		correctQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 ];
 
