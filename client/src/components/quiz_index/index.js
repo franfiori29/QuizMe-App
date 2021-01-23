@@ -22,12 +22,12 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					<Title>{quiz.title}</Title>
 					<QuantityContainer>
 						<TouchableOpacity>
-							<Text style={{ color: theme.text }}>
+							<Text style={{ color: theme.primary }}>
 								{quiz.questions.length} {s.quest}
 							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity>
-							<Text style={{ color: theme.text }}>
+							<Text style={{ color: theme.primary }}>
 								{quiz.likes} Likes
 							</Text>
 						</TouchableOpacity>
@@ -45,7 +45,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					>
 						<Text
 							adjustsFontSizeToFit={true}
-							style={{ color: theme.text }}
+							style={{ color: theme.primary }}
 						>
 							{s.startBtn}
 						</Text>
@@ -103,7 +103,7 @@ const Title = styled.Text`
 	text-align: center;
 	text-transform: uppercase;
 	margin-top: 30px;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 `;
 
 const QuantityContainer = styled.View`
@@ -122,7 +122,7 @@ const Description = styled.Text`
 `;
 
 const StartButton = styled.TouchableOpacity`
-	border: 2px solid ${(props) => props.theme.text};
+	border: 2px solid ${(props) => props.theme.primary};
 	padding: 10px;
 	width: 200px;
 	justify-content: center;

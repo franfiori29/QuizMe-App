@@ -29,13 +29,17 @@ const UserMenu = ({ navigation }) => {
 			<Screen>
 				<Header>
 					<HeaderButton onPress={() => navigation.goBack()}>
-						<Icon name='ios-close' color={theme.text} size={28} />
+						<Icon
+							name='ios-close'
+							color={theme.primary}
+							size={28}
+						/>
 					</HeaderButton>
 					<HeaderText>QuizMeApp</HeaderText>
 					<HeaderButton>
 						<Icon
 							name='ios-search-outline'
-							color={theme.text}
+							color={theme.primary}
 							size={28}
 						/>
 					</HeaderButton>
@@ -60,7 +64,7 @@ const UserMenu = ({ navigation }) => {
 					<AccTypeButton>
 						<Text
 							style={{
-								color: 'blue',
+								color: theme.primary,
 								textTransform: 'uppercase',
 							}}
 						>
@@ -77,7 +81,11 @@ const UserMenu = ({ navigation }) => {
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>
 						{s.email}{' '}
-						<Text style={{ fontWeight: 'bold' }}>{user.email}</Text>
+						<Text
+							style={{ fontWeight: 'bold', color: theme.primary }}
+						>
+							{user.email}
+						</Text>
 					</Text>
 				</MenuTouchOption>
 				<AccType>
@@ -87,7 +95,7 @@ const UserMenu = ({ navigation }) => {
 					<AccTypeButton>
 						<Text
 							style={{
-								color: 'blue',
+								color: theme.primary,
 								textTransform: 'uppercase',
 							}}
 						>
@@ -106,7 +114,7 @@ const UserMenu = ({ navigation }) => {
 					style={{ justifyContent: 'space-between' }}
 				>
 					<Text style={{ color: theme.text }}>{s.dark}</Text>
-					<Text style={{ fontWeight: 'bold', color: theme.text }}>
+					<Text style={{ fontWeight: 'bold', color: theme.primary }}>
 						{theme.mode === 'light' ? s.dark2 : s.dark1}
 					</Text>
 				</MenuTouchOption>
@@ -115,7 +123,7 @@ const UserMenu = ({ navigation }) => {
 					onPress={() => dispatch(changeLanguage())}
 				>
 					<Text style={{ color: theme.text }}>{s.lang}</Text>
-					<Text style={{ fontWeight: 'bold', color: theme.text }}>
+					<Text style={{ fontWeight: 'bold', color: theme.primary }}>
 						{language.toUpperCase()}
 					</Text>
 				</MenuTouchOption>
@@ -130,7 +138,7 @@ const UserMenu = ({ navigation }) => {
 				</MenuTouchOption>
 				<MenuTouchOption style={{ justifyContent: 'space-between' }}>
 					<Text style={{ color: theme.text }}>{s.version}</Text>
-					<Text style={{ color: '#999' }}>0.0.1(Alpha)</Text>
+					<Text style={{ color: theme.primary }}>0.0.1(Alpha)</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					style={{
@@ -143,7 +151,7 @@ const UserMenu = ({ navigation }) => {
 				>
 					<Text
 						style={{
-							color: 'blue',
+							color: theme.primary,
 							fontWeight: 'bold',
 							fontSize: 16,
 						}}
@@ -178,7 +186,7 @@ const HeaderButton = styled.TouchableOpacity`
 
 const HeaderText = styled.Text`
 	font-size: 20px;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 `;
 
 const UserContainer = styled.View`
@@ -206,7 +214,7 @@ const UserName = styled.Text`
 `;
 
 const UserText = styled.Text`
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 	text-align: center;
 	padding: 0 10px;
 `;
@@ -226,7 +234,7 @@ const AccTypeButton = styled.TouchableOpacity`
 	height: 30px;
 	align-items: center;
 	justify-content: center;
-	border: 2px solid blue;
+	border: 2px solid ${(props) => props.theme.primary};
 `;
 
 const MenuTouchOption = styled.TouchableOpacity`
