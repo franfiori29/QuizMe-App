@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const quizzes = [
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0000'),
 		title: 'Fórmulas matemáticas',
 		description:
 			'Resuelve las más difíciles fórmulas matemáticas conocidas por el hombre!',
@@ -17,6 +18,7 @@ const quizzes = [
 		],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0001'),
 		title: 'Fisica: Fuerza',
 		description:
 			'Adentrate en el maravilloso mundo de la fisica. Solo tu puedes hacerlo',
@@ -32,6 +34,7 @@ const quizzes = [
 		],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0002'),
 		title: 'Adivina la banda',
 		description: 'Adivina la banda a partir de la tapa del disco',
 		image:
@@ -46,6 +49,7 @@ const quizzes = [
 		],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0003'),
 		title: 'Soccer Trivia!',
 		description:
 			'Are you the best soccer fan? Then this trivia is for you!',
@@ -60,6 +64,7 @@ const quizzes = [
 		],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0004'),
 		title: 'Star Wars Trivia',
 		description:
 			'Demostrale a tus amigos que eres el más fanático de Star Wars!',
@@ -75,6 +80,7 @@ const quizzes = [
 		],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0005'),
 		title: '¿Quién es el actor?',
 		description: '¿Eres un cinéfilo? Demuéstralo!',
 		image:

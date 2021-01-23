@@ -30,17 +30,17 @@ const HomeScreen = ({ navigation }) => {
 					>
 						<Icon
 							name='ios-menu-outline'
-							color={theme.text}
+							color={theme.primary}
 							size={28}
 						/>
 					</HeaderButton>
-					<StyledText style={{ fontSize: 20, color: theme.text }}>
+					<StyledText style={{ fontSize: 20, color: theme.primary }}>
 						QuizMeApp
 					</StyledText>
 					<HeaderButton>
 						<Icon
 							name='ios-search-outline'
-							color={theme.text}
+							color={theme.primary}
 							size={28}
 						/>
 					</HeaderButton>
@@ -89,13 +89,13 @@ const HomeScreen = ({ navigation }) => {
 										</StyledText>
 									</QuizInfo>
 									<QuizCheck>
-										<Text style={{ color: theme.text }}>
+										<Text style={{ color: theme.primary }}>
 											{s.completed}
 										</Text>
 										<Icon
 											name='checkmark-circle-outline'
 											size={20}
-											style={{ color: 'green' }}
+											style={{ color: theme.primary }}
 										/>
 									</QuizCheck>
 								</QuizCard>
@@ -140,7 +140,7 @@ const HomeScreen = ({ navigation }) => {
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
-								style={{ color: 'green' }}
+								style={{ color: theme.primary }}
 							/>
 						</QuizCheck>
 					</QuizCard>
@@ -160,7 +160,7 @@ const HomeScreen = ({ navigation }) => {
 							<Icon
 								name='checkmark-circle-outline'
 								size={20}
-								style={{ color: 'green' }}
+								style={{ color: theme.primary }}
 							/>
 						</QuizCheck>
 					</QuizCard>
@@ -172,12 +172,13 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
 				<Button
+					color={theme.primary}
 					title={s.randomButton}
 					style={{ margin: '40px auto' }}
 					onPress={() => navigation.navigate('QuizIndex')}
 				/>
 				<BottomBar>
-					<StyledText style={{ fontSize: 20, color: theme.text }}>
+					<StyledText style={{ fontSize: 20, color: theme.primary }}>
 						QuizMeApp
 					</StyledText>
 				</BottomBar>
@@ -230,7 +231,7 @@ const IntroTitle = styled.Text`
 	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 `;
 
 const IntroText = styled.Text`
@@ -259,7 +260,7 @@ const SelectorText = styled.Text`
 	font-size: 20px;
 	text-align: center;
 	text-transform: uppercase;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 `;
 
 const QuizCards = styled.View`
@@ -335,7 +336,7 @@ const Category = styled.TouchableOpacity`
 	height: 60px;
 	width: 200px;
 	margin: auto 20px;
-	border: 2px solid ${(props) => props.theme.text};
+	border: 2px solid ${(props) => props.theme.primary};
 	justify-content: center;
 	align-items: center;
 `;
@@ -344,7 +345,7 @@ const CategoryName = styled.Text`
 	font-size: 18px;
 	text-align: center;
 	text-transform: uppercase;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 `;
 
 const BottomBar = styled.View`

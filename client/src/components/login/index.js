@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Dimensions, Text } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import axios from 'axios';
-import styled from 'styled-components/native';
+import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import strings from './strings';
 import { SocialIcon } from 'react-native-elements';
@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
 	const [userPassword, setUserPassword] = useState('');
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrorText] = useState('');
-	const { language } = useSelector((state) => state.global);
+	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
 
 	const onPress = () => setHidePass((prevState) => !prevState);
@@ -68,78 +68,81 @@ export default function Login({ navigation }) {
 	};
 
 	return (
-		<Container source={backgroundImage}>
-			<LogoView>
-				<Logo source={logo} />
-				<LogoText>QuizMe App</LogoText>
-			</LogoView>
-			<InputContainer>
-				<IconImage
-					name={'ios-person-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputLogin
-					onChangeText={(UserEmail) => setEmail(UserEmail)}
-					width={WIDTH}
-					placeholder={s.email}
-					onChangeText={(Email) => setEmail(Email)}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-			</InputContainer>
-			<InputContainer>
-				<IconImage
-					name={'ios-lock-closed-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputLogin
-					onChangeText={(UserPassword) =>
-						setUserPassword(UserPassword)
-					}
-					width={WIDTH}
-					placeholder={s.pass}
-					onChangeText={(UserPassword) =>
-						setUserPassword(UserPassword)
-					}
-					secureTextEntry={hidePass}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-				<Button onPress={onPress}>
-					<Icon
-						name={'ios-eye-outline'}
-						size={26}
+		<ThemeProvider theme={theme}>
+			<Container source={backgroundImage}>
+				<LogoView>
+					<Logo source={logo} />
+					<LogoText>QuizMe App</LogoText>
+				</LogoView>
+				<InputContainer>
+					<IconImage
+						name={'ios-person-outline'}
+						size={28}
 						color={'rgba(255,255,255,0.7)'}
 					/>
-				</Button>
-			</InputContainer>
-			<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
-				<Description>{s.login}</Description>
-			</ButtonLogin>
-			<SocialIconGoogle
-				width={WIDTH}
-				title={s.google}
-				button
-				type='google'
-			/>
-			<TextView>
-				<Text>
-					{s.acc}
-					<Text
-						style={{ fontWeight: '500', color: 'blue' }}
-						onPress={handleSignUp}
-					>
-						{s.signup}
+					<InputLogin
+						onChangeText={(UserEmail) => setEmail(UserEmail)}
+						width={WIDTH}
+						placeholder={s.email}
+						onChangeText={(Email) => setEmail(Email)}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
+				<InputContainer>
+					<IconImage
+						name={'ios-lock-closed-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputLogin
+						onChangeText={(UserPassword) =>
+							setUserPassword(UserPassword)
+						}
+						width={WIDTH}
+						placeholder={s.pass}
+						onChangeText={(UserPassword) =>
+							setUserPassword(UserPassword)
+						}
+						secureTextEntry={hidePass}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+					<Button onPress={onPress}>
+						<Icon
+							name={'ios-eye-outline'}
+							size={26}
+							color={theme.primary}
+						/>
+					</Button>
+				</InputContainer>
+				<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
+					<Description>{s.login}</Description>
+				</ButtonLogin>
+				<SocialIconGoogle
+					width={WIDTH}
+					title={s.google}
+					button
+					type='google'
+				/>
+				<TextView>
+					<Text style={{ color: theme.text }}>
+						{s.acc}
+						<Text
+							style={{ fontWeight: '500', color: theme.primary }}
+							onPress={handleSignUp}
+						>
+							{s.signup}
+						</Text>
 					</Text>
-				</Text>
-			</TextView>
-		</Container>
+				</TextView>
+			</Container>
+		</ThemeProvider>
 	);
 }
 
-const Container = styled.ImageBackground`
+const Container = styled.View`
+	background-color: ${(props) => props.theme.bg};
 	flex: 1;
 	justify-content: center;
 	align-items: center;
@@ -156,7 +159,7 @@ const Logo = styled.Image`
 	border-radius: 100px;
 `;
 const LogoText = styled.Text`
-	color: white;
+	color: ${(props) => props.theme.primary};
 	font-size: 30px;
 	font-weight: 500;
 	margin-top: 10px;
@@ -188,7 +191,7 @@ const Button = styled.TouchableOpacity`
 const ButtonLogin = styled.TouchableOpacity`
 	width: ${(props) => props.width - 55}px;
 	height: 45px;
-	background-color: #000000;
+	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
 	margin-top: 20px;
 	padding: 16px 70px;
