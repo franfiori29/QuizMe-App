@@ -115,7 +115,7 @@ const HomeScreen = ({ navigation }) => {
 						overScrollMode='never'
 					>
 						{categories.map((category) => (
-							<Category>
+							<Category key={category._id}>
 								<CategoryName>
 									{category[`description_${language}`]}
 								</CategoryName>
