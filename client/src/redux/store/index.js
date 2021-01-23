@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import globalSlice from '@redux/reducers/global';
 import userSlice from '@redux/reducers/user';
 import quizSlice from '@redux/reducers/quizzes';
+import persistStore from 'redux-persist/es/persistStore';
 
 const rootReducer = combineReducers({
 	global: globalSlice,
@@ -24,8 +25,8 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
 	key: 'root',
-	version: 1,
 	storage: AsyncStorage,
+	whitelist: ['user', 'global'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,4 +38,6 @@ const store = configureStore({
 	}),
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

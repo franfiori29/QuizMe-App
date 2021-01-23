@@ -76,19 +76,21 @@ passport.use(
 					last_name: profile.name.familyName,
 					email: profile.emails[0].value,
 					is_admin: false,
-					googleId: profile.id,
-					profile_pic: profile.photos[0].value.replace(
+					accountId: profile.id,
+					socialAccount: 'google',
+					profilePic: profile.photos[0].value.replace(
 						's96-c',
 						's300-c'
 					),
 					password: null,
 				};
-				const foundUser = await User.findOne({
-					where: { email: user.email },
-				});
+				const foundUser = await User.findOne({ email: user.email });
 				if (foundUser) {
-					const updatedUser = await foundUser.update(user);
-					done(null, updatedUser);
+					foundUser.profilePic = user.profilePic;
+					foundUser.accountId = user.accountId;
+					foundUser.socialAccount = user.socialAccount;
+					await foundUser.save;
+					done(null, foundUser);
 				} else {
 					const createdUser = await User.create(user);
 					done(null, createdUser);
