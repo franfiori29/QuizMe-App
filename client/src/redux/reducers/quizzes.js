@@ -11,6 +11,7 @@ const queryAllQuizzes = gql`
 			description
 			image
 			likes
+			time
 			categoryId {
 				_id
 				description_en
@@ -20,7 +21,6 @@ const queryAllQuizzes = gql`
 				_id
 				title
 				score
-				time
 				image
 				options {
 					title
@@ -53,6 +53,7 @@ const quizCreateOne = gql`
 			description
 			image
 			likes
+			time
 			categoryId {
 				_id
 				description_en
@@ -62,7 +63,6 @@ const quizCreateOne = gql`
 				_id
 				title
 				score
-				time
 				image
 				options {
 					title

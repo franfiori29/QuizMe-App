@@ -10,10 +10,9 @@ const questionSchema = new Schema(
 			},
 		],
 		image: String,
-		time: { type: Number, default: 10 },
 		score: { type: Number, required: true },
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
 
 module.exports = model('Question', questionSchema);

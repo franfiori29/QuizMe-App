@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
+import { Platform } from 'react-native';
 
 //~~~Components~~~
 import QuizIndex from '@components/quiz_index';
@@ -19,10 +20,14 @@ import { setToken } from '@redux/reducers/user';
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		const token = new URLSearchParams(window.location.search).get('jwt');
-		if (token) {
-			dispatch(setToken(token));
-			dispatch(getUser());
+		if (Platform.OS === 'web') {
+			const token = new URLSearchParams(window.location.search).get(
+				'jwt'
+			);
+			if (token) {
+				dispatch(setToken(token));
+				dispatch(getUser());
+			}
 		}
 	}, []);
 
@@ -33,9 +38,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={
-					!!Object.keys(user).length ? 'QuizMake' : 'Login'
-				}
+				initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />

@@ -9,6 +9,7 @@ module.exports = gql`
 		likes: Int!
 		categoryId: Category!
 		questions: [Question!]!
+		time: Int!
 	}
 
 	type Question {
@@ -16,7 +17,6 @@ module.exports = gql`
 		title: String!
 		options: [Option!]!
 		image: String
-		time: Int!
 		score: Int!
 	}
 
@@ -40,7 +40,6 @@ module.exports = gql`
 		title: String!
 		options: [InputOption!]!
 		image: String
-		time: Int
 		score: Int!
 	}
 
@@ -49,6 +48,7 @@ module.exports = gql`
 		description: String!
 		image: String!
 		likes: Int
+		time: Int
 		categoryId: String!
 		questions: [InputQuestion!]!
 	}

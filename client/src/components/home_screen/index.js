@@ -4,7 +4,8 @@ import { View, Text, Button } from 'react-native';
 import { getQuizzes } from '@redux/reducers/quizzes';
 
 /* --- Components --- */
-import QuizCards from '../utils/QuizCards';
+import QuizCards from '@components/utils/QuizCards';
+import ScrollCategory from '@components/utils/ScrollCategory';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -74,7 +75,7 @@ const HomeScreen = ({ navigation }) => {
 							<SelectorText>{s.selector2}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards quizzes={quizzes} />
+					<QuizCards navigation={navigation} quizzes={quizzes} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg
@@ -83,19 +84,7 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryTitle>{s.search}</CategoryTitle>
 				</CategoryContainer>
 				<View>
-					<ScrollCategory
-						horizontal={true}
-						centerContent={true}
-						overScrollMode='never'
-					>
-						{categories.map((category) => (
-							<Category key={category._id}>
-								<CategoryName>
-									{category[`description_${language}`]}
-								</CategoryName>
-							</Category>
-						))}
-					</ScrollCategory>
+					<ScrollCategory categories={categories} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg
@@ -215,30 +204,6 @@ const CategoryTitle = styled.Text`
 	font-weight: bold;
 	text-align: center;
 	color: ${(props) => props.theme.text};
-`;
-
-const ScrollCategory = styled.ScrollView`
-	border-top-width: 1px;
-	border-top-color: #ccc;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-	height: 80px;
-`;
-
-const Category = styled.TouchableOpacity`
-	height: 60px;
-	width: 200px;
-	margin: auto 20px;
-	border: 2px solid ${(props) => props.theme.primary};
-	justify-content: center;
-	align-items: center;
-`;
-
-const CategoryName = styled.Text`
-	font-size: 18px;
-	text-align: center;
-	text-transform: uppercase;
-	color: ${(props) => props.theme.primary};
 `;
 
 const BottomBar = styled.View`

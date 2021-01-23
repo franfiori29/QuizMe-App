@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
 import { Text } from 'react-native';
-const QuizCards = ({ quizzes }) => {
+const QuizCards = ({ navigation, quizzes }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 
