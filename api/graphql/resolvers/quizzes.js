@@ -27,7 +27,10 @@ module.exports = {
 			quiz.questions = (await Question.create(quiz.questions)).map(
 				(q) => q._id
 			);
-			const newQuiz = await Quiz.create(quiz);
+			const newQuiz = (await Quiz.create(quiz))
+				.populate('questions')
+				.populate('categoryId')
+				.execPopulate();
 			return newQuiz;
 		},
 	},

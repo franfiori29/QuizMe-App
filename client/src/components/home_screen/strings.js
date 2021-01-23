@@ -9,6 +9,7 @@ const strings = {
 		search: 'Search by categories!',
 		find: "Didn't find one you like?",
 		randomButton: 'Give me a random quiz',
+		createQuiz: 'Make your own quiz',
 	},
 
 	es: {
@@ -21,6 +22,7 @@ const strings = {
 		search: '¡Busca por categorías!',
 		find: '¿No encontraste uno que te guste?',
 		randomButton: 'Dame un quiz random',
+		createQuiz: 'Crea tu propio quiz',
 	},
 };
 

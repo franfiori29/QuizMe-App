@@ -6,35 +6,6 @@ module.exports = gql`
 		ORG
 		ADMIN
 	}
-	type Quiz {
-		_id: ID!
-		title: String!
-		description: String!
-		image: String!
-		likes: Int!
-		categoryId: Category!
-		questions: [Question!]!
-	}
-
-	type Question {
-		_id: ID!
-		title: String!
-		options: [Option!]!
-		image: String
-		time: Int!
-		score: Int!
-	}
-
-	type Option {
-		title: String!
-		result: Boolean!
-	}
-
-	type Category {
-		_id: ID!
-		description_en: String
-		description_es: String
-	}
 
 	type User {
 		_id: ID!

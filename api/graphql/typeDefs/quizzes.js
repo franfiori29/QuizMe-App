@@ -47,7 +47,7 @@ module.exports = gql`
 	input QuizInput {
 		title: String!
 		description: String!
-		img: String!
+		image: String!
 		likes: Int
 		categoryId: String!
 		questions: [InputQuestion!]!
