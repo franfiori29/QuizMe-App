@@ -38,8 +38,8 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					<StartButton
 						onPress={() =>
 							navigation.navigate('Quiz', {
-								question: quiz.questions[0],
-								imagePapi: quiz.image,
+								questions: quiz.questions,
+								imageQuiz: quiz.image,
 							})
 						}
 					>
