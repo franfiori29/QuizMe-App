@@ -10,6 +10,9 @@ const userSlice = createSlice({
 		getUser: (state, { payload }) => {
 			state.info = payload;
 		},
+		getUserA: (state, { payload }) => {
+			state.info = payload;
+		},
 		setToken: (state, { payload }) => {
 			state.token = payload;
 		},

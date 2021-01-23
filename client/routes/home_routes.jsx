@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //~~~Components~~~
 import QuizIndex from '@components/quiz_index/index';
@@ -11,9 +11,20 @@ import Login from '@components/login';
 import SignUp from '@components/signup';
 import UserMenu from '@components/user_menu';
 import Profile from '@components/profile';
-import QuizResults from './../src/components/quiz_results/index';
+import QuizResults from '@components/quiz_results/index';
+
+import { setToken } from '@redux/reducers/user';
 
 const HomeRoutes = () => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		const token = new URLSearchParams(window.location.search).get('jwt');
+		if (token) {
+			dispatch(setToken(token));
+			dispatch(getUser());
+		}
+	}, []);
+
 	const { Navigator, Screen } = createStackNavigator();
 	const { info: user } = useSelector((state) => state.user);
 	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)

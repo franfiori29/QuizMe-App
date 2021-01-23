@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Dimensions, Text } from 'react-native';
+import React, { useState } from 'react';
+import { Dimensions, Linking, Text } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -124,6 +124,9 @@ export default function Login({ navigation }) {
 					title={s.google}
 					button
 					type='google'
+					onPress={() =>
+						Linking.openURL(`${REACT_APP_API}/auth/google`)
+					}
 				/>
 				<TextView>
 					<Text style={{ color: theme.text }}>
