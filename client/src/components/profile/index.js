@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +15,26 @@ import strings from './strings';
 export default function Profile({ navigation }) {
 	const { theme, language } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
+	const [picture, setPicture] = useState(null);
 	const s = strings[language];
+
+	const openImagePickerAsync = async () => {
+		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
+
+		if (permissionResult.granted === false) {
+			alert(
+				`The image is available for sharing at: ${picture.remoteUri}`
+			);
+			return;
+		}
+
+		const pickerResult = await ImagePicker.launchImageLibraryAsync();
+		if (pickerResult.cancelled === true) {
+			return;
+		} else {
+			setPicture({ localUri: pickerResult.uri });
+		}
+	};
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -40,9 +60,14 @@ export default function Profile({ navigation }) {
 					</HeaderButton>
 				</Header>
 				<UserContainer>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg
-							source={{ uri: 'https://picsum.photos/150/150' }}
+							source={{
+								uri:
+									picture !== null
+										? picture.localUri
+										: 'https://picsum.photos/150/150',
+							}}
 						/>
 						<Pencil
 							color={theme.text}
