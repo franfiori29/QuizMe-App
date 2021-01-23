@@ -10,7 +10,6 @@ const TIME = 10;
 const Quiz = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
 	const questions = params.questions;
-	console.log(questions);
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
 	const [timer, setTimer] = useState(TIME);
@@ -27,7 +26,6 @@ const Quiz = ({ navigation, route: { params } }) => {
 		} else {
 			if (result) {
 				setCorrect((c) => c + 1);
-				console.log('Le pegaste Capo');
 			}
 		}
 		setCurrent((curr) => curr + 1);
@@ -85,7 +83,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 							color: theme.text,
 						}}
 					>
-						3/10
+						{current + 1}/{questions.length}
 					</Text>
 				</Header>
 				<View style={{ position: 'relative' }}>
