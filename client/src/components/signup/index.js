@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Dimensions, Text } from 'react-native';
 import { REACT_APP_API } from '@root/env';
-import styled from 'styled-components/native';
+import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
 import axios from 'axios';
 import strings from './strings';
@@ -13,7 +13,7 @@ const { width: WIDTH } = Dimensions.get('window');
 
 export default function SignUp({ navigation }) {
 	const dispatch = useDispatch();
-	const { language } = useSelector((state) => state.global);
+	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
 
 	const [hidePass, setHidePass] = useState(true);
@@ -88,132 +88,137 @@ export default function SignUp({ navigation }) {
 	};
 
 	return (
-		<Container source={backgroundImage}>
-			<LogoView>
-				<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
-				<LogoText>QuizMeApp</LogoText>
-			</LogoView>
-			<InputContainer>
-				<IconImage
-					name={'mail-open-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputSignUp
-					width={WIDTH}
-					placeholder={s.email}
-					value={user.email}
-					onChangeText={(value) => handleInputChange('email', value)}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-			</InputContainer>
-			<InputContainer>
-				<IconImage
-					name={'ios-lock-closed-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputSignUp
-					width={WIDTH}
-					placeholder={s.pass}
-					value={user.password}
-					onChangeText={(value) =>
-						handleInputChange('password', value)
-					}
-					secureTextEntry={hidePass}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-				<Button onPress={onPress}>
-					<Icon
-						name={'ios-eye-outline'}
-						size={26}
+		<ThemeProvider theme={theme}>
+			<Container source={backgroundImage}>
+				<LogoView>
+					<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
+					<LogoText>QuizMeApp</LogoText>
+				</LogoView>
+				<InputContainer>
+					<IconImage
+						name={'mail-open-outline'}
+						size={28}
 						color={'rgba(255,255,255,0.7)'}
 					/>
-				</Button>
-			</InputContainer>
-			<InputContainer>
-				<IconImage
-					name={'ios-person-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputSignUp
-					width={WIDTH}
-					placeholder={s.name}
-					value={user.firstName}
-					onChangeText={(value) =>
-						handleInputChange('firstName', value)
-					}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-			</InputContainer>
-			<InputContainer>
-				<IconImage
-					name={'ios-person-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputSignUp
-					width={WIDTH}
-					placeholder={s.lastName}
-					value={user.lastName}
-					onChangeText={(value) =>
-						handleInputChange('lastName', value)
-					}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-			</InputContainer>
-			<InputContainer>
-				<IconImage
-					name={'ios-person-outline'}
-					size={28}
-					color={'rgba(255,255,255,0.7)'}
-				/>
-				<InputSignUp
-					width={WIDTH}
-					placeholder={'Codigo de pais'}
-					value={user.countryCode}
-					onChangeText={(value) =>
-						handleInputChange('countryCode', value)
-					}
-					placeholderTextColor={'rgba(255,255,255,0.7)'}
-					underlineColorAndroid='transparent'
-				/>
-			</InputContainer>
-			<TextView>
-				<Text>
-					<Text
-						style={{ fontWeight: '500', color: 'blue' }}
-						onPress={handleLoginPress}
-					>
-						{errortext}
+					<InputSignUp
+						width={WIDTH}
+						placeholder={s.email}
+						value={user.email}
+						onChangeText={(value) =>
+							handleInputChange('email', value)
+						}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
+				<InputContainer>
+					<IconImage
+						name={'ios-lock-closed-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputSignUp
+						width={WIDTH}
+						placeholder={s.pass}
+						value={user.password}
+						onChangeText={(value) =>
+							handleInputChange('password', value)
+						}
+						secureTextEntry={hidePass}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+					<Button onPress={onPress}>
+						<Icon
+							name={'ios-eye-outline'}
+							size={26}
+							color={'rgba(255,255,255,0.7)'}
+						/>
+					</Button>
+				</InputContainer>
+				<InputContainer>
+					<IconImage
+						name={'ios-person-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputSignUp
+						width={WIDTH}
+						placeholder={s.name}
+						value={user.firstName}
+						onChangeText={(value) =>
+							handleInputChange('firstName', value)
+						}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
+				<InputContainer>
+					<IconImage
+						name={'ios-person-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputSignUp
+						width={WIDTH}
+						placeholder={s.lastName}
+						value={user.lastName}
+						onChangeText={(value) =>
+							handleInputChange('lastName', value)
+						}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
+				<InputContainer>
+					<IconImage
+						name={'ios-person-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputSignUp
+						width={WIDTH}
+						placeholder={'Codigo de pais'}
+						value={user.countryCode}
+						onChangeText={(value) =>
+							handleInputChange('countryCode', value)
+						}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
+				<TextView>
+					<Text>
+						<Text
+							style={{ fontWeight: '500', color: 'blue' }}
+							onPress={handleLoginPress}
+						>
+							{errortext}
+						</Text>
 					</Text>
-				</Text>
-			</TextView>
+				</TextView>
 
-			<ButtonSignUp width={WIDTH} onPress={handleSubmitPress}>
-				<Description>{s.signup}</Description>
-			</ButtonSignUp>
-			<TextView>
-				<Text>
-					{s.acc}
-					<Text
-						style={{ fontWeight: '500', color: 'blue' }}
-						onPress={handleLoginPress}
-					>
-						{s.login}
+				<ButtonSignUp width={WIDTH} onPress={handleSubmitPress}>
+					<Description>{s.signup}</Description>
+				</ButtonSignUp>
+				<TextView>
+					<Text style={{ color: theme.text }}>
+						{s.acc}
+						<Text
+							style={{ fontWeight: '500', color: theme.primary }}
+							onPress={handleLoginPress}
+						>
+							{s.login}
+						</Text>
 					</Text>
-				</Text>
-			</TextView>
-		</Container>
+				</TextView>
+			</Container>
+		</ThemeProvider>
 	);
 }
 
-const Container = styled.ImageBackground`
+const Container = styled.View`
+	background-color: ${(props) => props.theme.bg};
 	flex: 1;
 	justify-content: center;
 	align-items: center;
@@ -230,7 +235,7 @@ const Logo = styled.Image`
 	border-radius: 100px;
 `;
 const LogoText = styled.Text`
-	color: white;
+	color: ${(props) => props.theme.primary};
 	font-size: 30px;
 	font-weight: 500;
 	margin-top: 10px;
@@ -261,7 +266,7 @@ const Button = styled.TouchableOpacity`
 const ButtonSignUp = styled.TouchableOpacity`
 	width: ${(props) => props.width - 55}px;
 	height: 45px;
-	background-color: #000000;
+	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
 	margin-top: 20px;
 	padding: 16px 70px;

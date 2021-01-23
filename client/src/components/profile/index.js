@@ -44,17 +44,17 @@ export default function Profile({ navigation }) {
 						<Icon
 							name='ios-arrow-back'
 							size={28}
-							color={theme.text}
+							color={theme.primary}
 						/>
 					</HeaderButton>
-					<Text style={{ fontSize: 20, color: theme.text }}>
+					<Text style={{ fontSize: 20, color: theme.primary }}>
 						{s.title}
 					</Text>
 					<HeaderButton>
 						<Icon
 							name='ios-home-outline'
 							size={28}
-							color={theme.text}
+							color={theme.primary}
 							onPress={() => navigation.navigate('Home')}
 						/>
 					</HeaderButton>
@@ -70,7 +70,7 @@ export default function Profile({ navigation }) {
 							}}
 						/>
 						<Pencil
-							color={theme.text}
+							color={theme.primary}
 							name='ios-pencil'
 							size={24}
 						/>
@@ -99,13 +99,13 @@ export default function Profile({ navigation }) {
 				</UserContainer>
 				<InfoBoxWrapper>
 					<InfoBox>
-						<Text style={{ color: theme.text, marginBottom: 5 }}>
+						<Text style={{ color: theme.primary, marginBottom: 5 }}>
 							9
 						</Text>
 						<Text style={{ color: theme.text }}>{s.life}</Text>
 					</InfoBox>
 					<InfoBox>
-						<Text style={{ color: theme.text, marginBottom: 5 }}>
+						<Text style={{ color: theme.primary, marginBottom: 5 }}>
 							12
 						</Text>
 						<Text style={{ color: theme.text }}>{s.games}</Text>
@@ -214,7 +214,7 @@ const Pencil = styled(Icon)`
 const UserName = styled.Text`
 	font-size: 30px;
 	font-weight: bold;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.primary};
 	margin-bottom: 5px;
 `;
 
@@ -246,7 +246,7 @@ const StatsTitle = styled.Text`
 const StatCard = styled.TouchableOpacity`
 	width: 100%;
 	height: 100px;
-	border: 1px solid #ccc;
+	border: 1px solid ${(props) => props.theme.primary};
 	align-items: center;
 	justify-content: space-around;
 	flex-direction: row;
