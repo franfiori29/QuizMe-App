@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { ApolloServer } = require('apollo-server-express');
+const cors = require('cors');
 
 const typeDefs = require('./graphql/typeDefs/index.js');
 const resolvers = require('./graphql/resolvers');
@@ -35,6 +36,8 @@ app.use((_, res, next) => {
 	);
 	next();
 });
+
+app.options('*', cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));

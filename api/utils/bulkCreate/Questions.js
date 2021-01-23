@@ -40,7 +40,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0004'),
-		title: '5x5x(5+0)+1+2x0 es:',
+		title: '5x5+(5x0)+1+2x0 es:',
 		options: [
 			{ title: '0', result: false },
 			{ title: '1', result: false },
