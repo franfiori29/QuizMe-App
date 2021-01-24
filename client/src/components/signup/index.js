@@ -269,6 +269,7 @@ const Button = styled.TouchableOpacity`
 `;
 const ButtonSignUp = styled.TouchableOpacity`
 	width: ${(props) => props.width - 55}px;
+	border-radius: 5px;
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;

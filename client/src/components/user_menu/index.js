@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeLanguage, switchTheme } from '@redux/reducers/global';
 import { logout } from '@redux/reducers/user';
 
+//==> Components
+import NavBar from '@components/utils/NavBar';
+
 //==> Styles
-import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
 
 //Assets
@@ -27,23 +29,13 @@ const UserMenu = ({ navigation }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
-				<Header>
-					<HeaderButton onPress={() => navigation.goBack()}>
-						<Icon
-							name='ios-close'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-					<HeaderText>QuizMeApp</HeaderText>
-					<HeaderButton>
-						<Icon
-							name='ios-search-outline'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-				</Header>
+				<NavBar
+					string='QuizMeApp'
+					nav1={() => navigation.goBack()}
+					nav2={() => navigation.navigate('Home')}
+					icon1='ios-close'
+					icon2='ios-search-outline'
+				/>
 				<UserContainer>
 					<UserImg
 						source={{ uri: 'https://picsum.photos/100/100' }}

@@ -200,6 +200,7 @@ const ButtonLogin = styled.TouchableOpacity`
 	justify-content: center;
 	margin-top: 20px;
 	padding: 16px 70px;
+	border-radius: 5px;
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
@@ -212,5 +213,6 @@ const TextView = styled.View`
 `;
 const SocialIconGoogle = styled(SocialIcon)`
 	width: ${(props) => props.width - 55}px;
-	border-radius: null !important;
+	border-radius: 5px;
+	height: 45px;
 `;

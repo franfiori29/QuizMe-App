@@ -4,6 +4,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
+//Components
+import NavBar from '@components/utils/NavBar';
+
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -39,26 +42,13 @@ export default function Profile({ navigation }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
-				<Header>
-					<HeaderButton onPress={() => navigation.goBack()}>
-						<Icon
-							name='ios-arrow-back'
-							size={28}
-							color={theme.primary}
-						/>
-					</HeaderButton>
-					<Text style={{ fontSize: 20, color: theme.primary }}>
-						{s.title}
-					</Text>
-					<HeaderButton>
-						<Icon
-							name='ios-home-outline'
-							size={28}
-							color={theme.primary}
-							onPress={() => navigation.navigate('Home')}
-						/>
-					</HeaderButton>
-				</Header>
+				<NavBar
+					string={s.title}
+					nav1={() => navigation.goBack()}
+					nav2={() => navigation.navigate('Home')}
+					icon1='ios-arrow-back'
+					icon2='ios-home-outline'
+				/>
 				<UserContainer>
 					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg

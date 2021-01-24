@@ -7,9 +7,9 @@ import { getQuizzes } from '@redux/reducers/quizzes';
 import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
+import NavBar from '@components/utils/NavBar';
 
 //==> Styles
-import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
 
 //==>Assets
@@ -31,27 +31,13 @@ const HomeScreen = ({ navigation }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen centerContent={true}>
-				<Header>
-					<HeaderButton
-						onPress={() => navigation.navigate('UserMenu')}
-					>
-						<Icon
-							name='ios-menu-outline'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-					<StyledText style={{ fontSize: 20, color: theme.primary }}>
-						QuizMeApp
-					</StyledText>
-					<HeaderButton>
-						<Icon
-							name='ios-search-outline'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-				</Header>
+				<NavBar
+					string='QuizMeApp'
+					nav1={() => navigation.navigate('UserMenu')}
+					nav2={() => navigation.navigate('UserMenu')}
+					icon1='ios-menu-outline'
+					icon2='ios-search-outline'
+				/>
 				<IntroContainer>
 					<IntroImg
 						source={{ uri: 'https://picsum.photos/100/100' }}
