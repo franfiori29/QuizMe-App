@@ -4,6 +4,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
+//Components
+import NavBar from '@components/utils/NavBar';
+
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -39,26 +42,13 @@ export default function Profile({ navigation }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
-				<Header>
-					<HeaderButton onPress={() => navigation.goBack()}>
-						<Icon
-							name='ios-arrow-back'
-							size={28}
-							color={theme.primary}
-						/>
-					</HeaderButton>
-					<Text style={{ fontSize: 20, color: theme.primary }}>
-						{s.title}
-					</Text>
-					<HeaderButton>
-						<Icon
-							name='ios-home-outline'
-							size={28}
-							color={theme.primary}
-							onPress={() => navigation.navigate('Home')}
-						/>
-					</HeaderButton>
-				</Header>
+				<NavBar
+					string={s.title}
+					nav1={() => navigation.goBack()}
+					nav2={() => navigation.navigate('Home')}
+					icon1='ios-arrow-back'
+					icon2='ios-home-outline'
+				/>
 				<UserContainer>
 					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg
@@ -93,12 +83,17 @@ export default function Profile({ navigation }) {
 							<UserText style={{ marginBottom: 5 }}>
 								{s.follow} 250
 							</UserText>
-							<UserText>40 {s.followers} </UserText>
+							<UserText>{s.followers} 40 </UserText>
 						</View>
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>
-					<InfoBox>
+					<InfoBox
+						style={{
+							borderRightColor: '#dddddd',
+							borderRightWidth: 1,
+						}}
+					>
 						<Text style={{ color: theme.primary, marginBottom: 5 }}>
 							9
 						</Text>
@@ -120,6 +115,7 @@ export default function Profile({ navigation }) {
 									color={theme.text}
 									name='md-book-sharp'
 									size={50}
+									style={{ justifyContent: 'center' }}
 								/>
 							</View>
 							<StatInfo>
@@ -162,7 +158,8 @@ export default function Profile({ navigation }) {
 }
 
 const Header = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 65px;
 	padding: 10px;
 	flex-direction: row;
@@ -186,6 +183,8 @@ const UserContainer = styled.View`
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	padding: 20px;
+	width: 95%;
+	align-self: center;
 `;
 
 const UserInfo = styled.View`
@@ -196,8 +195,8 @@ const UserInfo = styled.View`
 
 const UserImg = styled.Image`
 	z-index: 3;
-	height: 150px;
-	width: 150px;
+	height: 130px;
+	width: 130px;
 	border-radius: 100px;
 `;
 const Pencil = styled(Icon)`
@@ -212,7 +211,7 @@ const Pencil = styled(Icon)`
 `;
 
 const UserName = styled.Text`
-	font-size: 30px;
+	font-size: 22px;
 	font-weight: bold;
 	color: ${(props) => props.theme.primary};
 	margin-bottom: 5px;
@@ -225,6 +224,8 @@ const UserText = styled.Text`
 const InfoBoxWrapper = styled.View`
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
+	width: 95%;
+	align-self: center;
 	height: 100px;
 	flex-direction: row;
 `;
@@ -239,7 +240,7 @@ const StatsScreen = styled.View`
 `;
 const StatsTitle = styled.Text`
 	color: ${(props) => props.theme.text};
-	font-size: 30px;
+	font-size: 22px;
 	font-weight: bold;
 	text-align: center;
 `;

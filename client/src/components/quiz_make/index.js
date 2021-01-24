@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, Text, TextInput, View, Platform } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -21,11 +22,11 @@ const QuizMake = ({ navigation }) => {
 
 	const { theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
-
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [category, setCategory] = useState('');
 	const [questions, setQuestions] = useState([]);
+	const [image, setImage] = useState(null);
 	const [time, setTime] = useState(0);
 	const [question, setQuestion] = useState('');
 	const [option1, setOption1] = useState('');
@@ -37,7 +38,7 @@ const QuizMake = ({ navigation }) => {
 		let obj = {
 			title,
 			description,
-			image: 'https://i.ytimg.com/vi/fWpzkACkiTs/maxresdefault.jpg',
+			image: 'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
 			categoryId: category,
 			questions: [
 				{
@@ -71,6 +72,28 @@ const QuizMake = ({ navigation }) => {
 
 	const handleSelect = (select) => {
 		setCategory(select);
+	};
+
+	const pickImage = async () => {
+		if (Platform.OS !== 'web') {
+			const {
+				status,
+			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+			if (status !== 'granted') {
+				alert(
+					'Necesitamos permiso a tu galería para que puedas subir una imagen',
+				);
+				return;
+			}
+		}
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			aspect: [4, 3],
+			quality: 1,
+		});
+		if (!result.cancelled) {
+			setImage(result.uri);
+		}
 	};
 
 	return (
@@ -131,8 +154,17 @@ const QuizMake = ({ navigation }) => {
 					<Text style={{ fontSize: 20, color: theme.text }}>
 						Imagen (Opcional)
 					</Text>
+					<Button
+						title={
+							image
+								? 'Cambia la imagen seleccionada'
+								: 'Elige una imagen de tu galería'
+						}
+						color={theme.primary}
+						onPress={pickImage}
+					/>
 					<Text style={{ fontSize: 20, color: theme.text }}>
-						Categorias
+						Categorías
 					</Text>
 					<ScrollCategory
 						categories={categories}

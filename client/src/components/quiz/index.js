@@ -126,10 +126,14 @@ const Quiz = ({ navigation, route: { params } }) => {
 				<MiddleScreen>
 					<Text
 						style={{
-							marginTop: 50,
+							marginTop: 30,
 							fontWeight: 'bold',
 							fontSize: 20,
 							color: theme.text,
+							maxWidth: '95%',
+							alignSelf: 'center',
+							marginBottom: 15,
+							textAlign: 'center',
 						}}
 					>
 						{question.title}
@@ -190,11 +194,12 @@ const Header = styled.View`
 `;
 
 const Option = styled.TouchableOpacity`
+	width: 95%;
+	align-self: center;
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	border-top-width: 1px;
 	border-top-color: #ccc;
-	width: 100%;
 	flex: 1;
 	justify-content: center;
 	background-color: ${(props) =>
@@ -210,7 +215,7 @@ const TimeBar = styled(Animatable.View)`
 const QuizImg = styled.Image`
 	z-index: 3;
 	height: 70%;
-	width: 90%;
+	width: 95%;
 `;
 
 const MiddleScreen = styled.View`

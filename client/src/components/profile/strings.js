@@ -1,7 +1,7 @@
 const strings = {
 	en: {
 		title: 'Profile',
-		follow: 'Following:',
+		follow: 'Following',
 		followers: 'Followers',
 		life: 'Lives',
 		games: 'Games played',
@@ -11,7 +11,7 @@ const strings = {
 
 	es: {
 		title: 'Perfil',
-		follow: 'Siguiendo a:',
+		follow: 'Siguiendo a',
 		followers: 'Seguidores',
 		life: 'Vidas',
 		games: 'Partidas jugadas',

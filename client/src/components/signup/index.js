@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
 import axios from 'axios';
 import strings from './strings';
+import logo from '@assets/logo.png';
 
 const { width: WIDTH } = Dimensions.get('window');
 
@@ -91,9 +92,43 @@ export default function SignUp({ navigation }) {
 		<ThemeProvider theme={theme}>
 			<Container source={backgroundImage}>
 				<LogoView>
-					<Logo source={{ uri: 'https://picsum.photos/100/100' }} />
+					<Logo source={logo} />
 					<LogoText>QuizMeApp</LogoText>
 				</LogoView>
+				<InputContainer>
+					<IconImage
+						name={'ios-person-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputSignUp
+						width={WIDTH}
+						placeholder={s.name}
+						value={user.firstName}
+						onChangeText={(value) =>
+							handleInputChange('firstName', value)
+						}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
+				<InputContainer>
+					<IconImage
+						name={'ios-person-outline'}
+						size={28}
+						color={'rgba(255,255,255,0.7)'}
+					/>
+					<InputSignUp
+						width={WIDTH}
+						placeholder={s.lastName}
+						value={user.lastName}
+						onChangeText={(value) =>
+							handleInputChange('lastName', value)
+						}
+						placeholderTextColor={'rgba(255,255,255,0.7)'}
+						underlineColorAndroid='transparent'
+					/>
+				</InputContainer>
 				<InputContainer>
 					<IconImage
 						name={'mail-open-outline'}
@@ -136,7 +171,8 @@ export default function SignUp({ navigation }) {
 						/>
 					</Button>
 				</InputContainer>
-				<InputContainer>
+
+				{/* <InputContainer>
 					<IconImage
 						name={'ios-person-outline'}
 						size={28}
@@ -144,41 +180,7 @@ export default function SignUp({ navigation }) {
 					/>
 					<InputSignUp
 						width={WIDTH}
-						placeholder={s.name}
-						value={user.firstName}
-						onChangeText={(value) =>
-							handleInputChange('firstName', value)
-						}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
-				</InputContainer>
-				<InputContainer>
-					<IconImage
-						name={'ios-person-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
-					/>
-					<InputSignUp
-						width={WIDTH}
-						placeholder={s.lastName}
-						value={user.lastName}
-						onChangeText={(value) =>
-							handleInputChange('lastName', value)
-						}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
-				</InputContainer>
-				<InputContainer>
-					<IconImage
-						name={'ios-person-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
-					/>
-					<InputSignUp
-						width={WIDTH}
-						placeholder={'Codigo de pais'}
+						placeholder={'País'}
 						value={user.countryCode}
 						onChangeText={(value) =>
 							handleInputChange('countryCode', value)
@@ -186,7 +188,7 @@ export default function SignUp({ navigation }) {
 						placeholderTextColor={'rgba(255,255,255,0.7)'}
 						underlineColorAndroid='transparent'
 					/>
-				</InputContainer>
+				</InputContainer> */}
 				<TextView>
 					<Text>
 						<Text
@@ -208,6 +210,7 @@ export default function SignUp({ navigation }) {
 							style={{ fontWeight: '500', color: theme.primary }}
 							onPress={handleLoginPress}
 						>
+							{' '}
 							{s.login}
 						</Text>
 					</Text>
@@ -257,6 +260,7 @@ const IconImage = styled(Icon)`
 	position: absolute;
 	top: 8px;
 	left: 38px;
+	z-index: 1;
 `;
 const Button = styled.TouchableOpacity`
 	position: absolute;
@@ -265,10 +269,10 @@ const Button = styled.TouchableOpacity`
 `;
 const ButtonSignUp = styled.TouchableOpacity`
 	width: ${(props) => props.width - 55}px;
+	border-radius: 5px;
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
-	margin-top: 20px;
 	padding: 16px 70px;
 `;
 const Description = styled.Text`
