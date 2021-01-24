@@ -112,7 +112,7 @@ export default function Login({ navigation }) {
 						<Icon
 							name={'ios-eye-outline'}
 							size={26}
-							color={theme.primary}
+							color={'rgba(255,255,255,0.7)'}
 						/>
 					</Button>
 				</InputContainer>
@@ -135,6 +135,7 @@ export default function Login({ navigation }) {
 							style={{ fontWeight: '500', color: theme.primary }}
 							onPress={handleSignUp}
 						>
+							{' '}
 							{s.signup}
 						</Text>
 					</Text>
@@ -185,6 +186,7 @@ const IconImage = styled(Icon)`
 	position: absolute;
 	top: 8px;
 	left: 38px;
+	z-index: 1;
 `;
 const Button = styled.TouchableOpacity`
 	position: absolute;
