@@ -40,6 +40,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 							navigation.navigate('Quiz', {
 								questions: quiz.questions,
 								imageQuiz: quiz.image,
+								time: quiz.time,
 							})
 						}
 					>
