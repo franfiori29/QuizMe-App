@@ -19,7 +19,8 @@ import { getCategories } from '../../redux/reducers/categories';
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
-	const { quizzes, categories } = useSelector((state) => state.quiz);
+	const { quizzes } = useSelector((state) => state.quiz);
+	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
 
