@@ -15,6 +15,7 @@ import Profile from '@components/profile';
 import MyQuizzes from '@components/my_quizzes';
 import QuizMake from '@components/quiz_make';
 import QuizResults from '@components/quiz_results/index';
+import LogoAnimated from '@components/logo_animated/index';
 import { setToken } from '@redux/reducers/user';
 
 const HomeRoutes = () => {
@@ -38,7 +39,9 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'}
+				initialRouteName={
+					!!Object.keys(user).length ? 'LogoAnimated' : 'LogoAnimated'
+				}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
@@ -50,6 +53,7 @@ const HomeRoutes = () => {
 				<Screen name='QuizResults' component={QuizResults} />
 				<Screen name='Quiz' component={Quiz} />
 				<Screen name='Profile' component={Profile} />
+				<Screen name='LogoAnimated' component={LogoAnimated} />
 			</Navigator>
 		</NavigationContainer>
 	);
