@@ -73,8 +73,8 @@ const ContentContainer = styled.View`
 	align-items: center;
 `;
 const ImageLogo = styled(Animated.Image)`
-	width: 200;
-	height: 200;
+	width: 200px;
+	height: 200px;
 `;
 const LogoContainer = styled(Animated.View)`
 	flex-direction: row;
