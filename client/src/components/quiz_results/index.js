@@ -3,7 +3,7 @@ import { Text, Touchable, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
-const QuizResults = ({ routes: { params }, navigation }) => {
+const QuizResults = ({ route: { params }, navigation }) => {
 	const theme = useSelector((state) => state.global.theme);
 	const [favorite, setFavorite] = useState(false);
 
@@ -245,14 +245,4 @@ const BtnSecText = styled.Text`
 	font-weight: 700;
 `;
 
-QuizResults.defaultProps = {
-	routes: {
-		params: {
-			imageQuiz:
-				'https://i.pinimg.com/736x/c8/e5/75/c8e5753370bad54c7977d485e0a0e29d.jpg',
-			correct: 21343,
-			total: 29304,
-		},
-	},
-};
 export default QuizResults;
