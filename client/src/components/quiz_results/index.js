@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Text, Touchable, TouchableOpacity } from 'react-native';
+import {
+	Text,
+	Touchable,
+	TouchableOpacity,
+	ImageBackground,
+} from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
@@ -35,7 +40,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					/>
 				</TouchableOpacity>
 			</Navbar>
-			<ContainerTop bg={params.imageQuiz}>
+			<ContainerTop source={{ uri: params.imageQuiz }}>
 				<FinishedTitle>
 					¡Terminaste el quiz! Acá están tus resultados:
 				</FinishedTitle>
@@ -115,12 +120,8 @@ const GoBackButton = styled.TouchableOpacity`
 	justify-content: center;
 `;
 
-const ContainerTop = styled.View`
+const ContainerTop = styled.ImageBackground`
 	height: 30%;
-	background-image: url(${({ bg }) => bg});
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 10px;
@@ -170,10 +171,10 @@ const AnswersNumberContainer = styled.View`
 	flex-flow: row wrap;
 	border-top-color: #ccc;
 	border-top-width: 1px;
-	border-top-style: solid;
+	/* border-top-style: solid; */
 	border-bottom-color: #ccc;
 	border-bottom-width: 1px;
-	border-bottom-style: solid;
+	/* border-bottom-style: solid; */
 `;
 
 const AnswersCorrect = styled.View`
@@ -183,7 +184,7 @@ const AnswersCorrect = styled.View`
 	font-size: 10px;
 	border-right-color: #ccc;
 	border-right-width: 1px;
-	border-right-style: solid;
+	/* border-right-style: solid; */
 `;
 const AnswersIncorrect = styled.View`
 	padding: 20px 0%;
@@ -206,7 +207,7 @@ const FavoriteContainer = styled.View`
 	align-items: center;
 	border-bottom-color: #ccc;
 	border-bottom-width: 1px;
-	border-bottom-style: solid;
+	/* border-bottom-style: solid; */
 `;
 
 const FavoriteText = styled.Text`
