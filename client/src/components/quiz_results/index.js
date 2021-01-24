@@ -129,7 +129,7 @@ const ContainerTop = styled.View`
 const FinishedTitle = styled.Text`
 	font-size: 30px;
 	color: #fff;
-	background-color: var(--clr-primary);
+	background-color: #04aa8c;
 	padding: 10px 20px;
 `;
 
@@ -153,7 +153,7 @@ const ProgressBar = styled.View`
 `;
 
 const ProgressBarFill = styled.View`
-	background-color: var(--clr-primary);
+	background-color: #04aa8c;
 	width: ${(props) => props.percent + '%'};
 	height: 100%;
 	justify-content: center;
@@ -222,7 +222,7 @@ const ButtonsContainer = styled.View`
 `;
 
 const Btn = styled.TouchableOpacity`
-	background-color: var(--clr-primary);
+	background-color: #04aa8c;
 	text-align: center;
 	padding: 10px 20px;
 	margin: ${({ margin }) => (margin ? margin : '0')};
@@ -230,18 +230,18 @@ const Btn = styled.TouchableOpacity`
 const BtnSec = styled.TouchableOpacity`
 	padding: 10px 20px;
 	text-align: center;
-	border-color: var(--clr-primary);
+	border-color: #04aa8c;
 	border-width: 2px;
 	border-style: solid;
 `;
 
 const BtnText = styled.Text`
-	color: var(--clr-white);
+	color: #f7fdff;
 	font-weight: 700;
 `;
 
 const BtnSecText = styled.Text`
-	color: var(--clr-primary);
+	color: #04aa8c;
 	font-weight: 700;
 `;
 
