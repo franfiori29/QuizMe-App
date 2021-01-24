@@ -93,12 +93,17 @@ export default function Profile({ navigation }) {
 							<UserText style={{ marginBottom: 5 }}>
 								{s.follow} 250
 							</UserText>
-							<UserText>40 {s.followers} </UserText>
+							<UserText>{s.followers} 40 </UserText>
 						</View>
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>
-					<InfoBox>
+					<InfoBox
+						style={{
+							borderRightColor: '#dddddd',
+							borderRightWidth: 1,
+						}}
+					>
 						<Text style={{ color: theme.primary, marginBottom: 5 }}>
 							9
 						</Text>
@@ -120,6 +125,7 @@ export default function Profile({ navigation }) {
 									color={theme.text}
 									name='md-book-sharp'
 									size={50}
+									style={{ justifyContent: 'center' }}
 								/>
 							</View>
 							<StatInfo>
@@ -196,8 +202,8 @@ const UserInfo = styled.View`
 
 const UserImg = styled.Image`
 	z-index: 3;
-	height: 150px;
-	width: 150px;
+	height: 130px;
+	width: 130px;
 	border-radius: 100px;
 `;
 const Pencil = styled(Icon)`
@@ -209,10 +215,11 @@ const Pencil = styled(Icon)`
 	background-color: ${(props) => props.theme.bg};
 	border: 2px solid ${(props) => props.theme.text};
 	border-radius: 100px;
+	text-align: 'center';
 `;
 
 const UserName = styled.Text`
-	font-size: 30px;
+	font-size: 22px;
 	font-weight: bold;
 	color: ${(props) => props.theme.primary};
 	margin-bottom: 5px;
@@ -239,7 +246,7 @@ const StatsScreen = styled.View`
 `;
 const StatsTitle = styled.Text`
 	color: ${(props) => props.theme.text};
-	font-size: 30px;
+	font-size: 22px;
 	font-weight: bold;
 	text-align: center;
 `;
