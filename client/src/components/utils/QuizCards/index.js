@@ -1,10 +1,13 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
 import { Text } from 'react-native';
-const QuizCards = ({ navigation, quizzes }) => {
+
+const QuizCards = ({ quizzes }) => {
+	const navigation = useNavigation();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 

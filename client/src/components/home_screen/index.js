@@ -13,6 +13,7 @@ import styled, { ThemeProvider } from 'styled-components/native';
 
 //Assets
 import strings from './strings';
+import { getCategories } from '../../redux/reducers/categories';
 
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
@@ -25,6 +26,7 @@ const HomeScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		dispatch(getQuizzes());
+		dispatch(getCategories());
 	}, []);
 
 	return (
@@ -40,7 +42,13 @@ const HomeScreen = ({ navigation }) => {
 							size={28}
 						/>
 					</HeaderButton>
-					<StyledText style={{ fontSize: 20, color: theme.primary }}>
+					<StyledText
+						style={{
+							fontFamily: 'PottaOne-Regular',
+							fontSize: 20,
+							color: theme.primary,
+						}}
+					>
 						QuizMeApp
 					</StyledText>
 					<HeaderButton>
@@ -77,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
 							<SelectorText>{s.selector2}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards navigation={navigation} quizzes={quizzes} />
+					<QuizCards quizzes={quizzes} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg
@@ -163,7 +171,7 @@ const IntroTitle = styled.Text`
 const IntroText = styled.Text`
 	text-align: center;
 	padding: 0 10px;
-	color: ${(props) => props.theme.text};
+	color: var(--clr-primary);
 `;
 
 const SelectorContainer = styled.View`

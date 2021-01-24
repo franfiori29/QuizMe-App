@@ -28,11 +28,6 @@ const queryAllQuizzes = gql`
 				}
 			}
 		}
-		getCategories {
-			_id
-			description_en
-			description_es
-		}
 	}
 `;
 export const getQuizzes = createAsyncThunk(
