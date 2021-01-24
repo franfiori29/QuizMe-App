@@ -38,9 +38,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={
-					!!Object.keys(user).length ? 'QuizResults' : 'Login'
-				}
+				initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
