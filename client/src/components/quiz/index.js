@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
+import * as Animatable from 'react-native-animatable';
 
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { shaking } from './animations';
 const TIME = 10;
 
+const { width: WIDTH } = Dimensions.get('window');
 const Quiz = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
 	const questions = params.questions;
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
-	const [timer, setTimer] = useState(TIME);
+	const time = params.time || TIME;
+	const [timer, setTimer] = useState({ time: time, on: true });
+	const barRef = useRef();
+	const button0 = useRef();
+	const button1 = useRef();
+	const button2 = useRef();
+	const button3 = useRef();
+	const buttonRefArray = [button0, button1, button2, button3];
 
 	const [selected, setSelected] = useState({ id: -1, correct: false });
 
@@ -24,37 +34,52 @@ const Quiz = ({ navigation, route: { params } }) => {
 				imageQuiz: params.imageQuiz,
 			});
 		} else {
+			setTimer({ time: time, on: true });
 			if (result) {
 				setCorrect((c) => c + 1);
 			}
+			setCurrent((curr) => curr + 1);
 		}
-		setCurrent((curr) => curr + 1);
 	};
 	useEffect(() => {
-		setTimer(TIME);
 		let i;
-		if (current < questions.length) {
+		if (current < questions.length && timer.on) {
+			barRef.current.animate(
+				{
+					0: { width: WIDTH, backgroundColor: 'rgba(0,255,0,1)' },
+					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
+					easing: 'linear',
+				},
+				time * 1000
+			);
 			i = setInterval(() => {
-				setTimer((t) => t - 1);
+				setTimer((t) => ({ ...t, time: t.time - 1 }));
 			}, 1000);
 		}
 
 		return () => clearInterval(i);
-	}, [current]);
+	}, [current, timer.on]);
 
 	useEffect(() => {
-		if (timer <= 0) {
+		if (timer.time === 2) {
+			buttonRefArray.forEach((e) => e.current.animate(shaking, 2000));
+		}
+		if (timer.time <= 0 && timer.on) {
 			nextQuestion(false);
 		}
 	}, [timer]);
 
 	const handleOptionPress = (result, i) => {
 		setSelected({ id: i, correct: result });
-		setTimer(TIME);
-		setTimeout(() => {
-			setSelected({ id: -1, correct: false });
-			nextQuestion(result);
-		}, 800);
+		barRef.current.stopAnimation();
+		buttonRefArray.forEach((e) => e.current.stopAnimation());
+		if (timer.on) {
+			setTimer({ time: time, on: false });
+			setTimeout(() => {
+				setSelected({ id: -1, correct: false });
+				nextQuestion(result);
+			}, 1000);
+		}
 	};
 
 	const question = questions[current];
@@ -87,7 +112,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 					</Text>
 				</Header>
 				<View style={{ position: 'relative' }}>
-					<TimeBar></TimeBar>
+					<TimeBar ref={barRef}></TimeBar>
 					<Text
 						style={{
 							position: 'absolute',
@@ -95,7 +120,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 							color: theme.text,
 						}}
 					>
-						{timer}
+						{timer.time}
 					</Text>
 				</View>
 				<MiddleScreen>
@@ -130,14 +155,16 @@ const Quiz = ({ navigation, route: { params } }) => {
 							key={i}
 							onPress={() => handleOptionPress(option.result, i)}
 						>
-							<Text
+							<Animatable.Text
+								direction={i % 2 === 0 ? 'normal' : 'reverse'}
+								ref={buttonRefArray[i]}
 								style={{
 									alignSelf: 'center',
 									color: theme.text,
 								}}
 							>
 								{option.title}
-							</Text>
+							</Animatable.Text>
 						</Option>
 					))}
 				</BottomScreen>
@@ -174,10 +201,10 @@ const Option = styled.TouchableOpacity`
 		props.selectedColor ? props.selectedColor : 'transparent'};
 `;
 
-const TimeBar = styled.View`
-	background-color: blue;
+const TimeBar = styled(Animatable.View)`
+	background-color: #0f0;
 	height: 20px;
-	width: 80%;
+	width: 100%;
 `;
 
 const QuizImg = styled.Image`
