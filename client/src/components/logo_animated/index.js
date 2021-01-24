@@ -64,7 +64,7 @@ const Container = styled.SafeAreaView`
 	background-color: ${(props) => props.theme.bg};
 `;
 const LogoText = styled(Animated.Text)`
-	font-size: 35;
+	font-size: 35px;
 	color: ${(props) => props.theme.text};
 	font-weight: 700;
 `;
