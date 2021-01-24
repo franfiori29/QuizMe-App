@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Button } from 'react-native';
 import { getQuizzes } from '@redux/reducers/quizzes';
 
-/* --- Components --- */
+//==> Components
 import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
+import ButtonPpal from '@components/utils/ButtonPpal';
 
 //==> Styles
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
 
-//Assets
+//==>Assets
 import strings from './strings';
 
 const HomeScreen = ({ navigation }) => {
@@ -60,14 +61,11 @@ const HomeScreen = ({ navigation }) => {
 					</IntroTitle>
 					<IntroText>{s.introTitle}</IntroText>
 				</IntroContainer>
-				<View>
-					<Button
-						color={theme.primary}
-						title={s.createQuiz}
-						style={{ margin: '40px auto' }}
-						onPress={() => navigation.navigate('QuizMake')}
-					/>
-				</View>
+				<ButtonPpal
+					string={s.createQuiz}
+					nav='QuizMake'
+					navigation={navigation}
+				/>
 				<View>
 					<SelectorContainer>
 						<SelectorButton>
@@ -97,11 +95,10 @@ const HomeScreen = ({ navigation }) => {
 					/>
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
-				<Button
-					color={theme.primary}
-					title={s.randomButton}
-					style={{ margin: '40px auto' }}
-					onPress={() => navigation.navigate('QuizIndex')}
+				<ButtonPpal
+					string={s.randomButton}
+					nav='QuizIndex'
+					navigation={navigation}
 				/>
 				<BottomBar>
 					<StyledText style={{ fontSize: 20, color: theme.primary }}>
@@ -121,9 +118,9 @@ const Screen = styled.ScrollView`
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
 `;
-
 const Header = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 65px;
 	padding: 10px;
 	flex-direction: row;
@@ -163,11 +160,15 @@ const IntroTitle = styled.Text`
 const IntroText = styled.Text`
 	text-align: center;
 	padding: 0 10px;
+	max-width: 95%;
+	align-self: center;
 	color: ${(props) => props.theme.text};
 `;
 
 const SelectorContainer = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
+	margin-top: 10px;
 	flex-direction: row;
 `;
 
@@ -201,7 +202,7 @@ const CategoryImg = styled.Image`
 	z-index: 3;
 	height: 75px;
 	width: 75px;
-	border-radius: 25px;
+	border-radius: 10px;
 `;
 
 const CategoryTitle = styled.Text`
@@ -212,7 +213,8 @@ const CategoryTitle = styled.Text`
 `;
 
 const BottomBar = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 50px;
 	padding: 10px;
 	flex-direction: row;

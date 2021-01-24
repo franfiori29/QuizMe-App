@@ -173,7 +173,9 @@ const Screen = styled.ScrollView`
 `;
 
 const Header = styled.View`
-	width: 100%;
+	background-color: ${(props) => props.theme.bg};
+	width: 95%;
+	align-self: center;
 	height: 65px;
 	padding: 10px;
 	flex-direction: row;
@@ -195,7 +197,8 @@ const HeaderText = styled.Text`
 
 const UserContainer = styled.View`
 	height: 220px;
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	align-items: center;
 	justify-content: space-between;
 	border-bottom-width: 1px;
@@ -224,7 +227,8 @@ const UserText = styled.Text`
 `;
 
 const AccType = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 70px;
 	align-items: center;
 	justify-content: space-between;
@@ -234,15 +238,17 @@ const AccType = styled.View`
 	border-bottom-color: #ccc;
 `;
 const AccTypeButton = styled.TouchableOpacity`
-	width: 40%;
+	width: 50%;
 	height: 30px;
 	align-items: center;
 	justify-content: center;
 	border: 2px solid ${(props) => props.theme.primary};
+	border-radius: 5px;
 `;
 
 const MenuTouchOption = styled.TouchableOpacity`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 70px;
 	align-items: center;
 	justify-content: flex-start;

@@ -38,6 +38,8 @@ const ScrollCategoryStyled = styled.ScrollView`
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	height: 80px;
+	width: 95%;
+	align-self: center;
 `;
 
 const Category = styled.TouchableOpacity`
@@ -48,6 +50,7 @@ const Category = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
 	background-color: ${({ selectedColor }) => selectedColor || 'transparent'};
+	border-radius: 5px;
 `;
 
 const CategoryName = styled.Text`
