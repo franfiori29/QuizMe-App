@@ -7,9 +7,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { createQuiz } from '../../redux/reducers/quizzes';
 import ScrollCategory from '../utils/ScrollCategory';
 
+/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
+import { getCategories } from '../../redux/reducers/categories';
+/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
+
 const QuizMake = ({ navigation }) => {
+	const dispatch = useDispatch();
+
+	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
+	useEffect(() => {
+		dispatch(getCategories());
+	}, []);
+	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
+
 	const { theme } = useSelector((state) => state.global);
-	const { categories } = useSelector((state) => state.quiz);
+	const { categories } = useSelector((state) => state.categories);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [category, setCategory] = useState('');
@@ -21,7 +33,6 @@ const QuizMake = ({ navigation }) => {
 	const [option2, setOption2] = useState('');
 	const [option3, setOption3] = useState('');
 	const [option4, setOption4] = useState('');
-	const dispatch = useDispatch();
 
 	const handleSubmit = () => {
 		let obj = {
@@ -101,16 +112,19 @@ const QuizMake = ({ navigation }) => {
 					</StyledText>
 					<Text></Text>
 				</Header>
-				<View style={{ paddingHorizontal: 10 }}>
+				<View>
 					<Text
 						style={{
 							fontSize: 30,
+							fontWeight: 600,
 							color: theme.text,
 							textAlign: 'center',
 						}}
 					>
 						Empecemos a crear tu propia quiz
 					</Text>
+				</View>
+				<FormContainer>
 					<Text style={{ fontSize: 20, color: theme.text }}>
 						Titulo
 					</Text>
@@ -238,7 +252,7 @@ const QuizMake = ({ navigation }) => {
 						value={option4}
 					/>
 					<Button title='Submit' onPress={handleSubmit} />
-				</View>
+				</FormContainer>
 			</Screen>
 		</ThemeProvider>
 	);
@@ -247,6 +261,12 @@ const QuizMake = ({ navigation }) => {
 const Screen = styled.ScrollView`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
+`;
+
+const FormContainer = styled.View`
+	margin: 0 20px;
+	border: 1px solid red;
+	border-radius: 10px;
 `;
 
 const StyledText = styled.Text`
@@ -267,22 +287,6 @@ const Header = styled.View`
 const HeaderButton = styled.TouchableOpacity`
 	align-items: center;
 	justify-content: center;
-`;
-
-const IntroContainer = styled.View`
-	height: 300px;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
-	margin: 50px 0;
-`;
-
-const IntroTitle = styled.Text`
-	font-size: 24px;
-	font-weight: bold;
-	text-align: center;
-	color: ${(props) => props.theme.primary};
-	padding: 0px 10px;
 `;
 
 export default QuizMake;

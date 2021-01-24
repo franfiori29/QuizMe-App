@@ -14,6 +14,7 @@ import styled, { ThemeProvider } from 'styled-components/native';
 
 //==>Assets
 import strings from './strings';
+import { getCategories } from '../../redux/reducers/categories';
 
 const HomeScreen = ({ navigation }) => {
 	const { info: user } = useSelector((state) => state.user);
@@ -26,6 +27,7 @@ const HomeScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		dispatch(getQuizzes());
+		dispatch(getCategories());
 	}, []);
 
 	return (
@@ -61,7 +63,7 @@ const HomeScreen = ({ navigation }) => {
 							<SelectorText>{s.selector2}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards navigation={navigation} quizzes={quizzes} />
+					<QuizCards quizzes={quizzes} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg
