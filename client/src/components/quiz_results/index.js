@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import {
-	Text,
-	Touchable,
-	TouchableOpacity,
-	ImageBackground,
-} from 'react-native';
-import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
+
+//==> Styles
+import styled, { ThemeProvider } from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+//==> Components
+import NavBar from '@components/utils/NavBar';
+
 const QuizResults = ({ route: { params }, navigation }) => {
 	const theme = useSelector((state) => state.global.theme);
 	const [favorite, setFavorite] = useState(false);
@@ -23,102 +24,84 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}
 
 	return (
-		<>
-			<Navbar>
-				<TouchableOpacity onPress={() => navigation.navigate('Home')}>
-					<Icon
-						name='ios-arrow-back'
-						size={28}
-						color={theme.primary}
-					/>
-				</TouchableOpacity>
-				<TouchableOpacity>
-					<Icon
-						name='share-social-outline'
-						size={28}
-						color={theme.primary}
-					/>
-				</TouchableOpacity>
-			</Navbar>
-			<ContainerTop source={{ uri: params.imageQuiz }}>
-				<FinishedTitle>
-					¡Terminaste el quiz! Acá están tus resultados:
-				</FinishedTitle>
-			</ContainerTop>
+		<ThemeProvider theme={theme}>
+			<ScrollView
+				contentContainerStyle={{ flexGrow: 1 }}
+				style={{ flex: 1, backgroundColor: theme.bg }}
+			>
+				<NavBar
+					string=''
+					nav1={() => navigation.navigate('Home')}
+					nav2={() => navigation.navigate('Home')}
+					icon1='ios-arrow-back'
+					icon2='share-social-outline'
+				/>
+				<ContainerTop source={{ uri: params.imageQuiz }}>
+					<FinishedTitle>
+						¡Terminaste el quiz! Acá están tus resultados:
+					</FinishedTitle>
+				</ContainerTop>
 
-			<ContainerResults>
-				<EmojiContainer>{emoji()}</EmojiContainer>
-				<ProgressBar>
-					<ProgressBarFill percent={porcentajeAprobadas}>
-						<ProgressBarText>
-							{porcentajeAprobadas.toFixed(1)}%
-						</ProgressBarText>
-					</ProgressBarFill>
-				</ProgressBar>
-			</ContainerResults>
+				<ContainerResults>
+					<EmojiContainer>{emoji()}</EmojiContainer>
+					<ProgressBar>
+						<ProgressBarFill percent={porcentajeAprobadas}>
+							<ProgressBarText>
+								{porcentajeAprobadas.toFixed(1)}%
+							</ProgressBarText>
+						</ProgressBarFill>
+					</ProgressBar>
+				</ContainerResults>
 
-			<AnswersNumberContainer>
-				<AnswersCorrect>
-					<AnswersNumber>{params.correct}</AnswersNumber>
-					<AnswersText>Respuestas correctas</AnswersText>
-				</AnswersCorrect>
-				<AnswersIncorrect>
-					<AnswersNumber>{incorrectas}</AnswersNumber>
-					<AnswersText>Respuestas incorrectas</AnswersText>
-				</AnswersIncorrect>
-			</AnswersNumberContainer>
+				<AnswersNumberContainer>
+					<AnswersCorrect>
+						<AnswersNumber>{params.correct}</AnswersNumber>
+						<AnswersText>Respuestas correctas</AnswersText>
+					</AnswersCorrect>
+					<AnswersIncorrect>
+						<AnswersNumber>{incorrectas}</AnswersNumber>
+						<AnswersText>Respuestas incorrectas</AnswersText>
+					</AnswersIncorrect>
+				</AnswersNumberContainer>
 
-			<FavoriteContainer>
-				<FavoriteText>¿Te gustó este quiz?</FavoriteText>
-				{/* <Btn>
+				<FavoriteContainer>
+					<FavoriteText>¿Te gustó este quiz?</FavoriteText>
+					{/* <Btn>
 					<BtnText>❤ Darle like</BtnText>
 				</Btn> */}
-				<TouchableOpacity
-					onPress={() => {
-						setFavorite(!favorite);
-					}}
-				>
-					<Icon
-						name={
-							favorite ? 'heart-circle' : 'heart-circle-outline'
-						}
-						size={28}
-						color={theme.primary}
-					/>
-				</TouchableOpacity>
-			</FavoriteContainer>
+					<TouchableOpacity
+						onPress={() => {
+							setFavorite(!favorite);
+						}}
+					>
+						<Icon
+							name={
+								favorite
+									? 'heart-circle'
+									: 'heart-circle-outline'
+							}
+							size={28}
+							color={theme.primary}
+						/>
+					</TouchableOpacity>
+				</FavoriteContainer>
 
-			<ButtonsContainer>
-				<Btn margin='0 0 20px'>
-					<BtnText>Quizzes similares</BtnText>
-				</Btn>
-				<BtnSec onPress={() => navigation.navigate('Home')}>
-					<BtnSecText>Volver al inicio</BtnSecText>
-				</BtnSec>
-			</ButtonsContainer>
-		</>
+				<ButtonsContainer>
+					<Btn margin='0 0 20px'>
+						<BtnText>Quizzes similares</BtnText>
+					</Btn>
+					<BtnSec onPress={() => navigation.navigate('Home')}>
+						<BtnSecText>Volver al inicio</BtnSecText>
+					</BtnSec>
+				</ButtonsContainer>
+			</ScrollView>
+		</ThemeProvider>
 		// <Text>TERManskdlnINASTE</Text>
 		// <Text>
 		// 	Aciertos: {params.correct} de {params.total}
 		// </Text>
 	);
 };
-
-const Navbar = styled.View`
-	width: 100%;
-	height: 65px;
-	padding: 10px;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const GoBackButton = styled.TouchableOpacity`
-	align-items: center;
-	justify-content: center;
-`;
 
 const ContainerTop = styled.ImageBackground`
 	height: 30%;
@@ -142,6 +125,7 @@ const EmojiContainer = styled.Text`
 	font-size: 40px;
 	text-align: center;
 	margin-bottom: 20px;
+	color: ${(props) => props.theme.text};
 `;
 
 const ProgressBar = styled.View`
@@ -167,14 +151,14 @@ const ProgressBarText = styled.Text`
 `;
 
 const AnswersNumberContainer = styled.View`
+	width: 95%;
+	align-self: center;
 	padding: 0 20px;
 	flex-flow: row wrap;
 	border-top-color: #ccc;
 	border-top-width: 1px;
-	/* border-top-style: solid; */
 	border-bottom-color: #ccc;
 	border-bottom-width: 1px;
-	/* border-bottom-style: solid; */
 `;
 
 const AnswersCorrect = styled.View`
@@ -184,7 +168,6 @@ const AnswersCorrect = styled.View`
 	font-size: 10px;
 	border-right-color: #ccc;
 	border-right-width: 1px;
-	/* border-right-style: solid; */
 `;
 const AnswersIncorrect = styled.View`
 	padding: 20px 0%;
@@ -193,13 +176,19 @@ const AnswersIncorrect = styled.View`
 `;
 
 const AnswersNumber = styled.Text`
+	align-self: center;
 	font-weight: 900;
 	font-size: 12px;
+	color: ${(props) => props.theme.text};
+	margin-bottom: 5px;
 `;
 
 const AnswersText = styled.Text`
+	align-self: center;
 	font-size: 10px;
 	text-transform: uppercase;
+	color: ${(props) => props.theme.text};
+	margin-bottom: 5px;
 `;
 
 const FavoriteContainer = styled.View`
@@ -207,12 +196,14 @@ const FavoriteContainer = styled.View`
 	align-items: center;
 	border-bottom-color: #ccc;
 	border-bottom-width: 1px;
-	/* border-bottom-style: solid; */
+	width: 95%;
+	align-self: center;
 `;
 
 const FavoriteText = styled.Text`
 	font-weight: 700;
 	margin-bottom: 10px;
+	color: ${(props) => props.theme.text};
 `;
 
 const ButtonsContainer = styled.View`
@@ -227,6 +218,7 @@ const Btn = styled.TouchableOpacity`
 	text-align: center;
 	padding: 10px 20px;
 	margin: ${({ margin }) => (margin ? margin : '0')};
+	border-radius: 5px;
 `;
 const BtnSec = styled.TouchableOpacity`
 	padding: 10px 20px;
@@ -234,16 +226,19 @@ const BtnSec = styled.TouchableOpacity`
 	border-color: #04aa8c;
 	border-width: 2px;
 	border-style: solid;
+	border-radius: 5px;
 `;
 
 const BtnText = styled.Text`
 	color: #f7fdff;
 	font-weight: 700;
+	align-self: center;
 `;
 
 const BtnSecText = styled.Text`
 	color: #04aa8c;
 	font-weight: 700;
+	align-self: center;
 `;
 
 export default QuizResults;

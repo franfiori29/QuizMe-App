@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeLanguage, switchTheme } from '@redux/reducers/global';
 import { logout } from '@redux/reducers/user';
 
+//==> Components
+import NavBar from '@components/utils/NavBar';
+
 //==> Styles
-import Icon from 'react-native-vector-icons/Ionicons';
 import styled, { ThemeProvider } from 'styled-components/native';
 
 //Assets
@@ -27,23 +29,13 @@ const UserMenu = ({ navigation }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
-				<Header>
-					<HeaderButton onPress={() => navigation.goBack()}>
-						<Icon
-							name='ios-close'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-					<HeaderText>QuizMeApp</HeaderText>
-					<HeaderButton>
-						<Icon
-							name='ios-search-outline'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-				</Header>
+				<NavBar
+					string='QuizMeApp'
+					nav1={() => navigation.goBack()}
+					nav2={() => navigation.navigate('Home')}
+					icon1='ios-close'
+					icon2='ios-search-outline'
+				/>
 				<UserContainer>
 					<UserImg
 						source={{ uri: 'https://picsum.photos/100/100' }}
@@ -173,7 +165,9 @@ const Screen = styled.ScrollView`
 `;
 
 const Header = styled.View`
-	width: 100%;
+	background-color: ${(props) => props.theme.bg};
+	width: 95%;
+	align-self: center;
 	height: 65px;
 	padding: 10px;
 	flex-direction: row;
@@ -195,7 +189,8 @@ const HeaderText = styled.Text`
 
 const UserContainer = styled.View`
 	height: 220px;
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	align-items: center;
 	justify-content: space-between;
 	border-bottom-width: 1px;
@@ -224,7 +219,8 @@ const UserText = styled.Text`
 `;
 
 const AccType = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 70px;
 	align-items: center;
 	justify-content: space-between;
@@ -234,15 +230,17 @@ const AccType = styled.View`
 	border-bottom-color: #ccc;
 `;
 const AccTypeButton = styled.TouchableOpacity`
-	width: 40%;
+	width: 50%;
 	height: 30px;
 	align-items: center;
 	justify-content: center;
 	border: 2px solid ${(props) => props.theme.primary};
+	border-radius: 5px;
 `;
 
 const MenuTouchOption = styled.TouchableOpacity`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 	height: 70px;
 	align-items: center;
 	justify-content: flex-start;

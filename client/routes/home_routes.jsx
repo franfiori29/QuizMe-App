@@ -14,8 +14,8 @@ import UserMenu from '@components/user_menu';
 import Profile from '@components/profile';
 import MyQuizzes from '@components/my_quizzes';
 import QuizMake from '@components/quiz_make';
-import QuizResults from '@components/quiz_results/index';
-import LogoAnimated from '@components/logo_animated/index';
+import QuizResults from '@components/quiz_results';
+import LogoAnimated from '@components/logo_animated';
 import { setToken } from '@redux/reducers/user';
 
 const HomeRoutes = () => {

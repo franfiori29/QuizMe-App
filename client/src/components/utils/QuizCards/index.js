@@ -52,27 +52,29 @@ const StyledText = styled.Text`
 `;
 
 const QuizCardsContainer = styled.View`
-	width: 100%;
+	width: 95%;
+	align-self: center;
 `;
 const QuizCard = styled.TouchableOpacity`
 	width: 100%;
-	height: 100px;
+	height: 120px;
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	align-items: center;
 	flex-direction: row;
-	padding: 0 10px;
+	padding: 15px 10px 10px 10px;
 `;
 
 const QuizImg = styled.Image`
 	z-index: 3;
 	height: 70px;
 	width: 70px;
-	border-radius: 25px;
+	border-radius: 10px;
 `;
 
 const QuizInfo = styled.View`
 	height: 100%;
+	width: 85%;
 	padding: 15px;
 	justify-content: space-around;
 `;

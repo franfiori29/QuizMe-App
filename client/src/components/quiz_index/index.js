@@ -81,7 +81,7 @@ const ContainerBottom = styled.View`
 const BackButtonContainer = styled.TouchableOpacity`
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.7);
-	border-radius: 100px;
+	border-radius: 15px;
 	width: 50px;
 	height: 50px;
 	left: 10px;
@@ -92,11 +92,10 @@ const BackButtonContainer = styled.TouchableOpacity`
 `;
 
 const BackButton = styled.Text`
-	color: white;
+	color: ${(props) => props.theme.primary};
 	text-align: center;
 	font-weight: 900;
 	font-size: 30px;
-	color: ${(props) => props.theme.text};
 `;
 
 const Title = styled.Text`
@@ -128,6 +127,7 @@ const StartButton = styled.TouchableOpacity`
 	width: 200px;
 	justify-content: center;
 	align-items: center;
+	border-radius: 5px;
 `;
 
 const Banner = styled.Image`
