@@ -215,7 +215,6 @@ const Pencil = styled(Icon)`
 	background-color: ${(props) => props.theme.bg};
 	border: 2px solid ${(props) => props.theme.text};
 	border-radius: 100px;
-	text-align: 'center';
 `;
 
 const UserName = styled.Text`
