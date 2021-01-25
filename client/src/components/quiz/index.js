@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import successSound from '@assets/audio/success.wav';
 import wrongSound from '@assets/audio/wrong.wav';
 import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
 import { Audio } from 'expo-av';
+import { completeQuiz } from '@redux/reducers/user.js';
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,7 @@ const MAX_POINTS = 1000;
 const { width: WIDTH } = Dimensions.get('window');
 const Quiz = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
+	const { completedQuiz } = useSelector((state) => state.user);
 	const questions = params.questions;
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
@@ -32,6 +34,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 	const button2 = useRef();
 	const button3 = useRef();
 	const buttonRefArray = [button0, button1, button2, button3];
+	const dispatch = useDispatch();
 
 	const [selected, setSelected] = useState({ id: -1, correct: false });
 	const [sounds, setSounds] = useState({
@@ -40,6 +43,28 @@ const Quiz = ({ navigation, route: { params } }) => {
 		timer: null,
 		theme: null,
 	});
+
+	const nextQuestion = (result) => {
+		if (current >= questions.length - 1) {
+			const wasCompleted = completedQuiz.some(
+				(quiz) => quiz._id === params.id
+			);
+			if (!wasCompleted) {
+				dispatch(completeQuiz(params.id));
+			}
+			navigation.replace('QuizResults', {
+				correct: result ? correct + 1 : correct,
+				total: questions.length,
+				imageQuiz: params.imageQuiz,
+			});
+		} else {
+			setTimer({ time: time, on: true });
+			if (result) {
+				setCorrect((c) => c + 1);
+			}
+			setCurrent((curr) => curr + 1);
+		}
+	};
 
 	useEffect(() => {
 		let i;

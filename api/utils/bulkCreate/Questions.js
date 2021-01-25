@@ -158,8 +158,6 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0013'),
 		title:
 			'What is the record for red cards given in a single soccer game?',
-		image:
-			'https://www.esdesignbarcelona.com/sites/default/files/beat_5.jpg',
 		options: [
 			{ title: '24', result: false },
 			{ title: '12', result: false },
