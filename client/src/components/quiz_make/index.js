@@ -25,49 +25,46 @@ const QuizMake = ({ navigation }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [category, setCategory] = useState('');
-	const [questions, setQuestions] = useState([]);
 	const [image, setImage] = useState(null);
 	const [time, setTime] = useState(0);
-	const [question, setQuestion] = useState('');
-	const [option1, setOption1] = useState('');
-	const [option2, setOption2] = useState('');
-	const [option3, setOption3] = useState('');
-	const [option4, setOption4] = useState('');
 
 	const handleSubmit = () => {
-		let obj = {
+		let quiz = {
 			title,
 			description,
 			image: 'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
 			categoryId: category,
-			questions: [
-				{
-					title: question,
-					options: [
-						{
-							title: option1,
-							result: false,
-						},
-						{
-							title: option2,
-							result: false,
-						},
-						{
-							title: option3,
-							result: true,
-						},
-						{
-							title: option4,
-							result: false,
-						},
-					],
-					score: 5,
-				},
-			],
 			time: Number(time),
+			questions: [],
 		};
-		dispatch(createQuiz(obj));
-		navigation.navigate('Home');
+		navigation.navigate('QuizMakeQuestions', { quiz });
+		// 	questions: [
+		// 		{
+		// 			title: question,
+		// 			options: [
+		// 				{
+		// 					title: option1,
+		// 					result: false,
+		// 				},
+		// 				{
+		// 					title: option2,
+		// 					result: false,
+		// 				},
+		// 				{
+		// 					title: option3,
+		// 					result: true,
+		// 				},
+		// 				{
+		// 					title: option4,
+		// 					result: false,
+		// 				},
+		// 			],
+		// 			score: 5,
+		// 		},
+		// 	],
+		//};
+		// dispatch(createQuiz(obj));
+		// navigation.navigate('Home');
 	};
 
 	const handleSelect = (select) => {
@@ -81,7 +78,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen',
+					'Necesitamos permiso a tu galería para que puedas subir una imagen'
 				);
 				return;
 			}
@@ -116,7 +113,7 @@ const QuizMake = ({ navigation }) => {
 					<Text
 						style={{
 							fontSize: 30,
-							fontWeight: 600,
+							fontWeight: 'bold',
 							color: theme.text,
 							textAlign: 'center',
 						}}
@@ -186,72 +183,7 @@ const QuizMake = ({ navigation }) => {
 						}
 						value={time.toString()}
 					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Pregunta
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
-						onChangeText={(text) => setQuestion(text)}
-						value={question}
-					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Opcion 1
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
-						onChangeText={(text) => setOption1(text)}
-						value={option1}
-					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Opcion 2
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
-						onChangeText={(text) => setOption2(text)}
-						value={option2}
-					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Opcion 3
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
-						onChangeText={(text) => setOption3(text)}
-						value={option3}
-					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Opcion 4
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
-						onChangeText={(text) => setOption4(text)}
-						value={option4}
-					/>
-					<Button title='Submit' onPress={handleSubmit} />
+					<Button title='Siguiente' onPress={handleSubmit} />
 				</FormContainer>
 			</Screen>
 		</ThemeProvider>
