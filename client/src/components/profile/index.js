@@ -32,18 +32,18 @@ export default function Profile({ navigation }) {
 	const dispatch = useDispatch();
 	const s = strings[language];
 
-	const stylesSpinner = StyleSheet.create({
-		spinnerTextStyle: {
-			color: theme.text,
-		},
-	});
+	// const stylesSpinner = StyleSheet.create({
+	// 	spinnerTextStyle: {
+	// 		color: theme.text,
+	// 	},
+	// });
 
 	const openImagePickerAsync = async () => {
 		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`
+				`The image is available for sharing at: ${picture.remoteUri}`,
 			);
 			return;
 		}
@@ -127,9 +127,9 @@ export default function Profile({ navigation }) {
 									<Spinner
 										visible={loading}
 										textContent={'Loading'}
-										textStyle={
-											stylesSpinner.spinnerTextStyle
-										}
+										textStyle={{
+											color: theme.text,
+										}}
 									/>
 								</View>
 							</View>
