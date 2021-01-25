@@ -23,7 +23,7 @@ const userSchema = new Schema(
 			default: 'USER',
 		},
 		premium: { type: Boolean, default: false },
-		correctQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
+		completedQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
 	},
 	{ timestamps: true }
 );

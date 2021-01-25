@@ -2,6 +2,44 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
 import { gql } from 'graphql-request';
 
+const mutationCompletedQuiz = gql`
+	mutation completeQuiz($payload: ID!) {
+		completeQuiz(quizId: $payload) {
+			completedQuiz {
+				_id
+			}
+		}
+	}
+`;
+
+export const completeQuiz = createAsyncThunk(
+	'user/completeQuiz',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationCompletedQuiz, {
+			payload,
+		});
+		return clientRequest;
+	}
+);
+
+const queryGetCompletedQuizzes = gql`
+	{
+		getCompletedQuizzes {
+			_id
+		}
+	}
+`;
+
+export const getCompletedQuizzes = createAsyncThunk(
+	'user/getCompletedQuizzes',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetCompletedQuizzes);
+		return clientRequest;
+	}
+);
+
 const queryUpdateUser = gql`
 	mutation($payload: UserInput) {
 		updateUser(userBody: $payload) {
@@ -30,6 +68,7 @@ const userSlice = createSlice({
 	initialState: {
 		info: {},
 		token: '',
+		completedQuiz: [],
 	},
 	reducers: {
 		getUser: (state, { payload }) => {
@@ -46,6 +85,12 @@ const userSlice = createSlice({
 	extraReducers: {
 		[updateUser.fulfilled]: (state, { payload }) => {
 			state.info = payload.updateUser;
+		[completeQuiz.fulfilled]: (state, { payload }) => {
+			state.completedQuiz = payload.completeQuiz.completedQuiz;
+		},
+		[getCompletedQuizzes.fulfilled]: (state, { payload }) => {
+			state.completedQuiz = payload.getCompletedQuizzes;
+
 		},
 	},
 });

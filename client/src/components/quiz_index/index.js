@@ -41,6 +41,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 								questions: quiz.questions,
 								imageQuiz: quiz.image,
 								time: quiz.time,
+								id: quiz._id,
 							})
 						}
 					>
