@@ -12,6 +12,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
 		email: 'emi@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Emiliano',
@@ -20,6 +21,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0001')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 		email: 'fran@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Fran',
@@ -28,6 +30,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
 		email: 'paco@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Paco',
@@ -36,6 +39,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0004'),
 		email: 'tincho@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Tincho',
@@ -44,6 +48,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
 		email: 'bruno@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Bruno',
@@ -52,6 +57,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0006'),
 		email: 'santi@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Santi',
@@ -60,6 +66,7 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0007'),
 		email: 'ailu@mail.com',
 		password: '!Qwerty123',
 		firstName: 'Ailin',
