@@ -1,14 +1,23 @@
 import React from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+//==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
-import NavBar from '@components/utils/NavBar';
-import ButtonPpal from '../utils/ButtonPpal';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+//==> Components
 import { createQuiz } from '@redux/reducers/quizzes';
+import ButtonPpal from '@components/utils/ButtonPpal';
+import NavBar from '@components/utils/NavBar';
+
+//==> Assets
+import strings from './strings';
 
 const QuizMakeDetails = ({ navigation, route: { params } }) => {
 	const dispatch = useDispatch();
-	const { theme } = useSelector((state) => state.global);
+	const { theme, language } = useSelector((state) => state.global);
+	const s = strings[language];
 	const quiz = params.quiz;
 	const handleSubmit = () => {
 		dispatch(createQuiz(quiz));
@@ -17,75 +26,129 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen centerContent={true}>
-				<NavBar
-					string='QuizMeApp'
-					nav1={() => navigation.navigate('UserMenu')}
-					nav2={() => navigation.navigate('UserMenu')}
-					icon1='ios-menu-outline'
-					icon2='ios-search-outline'
-				/>
+				<NavBar string={s.nav2} />
 				<View>
 					<Text
 						style={{
-							fontSize: 30,
-							fontWeight: 'bold',
+							fontSize: 28,
 							color: theme.text,
 							textAlign: 'center',
+							marginTop: 20,
+							marginBottom: 20,
+							fontWeight: 'bold',
 						}}
 					>
-						Detalle de tu quiz
+						{quiz.title}
 					</Text>
 					<View>
-						<Text style={{ fontSize: 20, color: theme.primary }}>
-							Titulo: {quiz.title}
-						</Text>
-						<Text style={{ fontSize: 20, color: theme.primary }}>
-							Descripción: {quiz.description}
-						</Text>
 						<Image
-							style={{ width: 200, height: 200 }}
+							style={{
+								width: '100%',
+								height: 200,
+								marginBottom: 20,
+							}}
 							source={{ uri: quiz.image }}
 						/>
-						<Text style={{ fontSize: 20, color: theme.primary }}>
-							Tiempo en cada pregunta: {quiz.time}
-						</Text>
-						<Text style={{ fontSize: 20, color: theme.primary }}>
-							Preguntas
-						</Text>
-						{quiz.questions.map((question, i) => {
-							return (
-								<View key={i}>
-									<Text
-										style={{
-											fontSize: 20,
-											color: theme.primary,
-										}}
-									>
-										Pregunta: {question.title}
-									</Text>
-									<Text
-										style={{
-											fontSize: 20,
-											color: theme.primary,
-										}}
-									>
-										Respuesta Correcta:
-										{
-											question.options.find(
-												(option) =>
-													option.result === true
-											).title
-										}
-									</Text>
-								</View>
-							);
-						})}
-						<ButtonPpal
-							string='Finalizar'
-							onSubmit={handleSubmit}
-							navigation={navigation}
-							nav=''
-						/>
+						<View
+							style={{
+								width: '95%',
+								alignSelf: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<Text
+								style={{
+									fontSize: 20,
+									color: theme.text,
+									textAlign: 'center',
+									marginBottom: 20,
+								}}
+							>
+								{quiz.description}
+							</Text>
+							<Text
+								style={{
+									fontSize: 20,
+									color: theme.text,
+									marginBottom: 20,
+								}}
+							>
+								{quiz.time} segundos por pregunta
+							</Text>
+							<Text
+								style={{
+									fontSize: 22,
+									fontWeight: 'bold',
+									color: theme.text,
+									marginBottom: 20,
+								}}
+							>
+								Preguntas
+							</Text>
+							{quiz.questions.map((question, i) => {
+								return (
+									<QuizScreen key={i}>
+										<View
+											style={{
+												paddingRight: 10,
+												paddingLeft: 10,
+												flex: 1,
+											}}
+										>
+											<Text
+												style={{
+													fontSize: 20,
+													color: theme.text,
+												}}
+											>
+												{question.title}
+											</Text>
+										</View>
+										<View
+											style={{
+												paddingRight: 10,
+												paddingLeft: 10,
+												flex: 1,
+											}}
+										>
+											<Text
+												style={{
+													fontSize: 20,
+													color: theme.text,
+													paddingRight: 20,
+												}}
+											>
+												{
+													question.options.find(
+														(option) =>
+															option.result ===
+															true
+													).title
+												}
+											</Text>
+											<Icon
+												name='checkmark-circle-outline'
+												size={20}
+												style={{
+													color: theme.primary,
+													position: 'absolute',
+													top: 5,
+													right: 5,
+												}}
+											/>
+										</View>
+									</QuizScreen>
+								);
+							})}
+						</View>
+						<View style={{ marginBottom: 20 }}>
+							<ButtonPpal
+								string='Finalizar'
+								onSubmit={handleSubmit}
+								navigation={navigation}
+								nav=''
+							/>
+						</View>
 					</View>
 				</View>
 			</Screen>
@@ -93,8 +156,8 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 	);
 };
 
-// PASARLE LA PROPS ROUTES NO ROUTE
-// QuizMakeDetails.defaultProps = {
+//PASARLE LA PROPS ROUTES NO ROUTE
+//QuizMakeDetails.defaultProps = {
 // 	routes: {
 // 		params: {
 // 			quiz: {
@@ -104,10 +167,12 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
 // 				questions: [
 // 					{
-// 						title: 'Es la a',
+// 						title:
+// 							'Es la aasdflkahsdfklajsdhflkajsdfhlaksdjfhlaskjdfhlaksjdfhalskdjfhalskdjfhsdlk',
 // 						options: [
 // 							{
-// 								title: 'a',
+// 								title:
+// 									'aasdasdfrwadsfskjfghbvlaskjdfhlaksdjhlksdjfhsldkfahsdlfadklafsad',
 // 								result: true,
 // 							},
 // 							{
@@ -204,30 +269,13 @@ const Screen = styled.ScrollView`
 	background-color: ${(props) => props.theme.bg};
 `;
 
-const FormContainer = styled.View`
-	margin: 0 20px;
-	border: 1px solid red;
-	border-radius: 10px;
-`;
-
-const StyledText = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
-
-const Header = styled.View`
-	width: 100%;
-	height: 65px;
-	padding: 10px;
+const QuizScreen = styled.View`
+	width: 95%;
+	align-self: center;
+	margin-bottom: 20px;
+	justify-content: flex-start;
+	align-items: center;
 	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
-	align-items: center;
-	justify-content: center;
 `;
 
 export default QuizMakeDetails;

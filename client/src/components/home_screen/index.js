@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, Button } from 'react-native';
+import { View } from 'react-native';
 import { getQuizzes } from '@redux/reducers/quizzes';
 
 //==> Components

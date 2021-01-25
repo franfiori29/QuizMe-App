@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Text } from 'react-native';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -7,24 +8,36 @@ const NavBar = ({ string, nav1, nav2, icon1, icon2 }) => {
 	const { theme } = useSelector((state) => state.global);
 
 	const handleNav1 = () => {
-		nav1();
+		if (nav1) {
+			nav1();
+		}
 	};
 
 	const handleNav2 = () => {
-		nav2();
+		if (nav2) {
+			nav2();
+		}
 	};
 
 	return (
 		<ThemeProvider theme={theme}>
 			<Header>
 				<HeaderButton onPress={handleNav1}>
-					<Icon name={icon1} color={theme.primary} size={28} />
+					{nav2 ? (
+						<Icon name={icon1} color={theme.primary} size={28} />
+					) : (
+						<Icon name='ios-close' color='transparent' size={28} />
+					)}
 				</HeaderButton>
 				<StyledText style={{ fontSize: 20, color: theme.primary }}>
 					{string}
 				</StyledText>
 				<HeaderButton onPress={handleNav2}>
-					<Icon name={icon2} color={theme.primary} size={28} />
+					{nav2 ? (
+						<Icon name={icon2} color={theme.primary} size={28} />
+					) : (
+						<Icon name='ios-close' color='transparent' size={28} />
+					)}
 				</HeaderButton>
 			</Header>
 		</ThemeProvider>

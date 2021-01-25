@@ -3,30 +3,36 @@ import { Button, Text, TextInput, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { createQuiz } from '../../redux/reducers/quizzes';
-import ScrollCategory from '../utils/ScrollCategory';
+
+//==>Assets
+import strings from './strings';
+
+//==> Components
+import ScrollCategory from '@components/utils/ScrollCategory';
+import ButtonPpal from '@components/utils/ButtonPpal';
+import NavBar from '@components/utils/NavBar';
 
 /* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
-import { getCategories } from '../../redux/reducers/categories';
+import { getCategories } from '@redux/reducers/categories';
 /* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
 const QuizMake = ({ navigation }) => {
+	const { theme, language } = useSelector((state) => state.global);
 	const dispatch = useDispatch();
+	const s = strings[language];
 
-	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
-	useEffect(() => {
-		dispatch(getCategories());
-	}, []);
-	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
-
-	const { theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [category, setCategory] = useState('');
 	const [image, setImage] = useState(null);
 	const [time, setTime] = useState(0);
+
+	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
+	useEffect(() => {
+		dispatch(getCategories());
+	}, []);
+	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
 	const handleSubmit = () => {
 		let quiz = {
@@ -38,33 +44,6 @@ const QuizMake = ({ navigation }) => {
 			questions: [],
 		};
 		navigation.navigate('QuizMakeQuestions', { quiz });
-		// 	questions: [
-		// 		{
-		// 			title: question,
-		// 			options: [
-		// 				{
-		// 					title: option1,
-		// 					result: false,
-		// 				},
-		// 				{
-		// 					title: option2,
-		// 					result: false,
-		// 				},
-		// 				{
-		// 					title: option3,
-		// 					result: true,
-		// 				},
-		// 				{
-		// 					title: option4,
-		// 					result: false,
-		// 				},
-		// 			],
-		// 			score: 5,
-		// 		},
-		// 	],
-		//};
-		// dispatch(createQuiz(obj));
-		// navigation.navigate('Home');
 	};
 
 	const handleSelect = (select) => {
@@ -96,94 +75,104 @@ const QuizMake = ({ navigation }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen centerContent={true}>
-				<Header>
-					<HeaderButton onPress={() => navigation.navigate('Home')}>
-						<Icon
-							name='ios-close'
-							color={theme.primary}
-							size={28}
-						/>
-					</HeaderButton>
-					<StyledText style={{ fontSize: 20, color: theme.primary }}>
-						QuizMeApp
-					</StyledText>
-					<Text></Text>
-				</Header>
-				<View>
+				<NavBar
+					string={s.nav}
+					nav1={() => navigation.navigate('Home')}
+					icon1='ios-close'
+					icon2=''
+				/>
+				<Title>
 					<Text
 						style={{
-							fontSize: 30,
+							fontSize: 28,
 							fontWeight: 'bold',
 							color: theme.text,
 							textAlign: 'center',
 						}}
 					>
-						Empecemos a crear tu propia quiz
+						{s.title}
 					</Text>
-				</View>
+				</Title>
 				<FormContainer>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Titulo
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
+					<QuizInput
+						placeholder={s.titlePlace}
+						placeholderTextColor={theme.text}
 						onChangeText={(text) => setTitle(text)}
 						value={title}
 					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Descripción
-					</Text>
-					<TextInput
-						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
-						}}
+
+					<QuizInput
+						placeholder={s.descPlace}
+						placeholderTextColor={theme.text}
 						onChangeText={(text) => setDescription(text)}
 						value={description}
 					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Imagen (Opcional)
+					<Text
+						style={{
+							fontSize: 18,
+							color: theme.text,
+							marginBottom: 10,
+						}}
+					>
+						{s.img}
 					</Text>
-					<Button
-						title={
-							image
-								? 'Cambia la imagen seleccionada'
-								: 'Elige una imagen de tu galería'
-						}
-						color={theme.primary}
-						onPress={pickImage}
+					<ButtonPpal
+						string={image ? s.img1 : s.img2}
+						onSubmit={pickImage}
+						navigation={navigation}
+						nav=''
 					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Categorías
+					<Text
+						style={{
+							fontSize: 18,
+							color: theme.text,
+							marginTop: 20,
+							marginBottom: 10,
+						}}
+					>
+						{s.cat}
 					</Text>
 					<ScrollCategory
 						categories={categories}
 						handleSelect={handleSelect}
 					/>
-					<Text style={{ fontSize: 20, color: theme.text }}>
-						Tiempo de cada pregunta (En segundos)
-					</Text>
-					<TextInput
+					<View
 						style={{
-							height: 40,
-							borderColor: 'gray',
-							borderWidth: 1,
-							color: theme.text,
+							width: '95%',
+							alignSelf: 'center',
+							marginTop: 20,
+							marginBottom: 5,
+							alignItems: 'center',
+							justifyContent: 'center',
 						}}
-						keyboardType='numeric'
-						onChangeText={(text) =>
-							setTime(text.replace(/[^0-9]+/, ''))
-						}
-						value={time.toString()}
+					>
+						<Text
+							style={{
+								fontSize: 18,
+								color: theme.text,
+								marginTop: 20,
+								alignSelf: 'center',
+							}}
+						>
+							{s.time}
+						</Text>
+						<QuizInput
+							style={{ marginTop: 10, width: '100%' }}
+							placeholder='0'
+							placeholderTextColor={theme.text}
+							keyboardType='numeric'
+							onChangeText={(text) =>
+								setTime(text.replace(/[^0-9]+/, ''))
+							}
+							value={time.toString()}
+						/>
+					</View>
+					<ButtonPpal
+						string={s.next}
+						onSubmit={handleSubmit}
+						navigation={navigation}
+						nav=''
 					/>
-					<Button title='Siguiente' onPress={handleSubmit} />
 				</FormContainer>
 			</Screen>
 		</ThemeProvider>
@@ -195,30 +184,33 @@ const Screen = styled.ScrollView`
 	background-color: ${(props) => props.theme.bg};
 `;
 
-const FormContainer = styled.View`
-	margin: 0 20px;
-	border: 1px solid red;
-	border-radius: 10px;
-`;
-
-const StyledText = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
-
-const Header = styled.View`
-	width: 100%;
-	height: 65px;
-	padding: 10px;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
+const Title = styled.View`
+	width: 95%;
+	align-self: center;
+	margin: 20px 0;
 	align-items: center;
 	justify-content: center;
+`;
+
+const FormContainer = styled.View`
+	width: 95%;
+	align-self: center;
+	margin: 0 20px 20px 20px;
+	border-radius: 10px;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+const QuizInput = styled.TextInput`
+	width: 95%;
+	align-self: center;
+	height: 40px;
+	border-color: #ccc;
+	border-width: 1px;
+	border-radius: 5px;
+	color: ${(props) => props.theme.text};
+	margin-bottom: 20px;
+	padding: 10px;
 `;
 
 export default QuizMake;
