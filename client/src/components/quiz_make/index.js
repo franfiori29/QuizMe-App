@@ -3,6 +3,7 @@ import { Button, Text, TextInput, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
+import fb from '@root/src/firebase';
 
 //==>Assets
 import strings from './strings';
@@ -34,11 +35,37 @@ const QuizMake = ({ navigation }) => {
 	}, []);
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		/* --- SUBE IMAGEN A FIREBASE --- */
+		let url;
+		try {
+			const blob = await new Promise((resolve, reject) => {
+				const xhr = new XMLHttpRequest();
+				xhr.onload = function () {
+					resolve(xhr.response);
+				};
+				xhr.onerror = function (e) {
+					reject(new TypeError('Network request failed'));
+				};
+				xhr.responseType = 'blob';
+				xhr.open('GET', image, true);
+				xhr.send(null);
+			});
+			const ref = fb.storage().ref('QuizImage/test');
+			const snapshot = await ref.put(blob);
+			blob.close();
+			url = await snapshot.ref.getDownloadURL();
+		} catch (err) {
+			console.log(err);
+		}
+		/* --- SUBE IMAGEN A FIREBASE --- */
+
 		let quiz = {
 			title,
 			description,
-			image: 'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+			image:
+				url ||
+				'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
 			categoryId: category,
 			time: Number(time),
 			questions: [],
