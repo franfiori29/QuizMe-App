@@ -1,25 +1,42 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import fb from '@root/src/firebase';
+import { v4 as uuidv4 } from 'uuid';
+
+//Redux
+import { updateUser } from '@redux/reducers/user';
 
 //Components
 import NavBar from '@components/utils/NavBar';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Assets
 import strings from './strings';
+import { Platform } from 'react-native';
 
 export default function Profile({ navigation }) {
 	const { theme, language } = useSelector((state) => state.global);
+	const { info } = useSelector((state) => state.user);
 	const { info: user } = useSelector((state) => state.user);
 	const [picture, setPicture] = useState(null);
+	const [loading, setLoading] = useState(false);
+
+	const dispatch = useDispatch();
 	const s = strings[language];
+
+	const stylesSpinner = StyleSheet.create({
+		spinnerTextStyle: {
+			color: theme.text,
+		},
+	});
 
 	const openImagePickerAsync = async () => {
 		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
@@ -35,7 +52,36 @@ export default function Profile({ navigation }) {
 		if (pickerResult.cancelled === true) {
 			return;
 		} else {
-			setPicture({ localUri: pickerResult.uri });
+			/* --- SUBE IMAGEN A FIREBASE --- */
+			setLoading(true);
+			let url;
+			let randomID = uuidv4();
+			try {
+				const blob = await new Promise((resolve, reject) => {
+					const xhr = new XMLHttpRequest();
+					xhr.onload = function () {
+						resolve(xhr.response);
+					};
+					xhr.onerror = function (e) {
+						reject(new TypeError('Network request failed'));
+					};
+					xhr.responseType = 'blob';
+					xhr.open('GET', pickerResult.uri, true);
+					xhr.send(null);
+				});
+				const ref = fb.storage().ref(`profilePic/${randomID}`);
+				const snapshot = await ref.put(blob);
+				url = await snapshot.ref.getDownloadURL();
+
+				if (Platform.OS !== 'web') {
+					blob.close();
+				}
+				setPicture({ localUri: url });
+				dispatch(updateUser({ profilePic: url }));
+				setLoading(false);
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 
@@ -54,11 +100,40 @@ export default function Profile({ navigation }) {
 						<UserImg
 							source={{
 								uri:
-									picture !== null
-										? picture.localUri
+									info !== null
+										? info.profilePic
 										: 'https://picsum.photos/150/150',
 							}}
 						/>
+						{loading && (
+							<View
+								style={{
+									position: 'absolute',
+									zIndex: 5,
+									height: 130,
+									width: 140,
+									backgroundColor: 'rgba(0,0,0,0.8)',
+									alignItems: 'center',
+									borderRadius: 100,
+									borderColor: 'red',
+								}}
+							>
+								<View
+									style={{
+										alignSelf: 'center',
+										margin: 'auto',
+									}}
+								>
+									<Spinner
+										visible={loading}
+										textContent={'Loading'}
+										textStyle={
+											stylesSpinner.spinnerTextStyle
+										}
+									/>
+								</View>
+							</View>
+						)}
 						<Pencil
 							color={theme.primary}
 							name='ios-pencil'
@@ -204,7 +279,7 @@ const Pencil = styled(Icon)`
 	top: 0;
 	right: 0;
 	padding: 8px;
-	z-index: 4;
+	z-index: 10;
 	background-color: ${(props) => props.theme.bg};
 	border: 2px solid ${(props) => props.theme.text};
 	border-radius: 100px;
