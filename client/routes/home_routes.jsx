@@ -41,7 +41,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'LogoAnimated'}
+				initialRouteName={'Profile'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />

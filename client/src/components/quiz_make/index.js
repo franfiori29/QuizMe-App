@@ -57,7 +57,9 @@ const QuizMake = ({ navigation }) => {
 			const ref = fb.storage().ref(`QuizImage/${randomID}`);
 			const snapshot = await ref.put(blob);
 			url = await snapshot.ref.getDownloadURL();
-			blob.close();
+			if (Platform.OS !== 'web') {
+				blob.close();
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -86,7 +88,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen',
+					'Necesitamos permiso a tu galería para que puedas subir una imagen'
 				);
 				return;
 			}
