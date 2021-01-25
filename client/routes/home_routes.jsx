@@ -17,6 +17,8 @@ import QuizMake from '@components/quiz_make';
 import QuizResults from '@components/quiz_results';
 import LogoAnimated from '@components/logo_animated';
 import { setToken } from '@redux/reducers/user';
+import QuizMakeDetails from '@components/quiz_make/details';
+import QuizMakeQuestions from '@components/quiz_make/questions';
 
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
@@ -47,6 +49,11 @@ const HomeRoutes = () => {
 				<Screen name='UserMenu' component={UserMenu} />
 				<Screen name='MyQuizzes' component={MyQuizzes} />
 				<Screen name='QuizMake' component={QuizMake} />
+				<Screen
+					name='QuizMakeQuestions'
+					component={QuizMakeQuestions}
+				/>
+				<Screen name='QuizMakeDetails' component={QuizMakeDetails} />
 				<Screen name='QuizIndex' component={QuizIndex} />
 				<Screen name='QuizResults' component={QuizResults} />
 				<Screen name='Quiz' component={Quiz} />

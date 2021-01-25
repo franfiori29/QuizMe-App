@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
-const ButtonPpal = ({ navigation, string, nav }) => {
+const ButtonPpal = ({ navigation, string, nav, onSubmit }) => {
 	const { theme } = useSelector((state) => state.global);
 	const handleNav = () => {
 		navigation.navigate(nav);
 	};
 	return (
 		<ThemeProvider theme={theme}>
-			<ButtonPpalCont onPress={handleNav}>
+			<ButtonPpalCont onPress={onSubmit || handleNav}>
 				<ButtonPpalText>{string}</ButtonPpalText>
 			</ButtonPpalCont>
 		</ThemeProvider>
