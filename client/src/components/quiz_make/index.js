@@ -3,6 +3,9 @@ import { Button, Text, TextInput, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
+import fb from '@root/src/firebase';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 //==>Assets
 import strings from './strings';
@@ -34,11 +37,37 @@ const QuizMake = ({ navigation }) => {
 	}, []);
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		/* --- SUBE IMAGEN A FIREBASE --- */
+		let url;
+		let randomID = uuidv4();
+		try {
+			const blob = await new Promise((resolve, reject) => {
+				const xhr = new XMLHttpRequest();
+				xhr.onload = function () {
+					resolve(xhr.response);
+				};
+				xhr.onerror = function (e) {
+					reject(new TypeError('Network request failed'));
+				};
+				xhr.responseType = 'blob';
+				xhr.open('GET', image, true);
+				xhr.send(null);
+			});
+			const ref = fb.storage().ref(`QuizImage/${randomID}`);
+			const snapshot = await ref.put(blob);
+			url = await snapshot.ref.getDownloadURL();
+			blob.close();
+		} catch (err) {
+			console.log(err);
+		}
+		/* --- SUBE IMAGEN A FIREBASE --- */
 		let quiz = {
 			title,
 			description,
-			image: 'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+			image:
+				url ||
+				'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
 			categoryId: category,
 			time: Number(time),
 			questions: [],
@@ -57,7 +86,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen'
+					'Necesitamos permiso a tu galería para que puedas subir una imagen',
 				);
 				return;
 			}
