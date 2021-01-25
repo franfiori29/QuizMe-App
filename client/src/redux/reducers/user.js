@@ -20,7 +20,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 const queryGetCompletedQuizzes = gql`
@@ -37,7 +37,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	}
+	},
 );
 
 const queryUpdateUser = gql`
@@ -61,7 +61,7 @@ export const updateUser = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 const userSlice = createSlice({
 	name: 'user',
@@ -85,12 +85,12 @@ const userSlice = createSlice({
 	extraReducers: {
 		[updateUser.fulfilled]: (state, { payload }) => {
 			state.info = payload.updateUser;
+		},
 		[completeQuiz.fulfilled]: (state, { payload }) => {
 			state.completedQuiz = payload.completeQuiz.completedQuiz;
 		},
 		[getCompletedQuizzes.fulfilled]: (state, { payload }) => {
 			state.completedQuiz = payload.getCompletedQuizzes;
-
 		},
 	},
 });

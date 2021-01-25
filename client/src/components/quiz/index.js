@@ -47,19 +47,25 @@ const Quiz = ({ navigation, route: { params } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id
+				(quiz) => quiz._id === params.id,
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 			}
+			let newPoints =
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
 				total: questions.length,
 				imageQuiz: params.imageQuiz,
+				points: newPoints,
 			});
 		} else {
-			setTimer({ time: time, on: true });
+			setTimer({ time: totalTime, on: true });
 			if (result) {
+				setPoints((prevPoints) => {
+					return prevPoints + (timer.time / totalTime) * MAX_POINTS;
+				});
 				setCorrect((c) => c + 1);
 			}
 			setCurrent((curr) => curr + 1);
@@ -75,7 +81,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
 					easing: 'linear',
 				},
-				totalTime * 1000
+				totalTime * 1000,
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -158,28 +164,6 @@ const Quiz = ({ navigation, route: { params } }) => {
 			sound4?.unloadAsync();
 		};
 	}, []);
-
-	const nextQuestion = (result) => {
-		if (current >= questions.length - 1) {
-			let newPoints =
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
-			navigation.replace('QuizResults', {
-				correct: result ? correct + 1 : correct,
-				total: questions.length,
-				imageQuiz: params.imageQuiz,
-				points: newPoints,
-			});
-		} else {
-			setTimer({ time: totalTime, on: true });
-			if (result) {
-				setPoints((prevPoints) => {
-					return prevPoints + (timer.time / totalTime) * MAX_POINTS;
-				});
-				setCorrect((c) => c + 1);
-			}
-			setCurrent((curr) => curr + 1);
-		}
-	};
 
 	const question = questions[current];
 	if (!question) return null;
