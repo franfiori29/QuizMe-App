@@ -39,6 +39,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 				<ContainerTop source={{ uri: params.imageQuiz }}>
 					<FinishedTitle>
 						¡Terminaste el quiz! Acá están tus resultados:
+						{params.points}
 					</FinishedTitle>
 				</ContainerTop>
 

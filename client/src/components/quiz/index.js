@@ -1,41 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import successSound from '@assets/audio/success.wav';
 import wrongSound from '@assets/audio/wrong.wav';
 import timerSound from '@assets/audio/timer.m4a';
+import themeSound from '@assets/audio/samba-theme-loop.wav';
 import { Audio } from 'expo-av';
+import { completeQuiz } from '@redux/reducers/user.js';
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking } from './animations';
+
 const TIME = 10;
+const THEME_MAX_VOL = 0.15;
+const THEME_MIN_VOL = 0.05;
+const MAX_POINTS = 1000;
 
 const { width: WIDTH } = Dimensions.get('window');
 const Quiz = ({ navigation, route: { params } }) => {
 	const { theme } = useSelector((state) => state.global);
+	const { completedQuiz } = useSelector((state) => state.user);
 	const questions = params.questions;
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
-	const time = params.time || TIME;
-	const [timer, setTimer] = useState({ time: time, on: true });
+	const totalTime = params.time || TIME;
+	const [timer, setTimer] = useState({ time: totalTime, on: true });
+	const [points, setPoints] = useState(0);
 	const barRef = useRef();
 	const button0 = useRef();
 	const button1 = useRef();
 	const button2 = useRef();
 	const button3 = useRef();
 	const buttonRefArray = [button0, button1, button2, button3];
+	const dispatch = useDispatch();
 
 	const [selected, setSelected] = useState({ id: -1, correct: false });
 	const [sounds, setSounds] = useState({
 		success: null,
 		wrong: null,
 		timer: null,
+		theme: null,
 	});
 
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
+			const wasCompleted = completedQuiz.some(
+				(quiz) => quiz._id === params.id
+			);
+			if (!wasCompleted) {
+				dispatch(completeQuiz(params.id));
+			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
 				total: questions.length,
@@ -49,6 +65,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 			setCurrent((curr) => curr + 1);
 		}
 	};
+
 	useEffect(() => {
 		let i;
 		if (current < questions.length && timer.on) {
@@ -58,7 +75,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
 					easing: 'linear',
 				},
-				time * 1000
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -73,50 +90,96 @@ const Quiz = ({ navigation, route: { params } }) => {
 			buttonRefArray.forEach((e) => e.current.animate(shaking, 3000));
 			sounds.timer?.playFromPositionAsync(3500);
 		}
+
 		if (timer.time <= 0 && timer.on) {
-			sounds.wrong?.playFromPositionAsync(0);
-			nextQuestion(false);
+			startTimeout(false);
 		}
 	}, [timer]);
 
 	const handleOptionPress = (result, i) => {
 		if (timer.on) {
 			setSelected({ id: i, correct: result });
-			sounds.timer?.stopAsync();
-			result
-				? sounds.success?.playFromPositionAsync(0)
-				: sounds.wrong?.playFromPositionAsync(0);
-			barRef.current.stopAnimation();
-			buttonRefArray.forEach((e) => e.current.stopAnimation());
-			setTimer({ time: time, on: false });
-			setTimeout(() => {
-				setSelected({ id: -1, correct: false });
-				nextQuestion(result);
-			}, 1000);
+			startTimeout(result);
 		}
+	};
+
+	const startTimeout = (result) => {
+		sounds.timer?.stopAsync();
+		sounds.theme?.setVolumeAsync(THEME_MIN_VOL);
+		result
+			? sounds.success?.playFromPositionAsync(0)
+			: sounds.wrong?.playFromPositionAsync(0);
+		barRef.current.stopAnimation();
+		buttonRefArray.forEach((e) => e.current.stopAnimation());
+		setTimer({ time: totalTime, on: false });
+		setTimeout(() => {
+			sounds.theme?.setVolumeAsync(THEME_MAX_VOL);
+			setSelected({ id: -1, correct: false });
+			nextQuestion(result);
+		}, 1000);
 	};
 
 	useEffect(() => {
 		const sound1 = new Audio.Sound();
 		const sound2 = new Audio.Sound();
 		const sound3 = new Audio.Sound();
+		const sound4 = new Audio.Sound();
 		async function loadSounds() {
 			try {
-				await sound1.loadAsync(successSound);
-				await sound2.loadAsync(wrongSound);
-				await sound3.loadAsync(timerSound);
-				setSounds({ success: sound1, wrong: sound2, timer: sound3 });
+				setSounds({
+					success: sound1,
+					wrong: sound2,
+					timer: sound3,
+					theme: sound4,
+				});
+				sound1.loadAsync(successSound);
+				sound2.loadAsync(wrongSound);
+				sound3.loadAsync(timerSound);
+				sound4
+					.loadAsync(themeSound)
+					.then(() => {
+						return sound4.setStatusAsync({
+							volume: THEME_MAX_VOL,
+							isLooping: true,
+						});
+					})
+					.then(() => {
+						sound4.playAsync();
+					});
 			} catch {
 				console.log('sound loading error');
 			}
 		}
 		loadSounds();
 		return () => {
-			sound1.unloadAsync();
-			sound2.unloadAsync();
-			sound3.unloadAsync();
+			sound1?.unloadAsync();
+			sound2?.unloadAsync();
+			sound3?.unloadAsync();
+			sound4?.unloadAsync();
 		};
 	}, []);
+
+	const nextQuestion = (result) => {
+		if (current >= questions.length - 1) {
+			let newPoints =
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
+			navigation.replace('QuizResults', {
+				correct: result ? correct + 1 : correct,
+				total: questions.length,
+				imageQuiz: params.imageQuiz,
+				points: newPoints,
+			});
+		} else {
+			setTimer({ time: totalTime, on: true });
+			if (result) {
+				setPoints((prevPoints) => {
+					return prevPoints + (timer.time / totalTime) * MAX_POINTS;
+				});
+				setCorrect((c) => c + 1);
+			}
+			setCurrent((curr) => curr + 1);
+		}
+	};
 
 	const question = questions[current];
 	if (!question) return null;
@@ -135,7 +198,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 							color: theme.text,
 						}}
 					>
-						2600
+						{points}
 					</Text>
 					<Text
 						style={{
