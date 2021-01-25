@@ -12,5 +12,15 @@ module.exports = {
 			return userfind.correctQuiz;
 		},
 	},
-	Mutation: {},
+	Mutation: {
+		updateUser: async (_, { userBody }, { user }) => {
+			console.log(user);
+			const userfind = await User.findOneAndUpdate(
+				{ _id: user._id },
+				userBody,
+				{ new: true }
+			);
+			return userfind;
+		},
+	},
 };

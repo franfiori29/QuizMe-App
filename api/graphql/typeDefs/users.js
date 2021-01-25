@@ -8,29 +8,29 @@ module.exports = gql`
 	}
 
 	type User {
-		_id: ID!
-		firstName: String!
-		lastName: String!
-		email: String!
-		profilePic: String!
+		_id: ID
+		firstName: String
+		lastName: String
+		email: String
+		profilePic: String
 		accountId: String
 		socialAccount: String
-		countryCode: Int!
-		role: Role!
+		countryCode: Int
+		role: Role
 		correctQuiz: [Quiz]
 	}
 
 	input UserInput {
-		_id: ID!
-		firstName: String!
-		lastName: String!
-		email: String!
+		_id: ID
+		firstName: String
+		lastName: String
+		email: String
 		password: String
-		profilePic: String!
+		profilePic: String
 		accountId: String
 		socialAccount: String
-		countryCode: Int!
-		role: Role!
+		countryCode: Int
+		role: Role
 	}
 
 	type Query {
@@ -39,6 +39,6 @@ module.exports = gql`
 	}
 
 	type Mutation {
-		updateUser(user: UserInput): User!
+		updateUser(userBody: UserInput): User!
 	}
 `;
