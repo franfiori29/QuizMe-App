@@ -17,7 +17,7 @@ module.exports = gql`
 		socialAccount: String
 		countryCode: Int!
 		role: Role!
-		correctQuiz: [Quiz]
+		completedQuiz: [Quiz]
 	}
 
 	input UserInput {
@@ -35,10 +35,11 @@ module.exports = gql`
 
 	type Query {
 		getUsers: [User]!
-		getCompleteQuiz: [ID]
+		getCompletedQuizzes: [Quiz]
 	}
 
 	type Mutation {
 		updateUser(user: UserInput): User!
+		completeQuiz(quizId: ID!): User!
 	}
 `;

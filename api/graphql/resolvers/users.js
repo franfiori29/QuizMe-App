@@ -7,10 +7,19 @@ module.exports = {
 			const users = await User.find();
 			return users;
 		},
-		getCompleteQuiz: async (__, _, { user }) => {
+		getCompletedQuizzes: async (__, _, { user }) => {
 			const userfind = await User.findById(user._id);
-			return userfind.correctQuiz;
+			return userfind.completedQuiz;
 		},
 	},
-	Mutation: {},
+	Mutation: {
+		completeQuiz: async (_, { quizId }, { user }) => {
+			const userfind = await User.findOneAndUpdate(
+				{ _id: user._id },
+				{ $push: { completedQuiz: quizId } },
+				{ new: true }
+			);
+			return userfind;
+		},
+	},
 };
