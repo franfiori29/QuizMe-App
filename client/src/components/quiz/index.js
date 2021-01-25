@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
-
+import successSound from '@assets/audio/success.wav';
+import wrongSound from '@assets/audio/wrong.wav';
+import timerSound from '@assets/audio/timer.m4a';
+import { Audio } from 'expo-av';
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -25,10 +28,15 @@ const Quiz = ({ navigation, route: { params } }) => {
 	const buttonRefArray = [button0, button1, button2, button3];
 
 	const [selected, setSelected] = useState({ id: -1, correct: false });
+	const [sounds, setSounds] = useState({
+		success: null,
+		wrong: null,
+		timer: null,
+	});
 
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
-			navigation.navigate('QuizResults', {
+			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
 				total: questions.length,
 				imageQuiz: params.imageQuiz,
@@ -61,19 +69,25 @@ const Quiz = ({ navigation, route: { params } }) => {
 	}, [current, timer.on]);
 
 	useEffect(() => {
-		if (timer.time === 2) {
-			buttonRefArray.forEach((e) => e.current.animate(shaking, 2000));
+		if (timer.time === 3) {
+			buttonRefArray.forEach((e) => e.current.animate(shaking, 3000));
+			sounds.timer?.playFromPositionAsync(3500);
 		}
 		if (timer.time <= 0 && timer.on) {
+			sounds.wrong?.playFromPositionAsync(0);
 			nextQuestion(false);
 		}
 	}, [timer]);
 
 	const handleOptionPress = (result, i) => {
-		setSelected({ id: i, correct: result });
-		barRef.current.stopAnimation();
-		buttonRefArray.forEach((e) => e.current.stopAnimation());
 		if (timer.on) {
+			setSelected({ id: i, correct: result });
+			sounds.timer?.stopAsync();
+			result
+				? sounds.success?.playFromPositionAsync(0)
+				: sounds.wrong?.playFromPositionAsync(0);
+			barRef.current.stopAnimation();
+			buttonRefArray.forEach((e) => e.current.stopAnimation());
 			setTimer({ time: time, on: false });
 			setTimeout(() => {
 				setSelected({ id: -1, correct: false });
@@ -81,6 +95,28 @@ const Quiz = ({ navigation, route: { params } }) => {
 			}, 1000);
 		}
 	};
+
+	useEffect(() => {
+		const sound1 = new Audio.Sound();
+		const sound2 = new Audio.Sound();
+		const sound3 = new Audio.Sound();
+		async function loadSounds() {
+			try {
+				await sound1.loadAsync(successSound);
+				await sound2.loadAsync(wrongSound);
+				await sound3.loadAsync(timerSound);
+				setSounds({ success: sound1, wrong: sound2, timer: sound3 });
+			} catch {
+				console.log('sound loading error');
+			}
+		}
+		loadSounds();
+		return () => {
+			sound1.unloadAsync();
+			sound2.unloadAsync();
+			sound3.unloadAsync();
+		};
+	}, []);
 
 	const question = questions[current];
 	if (!question) return null;

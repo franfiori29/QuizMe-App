@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View } from 'react-native';
+import { View, RefreshControl } from 'react-native';
 import { getQuizzes } from '@redux/reducers/quizzes';
 
 //==> Components
@@ -33,7 +33,18 @@ const HomeScreen = ({ navigation }) => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Screen centerContent={true}>
+			<Screen
+				centerContent={true}
+				refreshControl={
+					<RefreshControl
+						refreshing={false}
+						onRefresh={() => {
+							dispatch(getQuizzes());
+							dispatch(getCategories());
+						}}
+					/>
+				}
+			>
 				<NavBar
 					string='QuizMeApp'
 					nav1={() => navigation.navigate('UserMenu')}
