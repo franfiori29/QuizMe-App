@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
 import { getQuizzes } from '@redux/reducers/quizzes';
+import { getCategories } from '../../redux/reducers/categories';
+import { getCompletedQuizzes } from '../../redux/reducers/user';
 
 //==> Components
 import QuizCards from '@components/utils/QuizCards';
@@ -14,10 +16,9 @@ import styled, { ThemeProvider } from 'styled-components/native';
 
 //==>Assets
 import strings from './strings';
-import { getCategories } from '../../redux/reducers/categories';
 
 const HomeScreen = ({ navigation }) => {
-	const { info: user } = useSelector((state) => state.user);
+	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
 	const { quizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
@@ -29,6 +30,7 @@ const HomeScreen = ({ navigation }) => {
 	useEffect(() => {
 		dispatch(getQuizzes());
 		dispatch(getCategories());
+		dispatch(getCompletedQuizzes());
 	}, []);
 
 	return (
@@ -75,7 +77,10 @@ const HomeScreen = ({ navigation }) => {
 							<SelectorText>{s.selector2}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards quizzes={quizzes} />
+					<QuizCards
+						quizzes={quizzes}
+						completedQuiz={completedQuiz}
+					/>
 				</View>
 				<CategoryContainer>
 					<CategoryImg

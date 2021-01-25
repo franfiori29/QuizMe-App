@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
 import { Text } from 'react-native';
 
-const QuizCards = ({ quizzes }) => {
+const QuizCards = ({ quizzes, completedQuiz }) => {
 	const navigation = useNavigation();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
@@ -34,16 +34,19 @@ const QuizCards = ({ quizzes }) => {
 							<StyledText>{quiz.description}</StyledText>
 							<StyledText>{quiz.likes} Likes</StyledText>
 						</QuizInfo>
-						<QuizCheck>
-							<Text style={{ color: theme.primary }}>
-								{s.completed}
-							</Text>
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{ color: theme.primary }}
-							/>
-						</QuizCheck>
+
+						{completedQuiz.some((e) => e._id === quiz._id) && (
+							<QuizCheck>
+								<Text style={{ color: theme.primary }}>
+									{s.completed}
+								</Text>
+								<Icon
+									name='checkmark-circle-outline'
+									size={20}
+									style={{ color: theme.primary }}
+								/>
+							</QuizCheck>
+						)}
 					</QuizCard>
 				))}
 		</QuizCardsContainer>
