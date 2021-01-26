@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
 import { gql } from 'graphql-request';
+import fb from '../../firebase';
 
 const mutationCompletedQuiz = gql`
 	mutation completeQuiz($payload: ID!) {
@@ -20,7 +21,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 const queryGetCompletedQuizzes = gql`
@@ -37,7 +38,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	}
+	},
 );
 
 const queryUpdateUser = gql`
@@ -56,12 +57,17 @@ const queryUpdateUser = gql`
 export const updateUser = createAsyncThunk(
 	'user/update',
 	async (payload, { getState }) => {
-		const client = getClient(getState());
+		const state = getState();
+		const client = getClient(state);
 		const clientRequest = await client.request(queryUpdateUser, {
 			payload,
 		});
+		const previousUserProfilePic = state.user.info.profilePic;
+		if (previousUserProfilePic.includes('firebasestorage')) {
+			fb.storage().refFromURL(previousUserProfilePic).delete();
+		}
 		return clientRequest;
-	}
+	},
 );
 const userSlice = createSlice({
 	name: 'user',
