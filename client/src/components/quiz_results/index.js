@@ -8,10 +8,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
+import SocialMedia from '@components/utils/SocialMedia';
+
+import strings from './strings';
 
 const QuizResults = ({ route: { params }, navigation }) => {
-	const theme = useSelector((state) => state.global.theme);
 	const [favorite, setFavorite] = useState(false);
+	const { theme, language } = useSelector((state) => state.global);
+	const s = strings[language];
 
 	const porcentajeAprobadas = (params.correct * 100) / params.total;
 	const incorrectas = params.total - params.correct;
@@ -34,8 +38,8 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					nav1={() => navigation.navigate('Home')}
 					nav2={() => navigation.navigate('Home')}
 					icon1='ios-arrow-back'
-					icon2='share-social-outline'
 				/>
+
 				<ContainerTop source={{ uri: params.imageQuiz }}>
 					<FinishedTitle>
 						¡Terminaste el quiz! Acá están tus resultados:
@@ -64,29 +68,38 @@ const QuizResults = ({ route: { params }, navigation }) => {
 						<AnswersText>Respuestas incorrectas</AnswersText>
 					</AnswersIncorrect>
 				</AnswersNumberContainer>
-
 				<FavoriteContainer>
 					<FavoriteText>¿Te gustó este quiz?</FavoriteText>
 					{/* <Btn>
 					<BtnText>❤ Darle like</BtnText>
 				</Btn> */}
-					<TouchableOpacity
-						onPress={() => {
-							setFavorite(!favorite);
-						}}
-					>
-						<Icon
-							name={
-								favorite
-									? 'heart-circle'
-									: 'heart-circle-outline'
-							}
-							size={28}
-							color={theme.primary}
+					<ViewSocialMedia>
+						<TouchableOpacity
+							style={{ marginRight: 20 }}
+							onPress={() => {
+								setFavorite(!favorite);
+							}}
+						>
+							<Icon
+								name={
+									favorite
+										? 'heart-circle'
+										: 'heart-circle-outline'
+								}
+								size={50}
+								color={theme.primary}
+							/>
+						</TouchableOpacity>
+						<SocialMedia
+							shareOptions={{
+								title: s.title,
+								message: `${s.message} ${params.points} ${
+									s.messagepoints
+								} ${'\n'}https://tenor.com/view/what-confused-persian-room-cat-guardian-gif-11044457`,
+							}}
 						/>
-					</TouchableOpacity>
+					</ViewSocialMedia>
 				</FavoriteContainer>
-
 				<ButtonsContainer>
 					<Btn margin='0 0 20px'>
 						<BtnText>Quizzes similares</BtnText>
@@ -241,5 +254,10 @@ const BtnSecText = styled.Text`
 	font-weight: 700;
 	align-self: center;
 `;
-
+const ViewSocialMedia = styled.View`
+	flex-grow: 1;
+	justify-content: space-evenly;
+	flex-direction: row;
+	align-items: center;
+`;
 export default QuizResults;
