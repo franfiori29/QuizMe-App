@@ -28,7 +28,15 @@ module.exports = {
 			})
 				.populate('questions')
 				.populate('categoryId');
-
+			return foundQuizzes;
+		},
+		getQuizzesByInputSearch: async (_, { input }) => {
+			const regex = new RegExp(input, 'i');
+			const foundQuizzes = await Quiz.find({
+				$or: [{ title: regex }, { description: regex }],
+			})
+				.populate('questions')
+				.populate('categoryId');
 			return foundQuizzes;
 		},
 		getRandomQuiz: async () => {
@@ -43,7 +51,7 @@ module.exports = {
 	Mutation: {
 		createQuiz: async (_, { quiz }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
-				(q) => q._id
+				(q) => q._id,
 			);
 			const newQuiz = (await Quiz.create(quiz))
 				.populate('questions')

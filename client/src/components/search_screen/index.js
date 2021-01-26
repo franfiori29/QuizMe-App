@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+	getQuizzesBySearchInput,
+	clearfilteredQuizzes,
+} from '@redux/reducers/quizzes';
 
 //==> Components
 import QuizCards from '@components/utils/QuizCards';
@@ -14,15 +18,35 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const SearchScreen = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
-	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
+	const { filteredQuizzes } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
-	const handleSelect = () => {};
+	const [searchInput, setSearchInput] = useState('');
+	const [categoryFilter, setCategoryFilter] = useState('');
+
+	const filteredQuizzesWithCategoryFilter = useMemo(() => {
+		return filteredQuizzes.filter(
+			(quiz) => quiz.categoryId._id === categoryFilter,
+		);
+	}, [filteredQuizzes, categoryFilter]);
+
+	const handleSelect = (categoryId) => {
+		setCategoryFilter(categoryId);
+	};
+
+	const handleSearch = () => {
+		if (searchInput.length < 2) return alert('Poco texto');
+		dispatch(getQuizzesBySearchInput(searchInput));
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
 				<NavBar
 					string='Buscar'
-					nav1={() => navigation.goBack()}
+					nav1={() => {
+						navigation.goBack();
+						dispatch(clearfilteredQuizzes());
+					}}
 					icon1='ios-arrow-back'
 					icon2=''
 				/>
@@ -37,6 +61,8 @@ const SearchScreen = ({ navigation }) => {
 						placeholder='Buscar'
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
+						onChangeText={setSearchInput}
+						onSubmitEditing={handleSearch}
 					/>
 				</InputContainer>
 				<View>
@@ -46,7 +72,13 @@ const SearchScreen = ({ navigation }) => {
 					/>
 				</View>
 				<ScrollView>
-					<QuizCards quizzes={filteredQuizzes} />
+					<QuizCards
+						quizzes={
+							categoryFilter
+								? filteredQuizzesWithCategoryFilter
+								: filteredQuizzes
+						}
+					/>
 				</ScrollView>
 			</Screen>
 		</ThemeProvider>

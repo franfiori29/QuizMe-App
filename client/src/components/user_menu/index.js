@@ -16,8 +16,7 @@ import styled, { ThemeProvider } from 'styled-components/native';
 import strings from './strings';
 
 const UserMenu = ({ navigation }) => {
-	const { language } = useSelector((state) => state.global);
-	const { theme } = useSelector((state) => state.global);
+	const { language, theme } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -142,7 +141,9 @@ const UserMenu = ({ navigation }) => {
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.rate}</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
+				<MenuTouchOption
+					onPress={() => navigation.navigate('Information')}
+				>
 					<Text style={{ color: theme.text }}>{s.info}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption style={{ justifyContent: 'space-between' }}>
@@ -175,29 +176,6 @@ const UserMenu = ({ navigation }) => {
 const Screen = styled.ScrollView`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
-`;
-
-const Header = styled.View`
-	background-color: ${(props) => props.theme.bg};
-	width: 95%;
-	align-self: center;
-	height: 65px;
-	padding: 10px;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
-	align-items: center;
-	justify-content: center;
-`;
-
-const HeaderText = styled.Text`
-	font-size: 20px;
-	color: ${(props) => props.theme.primary};
 `;
 
 const UserContainer = styled.View`

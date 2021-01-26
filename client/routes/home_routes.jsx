@@ -15,6 +15,7 @@ import UserMenu from '@components/user_menu';
 import MailUpdate from '@components/user_menu/screens/MailUpdate';
 import PasswordUpdate from '@components/user_menu/screens/PasswordUpdate';
 import UpdateName from '@components/user_menu/screens/UpdateName';
+import Information from '@components/user_menu/screens/Information';
 import Profile from '@components/profile';
 import MyQuizzes from '@components/my_quizzes';
 import QuizMake from '@components/quiz_make';
@@ -45,7 +46,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'Home'}
+				initialRouteName={'LogoAnimated'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
@@ -54,6 +55,7 @@ const HomeRoutes = () => {
 				<Screen name='UserMenu' component={UserMenu} />
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
+				<Screen name='Information' component={Information} />
 				<Screen name='UpdateName' component={UpdateName} />
 				<Screen name='MyQuizzes' component={MyQuizzes} />
 				<Screen name='QuizMake' component={QuizMake} />

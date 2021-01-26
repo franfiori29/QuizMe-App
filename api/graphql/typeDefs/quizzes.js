@@ -64,6 +64,7 @@ module.exports = gql`
 		getCategories: [Category!]!
 		getQuizByCategory(catId: ID!): [Quiz!]!
 		getRandomQuiz: Quiz
+		getQuizzesByInputSearch(input: String!): [Quiz]!
 	}
 
 	extend type Mutation {
