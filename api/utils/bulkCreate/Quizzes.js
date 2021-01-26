@@ -94,6 +94,21 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0024'),
 		],
 	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0006'),
+		title: 'Desafío químico',
+		description: '¿Eres un experto en química?',
+		image:
+			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+		likes: 10,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00002'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0025'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0026'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0027'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0028'),
+		],
+	},
 ];
 
 module.exports = quizzes;

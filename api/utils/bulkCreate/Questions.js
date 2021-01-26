@@ -309,6 +309,73 @@ const questions = [
 		time: 10,
 		score: 5,
 	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0025'),
+		title: '¿Cuál de éstos es un indicador de PH?',
+		image:
+			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+		options: [
+			{ title: 'Papel químico', result: false },
+			{ title: 'Papel de potencial', result: false },
+			{ title: 'Papel tornasol', result: true },
+			{ title: 'Papel PH', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0026'),
+		title: 'Una sustancia con PH 7, ¿qué tipo de sustancia es?',
+		image:
+			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+		options: [
+			{ title: 'Positiva', result: false },
+			{ title: 'Ácida', result: false },
+			{ title: 'Neutra', result: true },
+			{ title: 'Básica', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0027'),
+		title: '¿Qué método permite separar un sólido de un líquido? ',
+		image:
+			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+		options: [
+			{ title: 'Decantación', result: false },
+			{ title: 'Ebullición', result: false },
+			{ title: 'Filtración', result: true },
+			{ title: 'Vaporización', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0028'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
 	// {
 	// 	category: 'Entertainment: Film',
 	// 	title: 'What was the last Marx Brothers film to feature Zeppo?',
