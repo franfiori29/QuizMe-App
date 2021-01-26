@@ -142,6 +142,7 @@ const FinishedTitle = styled.Text`
 	text-align: center;
 	font-weight: bold;
 	margin-top: 20px;
+	color: ${({ theme }) => theme.text};
 `;
 
 const ContainerResults = styled.View`
@@ -153,6 +154,7 @@ const AmountPoints = styled.Text`
 	font-weight: bold;
 	text-align: center;
 	margin: 10px 0;
+	color: ${({ theme }) => theme.text};
 `;
 
 const EmojiContainer = styled.Text`

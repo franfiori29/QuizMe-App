@@ -74,12 +74,6 @@ const userSlice = createSlice({
 		getUser: (state, { payload }) => {
 			state.info = payload;
 		},
-		getUserA: (state, { payload }) => {
-			state.info = payload;
-		},
-		getCompletedQuizzes: (state, { payload }) => {
-			state.info.completedQuizzes = [payload];
-		},
 		setToken: (state, { payload }) => {
 			state.token = payload;
 		},

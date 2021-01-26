@@ -10,7 +10,6 @@ import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
-import logo from '@assets/logo.png';
 import Catalog from '@components/catalog';
 
 //==> Styles
