@@ -26,6 +26,10 @@ const UserMenu = ({ navigation }) => {
 		dispatch(logout());
 		navigation.navigate('Login');
 	};
+	const handleMail = () => {
+		navigation.navigate('MailUpdate');
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -38,7 +42,11 @@ const UserMenu = ({ navigation }) => {
 				/>
 				<UserContainer>
 					<UserImg
-						source={{ uri: 'https://picsum.photos/100/100' }}
+						source={{
+							uri:
+								user.profilePic ||
+								'https://picsum.photos/100/100',
+						}}
 					/>
 					<UserName>
 						{user.firstName} {user.lastName}
@@ -74,7 +82,7 @@ const UserMenu = ({ navigation }) => {
 						<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
 					</TouchableOpacity>
 				</MenuTouchOption>
-				<MenuTouchOption>
+				<MenuTouchOption onPress={handleMail}>
 					<Text style={{ color: theme.text }}>
 						{s.email}{' '}
 						<Text
@@ -100,7 +108,12 @@ const UserMenu = ({ navigation }) => {
 					</AccTypeButton>
 				</AccType>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>{s.pass}</Text>
+					<Text
+						style={{ color: theme.text }}
+						onPress={() => navigation.navigate('PasswordUpdate')}
+					>
+						{s.pass}
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.notif}</Text>

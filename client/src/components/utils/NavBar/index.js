@@ -23,7 +23,7 @@ const NavBar = ({ string, nav1, nav2, icon1, icon2 }) => {
 		<ThemeProvider theme={theme}>
 			<Header>
 				<HeaderButton onPress={handleNav1}>
-					{nav2 ? (
+					{nav1 ? (
 						<Icon name={icon1} color={theme.primary} size={28} />
 					) : (
 						<Icon name='ios-close' color='transparent' size={28} />
