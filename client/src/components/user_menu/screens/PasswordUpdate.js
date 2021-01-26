@@ -1,42 +1,46 @@
 import React, { useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
 //Redux
-import { updateUser } from '@redux/reducers/user';
+import { changePassword } from '@redux/reducers/user';
 
 //==> Components
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
 
 const PasswordUpdate = ({ navigation }) => {
-	const { theme, language } = useSelector((state) => state.global);
-	const { info: user } = useSelector((state) => state.user);
-	const [password, setPassword] = useState({
-		newPass: '',
+	const { theme } = useSelector((state) => state.global);
+	const [error, setError] = useState('');
+	const [input, setInput] = useState({
 		currentPass: '',
+		newPass: '',
 		confirmPass: '',
 	});
 	const dispatch = useDispatch();
 	// const s = strings[language];
-	const handleSubmit = () => {
-		if (
-			user.password === password.currentPass &&
-			password.newPass === password.confirmPass
-		) {
-			dispatch(updateUser({ password: password.newPassword }));
-			navigation.navigate('UserMenu');
+	const handleSubmit = async () => {
+		if (input.newPass === input.confirmPass) {
+			const response = await dispatch(
+				changePassword({
+					newPass: input.newPass,
+					currPass: input.currentPass,
+				})
+			);
+			if (response.error?.message.includes('Auth Failed'))
+				setError('Contraseña Incorrecta');
+			else navigation.navigate('UserMenu');
 		} else {
 			if (Platform.OS !== 'web') {
 				Alert.alert(
 					'Error',
-					'Mandaste fruta',
+					'Las contraseñas no coinciden',
 					[{ text: 'OK', onPress: () => {} }],
 					{ cancelable: false }
 				);
 			} else {
-				alert('Mandaste fruta');
+				alert('Las contraseñas no coinciden');
 			}
 		}
 	};
@@ -49,38 +53,47 @@ const PasswordUpdate = ({ navigation }) => {
 					icon1='ios-arrow-back'
 					icon2=''
 				/>
+				{!!error && (
+					<View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+						<BadgeStyled bg='#D53051'>
+							Error: {error}
+							<br />
+							😦
+						</BadgeStyled>
+					</View>
+				)}
 				<PassInput
 					placeholder='Ingresa tu contraseña actual'
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
-						setPassword({
-							...password,
+						setInput({
+							...input,
 							currentPass: text,
 						})
 					}
-					value={password.currentPass}
+					value={input.currentPass}
 				/>
 				<PassInput
 					placeholder='Ingresa nueva password'
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
-						setPassword({
-							...password,
+						setInput({
+							...input,
 							newPass: text,
 						})
 					}
-					value={password.newPass}
+					value={input.newPass}
 				/>
 				<PassInput
 					placeholder='Confirmar nueva password'
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
-						setPassword({
-							...password,
+						setInput({
+							...input,
 							confirmPass: text,
 						})
 					}
-					value={password.confirmPass}
+					value={input.confirmPass}
 				/>
 				<ButtonContainer>
 					<ButtonPpal string='enviar' onSubmit={handleSubmit} />
@@ -115,5 +128,18 @@ const ButtonContainer = styled.View`
 	height: 90px;
 	justify-content: space-between;
 	align-items: center;
+`;
+
+const BadgeStyled = styled.Text`
+	display: inline-block;
+	min-width: 175px;
+	margin-top: 1em;
+	padding: 0.7em 1.2em;
+	font-size: 0.75em;
+	font-weight: 900;
+	text-align: center;
+	color: ${({ theme }) => theme.text};
+	border-radius: 10em;
+	background-color: ${({ bg }) => bg || '#ccc'};
 `;
 export default PasswordUpdate;

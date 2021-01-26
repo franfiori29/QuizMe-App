@@ -1,35 +1,61 @@
 import React, { useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
 //Redux
-import { updateUser } from '@redux/reducers/user';
+import { changeEmail } from '@redux/reducers/user';
 
 //==> Components
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
 
 const MailUpdate = ({ navigation }) => {
-	const { theme, language } = useSelector((state) => state.global);
-	const { info: user } = useSelector((state) => state.user);
-	const [mail, setMail] = useState({ newMail: '', currentMail: '' });
+	const { theme } = useSelector((state) => state.global);
+	const { info } = useSelector((state) => state.user);
+	const [error, setError] = useState('');
+	const [input, setInput] = useState({
+		currMail: '',
+		newMail: '',
+		pass: '',
+	});
 	const dispatch = useDispatch();
 	// const s = strings[language];
-	const handleSubmit = () => {
-		if (user.email === mail.currentMail) {
-			dispatch(updateUser({ email: mail.newMail }));
-			navigation.navigate('UserMenu');
+	const handleSubmit = async () => {
+		if (input.currMail && input.newMail && input.pass) {
+			if (input.currMail === info.email) {
+				const response = await dispatch(
+					changeEmail({
+						newMail: input.newMail,
+						currPass: input.pass,
+					})
+				);
+
+				if (response.error?.message.includes('Auth Failed'))
+					setError('Contraseña Incorrecta');
+				else navigation.navigate('UserMenu');
+			} else {
+				if (Platform.OS !== 'web') {
+					Alert.alert(
+						'Error',
+						'El mail no coincide con tu mail actual',
+						[{ text: 'OK', onPress: () => {} }],
+						{ cancelable: false }
+					);
+				} else {
+					alert('El mail no coincide con tu mail actual');
+				}
+			}
 		} else {
 			if (Platform.OS !== 'web') {
 				Alert.alert(
 					'Error',
-					'Mandaste fruta',
+					'Debes completar todos los campos para continuar',
 					[{ text: 'OK', onPress: () => {} }],
 					{ cancelable: false }
 				);
 			} else {
-				alert('Mandaste fruta');
+				alert('Debes completar todos los campos para continuar');
 			}
 		}
 	};
@@ -42,27 +68,47 @@ const MailUpdate = ({ navigation }) => {
 					icon1='ios-arrow-back'
 					icon2=''
 				/>
+				{!!error && (
+					<View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+						<BadgeStyled bg='#D53051'>
+							Error: {error}
+							<br />
+							😦
+						</BadgeStyled>
+					</View>
+				)}
 				<MailInput
 					placeholder='Ingresa tu mail actual'
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
-						setMail({
-							...mail,
-							currentMail: text,
+						setInput({
+							...input,
+							currMail: text,
 						})
 					}
-					value={mail.currentMail}
+					value={input.currMail}
 				/>
 				<MailInput
 					placeholder='Ingresa Nuevo mail'
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
-						setMail({
-							...mail,
+						setInput({
+							...input,
 							newMail: text,
 						})
 					}
-					value={mail.newMail}
+					value={input.newMail}
+				/>
+				<MailInput
+					placeholder='Ingresa su contraseña'
+					placeholderTextColor={theme.text}
+					onChangeText={(text) =>
+						setInput({
+							...input,
+							pass: text,
+						})
+					}
+					value={input.pass}
 				/>
 				<ButtonContainer>
 					<ButtonPpal string='enviar' onSubmit={handleSubmit} />
@@ -97,5 +143,17 @@ const ButtonContainer = styled.View`
 	height: 90px;
 	justify-content: space-between;
 	align-items: center;
+`;
+const BadgeStyled = styled.Text`
+	display: inline-block;
+	min-width: 175px;
+	margin-top: 16px;
+	padding: 10px 18px;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	color: ${({ theme }) => theme.text};
+	border-radius: 100px;
+	background-color: ${({ bg }) => bg || '#ccc'};
 `;
 export default MailUpdate;
