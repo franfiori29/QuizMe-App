@@ -5,6 +5,7 @@ import {
 	getQuizzes,
 	getQuizByCategory,
 	clearfilteredQuizzes,
+	getRandomQuiz,
 } from '@redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
@@ -40,6 +41,7 @@ const HomeScreen = ({ navigation }) => {
 		dispatch(getQuizzes());
 		dispatch(getCategories());
 		dispatch(getCompletedQuizzes());
+		//dispatch(getRandomQuiz());
 	}, []);
 
 	return (
@@ -112,9 +114,14 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
 				<ButtonPpal
+					navigation={navigation}
 					string={s.randomButton}
 					nav='QuizIndex'
-					navigation={navigation}
+					onSubmit={() => {
+						dispatch(getRandomQuiz()).then(() => {
+							navigation.navigate('QuizIndex', {});
+						});
+					}}
 				/>
 				<BottomBar>
 					<StyledText style={{ fontSize: 20, color: theme.primary }}>

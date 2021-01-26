@@ -63,6 +63,7 @@ module.exports = gql`
 		getQuizzes: [Quiz!]!
 		getCategories: [Category!]!
 		getQuizByCategory(catId: ID!): [Quiz!]!
+		getRandomQuiz: Quiz
 		getQuizzesByInputSearch(input: String!): [Quiz]!
 	}
 

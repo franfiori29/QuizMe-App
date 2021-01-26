@@ -44,7 +44,7 @@ export const getQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryAllQuizzes);
 		return clientRequest;
-	},
+	}
 );
 
 /* --- Create Quiz --- */
@@ -63,7 +63,7 @@ export const createQuiz = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(quizCreateOne, { payload });
 		return clientRequest;
-	},
+	}
 );
 
 const queryGetQuizByCategory = gql`
@@ -83,7 +83,7 @@ export const getQuizByCategory = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 const queryGetQuizzesBySearchInput = gql`
@@ -103,10 +103,29 @@ export const getQuizzesBySearchInput = createAsyncThunk(
 			queryGetQuizzesBySearchInput,
 			{
 				payload,
-			},
+			}
 		);
 		return clientRequest;
-	},
+	}
+);
+
+/* --- Get random quiz --- */
+const queryRandomQuiz = gql`
+	{
+		getRandomQuiz {
+			...EntireQuizInfo
+		}
+	}
+	${EntireQuizInfo}
+`;
+
+export const getRandomQuiz = createAsyncThunk(
+	'quiz/getRandom',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryRandomQuiz);
+		return clientRequest;
+	}
 );
 
 const quizSlice = createSlice({
@@ -116,6 +135,7 @@ const quizSlice = createSlice({
 		quizzes: [],
 		filteredQuizzes: [],
 		categories: [],
+		randomQuiz: {},
 	},
 	reducers: {
 		clearfilteredQuizzes: (state) => {
@@ -132,6 +152,9 @@ const quizSlice = createSlice({
 		},
 		[getQuizByCategory.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizByCategory;
+		},
+		[getRandomQuiz.fulfilled]: (state, { payload }) => {
+			state.randomQuiz = payload.getRandomQuiz;
 		},
 		[getQuizzesBySearchInput.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizzesByInputSearch;
