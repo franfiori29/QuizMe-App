@@ -10,6 +10,7 @@ import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
+import logo from '@assets/logo.png';
 import Catalog from '@components/catalog';
 
 //==> Styles
@@ -142,11 +143,11 @@ const HeaderButton = styled.TouchableOpacity`
 `;
 
 const IntroContainer = styled.View`
-	height: 300px;
+	height: 230px;
 	width: 100%;
 	align-items: center;
-	justify-content: space-between;
-	margin: 50px 0;
+	justify-content: center;
+	margin: 30px 0;
 `;
 
 const IntroImg = styled.Image`
@@ -161,6 +162,7 @@ const IntroTitle = styled.Text`
 	font-weight: bold;
 	text-align: center;
 	color: ${(props) => props.theme.primary};
+	margin-bottom: 10px;
 `;
 
 const IntroText = styled.Text`
