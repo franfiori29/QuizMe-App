@@ -10,9 +10,11 @@ import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
-import logo from '@assets/logo.png';
+import Catalog from '@components/catalog';
+
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
+import logo from '@assets/logo.png';
 
 //==>Assets
 import strings from './strings';
@@ -20,7 +22,7 @@ import strings from './strings';
 const HomeScreen = ({ navigation }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
-	const { quizzes } = useSelector((state) => state.quiz);
+	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -91,6 +93,7 @@ const HomeScreen = ({ navigation }) => {
 						categories={categories}
 						handleSelect={handleSelect}
 					/>
+					<QuizCards quizzes={filteredQuizzes} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg

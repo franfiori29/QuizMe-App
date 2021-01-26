@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
+import { getQuizByCategory } from '@redux/reducers/quizzes';
 
 const ScrollCategory = ({ categories, handleSelect }) => {
 	const { language } = useSelector((state) => state.global);
 	const [selected, setSelected] = useState(-1);
+	const dispatch = useDispatch();
 
 	return (
 		<ScrollCategoryStyled
@@ -21,6 +23,7 @@ const ScrollCategory = ({ categories, handleSelect }) => {
 					onPress={() => {
 						setSelected(category._id);
 						handleSelect(category._id);
+						dispatch(getQuizByCategory(category._id));
 					}}
 				>
 					<CategoryName>
