@@ -33,5 +33,9 @@ module.exports = {
 				.execPopulate();
 			return newQuiz;
 		},
+		createCategory: async (_, { category }) => {
+			const newCategory = await Category.create(category);
+			return newCategory;
+		},
 	},
 };
