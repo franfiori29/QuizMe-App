@@ -13,6 +13,7 @@ import NavBar from '@components/utils/NavBar';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
+import logo from '@assets/logo.png';
 
 //==>Assets
 import strings from './strings';
@@ -55,9 +56,7 @@ const HomeScreen = ({ navigation }) => {
 					icon2='ios-search-outline'
 				/>
 				<IntroContainer>
-					<IntroImg
-						source={{ uri: 'https://picsum.photos/100/100' }}
-					/>
+					<IntroImg source={logo} />
 					<IntroTitle>
 						¡{s.title} {user.firstName} {user.lastName} !
 					</IntroTitle>

@@ -110,7 +110,6 @@ server.get(
 	'/googleCallback',
 	passport.authenticate('google'),
 	function (req, res) {
-		console.log(req.user);
 		const {
 			_id,
 			firstName,
