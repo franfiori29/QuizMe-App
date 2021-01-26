@@ -23,8 +23,8 @@ const QuizResults = ({ route: { params }, navigation }) => {
 		if (porcentajeAprobadas >= 90) return '😎';
 		if (porcentajeAprobadas >= 80) return '😁';
 		if (porcentajeAprobadas >= 60) return '😀';
-		if (porcentajeAprobadas >= 30) return '😶';
-		return '🧐';
+		if (porcentajeAprobadas >= 30) return '🧐';
+		return '😶';
 	}
 
 	return (
@@ -40,32 +40,39 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					icon1='ios-arrow-back'
 				/>
 
-				<ContainerTop source={{ uri: params.imageQuiz }}>
-					<FinishedTitle>
-						¡Terminaste el quiz! Acá están tus resultados:
-						{params.points}
-					</FinishedTitle>
-				</ContainerTop>
+				<FinishedTitle>Tus resultados:</FinishedTitle>
 
 				<ContainerResults>
 					<EmojiContainer>{emoji()}</EmojiContainer>
+					<AmountPoints>
+						Conseguiste {params.points} puntos
+					</AmountPoints>
 					<ProgressBar>
-						<ProgressBarFill percent={porcentajeAprobadas}>
-							<ProgressBarText>
-								{porcentajeAprobadas.toFixed(1)}%
-							</ProgressBarText>
-						</ProgressBarFill>
+						<ProgressBarText>
+							{porcentajeAprobadas.toFixed(1)}%
+						</ProgressBarText>
+						<ProgressBarFill
+							percent={porcentajeAprobadas}
+						></ProgressBarFill>
 					</ProgressBar>
 				</ContainerResults>
 
 				<AnswersNumberContainer>
 					<AnswersCorrect>
 						<AnswersNumber>{params.correct}</AnswersNumber>
-						<AnswersText>Respuestas correctas</AnswersText>
+						<AnswersText>
+							{params.correct === 1
+								? 'Respuesta correcta'
+								: 'Respuestas correctas'}
+						</AnswersText>
 					</AnswersCorrect>
 					<AnswersIncorrect>
 						<AnswersNumber>{incorrectas}</AnswersNumber>
-						<AnswersText>Respuestas incorrectas</AnswersText>
+						<AnswersText>
+							{incorrectas === 1
+								? 'Respuesta incorrecta'
+								: 'Respuestas incorrectas'}
+						</AnswersText>
 					</AnswersIncorrect>
 				</AnswersNumberContainer>
 				<FavoriteContainer>
@@ -101,7 +108,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					</ViewSocialMedia>
 				</FavoriteContainer>
 				<ButtonsContainer>
-					<Btn margin='0 0 20px'>
+					<Btn margin='0 10px 0 0'>
 						<BtnText>Quizzes similares</BtnText>
 					</Btn>
 					<BtnSec onPress={() => navigation.navigate('Home')}>
@@ -110,35 +117,47 @@ const QuizResults = ({ route: { params }, navigation }) => {
 				</ButtonsContainer>
 			</ScrollView>
 		</ThemeProvider>
-		// <Text>TERManskdlnINASTE</Text>
-		// <Text>
-		// 	Aciertos: {params.correct} de {params.total}
-		// </Text>
 	);
 };
 
-const ContainerTop = styled.ImageBackground`
+const ContainerTop = styled.View`
 	height: 30%;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 10px;
+	position: relative;
+`;
+
+const TopImage = styled.Image`
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
 `;
 
 const FinishedTitle = styled.Text`
-	font-size: 30px;
-	color: #fff;
-	background-color: #04aa8c;
-	padding: 10px 20px;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 20px;
 `;
 
 const ContainerResults = styled.View`
 	padding: 10px 20px;
 `;
 
+const AmountPoints = styled.Text`
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	margin: 10px 0;
+`;
+
 const EmojiContainer = styled.Text`
 	font-size: 40px;
 	text-align: center;
-	margin-bottom: 20px;
 	color: ${(props) => props.theme.text};
 `;
 
@@ -149,12 +168,13 @@ const ProgressBar = styled.View`
 	border-radius: 9999px;
 	overflow: hidden;
 	margin-bottom: 10px;
+	position: relative;
 `;
 
 const ProgressBarFill = styled.View`
 	background-color: #04aa8c;
 	width: ${(props) => props.percent + '%'};
-	height: 100%;
+	height: ${(props) => (props.percent === 0 ? '0%' : '100%')};
 	justify-content: center;
 	padding-left: 10px;
 `;
@@ -162,6 +182,11 @@ const ProgressBarFill = styled.View`
 const ProgressBarText = styled.Text`
 	font-weight: 900;
 	font-size: 10px;
+	position: absolute;
+	top: 50%;
+	left: 15px;
+	z-index: 2;
+	transform: translateY(-7px);
 `;
 
 const AnswersNumberContainer = styled.View`
@@ -221,10 +246,11 @@ const FavoriteText = styled.Text`
 `;
 
 const ButtonsContainer = styled.View`
-	max-width: 50%;
-	height: 20%;
 	margin: 30px auto 0;
 	padding: 20px;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 `;
 
 const Btn = styled.TouchableOpacity`
