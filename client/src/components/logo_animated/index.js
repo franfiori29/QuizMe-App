@@ -1,6 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Dimensions, Animated } from 'react-native';
+import {
+	Dimensions,
+	Animated,
+	TouchableWithoutFeedback,
+	TouchableOpacity,
+} from 'react-native';
 import styled, { ThemeProvider } from 'styled-components/native';
 import logo from '@assets/logo.png';
 
@@ -21,7 +26,7 @@ export default function LogoAnimated({ navigation }) {
 		let logotimer = setTimeout(() => {
 			skipIntro();
 		}, DURATION * 2);
-		return ()=> clearTimeout(logotimer);
+		return () => clearTimeout(logotimer);
 	}, []);
 
 	useEffect(() => {
@@ -49,20 +54,32 @@ export default function LogoAnimated({ navigation }) {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Container onPress={skipIntro}>
-				<ContentContainer>
-					<ImageLogo style={{ opacity: fadeAnim }} source={logo} />
-					<LogoContainer style={{ marginLeft: moveAnim }}>
-						<LogoText>QuizMe</LogoText>
-						<LogoText style={{ opacity: fadeAnim }}>App</LogoText>
-					</LogoContainer>
-				</ContentContainer>
+			<Container>
+				<TouchableOpacity
+					onPress={skipIntro}
+					style={{
+						flex: 1,
+					}}
+				>
+					<ContentContainer>
+						<ImageLogo
+							style={{ opacity: fadeAnim }}
+							source={logo}
+						/>
+						<LogoContainer style={{ marginLeft: moveAnim }}>
+							<LogoText>QuizMe</LogoText>
+							<LogoText style={{ opacity: fadeAnim }}>
+								App
+							</LogoText>
+						</LogoContainer>
+					</ContentContainer>
+				</TouchableOpacity>
 			</Container>
 		</ThemeProvider>
 	);
 }
 
-const Container = styled.TouchableWithoutFeedback`
+const Container = styled.View`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
 `;
@@ -74,6 +91,7 @@ const LogoText = styled(Animated.Text)`
 const ContentContainer = styled.View`
 	top: 30%;
 	align-items: center;
+	background-color: ${(props) => props.theme.bg};
 `;
 const ImageLogo = styled(Animated.Image)`
 	width: 200px;
