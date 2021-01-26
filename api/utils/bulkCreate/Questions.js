@@ -145,6 +145,8 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0012'),
 		title: '¿Qué banda sacó este disco en 1965?',
+		image:
+			'https://townsquare.media/site/295/files/2013/11/Beatles-Rubber-Soul.jpg',
 		options: [
 			{ title: 'Pink Floyd', result: false },
 			{ title: 'The beatles', result: true },
@@ -1663,5 +1665,4 @@ const questions = [
 	// 	score: 5,
 	// },
 ];
-
 module.exports = questions;

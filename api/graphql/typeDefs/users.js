@@ -41,5 +41,7 @@ module.exports = gql`
 	type Mutation {
 		updateUser(userBody: UserInput): User!
 		completeQuiz(quizId: ID!): User!
+		changePassword(newPass: String!, currPass: String!): String
+		changeEmail(newMail: String!, currPass: String!): String
 	}
 `;

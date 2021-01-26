@@ -50,18 +50,19 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 							<StyledText>{quiz.likes} Likes</StyledText>
 						</QuizInfo>
 
-						{completedQuiz.some((e) => e._id === quiz._id) && (
-							<QuizCheck>
-								<Text style={{ color: theme.primary }}>
-									{s.completed}
-								</Text>
-								<Icon
-									name='checkmark-circle-outline'
-									size={20}
-									style={{ color: theme.primary }}
-								/>
-							</QuizCheck>
-						)}
+						{completedQuiz &&
+							completedQuiz.some((e) => e._id === quiz._id) && (
+								<QuizCheck>
+									<Text style={{ color: theme.primary }}>
+										{s.completed}
+									</Text>
+									<Icon
+										name='checkmark-circle-outline'
+										size={20}
+										style={{ color: theme.primary }}
+									/>
+								</QuizCheck>
+							)}
 					</QuizCard>
 				))}
 		</QuizCardsContainer>
