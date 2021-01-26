@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
 				<NavBar
 					string='QuizMeApp'
 					nav1={() => navigation.navigate('UserMenu')}
-					nav2={() => navigation.navigate('UserMenu')}
+					nav2={() => navigation.navigate('SearchScreen')}
 					icon1='ios-menu-outline'
 					icon2='ios-search-outline'
 				/>
