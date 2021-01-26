@@ -91,6 +91,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 							/>
 						</TouchableOpacity>
 						<SocialMedia
+							size={50}
 							shareOptions={{
 								title: s.title,
 								message: `${s.message} ${params.points} ${

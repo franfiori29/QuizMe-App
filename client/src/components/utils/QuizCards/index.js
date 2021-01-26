@@ -4,12 +4,26 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
-import { Text } from 'react-native';
+import { Text, Share } from 'react-native';
+import socialStrings from '@components/quiz_index/strings';
 
 const QuizCards = ({ quizzes, completedQuiz }) => {
 	const navigation = useNavigation();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
+
+	const shareSocialMedia = async () => {
+		try {
+			await Share.share({
+				title: socialStrings[language].title,
+				message: `${
+					socialStrings[language].message
+				}${'\n'}https://tenor.com/view/children-pupil-hard-party-drugs-gif-3956833`,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<QuizCardsContainer>
@@ -17,6 +31,7 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 				!!quizzes.length &&
 				quizzes.map((quiz) => (
 					<QuizCard
+						onLongPress={shareSocialMedia}
 						key={quiz._id}
 						onPress={() =>
 							navigation.navigate('QuizIndex', {

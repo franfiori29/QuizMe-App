@@ -3,7 +3,7 @@ import { View, Share } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function SocialMedia({ shareOptions }) {
+export default function SocialMedia({ shareOptions, styles = {}, size }) {
 	const shareSocialMedia = async () => {
 		try {
 			await Share.share(shareOptions);
@@ -12,10 +12,10 @@ export default function SocialMedia({ shareOptions }) {
 		}
 	};
 	return (
-		<View>
+		<View style={styles}>
 			<Icon
 				name='share-social-outline'
-				size={50}
+				size={size}
 				onPress={shareSocialMedia}
 			></Icon>
 		</View>
