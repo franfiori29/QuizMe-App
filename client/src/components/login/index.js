@@ -72,7 +72,7 @@ export default function Login({ navigation }) {
 			<Container source={backgroundImage}>
 				<LogoView>
 					<Logo source={logo} />
-					<LogoText>QuizMe App</LogoText>
+					<LogoText>QuizMeApp</LogoText>
 				</LogoView>
 				<InputContainer>
 					<IconImage

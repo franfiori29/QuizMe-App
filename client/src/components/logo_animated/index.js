@@ -48,10 +48,8 @@ export default function LogoAnimated({ navigation }) {
 				<ContentContainer>
 					<ImageLogo style={{ opacity: fadeAnim }} source={logo} />
 					<LogoContainer style={{ marginLeft: moveAnim }}>
-						<LogoText>Quiz</LogoText>
-						<LogoText style={{ opacity: fadeAnim }}>
-							Me App
-						</LogoText>
+						<LogoText>QuizMe</LogoText>
+						<LogoText style={{ opacity: fadeAnim }}>App</LogoText>
 					</LogoContainer>
 				</ContentContainer>
 			</Container>
