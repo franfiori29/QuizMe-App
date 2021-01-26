@@ -59,7 +59,7 @@ export const changePassword = createAsyncThunk(
 );
 
 export const changeEmail = createAsyncThunk(
-	'user/changePass',
+	'user/changeEmail',
 	async ({ currPass, newMail }, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(mutationChangeEmail, {
