@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, Share } from 'react-native';
-
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 
-export default function SocialMedia({ shareOptions }) {
+export default function SocialMedia({ shareOptions, styles = {}, size }) {
 	const { theme } = useSelector((state) => state.global);
 	const shareSocialMedia = async () => {
 		try {
@@ -14,11 +13,11 @@ export default function SocialMedia({ shareOptions }) {
 		}
 	};
 	return (
-		<View>
+		<View style={styles}>
 			<Icon
 				color={theme.text}
 				name='share-social-outline'
-				size={50}
+				size={size}
 				onPress={shareSocialMedia}
 			></Icon>
 		</View>

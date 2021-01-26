@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 import strings from './strings';
+import SocialMedia from '@components/utils/SocialMedia';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -35,23 +36,42 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 				</ContainerTop>
 				<ContainerBottom>
 					<Description>{quiz.description}</Description>
-					<StartButton
-						onPress={() =>
-							navigation.navigate('Quiz', {
-								questions: quiz.questions,
-								imageQuiz: quiz.image,
-								time: quiz.time,
-								id: quiz._id,
-							})
-						}
+
+					<View
+						style={{
+							flexDirection: 'row',
+							paddingLeft: 45,
+							alignItems: 'center',
+						}}
 					>
-						<Text
-							adjustsFontSizeToFit={true}
-							style={{ color: theme.primary }}
+						<StartButton
+							onPress={() =>
+								navigation.navigate('Quiz', {
+									questions: quiz.questions,
+									imageQuiz: quiz.image,
+									time: quiz.time,
+									id: quiz._id,
+								})
+							}
 						>
-							{s.startBtn}
-						</Text>
-					</StartButton>
+							<Text
+								adjustsFontSizeToFit={true}
+								style={{ color: theme.primary }}
+							>
+								{s.startBtn}
+							</Text>
+						</StartButton>
+						<SocialMedia
+							size={35}
+							styles={{ marginLeft: 15 }}
+							shareOptions={{
+								title: s.title,
+								message: `${
+									s.message
+								} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
+							}}
+						/>
+					</View>
 				</ContainerBottom>
 			</ContainerPpal>
 		</ThemeProvider>
