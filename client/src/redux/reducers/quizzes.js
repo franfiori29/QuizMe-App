@@ -1,35 +1,41 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
 import { gql } from 'graphql-request';
-import { useSelector } from 'react-redux';
+
+const EntireQuizInfo = gql`
+	fragment EntireQuizInfo on Quiz {
+		_id
+		title
+		description
+		image
+		likes
+		time
+		categoryId {
+			_id
+			description_en
+			description_es
+		}
+		questions {
+			_id
+			title
+			score
+			image
+			options {
+				title
+				result
+			}
+		}
+	}
+`;
 
 /* --- Get all quizzes --- */
 const queryAllQuizzes = gql`
 	{
 		getQuizzes {
-			_id
-			title
-			description
-			image
-			likes
-			time
-			categoryId {
-				_id
-				description_en
-				description_es
-			}
-			questions {
-				_id
-				title
-				score
-				image
-				options {
-					title
-					result
-				}
-			}
+			...EntireQuizInfo
 		}
 	}
+	${EntireQuizInfo}
 `;
 
 export const getQuizzes = createAsyncThunk(
@@ -38,63 +44,35 @@ export const getQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryAllQuizzes);
 		return clientRequest;
-	}
+	},
 );
 
 /* --- Create Quiz --- */
 const quizCreateOne = gql`
 	mutation createQuiz($payload: QuizInput) {
 		createQuiz(quiz: $payload) {
-			_id
-			title
-			description
-			image
-			likes
-			time
-			categoryId {
-				_id
-				description_en
-				description_es
-			}
-			questions {
-				_id
-				title
-				score
-				image
-				options {
-					title
-					result
-				}
-			}
+			...EntireQuizInfo
 		}
 	}
+	${EntireQuizInfo}
 `;
+
+export const createQuiz = createAsyncThunk(
+	'quiz/createOne',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(quizCreateOne, { payload });
+		return clientRequest;
+	},
+);
+
 const queryGetQuizByCategory = gql`
 	query($payload: ID!) {
 		getQuizByCategory(catId: $payload) {
-			_id
-			title
-			description
-			image
-			likes
-			time
-			categoryId {
-				_id
-				description_en
-				description_es
-			}
-			questions {
-				_id
-				title
-				score
-				image
-				options {
-					title
-					result
-				}
-			}
+			...EntireQuizInfo
 		}
 	}
+	${EntireQuizInfo}
 `;
 
 export const getQuizByCategory = createAsyncThunk(
@@ -105,16 +83,30 @@ export const getQuizByCategory = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 
-export const createQuiz = createAsyncThunk(
-	'quiz/createOne',
+const queryGetQuizzesBySearchInput = gql`
+	query($payload: String!) {
+		getQuizzesByInputSearch(input: $payload) {
+			...EntireQuizInfo
+		}
+	}
+	${EntireQuizInfo}
+`;
+
+export const getQuizzesBySearchInput = createAsyncThunk(
+	'quiz/getQuizzesBySearchInput',
 	async (payload, { getState }) => {
 		const client = getClient(getState());
-		const clientRequest = await client.request(quizCreateOne, { payload });
+		const clientRequest = await client.request(
+			queryGetQuizzesBySearchInput,
+			{
+				payload,
+			},
+		);
 		return clientRequest;
-	}
+	},
 );
 
 const quizSlice = createSlice({
@@ -124,6 +116,11 @@ const quizSlice = createSlice({
 		quizzes: [],
 		filteredQuizzes: [],
 		categories: [],
+	},
+	reducers: {
+		clearfilteredQuizzes: (state) => {
+			state.filteredQuizzes = [];
+		},
 	},
 	extraReducers: {
 		[getQuizzes.fulfilled]: (state, { payload }) => {
@@ -136,7 +133,12 @@ const quizSlice = createSlice({
 		[getQuizByCategory.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizByCategory;
 		},
+		[getQuizzesBySearchInput.fulfilled]: (state, { payload }) => {
+			state.filteredQuizzes = payload.getQuizzesByInputSearch;
+		},
 	},
 });
+
+export const { clearfilteredQuizzes } = quizSlice.actions;
 
 export default quizSlice.reducer;
