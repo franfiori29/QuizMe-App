@@ -13,10 +13,15 @@ export default function LogoAnimated({ navigation }) {
 	const moveAnim = useRef(new Animated.Value(0)).current;
 	const fadeAnim = useRef(new Animated.Value(0)).current;
 
+	const skipIntro = () => {
+		navigation.replace(!!Object.keys(user).length ? 'Home' : 'Login');
+	};
+
 	useEffect(() => {
-		setTimeout(() => {
-			navigation.navigate(!!Object.keys(user).length ? 'Home' : 'Login');
+		let logotimer = setTimeout(() => {
+			skipIntro();
 		}, DURATION * 2);
+		return ()=> clearTimeout(logotimer);
 	}, []);
 
 	useEffect(() => {
@@ -44,7 +49,7 @@ export default function LogoAnimated({ navigation }) {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Container>
+			<Container onPress={skipIntro}>
 				<ContentContainer>
 					<ImageLogo style={{ opacity: fadeAnim }} source={logo} />
 					<LogoContainer style={{ marginLeft: moveAnim }}>
@@ -57,7 +62,7 @@ export default function LogoAnimated({ navigation }) {
 	);
 }
 
-const Container = styled.SafeAreaView`
+const Container = styled.TouchableWithoutFeedback`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
 `;
