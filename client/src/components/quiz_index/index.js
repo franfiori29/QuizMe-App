@@ -8,7 +8,13 @@ import SocialMedia from '@components/utils/SocialMedia';
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
-	const quiz = params.quiz;
+	const { randomQuiz } = useSelector((state) => state.quiz);
+	let quiz;
+	if (params.quiz) {
+		quiz = params.quiz;
+	} else {
+		quiz = randomQuiz;
+	}
 
 	return (
 		<ThemeProvider theme={theme}>

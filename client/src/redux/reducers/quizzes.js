@@ -117,6 +117,44 @@ export const createQuiz = createAsyncThunk(
 	}
 );
 
+/* --- Get random quiz --- */
+const queryRandomQuiz = gql`
+	{
+		getRandomQuiz {
+			_id
+			title
+			description
+			image
+			likes
+			time
+			categoryId {
+				_id
+				description_en
+				description_es
+			}
+			questions {
+				_id
+				title
+				score
+				image
+				options {
+					title
+					result
+				}
+			}
+		}
+	}
+`;
+
+export const getRandomQuiz = createAsyncThunk(
+	'quiz/getRandom',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryRandomQuiz);
+		return clientRequest;
+	}
+);
+
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {
@@ -124,6 +162,7 @@ const quizSlice = createSlice({
 		quizzes: [],
 		filteredQuizzes: [],
 		categories: [],
+		randomQuiz: {},
 	},
 	extraReducers: {
 		[getQuizzes.fulfilled]: (state, { payload }) => {
@@ -135,6 +174,9 @@ const quizSlice = createSlice({
 		},
 		[getQuizByCategory.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizByCategory;
+		},
+		[getRandomQuiz.fulfilled]: (state, { payload }) => {
+			state.randomQuiz = payload.getRandomQuiz;
 		},
 	},
 });

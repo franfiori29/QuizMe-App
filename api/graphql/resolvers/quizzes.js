@@ -31,6 +31,14 @@ module.exports = {
 
 			return foundQuizzes;
 		},
+		getRandomQuiz: async () => {
+			const quizzes = await Quiz.find()
+				.populate('categoryId')
+				.populate('questions');
+			let random = Math.floor(Math.random() * (quizzes.length - 0)) + 0;
+
+			return quizzes[random];
+		},
 	},
 	Mutation: {
 		createQuiz: async (_, { quiz }) => {
