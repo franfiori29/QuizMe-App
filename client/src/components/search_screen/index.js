@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,13 +10,21 @@ import NavBar from '@components/utils/NavBar';
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getQuizzesBySearchInput } from '../../redux/reducers/quizzes';
 
 const SearchScreen = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
-	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
+	const { filteredQuizzes } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
+	const [searchInput, setSearchInput] = useState('');
 	const handleSelect = () => {};
+
+	const handleSearch = () => {
+		if (searchInput.length < 2) return alert('Poco texto');
+		dispatch(getQuizzesBySearchInput(searchInput));
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -37,6 +45,8 @@ const SearchScreen = ({ navigation }) => {
 						placeholder='Buscar'
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
+						onChangeText={setSearchInput}
+						onSubmitEditing={handleSearch}
 					/>
 				</InputContainer>
 				<View>
