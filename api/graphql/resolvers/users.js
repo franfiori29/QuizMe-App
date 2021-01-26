@@ -12,6 +12,7 @@ module.exports = {
 			return userfind.completedQuiz;
 		},
 	},
+
 	Mutation: {
 		completeQuiz: async (_, { quizId }, { user }) => {
 			const userfind = await User.findOneAndUpdate(
@@ -21,9 +22,7 @@ module.exports = {
 			);
 			return userfind;
 		},
-	},
 
-	Mutation: {
 		updateUser: async (_, { userBody }, { user }) => {
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
