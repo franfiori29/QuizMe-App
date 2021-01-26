@@ -8,6 +8,7 @@ import { Platform } from 'react-native';
 import QuizIndex from '@components/quiz_index';
 import Quiz from '@components/quiz';
 import HomeScreen from '@components/home_screen';
+import SearchScreen from '@components/search_screen';
 import Login from '@components/login';
 import SignUp from '@components/signup';
 import UserMenu from '@components/user_menu';
@@ -49,6 +50,7 @@ const HomeRoutes = () => {
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
 				<Screen name='Home' component={HomeScreen} />
+				<Screen name='SearchScreen' component={SearchScreen} />
 				<Screen name='UserMenu' component={UserMenu} />
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />

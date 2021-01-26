@@ -36,7 +36,7 @@ const UserMenu = ({ navigation }) => {
 				<NavBar
 					string='QuizMeApp'
 					nav1={() => navigation.goBack()}
-					nav2={() => navigation.navigate('Home')}
+					nav2={() => navigation.navigate('SearchScreen')}
 					icon1='ios-close'
 					icon2='ios-search-outline'
 				/>
