@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
 					icon2='ios-search-outline'
 				/>
 				<IntroContainer>
-					<IntroImg source={{ uri: logo }} />
+					<IntroImg source={logo} />
 					<IntroTitle>
 						¡{s.title} {user.firstName} {user.lastName} !
 					</IntroTitle>

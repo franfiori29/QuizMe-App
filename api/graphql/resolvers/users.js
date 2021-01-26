@@ -25,7 +25,6 @@ module.exports = {
 
 	Mutation: {
 		updateUser: async (_, { userBody }, { user }) => {
-			console.log(user);
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
 				userBody,

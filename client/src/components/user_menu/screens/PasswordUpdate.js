@@ -26,7 +26,6 @@ const PasswordUpdate = ({ navigation }) => {
 			password.newPass === password.confirmPass
 		) {
 			dispatch(updateUser({ password: password.newPassword }));
-			console.log(user.password);
 			navigation.navigate('UserMenu');
 		} else {
 			if (Platform.OS !== 'web') {

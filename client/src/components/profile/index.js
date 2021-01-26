@@ -99,10 +99,9 @@ export default function Profile({ navigation }) {
 					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg
 							source={{
-								uri:
-									info !== null
-										? info.profilePic
-										: 'https://picsum.photos/150/150',
+								uri: info.profilePic
+									? info.profilePic
+									: 'https://picsum.photos/150/150',
 							}}
 						/>
 						{loading && (
