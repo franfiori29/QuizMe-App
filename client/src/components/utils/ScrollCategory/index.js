@@ -21,9 +21,14 @@ const ScrollCategory = ({ categories, handleSelect }) => {
 					}
 					key={category._id}
 					onPress={() => {
-						setSelected(category._id);
-						handleSelect(category._id);
-						dispatch(getQuizByCategory(category._id));
+						setSelected((prev) =>
+							prev === category._id
+								? setSelected(-1)
+								: setSelected(category._id),
+						);
+						handleSelect(
+							selected === category._id ? '' : category._id,
+						);
 					}}
 				>
 					<CategoryName>

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+	getQuizzesBySearchInput,
+	clearfilteredQuizzes,
+} from '@redux/reducers/quizzes';
 
 //==> Components
 import QuizCards from '@components/utils/QuizCards';
@@ -10,7 +14,6 @@ import NavBar from '@components/utils/NavBar';
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { getQuizzesBySearchInput } from '../../redux/reducers/quizzes';
 
 const SearchScreen = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
@@ -18,7 +21,17 @@ const SearchScreen = ({ navigation }) => {
 	const { filteredQuizzes } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 	const [searchInput, setSearchInput] = useState('');
-	const handleSelect = () => {};
+	const [categoryFilter, setCategoryFilter] = useState('');
+
+	const filteredQuizzesWithCategoryFilter = useMemo(() => {
+		return filteredQuizzes.filter(
+			(quiz) => quiz.categoryId._id === categoryFilter,
+		);
+	}, [filteredQuizzes, categoryFilter]);
+
+	const handleSelect = (categoryId) => {
+		setCategoryFilter(categoryId);
+	};
 
 	const handleSearch = () => {
 		if (searchInput.length < 2) return alert('Poco texto');
@@ -30,7 +43,10 @@ const SearchScreen = ({ navigation }) => {
 			<Screen>
 				<NavBar
 					string='Buscar'
-					nav1={() => navigation.goBack()}
+					nav1={() => {
+						navigation.goBack();
+						dispatch(clearfilteredQuizzes());
+					}}
 					icon1='ios-arrow-back'
 					icon2=''
 				/>
@@ -56,7 +72,13 @@ const SearchScreen = ({ navigation }) => {
 					/>
 				</View>
 				<ScrollView>
-					<QuizCards quizzes={filteredQuizzes} />
+					<QuizCards
+						quizzes={
+							categoryFilter
+								? filteredQuizzesWithCategoryFilter
+								: filteredQuizzes
+						}
+					/>
 				</ScrollView>
 			</Screen>
 		</ThemeProvider>

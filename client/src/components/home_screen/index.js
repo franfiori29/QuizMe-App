@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
-import { getQuizzes } from '@redux/reducers/quizzes';
+import {
+	getQuizzes,
+	getQuizByCategory,
+	clearfilteredQuizzes,
+} from '@redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
 
@@ -27,7 +31,10 @@ const HomeScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const s = strings[language];
 
-	const handleSelect = () => {};
+	const handleSelect = (categoryId) => {
+		if (categoryId === '') return dispatch(clearfilteredQuizzes());
+		dispatch(getQuizByCategory(categoryId));
+	};
 
 	useEffect(() => {
 		dispatch(getQuizzes());
@@ -52,7 +59,10 @@ const HomeScreen = ({ navigation }) => {
 				<NavBar
 					string='QuizMeApp'
 					nav1={() => navigation.navigate('UserMenu')}
-					nav2={() => navigation.navigate('SearchScreen')}
+					nav2={() => {
+						navigation.navigate('SearchScreen');
+						dispatch(clearfilteredQuizzes());
+					}}
 					icon1='ios-menu-outline'
 					icon2='ios-search-outline'
 				/>

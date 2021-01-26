@@ -34,7 +34,9 @@ module.exports = {
 			const regex = new RegExp(input, 'i');
 			const foundQuizzes = await Quiz.find({
 				$or: [{ title: regex }, { description: regex }],
-			}).populate('questions');
+			})
+				.populate('questions')
+				.populate('categoryId');
 			return foundQuizzes;
 		},
 	},

@@ -117,6 +117,11 @@ const quizSlice = createSlice({
 		filteredQuizzes: [],
 		categories: [],
 	},
+	reducers: {
+		clearfilteredQuizzes: (state) => {
+			state.filteredQuizzes = [];
+		},
+	},
 	extraReducers: {
 		[getQuizzes.fulfilled]: (state, { payload }) => {
 			state.quizzes = payload.getQuizzes;
@@ -133,5 +138,7 @@ const quizSlice = createSlice({
 		},
 	},
 });
+
+export const { clearfilteredQuizzes } = quizSlice.actions;
 
 export default quizSlice.reducer;
