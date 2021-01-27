@@ -15,7 +15,7 @@ import NavBar from '@components/utils/NavBar';
 import strings from './strings';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const QuizMakeQuestions = ({ navigation, routes: { params } }) => {
+const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 	const { control, handleSubmit, errors, reset } = useForm();
@@ -467,21 +467,21 @@ const QuizMakeQuestions = ({ navigation, routes: { params } }) => {
 	);
 };
 
-QuizMakeQuestions.defaultProps = {
-	routes: {
-		params: {
-			quiz: {
-				categoryId: '5959e34adf833e1451a00005',
-				description: 'Demuestra que tan fan eres de rapido y furioso',
-				image:
-					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
-				questions: [],
-				time: 10,
-				title: 'Eres fan de Rapido y furioso?',
-			},
-		},
-	},
-};
+// QuizMakeQuestions.defaultProps = {
+// 	routes: {
+// 		params: {
+// 			quiz: {
+// 				categoryId: '5959e34adf833e1451a00005',
+// 				description: 'Demuestra que tan fan eres de rapido y furioso',
+// 				image:
+// 					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+// 				questions: [],
+// 				time: 10,
+// 				title: 'Eres fan de Rapido y furioso?',
+// 			},
+// 		},
+// 	},
+// };
 
 const Screen = styled.ScrollView`
 	flex: 1;
