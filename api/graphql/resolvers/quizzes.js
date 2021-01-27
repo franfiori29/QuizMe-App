@@ -70,14 +70,15 @@ module.exports = {
 		updateLike: async (_, { quizId, giveLike }, { user }) => {
 			const quizfind = await Quiz.findOneAndUpdate(
 				{ _id: quizId },
-				{ $inc: { likes: giveLike ? 1 : -1 } }
+				{ $inc: { likes: giveLike ? 1 : -1 } },
+				{ new: true }
 			);
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
 				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } }
 			);
 			return quizfind;
-    },
+		},
 		createCategory: async (_, { category }) => {
 			const newCategory = await Category.create(category);
 			return newCategory;

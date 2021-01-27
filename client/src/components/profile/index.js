@@ -114,8 +114,8 @@ export default function Profile({ navigation }) {
 									height: 122,
 									width: 122,
 									borderRadius: '100px',
-									backgroundColor: 'rgba(0,0,0,.9)',
 									alignItems: 'center',
+									backgroundColor: 'rgba(0,0,0,0.7)',
 								}}
 							>
 								<View
@@ -127,8 +127,9 @@ export default function Profile({ navigation }) {
 									<Spinner
 										visible={loading}
 										textContent={'Loading'}
+										color={theme.white}
 										textStyle={{
-											color: theme.text,
+											color: theme.white,
 										}}
 									/>
 								</View>
@@ -163,7 +164,13 @@ export default function Profile({ navigation }) {
 						<TouchableOpacity
 							onPress={() => navigation.navigate('UpdateName')}
 						>
-							<UserText style={{ fontStyle: 'italic' }}>
+							<UserText
+								style={{
+									fontStyle: 'italic',
+									color: theme.primary,
+									fontWeight: 'bold',
+								}}
+							>
 								Cambiar nombre{' '}
 							</UserText>
 						</TouchableOpacity>

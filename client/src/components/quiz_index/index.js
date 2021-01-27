@@ -1,8 +1,13 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import styled, { ThemeProvider } from 'styled-components/native';
 import strings from './strings';
+
+//Styles
+import styled, { ThemeProvider } from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+//Components
 import SocialMedia from '@components/utils/SocialMedia';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
@@ -24,7 +29,11 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					<BackButtonContainer
 						onPress={() => navigation.navigate('Home')}
 					>
-						<BackButton>X</BackButton>
+						<Icon
+							name='ios-arrow-back'
+							color={theme.text}
+							size={28}
+						/>
 					</BackButtonContainer>
 					<Title>{quiz.title}</Title>
 					<QuantityContainer>
@@ -107,22 +116,16 @@ const ContainerBottom = styled.View`
 
 const BackButtonContainer = styled.TouchableOpacity`
 	position: absolute;
-	background-color: rgba(0, 0, 0, 0.7);
-	border-radius: 15px;
+	background-color: ${(props) => props.theme.bg};
+	border-bottom-right-radius: 5px;
+	border: 1px solid transparent;
 	width: 50px;
 	height: 50px;
-	left: 10px;
-	top: 10px;
+	left: 0;
+	top: 0;
 	color: white;
 	align-items: center;
 	justify-content: center;
-`;
-
-const BackButton = styled.Text`
-	color: ${(props) => props.theme.primary};
-	text-align: center;
-	font-weight: 900;
-	font-size: 30px;
 `;
 
 const Title = styled.Text`

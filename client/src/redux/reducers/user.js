@@ -21,14 +21,6 @@ export const completeQuiz = createAsyncThunk(
 	}
 );
 
-const queryGetCompletedQuizzes = gql`
-	{
-		getCompletedQuizzes {
-			_id
-		}
-	}
-);
-
 export const getCompletedQuizzes = createAsyncThunk(
 	'user/getCompletedQuizzes',
 	async (_, { getState }) => {
@@ -47,7 +39,7 @@ export const updateUser = createAsyncThunk(
 			payload,
 		});
 		const previousUserProfilePic = state.user.info.profilePic;
-		if (previousUserProfilePic.includes('firebasestorage')) {
+		if (previousUserProfilePic?.includes('firebasestorage')) {
 			fb.storage().refFromURL(previousUserProfilePic).delete();
 		}
 		return clientRequest;

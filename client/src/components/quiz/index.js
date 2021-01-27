@@ -8,6 +8,7 @@ import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
 import { Audio } from 'expo-av';
 import { completeQuiz } from '@redux/reducers/user.js';
+
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -280,8 +281,6 @@ const Header = styled.View`
 const Option = styled.TouchableOpacity`
 	width: 95%;
 	align-self: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
 	border-top-width: 1px;
 	border-top-color: #ccc;
 	flex: 1;
