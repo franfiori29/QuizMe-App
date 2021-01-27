@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import successSound from '@assets/audio/success.wav';
@@ -27,6 +27,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 	const questions = params.questions;
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
+	const [ricky, setRicky] = useState(0);
 	const totalTime = params.time || TIME;
 	const [timer, setTimer] = useState({ time: totalTime, on: true });
 	const [points, setPoints] = useState(0);
@@ -56,7 +57,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints })
+					updateHighscore({ quizId: params.id, score: newPoints }),
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -173,6 +174,17 @@ const Quiz = ({ navigation, route: { params } }) => {
 
 	const question = questions[current];
 	if (!question) return null;
+
+	const handleRicky = () => {
+		setRicky(ricky + 1);
+		setTimeout(() => {
+			setRicky(0);
+		}, 1000);
+		if (ricky > 5) {
+			navigation.navigate('Ricky');
+		}
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -229,13 +241,15 @@ const Quiz = ({ navigation, route: { params } }) => {
 					>
 						{question.title}
 					</Text>
-					<QuizImg
-						source={{
-							uri: question.image
-								? question.image
-								: params.imageQuiz,
-						}}
-					/>
+					<TouchableWithoutFeedback onPress={handleRicky}>
+						<QuizImg
+							source={{
+								uri: question.image
+									? question.image
+									: params.imageQuiz,
+							}}
+						/>
+					</TouchableWithoutFeedback>
 				</MiddleScreen>
 				<BottomScreen>
 					{question.options.map((option, i) => (

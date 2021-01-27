@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Platform } from 'react-native';
 
 //~~~Components~~~
+import Ricky from '@components/easter_eggs/Ricky'
 import QuizIndex from '@components/quiz_index';
 import Quiz from '@components/quiz';
 import HomeScreen from '@components/home_screen';
@@ -69,6 +70,7 @@ const HomeRoutes = () => {
 				<Screen name='Quiz' component={Quiz} />
 				<Screen name='Profile' component={Profile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
+				<Screen name='Ricky' component={Ricky} />
 			</Navigator>
 		</NavigationContainer>
 	);
