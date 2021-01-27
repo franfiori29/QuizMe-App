@@ -3,15 +3,19 @@ import { Alert, Platform, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
-//Redux
+//==> Redux
 import { changeEmail } from '@redux/reducers/user';
 
 //==> Components
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
 
+//==> Assets
+import mailS from './strings/mailS';
+
 const MailUpdate = ({ navigation }) => {
-	const { theme } = useSelector((state) => state.global);
+	const dispatch = useDispatch();
+	const { theme, language } = useSelector((state) => state.global);
 	const { info } = useSelector((state) => state.user);
 	const [error, setError] = useState('');
 	const [input, setInput] = useState({
@@ -19,8 +23,8 @@ const MailUpdate = ({ navigation }) => {
 		newMail: '',
 		pass: '',
 	});
-	const dispatch = useDispatch();
-	// const s = strings[language];
+	const s = mailS[language];
+
 	const handleSubmit = async () => {
 		if (input.currMail && input.newMail && input.pass) {
 			if (input.currMail === info.email) {
@@ -28,34 +32,34 @@ const MailUpdate = ({ navigation }) => {
 					changeEmail({
 						newMail: input.newMail,
 						currPass: input.pass,
-					})
+					}),
 				);
 
 				if (response.error?.message.includes('Auth Failed'))
-					setError('Contraseña Incorrecta');
+					setError(s.err3);
 				else navigation.navigate('UserMenu');
 			} else {
 				if (Platform.OS !== 'web') {
 					Alert.alert(
 						'Error',
-						'El mail no coincide con tu mail actual',
+						s.err1,
 						[{ text: 'OK', onPress: () => {} }],
-						{ cancelable: false }
+						{ cancelable: false },
 					);
 				} else {
-					alert('El mail no coincide con tu mail actual');
+					alert(s.err1);
 				}
 			}
 		} else {
 			if (Platform.OS !== 'web') {
 				Alert.alert(
 					'Error',
-					'Debes completar todos los campos para continuar',
+					s.err2,
 					[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false }
+					{ cancelable: false },
 				);
 			} else {
-				alert('Debes completar todos los campos para continuar');
+				alert(s.err2);
 			}
 		}
 	};
@@ -63,7 +67,7 @@ const MailUpdate = ({ navigation }) => {
 		<ThemeProvider theme={theme}>
 			<MailScreen>
 				<NavBar
-					string='Cambiar Mail'
+					string={s.nav}
 					nav1={() => navigation.goBack()}
 					icon1='ios-arrow-back'
 					icon2=''
@@ -78,7 +82,7 @@ const MailUpdate = ({ navigation }) => {
 					</View>
 				)}
 				<MailInput
-					placeholder='Ingresa tu mail actual'
+					placeholder={s.ph1}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setInput({
@@ -87,9 +91,10 @@ const MailUpdate = ({ navigation }) => {
 						})
 					}
 					value={input.currMail}
+					style={{ marginTop: 20 }}
 				/>
 				<MailInput
-					placeholder='Ingresa Nuevo mail'
+					placeholder={s.ph2}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setInput({
@@ -100,7 +105,7 @@ const MailUpdate = ({ navigation }) => {
 					value={input.newMail}
 				/>
 				<MailInput
-					placeholder='Ingresa su contraseña'
+					placeholder={s.ph3}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setInput({
@@ -111,9 +116,9 @@ const MailUpdate = ({ navigation }) => {
 					value={input.pass}
 				/>
 				<ButtonContainer>
-					<ButtonPpal string='enviar' onSubmit={handleSubmit} />
+					<ButtonPpal string={s.btn1} onSubmit={handleSubmit} />
 					<ButtonPpal
-						string='Cancelar'
+						string={s.btn2}
 						nav='UserMenu'
 						navigation={navigation}
 					/>
@@ -149,7 +154,7 @@ const BadgeStyled = styled.Text`
 	min-width: 175px;
 	margin-top: 16px;
 	padding: 10px 18px;
-	font-size: 10px;
+	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
 	color: ${({ theme }) => theme.text};

@@ -85,7 +85,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen'
+					'Necesitamos permiso a tu galería para que puedas subir una imagen',
 				);
 				return;
 			}
@@ -151,7 +151,7 @@ const QuizMake = ({ navigation }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}
@@ -191,7 +191,7 @@ const QuizMake = ({ navigation }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}
@@ -241,11 +241,7 @@ const QuizMake = ({ navigation }) => {
 						rules={{ required: true }}
 						defaultValue=''
 					/>
-					{errors.category && (
-						<ErrorBubble>
-							Elegir una categoría para tu quiz.
-						</ErrorBubble>
-					)}
+					{errors.category && <ErrorBubble>{s.req2}</ErrorBubble>}
 					<View
 						style={{
 							width: '95%',
@@ -267,7 +263,10 @@ const QuizMake = ({ navigation }) => {
 											keyboardType='numeric'
 											onChangeText={(value) =>
 												onChange(
-													value.replace(/[^0-9]+/, '')
+													value.replace(
+														/[^0-9]+/,
+														'',
+													),
 												)
 											}
 											value={value}
@@ -280,6 +279,16 @@ const QuizMake = ({ navigation }) => {
 							/>
 							{errors.time && (
 								<ErrorIcon>
+									<Text
+										style={{
+											color: '#D53051',
+											fontSize: 10,
+											textTransform: 'uppercase',
+											marginRight: 5,
+										}}
+									>
+										{s.req}
+									</Text>
 									<Icon
 										name={'ios-alert-circle'}
 										size={15}

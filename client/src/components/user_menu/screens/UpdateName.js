@@ -3,37 +3,40 @@ import { Alert, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
-//Redux
+//==> Redux
 import { updateUser } from '@redux/reducers/user';
 
 //==> Components
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
 
+//==> Assets
+import nameS from './strings/nameS';
+
 const UpdateName = ({ navigation }) => {
+	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	const [name, setName] = useState({
 		name: '',
 		lastName: '',
 	});
-	const dispatch = useDispatch();
-	// const s = strings[language];
+	const s = nameS[language];
+
 	const handleSubmit = () => {
 		if (name.name.length > 0 && name.lastName.length > 0) {
 			dispatch(
-				updateUser({ firstName: name.name, lastName: name.lastName })
+				updateUser({ firstName: name.name, lastName: name.lastName }),
 			);
 			navigation.navigate('UserMenu');
 		} else {
 			if (Platform.OS !== 'web') {
 				Alert.alert(
 					'Error',
-					'Mandaste fruta',
-					[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false }
+					s.err1[{ text: 'OK', onPress: () => {} }],
+					{ cancelable: false },
 				);
 			} else {
-				alert('Mandaste fruta');
+				alert(s.err1);
 			}
 		}
 	};
@@ -41,13 +44,13 @@ const UpdateName = ({ navigation }) => {
 		<ThemeProvider theme={theme}>
 			<NameScreen>
 				<NavBar
-					string='Cambiar Nombre'
+					string={s.nav}
 					nav1={() => navigation.goBack()}
 					icon1='ios-arrow-back'
 					icon2=''
 				/>
 				<NameInput
-					placeholder='Ingresa tu nuevo nombre'
+					placeholder={s.ph1}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setName({
@@ -56,9 +59,10 @@ const UpdateName = ({ navigation }) => {
 						})
 					}
 					value={name.name}
+					style={{ marginTop: 20 }}
 				/>
 				<NameInput
-					placeholder='Ingresa nuevo apellido'
+					placeholder={s.ph2}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setName({
@@ -70,9 +74,9 @@ const UpdateName = ({ navigation }) => {
 				/>
 
 				<ButtonContainer>
-					<ButtonPpal string='enviar' onSubmit={handleSubmit} />
+					<ButtonPpal string={s.btn1} onSubmit={handleSubmit} />
 					<ButtonPpal
-						string='Cancelar'
+						string={s.btn2}
 						nav='UserMenu'
 						navigation={navigation}
 					/>

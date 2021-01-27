@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { ScrollView, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -35,7 +34,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
 		);
 	};
 
@@ -51,12 +50,31 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					nav2={() => navigation.navigate('Home')}
 					icon1='ios-arrow-back'
 				/>
-				<FinishedTitle>Tus resultados:</FinishedTitle>
+
+				<FinishedTitle>
+					{s.result}
+					{params.points}
+				</FinishedTitle>
 				<ContainerResults>
 					<EmojiContainer>{emoji()}</EmojiContainer>
 					<AmountPoints>
-						Conseguiste {params.points} puntos
-						<HighScoreBadge>Puntaje Alto!🎉</HighScoreBadge>
+						<Text
+							style={{
+								fontSize: 14,
+								fontWeight: 'bold',
+								textAlign: 'center',
+								color: theme.text,
+							}}
+						>
+							{s.msj1} {params.points} {s.msj2}
+						</Text>
+						<HighScoreBadge>
+							<Text style={{ fontSize: 14, color: theme.white }}>
+								{language === 'es'
+									? 'Puntaje Alto!🎉'
+									: 'High Score!🎉'}
+							</Text>
+						</HighScoreBadge>
 					</AmountPoints>
 					<ProgressBar>
 						<ProgressBarText>
@@ -71,9 +89,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					<AnswersCorrect>
 						<AnswersNumber>{params.correct}</AnswersNumber>
 						<AnswersText>
-							{params.correct === 1
-								? 'Respuesta correcta'
-								: 'Respuestas correctas'}
+							{params.correct === 1 ? s.corr : s.wrong}
 						</AnswersText>
 					</AnswersCorrect>
 					<AnswersIncorrect>
@@ -86,7 +102,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					</AnswersIncorrect>
 				</AnswersNumberContainer>
 				<FavoriteContainer>
-					<FavoriteText>¿Te gustó este quiz?</FavoriteText>
+					<FavoriteText>{s.like}</FavoriteText>
 					{/* <Btn>
 					<BtnText>❤ Darle like</BtnText>
 				</Btn> */}
@@ -107,11 +123,11 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					</ViewSocialMedia>
 				</FavoriteContainer>
 				<ButtonsContainer>
-					<Btn margin='0 10px 0 0'>
-						<BtnText>Quizzes similares</BtnText>
+					<Btn>
+						<BtnText>{s.btn1}</BtnText>
 					</Btn>
 					<BtnSec onPress={() => navigation.navigate('Home')}>
-						<BtnSecText>Volver al inicio</BtnSecText>
+						<BtnSecText>{s.btn2}</BtnSecText>
 					</BtnSec>
 				</ButtonsContainer>
 			</ScrollView>
@@ -131,19 +147,20 @@ const ContainerResults = styled.View`
 	padding: 10px 20px;
 `;
 
-const AmountPoints = styled.Text`
-	font-size: 15px;
-	font-weight: bold;
-	text-align: center;
+const AmountPoints = styled.View`
+	width: 60%;
+	align-self: center;
+	flex-direction: row;
 	margin: 10px 0;
-	color: ${({ theme }) => theme.text};
+	justify-content: space-between;
+	align-items: center;
 `;
 
-const HighScoreBadge = styled.Text`
+const HighScoreBadge = styled.View`
 	background-color: ${({ theme }) => theme.primary};
 	padding: 5px;
-	font-size: 10px;
-	border-radius: 4px;
+	border-radius: 5px;
+	margin-left: 5px;
 `;
 
 const EmojiContainer = styled.Text`
@@ -248,7 +265,7 @@ const Btn = styled.TouchableOpacity`
 	background-color: #04aa8c;
 	text-align: center;
 	padding: 10px 20px;
-	margin: ${({ margin }) => (margin ? margin : '0')};
+	margin-right: 10px;
 	border-radius: 5px;
 `;
 const BtnSec = styled.TouchableOpacity`
@@ -264,6 +281,7 @@ const BtnText = styled.Text`
 	color: #f7fdff;
 	font-weight: 700;
 	align-self: center;
+	margin: auto;
 `;
 
 const BtnSecText = styled.Text`

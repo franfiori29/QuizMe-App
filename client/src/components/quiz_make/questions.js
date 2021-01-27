@@ -177,7 +177,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}
@@ -217,7 +217,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}
@@ -257,7 +257,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}
@@ -297,7 +297,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}
@@ -337,7 +337,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 										marginRight: 5,
 									}}
 								>
-									Requerido
+									{s.req}
 								</Text>
 								<Icon
 									name={'ios-alert-circle'}

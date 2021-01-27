@@ -3,44 +3,48 @@ import { Alert, Platform, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 
-//Redux
+//==> Redux
 import { changePassword } from '@redux/reducers/user';
 
 //==> Components
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
 
+//==> Assets
+import passS from './strings/passS';
+
 const PasswordUpdate = ({ navigation }) => {
-	const { theme } = useSelector((state) => state.global);
+	const dispatch = useDispatch();
+	const { theme, language } = useSelector((state) => state.global);
 	const [error, setError] = useState('');
 	const [input, setInput] = useState({
 		currentPass: '',
 		newPass: '',
 		confirmPass: '',
 	});
-	const dispatch = useDispatch();
-	// const s = strings[language];
+	const s = passS[language];
+
 	const handleSubmit = async () => {
 		if (input.newPass === input.confirmPass) {
 			const response = await dispatch(
 				changePassword({
 					newPass: input.newPass,
 					currPass: input.currentPass,
-				})
+				}),
 			);
 			if (response.error?.message.includes('Auth Failed'))
-				setError('Contraseña Incorrecta');
+				setError(s.err1);
 			else navigation.navigate('UserMenu');
 		} else {
 			if (Platform.OS !== 'web') {
 				Alert.alert(
 					'Error',
-					'Las contraseñas no coinciden',
+					s.err2,
 					[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false }
+					{ cancelable: false },
 				);
 			} else {
-				alert('Las contraseñas no coinciden');
+				alert(s.err2);
 			}
 		}
 	};
@@ -48,7 +52,7 @@ const PasswordUpdate = ({ navigation }) => {
 		<ThemeProvider theme={theme}>
 			<PassScreen>
 				<NavBar
-					string='Cambiar Contraseña'
+					string={s.nav}
 					nav1={() => navigation.goBack()}
 					icon1='ios-arrow-back'
 					icon2=''
@@ -63,7 +67,7 @@ const PasswordUpdate = ({ navigation }) => {
 					</View>
 				)}
 				<PassInput
-					placeholder='Ingresa tu contraseña actual'
+					placeholder={s.ph1}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setInput({
@@ -72,9 +76,10 @@ const PasswordUpdate = ({ navigation }) => {
 						})
 					}
 					value={input.currentPass}
+					style={{ marginTop: 20 }}
 				/>
 				<PassInput
-					placeholder='Ingresa nueva password'
+					placeholder={s.ph2}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setInput({
@@ -85,7 +90,7 @@ const PasswordUpdate = ({ navigation }) => {
 					value={input.newPass}
 				/>
 				<PassInput
-					placeholder='Confirmar nueva password'
+					placeholder={s.ph3}
 					placeholderTextColor={theme.text}
 					onChangeText={(text) =>
 						setInput({
@@ -96,9 +101,9 @@ const PasswordUpdate = ({ navigation }) => {
 					value={input.confirmPass}
 				/>
 				<ButtonContainer>
-					<ButtonPpal string='enviar' onSubmit={handleSubmit} />
+					<ButtonPpal string={s.btn1} onSubmit={handleSubmit} />
 					<ButtonPpal
-						string='Cancelar'
+						string={s.btn2}
 						nav='UserMenu'
 						navigation={navigation}
 					/>

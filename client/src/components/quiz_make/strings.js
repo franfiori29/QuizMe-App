@@ -20,6 +20,11 @@ const strings = {
 		option3: 'Option 3',
 		option4: 'Option 4',
 		correct: 'Choose the correct option',
+		seconds: 'seconds per question',
+		ques: 'Questions',
+		fin: 'Finish',
+		req: 'Required',
+		req2: 'Choose a category for your quiz.',
 	},
 
 	es: {
@@ -43,6 +48,11 @@ const strings = {
 		option3: 'Opción 3',
 		option4: 'Opción 4',
 		correct: 'Elige la opción correcta',
+		seconds: 'segundos por pregunta',
+		ques: 'Preguntas',
+		fin: 'Finalizar',
+		req: 'Requerido',
+		req2: 'Elegir una categoría para tu quiz.',
 	},
 };
 
