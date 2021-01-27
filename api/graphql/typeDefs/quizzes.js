@@ -72,5 +72,6 @@ module.exports = gql`
 		createQuiz(quiz: QuizInput): Quiz
 		updateLike(quizId: ID!, giveLike: Boolean): Quiz
 		createCategory(category: InputCategory): Category
+		updateHighscore(quizId: ID!, score: Int!): Boolean
 	}
 `;
