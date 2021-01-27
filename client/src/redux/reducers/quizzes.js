@@ -47,23 +47,20 @@ export const getQuizzes = createAsyncThunk(
 	}
 );
 const updateLikeRequest = gql`
-input updatePayload {
-	quizId: ID!, 
-	giveLike: Boolean
-}
- mutation updateLike($payload:updatePayload){
-	 updateLike(quizId: $payload.quizId, giveLike: $payload.giveLike){
-		 likes
-		 _id
-	 }
- }
+	mutation updateLike($quizId: ID!, $giveLike: Boolean) {
+		updateLike(quizId: $quizId, giveLike: $giveLike) {
+			likes
+			_id
+		}
+	}
 `;
 export const updateLike = createAsyncThunk(
 	'quiz/updateLike',
 	async (payload, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(updateLikeRequest, {
-			payload,
+			quizId: payload.quizId,
+			giveLike: payload.giveLike,
 		});
 		return clientRequest;
 	}
@@ -173,9 +170,11 @@ const quizSlice = createSlice({
 			state.quizzes.push(payload.createQuiz);
 		},
 		[updateLike.fulfilled]: (state, { payload }) => {
-			let quiz = state.quizzes.find((quiz) => (quiz._id = payload._id));
-			quiz.likes = payload.likes;
-    },
+			let quiz = state.quizzes.findIndex(
+				(quiz) => quiz._id === payload.updateLike._id
+			);
+			state.quizzes[quiz].likes = payload.updateLike.likes;
+		},
 		[getQuizByCategory.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizByCategory;
 		},

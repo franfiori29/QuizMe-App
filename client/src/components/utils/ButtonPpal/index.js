@@ -29,7 +29,7 @@ const ButtonPpalCont = styled.TouchableOpacity`
 const ButtonPpalText = styled.Text`
 	text-transform: uppercase;
 	font-weight: bold;
-	color: ${(props) => props.theme.text};
+	color: ${(props) => props.theme.white};
 `;
 
 export default ButtonPpal;
