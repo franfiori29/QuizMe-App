@@ -11,6 +11,11 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 	const navigation = useNavigation();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
+	const likes = useSelector((state) => state.user.likedQuiz);
+
+	const checkLike = (quizId) => {
+		return likes.some((like) => like === quizId);
+	};
 
 	const shareSocialMedia = async () => {
 		try {
@@ -47,21 +52,32 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 						<QuizInfo>
 							<QuizTitle>{quiz.title}</QuizTitle>
 							<StyledText>{quiz.description}</StyledText>
-							<StyledText>{quiz.likes} Likes</StyledText>
-						</QuizInfo>
-
-						{completedQuiz.some((e) => e._id === quiz._id) && (
-							<QuizCheck>
-								<Text style={{ color: theme.primary }}>
-									{s.completed}
-								</Text>
+							<StyledText>
 								<Icon
-									name='checkmark-circle-outline'
-									size={20}
+									name={
+										checkLike(quiz._id)
+											? 'ios-heart-sharp'
+											: 'ios-heart-outline'
+									}
+									size={15}
 									style={{ color: theme.primary }}
 								/>
-							</QuizCheck>
-						)}
+								{quiz.likes}
+							</StyledText>
+						</QuizInfo>
+						{completedQuiz &&
+							completedQuiz.some((e) => e._id === quiz._id) && (
+								<QuizCheck>
+									<Text style={{ color: theme.primary }}>
+										{s.completed}
+									</Text>
+									<Icon
+										name='checkmark-circle-outline'
+										size={20}
+										style={{ color: theme.primary }}
+									/>
+								</QuizCheck>
+							)}
 					</QuizCard>
 				))}
 		</QuizCardsContainer>

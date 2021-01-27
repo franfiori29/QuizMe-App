@@ -38,6 +38,28 @@ export const getQuizzes = createAsyncThunk(
 		return clientRequest;
 	}
 );
+const updateLikeRequest = gql`
+input updatePayload {
+	quizId: ID!, 
+	giveLike: Boolean
+}
+ mutation updateLike($payload:updatePayload){
+	 updateLike(quizId: $payload.quizId, giveLike: $payload.giveLike){
+		 likes
+		 _id
+	 }
+ }
+`;
+export const updateLike = createAsyncThunk(
+	'quiz/updateLike',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(updateLikeRequest, {
+			payload,
+		});
+		return clientRequest;
+	}
+);
 
 /* --- Create Quiz --- */
 const quizCreateOne = gql`
@@ -90,6 +112,10 @@ const quizSlice = createSlice({
 		},
 		[createQuiz.fulfilled]: (state, { payload }) => {
 			state.quizzes.push(payload.createQuiz);
+		},
+		[updateLike.fulfilled]: (state, { payload }) => {
+			let quiz = state.quizzes.find((quiz) => (quiz._id = payload._id));
+			quiz.likes = payload.likes;
 		},
 	},
 });

@@ -21,7 +21,7 @@ export default function LogoAnimated({ navigation }) {
 		let logotimer = setTimeout(() => {
 			skipIntro();
 		}, DURATION * 2);
-		return ()=> clearTimeout(logotimer);
+		return () => clearTimeout(logotimer);
 	}, []);
 
 	useEffect(() => {
@@ -53,7 +53,9 @@ export default function LogoAnimated({ navigation }) {
 				<ContentContainer>
 					<ImageLogo style={{ opacity: fadeAnim }} source={logo} />
 					<LogoContainer style={{ marginLeft: moveAnim }}>
-						<LogoText>QuizMe</LogoText>
+						<LogoText style={{ fontFamily: 'Roboto_500Medium' }}>
+							QuizMe
+						</LogoText>
 						<LogoText style={{ opacity: fadeAnim }}>App</LogoText>
 					</LogoContainer>
 				</ContentContainer>

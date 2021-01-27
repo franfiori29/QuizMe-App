@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -9,13 +9,19 @@ import Icon from 'react-native-vector-icons/Ionicons';
 //==> Components
 import NavBar from '@components/utils/NavBar';
 import SocialMedia from '@components/utils/SocialMedia';
+import LikeButton from '@components/utils/LikeButton';
 
 import strings from './strings';
+import { updateLike } from '@redux/reducers/quizzes';
+import { updateLikedQuizzes } from '@redux/reducers/user';
 
 const QuizResults = ({ route: { params }, navigation }) => {
-	const [favorite, setFavorite] = useState(false);
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
+	const dispatch = useDispatch();
+	const likes = useSelector((state) => state.user.likedQuiz);
+
+	const isLiked = likes && likes.some((like) => like === params.quizId);
 
 	const porcentajeAprobadas = (params.correct * 100) / params.total;
 	const incorrectas = params.total - params.correct;
@@ -26,6 +32,12 @@ const QuizResults = ({ route: { params }, navigation }) => {
 		if (porcentajeAprobadas >= 30) return '😶';
 		return '🧐';
 	}
+
+	const handleOnFavorite = (giveLike) => {
+		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
+		);
+	};
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -39,14 +51,12 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					nav2={() => navigation.navigate('Home')}
 					icon1='ios-arrow-back'
 				/>
-
 				<ContainerTop source={{ uri: params.imageQuiz }}>
 					<FinishedTitle>
 						¡Terminaste el quiz! Acá están tus resultados:
 						{params.points}
 					</FinishedTitle>
 				</ContainerTop>
-
 				<ContainerResults>
 					<EmojiContainer>{emoji()}</EmojiContainer>
 					<ProgressBar>
@@ -57,7 +67,6 @@ const QuizResults = ({ route: { params }, navigation }) => {
 						</ProgressBarFill>
 					</ProgressBar>
 				</ContainerResults>
-
 				<AnswersNumberContainer>
 					<AnswersCorrect>
 						<AnswersNumber>{params.correct}</AnswersNumber>
@@ -74,22 +83,10 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					<BtnText>❤ Darle like</BtnText>
 				</Btn> */}
 					<ViewSocialMedia>
-						<TouchableOpacity
-							style={{ marginRight: 20 }}
-							onPress={() => {
-								setFavorite(!favorite);
-							}}
-						>
-							<Icon
-								name={
-									favorite
-										? 'heart-circle'
-										: 'heart-circle-outline'
-								}
-								size={50}
-								color={theme.primary}
-							/>
-						</TouchableOpacity>
+						<LikeButton
+							handleOnFavorite={handleOnFavorite}
+							isLiked={isLiked}
+						/>
 						<SocialMedia
 							size={50}
 							shareOptions={{
