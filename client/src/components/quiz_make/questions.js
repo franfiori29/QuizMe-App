@@ -122,7 +122,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 						fontSize: 11,
 					}}
 				>
-					Pregunta N° {params.quiz.questions.length + 1}
+					{s.question} N° {params.quiz.questions.length + 1}
 				</Text>
 				<Title>
 					<Text

@@ -11,7 +11,7 @@ import SocialMedia from '@components/utils/SocialMedia';
 import LikeButton from '@components/utils/LikeButton';
 
 import strings from './strings';
-import { updateLike } from '@redux/reducers/quizzes';
+import { updateLike, getRandomQuiz } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
 
 const QuizResults = ({ route: { params }, navigation }) => {
@@ -34,7 +34,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);
 	};
 
@@ -51,10 +51,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					icon1='ios-arrow-back'
 				/>
 
-				<FinishedTitle>
-					{s.result}
-					{params.points}
-				</FinishedTitle>
+				<FinishedTitle>{s.result}</FinishedTitle>
 				<ContainerResults>
 					<EmojiContainer>{emoji()}</EmojiContainer>
 					<AmountPoints>
@@ -71,8 +68,8 @@ const QuizResults = ({ route: { params }, navigation }) => {
 						<HighScoreBadge>
 							<Text style={{ fontSize: 14, color: theme.white }}>
 								{language === 'es'
-									? 'Puntaje Alto!🎉'
-									: 'High Score!🎉'}
+									? 'Nuevo Puntaje Alto!🎉'
+									: 'New High Score!🎉'}
 							</Text>
 						</HighScoreBadge>
 					</AmountPoints>
@@ -89,15 +86,13 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					<AnswersCorrect>
 						<AnswersNumber>{params.correct}</AnswersNumber>
 						<AnswersText>
-							{params.correct === 1 ? s.corr : s.wrong}
+							{params.correct === 1 ? s.corr : s.corrs}
 						</AnswersText>
 					</AnswersCorrect>
 					<AnswersIncorrect>
 						<AnswersNumber>{incorrectas}</AnswersNumber>
 						<AnswersText>
-							{incorrectas === 1
-								? 'Respuesta incorrecta'
-								: 'Respuestas incorrectas'}
+							{incorrectas === 1 ? s.wrong : s.wrongs}
 						</AnswersText>
 					</AnswersIncorrect>
 				</AnswersNumberContainer>
@@ -123,7 +118,15 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					</ViewSocialMedia>
 				</FavoriteContainer>
 				<ButtonsContainer>
-					<Btn>
+					<Btn
+						onPress={() =>
+							dispatch(getRandomQuiz()).then(() => {
+								navigation.navigate('QuizIndex', {
+									quiz: null,
+								});
+							})
+						}
+					>
 						<BtnText>{s.btn1}</BtnText>
 					</Btn>
 					<BtnSec onPress={() => navigation.navigate('Home')}>
@@ -148,7 +151,7 @@ const ContainerResults = styled.View`
 `;
 
 const AmountPoints = styled.View`
-	width: 60%;
+	width: 95%;
 	align-self: center;
 	flex-direction: row;
 	margin: 10px 0;

@@ -29,7 +29,7 @@ const SearchScreen = ({ navigation }) => {
 
 	const filteredQuizzesWithCategoryFilter = useMemo(() => {
 		return filteredQuizzes.filter(
-			(quiz) => quiz.categoryId._id === categoryFilter,
+			(quiz) => quiz.categoryId._id === categoryFilter
 		);
 	}, [filteredQuizzes, categoryFilter]);
 
@@ -122,7 +122,7 @@ const InputLogin = styled.TextInput`
 const IconImage = styled(Icon)`
 	color: ${(props) => props.theme.primary};
 	position: absolute;
-	top: 50px;
+	top: 54px;
 	right: 35px;
 	z-index: 1;
 `;

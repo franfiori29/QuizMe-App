@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dimensions, Linking, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Linking, Text, Animated, Easing } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -16,10 +16,42 @@ import { useForm, Controller } from 'react-hook-form';
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
-	const { control, handleSubmit, errors, reset, register } = useForm();
+	const {
+		control,
+		handleSubmit,
+		errors,
+		reset,
+		setError,
+		clearErrors,
+	} = useForm();
 	const [loading, setLoading] = useState(false);
 	const [hidePass, setHidePass] = useState(true);
 	const s = strings[language];
+	const [spinAnim, setSpinAnim] = useState(new Animated.Value(0));
+	const spin = spinAnim.interpolate({
+		inputRange: [0, 1],
+		outputRange: ['0deg', '360deg'],
+	});
+
+	useEffect(() => {
+		Animated.loop(
+			Animated.sequence([
+				Animated.timing(spinAnim, {
+					toValue: 1,
+					duration: 1500,
+					easing: Easing.linear,
+					useNativeDriver: true,
+				}),
+				Animated.timing(spinAnim, {
+					toValue: 0,
+					duration: 0,
+					easing: Easing.linear,
+					useNativeDriver: true,
+				}),
+			]),
+			{}
+		).start();
+	}, [spinAnim]);
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
@@ -51,10 +83,13 @@ export default function Login({ navigation }) {
 			})
 			.catch(() => {
 				setLoading(false);
+				setError('login', {
+					type: 'manual',
+					message: s.errorPassword,
+				});
 			});
 		// }
 	};
-
 	return (
 		<ThemeProvider theme={theme}>
 			<Container source={backgroundImage}>
@@ -62,6 +97,11 @@ export default function Login({ navigation }) {
 					<Logo source={logo} />
 					<LogoText>QuizMeApp</LogoText>
 				</LogoView>
+				{errors.login?.type === 'manual' && (
+					<BadgeStyled bg='#D53051'>
+						<BadgeText>Error: {s.loginError} 😦</BadgeText>
+					</BadgeStyled>
+				)}
 				<InputContainer>
 					<IconImage
 						name={'ios-person-outline'}
@@ -74,7 +114,10 @@ export default function Login({ navigation }) {
 							return (
 								<InputLogin
 									placeholder={s.email}
-									onChangeText={(value) => onChange(value)}
+									onChangeText={(value) => {
+										if (errors.login) clearErrors('login');
+										return onChange(value);
+									}}
 									placeholderTextColor={
 										'rgba(255,255,255,0.7)'
 									}
@@ -87,7 +130,7 @@ export default function Login({ navigation }) {
 						rules={{
 							required: true,
 							pattern: {
-								value: /\S+@\S+/,
+								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
 								message: 'Not a valid email',
 							},
 						}}
@@ -115,7 +158,10 @@ export default function Login({ navigation }) {
 							return (
 								<InputLogin
 									placeholder={s.pass}
-									onChangeText={(value) => onChange(value)}
+									onChangeText={(value) => {
+										if (errors.login) clearErrors('login');
+										return onChange(value);
+									}}
 									secureTextEntry={hidePass}
 									placeholderTextColor={
 										'rgba(255,255,255,0.7)'
@@ -155,11 +201,18 @@ export default function Login({ navigation }) {
 				<ButtonLogin onPress={handleSubmit(onSubmit)}>
 					<Description>
 						{loading ? (
-							<FontAwesome5
-								name={'circle-notch'}
-								size={26}
-								color={'rgba(255,255,255,0.7)'}
-							/>
+							<Animated.View
+								style={{
+									width: '100%',
+									transform: [{ rotate: spin }],
+								}}
+							>
+								<FontAwesome5
+									name='circle-notch'
+									size={26}
+									color={theme.white}
+								/>
+							</Animated.View>
 						) : (
 							s.login
 						)}
@@ -198,7 +251,6 @@ const Container = styled.View`
 `;
 const LogoView = styled.View`
 	align-items: center;
-	margin-bottom: 40px;
 `;
 const Logo = styled.Image`
 	width: 100px;
@@ -221,7 +273,7 @@ const InputLogin = styled.TextInput`
 	width: 95%;
 	align-self: center;
 	height: 45px;
-	/* border-radius: 25px; */
+	border-radius: 5px;
 	font-size: 16px;
 	padding-left: 45px;
 	background-color: rgba(0, 0, 0, 0.35);
@@ -280,4 +332,19 @@ const ErrorBubble = styled.Text`
 	border-width: 1px;
 	border-radius: 5px;
 	margin: 10px 0;
+`;
+
+const BadgeStyled = styled.View`
+	min-width: 175px;
+	margin-top: 16px;
+	padding: 10px 18px;
+	border-radius: 100px;
+	background-color: ${({ bg }) => bg || '#ccc'};
+`;
+
+const BadgeText = styled.Text`
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	color: ${({ theme }) => theme.white};
 `;

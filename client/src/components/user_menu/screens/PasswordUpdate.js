@@ -30,7 +30,7 @@ const PasswordUpdate = ({ navigation }) => {
 				changePassword({
 					newPass: input.newPass,
 					currPass: input.currentPass,
-				}),
+				})
 			);
 			if (response.error?.message.includes('Auth Failed'))
 				setError(s.err1);
@@ -41,7 +41,7 @@ const PasswordUpdate = ({ navigation }) => {
 					'Error',
 					s.err2,
 					[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false },
+					{ cancelable: false }
 				);
 			} else {
 				alert(s.err2);
@@ -60,9 +60,7 @@ const PasswordUpdate = ({ navigation }) => {
 				{!!error && (
 					<View style={{ marginHorizontal: 20, marginVertical: 20 }}>
 						<BadgeStyled bg='#D53051'>
-							Error: {error}
-							<br />
-							😦
+							<BadgeText>Error: {error} 😦</BadgeText>
 						</BadgeStyled>
 					</View>
 				)}
@@ -135,16 +133,18 @@ const ButtonContainer = styled.View`
 	align-items: center;
 `;
 
-const BadgeStyled = styled.Text`
-	display: inline-block;
+const BadgeStyled = styled.View`
 	min-width: 175px;
-	margin-top: 1em;
-	padding: 0.7em 1.2em;
-	font-size: 0.75em;
-	font-weight: 900;
-	text-align: center;
-	color: ${({ theme }) => theme.text};
-	border-radius: 10em;
+	margin-top: 16px;
+	padding: 10px 18px;
+	border-radius: 100px;
 	background-color: ${({ bg }) => bg || '#ccc'};
+`;
+
+const BadgeText = styled.Text`
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	color: ${({ theme }) => theme.white};
 `;
 export default PasswordUpdate;

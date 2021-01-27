@@ -6,6 +6,7 @@ const strings = {
 		google: 'Sign in With Google',
 		acc: 'You do not have an account?',
 		signup: 'Sign up',
+		loginError: 'Invalid credentials',
 	},
 
 	es: {
@@ -15,6 +16,7 @@ const strings = {
 		google: 'Iniciar con Google',
 		acc: '¿No tienes una cuenta?',
 		signup: 'Regístrate',
+		loginError: 'Datos ingresados incorrectos',
 	},
 };
 
