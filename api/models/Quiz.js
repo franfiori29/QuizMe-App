@@ -16,6 +16,16 @@ const quizSchema = new Schema(
 			{ type: Schema.Types.ObjectId, ref: 'Question', required: true },
 		],
 		time: { type: Number, default: 10 },
+		highScores: [
+			{
+				user: {
+					type: Schema.Types.ObjectId,
+					ref: 'User',
+					required: true,
+				},
+				score: { type: Number, required: true },
+			},
+		],
 	},
 	{ timestamps: true }
 );

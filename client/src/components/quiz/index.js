@@ -13,6 +13,7 @@ import { completeQuiz } from '@redux/reducers/user.js';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking } from './animations';
+import { updateHighscore } from './../../redux/reducers/quizzes';
 
 const TIME = 10;
 const THEME_MAX_VOL = 0.15;
@@ -50,11 +51,14 @@ const Quiz = ({ navigation, route: { params } }) => {
 			const wasCompleted = completedQuiz.some(
 				(quiz) => quiz._id === params.id,
 			);
-			if (!wasCompleted) {
-				dispatch(completeQuiz(params.id));
-			}
 			let newPoints =
 				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
+			if (!wasCompleted) {
+				dispatch(completeQuiz(params.id));
+				dispatch(
+					updateHighscore({ quizId: params.id, score: newPoints })
+				);
+			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
 				total: questions.length,

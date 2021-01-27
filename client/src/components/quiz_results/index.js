@@ -51,16 +51,12 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					nav2={() => navigation.navigate('Home')}
 					icon1='ios-arrow-back'
 				/>
-				<ContainerTop source={{ uri: params.imageQuiz }}>
-					<FinishedTitle>
-						¡Terminaste el quiz! Acá están tus resultados:
-						{params.points}
-					</FinishedTitle>
-				</ContainerTop>
+				<FinishedTitle>Tus resultados:</FinishedTitle>
 				<ContainerResults>
 					<EmojiContainer>{emoji()}</EmojiContainer>
 					<AmountPoints>
 						Conseguiste {params.points} puntos
+						<HighScoreBadge>Puntaje Alto!🎉</HighScoreBadge>
 					</AmountPoints>
 					<ProgressBar>
 						<ProgressBarText>
@@ -123,23 +119,6 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	);
 };
 
-const ContainerTop = styled.View`
-	height: 30%;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 10px;
-	position: relative;
-`;
-
-const TopImage = styled.Image`
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: -1;
-`;
-
 const FinishedTitle = styled.Text`
 	font-size: 20px;
 	text-align: center;
@@ -158,6 +137,13 @@ const AmountPoints = styled.Text`
 	text-align: center;
 	margin: 10px 0;
 	color: ${({ theme }) => theme.text};
+`;
+
+const HighScoreBadge = styled.Text`
+	background-color: ${({ theme }) => theme.primary};
+	padding: 5px;
+	font-size: 10px;
+	border-radius: 4px;
 `;
 
 const EmojiContainer = styled.Text`

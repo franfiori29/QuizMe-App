@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Text, TextInput, View, Platform } from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -76,10 +76,6 @@ const QuizMake = ({ navigation }) => {
 			questions: [],
 		};
 		navigation.navigate('QuizMakeQuestions', { quiz });
-	};
-
-	const handleSelect = (select) => {
-		setCategory(select);
 	};
 
 	const pickImage = async () => {

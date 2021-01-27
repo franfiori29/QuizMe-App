@@ -119,6 +119,8 @@ const BackButtonContainer = styled.TouchableOpacity`
 	background-color: ${(props) => props.theme.bg};
 	border-bottom-right-radius: 5px;
 	border: 1px solid transparent;
+	border-bottom-color: #ccc;
+	border-right-color: #ccc;
 	width: 50px;
 	height: 50px;
 	left: 0;
