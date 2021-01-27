@@ -25,7 +25,7 @@ const SearchScreen = ({ navigation }) => {
 
 	const filteredQuizzesWithCategoryFilter = useMemo(() => {
 		return filteredQuizzes.filter(
-			(quiz) => quiz.categoryId._id === categoryFilter,
+			(quiz) => quiz.categoryId._id === categoryFilter
 		);
 	}, [filteredQuizzes, categoryFilter]);
 
@@ -56,7 +56,9 @@ const SearchScreen = ({ navigation }) => {
 						name={'ios-search-outline'}
 						size={28}
 						color={'rgba(255,255,255,0.7)'}
+						onPress={handleSearch}
 					/>
+
 					<InputLogin
 						placeholder='Buscar'
 						placeholderTextColor={theme.text}

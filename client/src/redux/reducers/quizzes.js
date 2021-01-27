@@ -45,29 +45,26 @@ export const getQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryAllQuizzes);
 		return clientRequest;
-	}
+	},
 );
 const updateLikeRequest = gql`
-input updatePayload {
-	quizId: ID!, 
-	giveLike: Boolean
-}
- mutation updateLike($payload:updatePayload){
-	 updateLike(quizId: $payload.quizId, giveLike: $payload.giveLike){
-		 likes
-		 _id
-	 }
- }
+	mutation updateLike($quizId: ID!, $giveLike: Boolean) {
+		updateLike(quizId: $quizId, giveLike: $giveLike) {
+			likes
+			_id
+		}
+	}
 `;
 export const updateLike = createAsyncThunk(
 	'quiz/updateLike',
 	async (payload, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(updateLikeRequest, {
-			payload,
+			quizId: payload.quizId,
+			giveLike: payload.giveLike,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 /* --- Create Quiz --- */
@@ -86,7 +83,7 @@ export const createQuiz = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(quizCreateOne, { payload });
 		return clientRequest;
-	}
+	},
 );
 
 const queryGetQuizByCategory = gql`
@@ -106,7 +103,7 @@ export const getQuizByCategory = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 const queryGetQuizzesBySearchInput = gql`
@@ -126,10 +123,10 @@ export const getQuizzesBySearchInput = createAsyncThunk(
 			queryGetQuizzesBySearchInput,
 			{
 				payload,
-			}
+			},
 		);
 		return clientRequest;
-	}
+	},
 );
 
 /* --- Get random quiz --- */
@@ -148,7 +145,7 @@ export const getRandomQuiz = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryRandomQuiz);
 		return clientRequest;
-	}
+	},
 );
 
 export const updateHighscore = createAsyncThunk(
@@ -160,7 +157,7 @@ export const updateHighscore = createAsyncThunk(
 			score: payload.score,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 const quizSlice = createSlice({
@@ -186,8 +183,10 @@ const quizSlice = createSlice({
 			state.quizzes.push(payload.createQuiz);
 		},
 		[updateLike.fulfilled]: (state, { payload }) => {
-			let quiz = state.quizzes.find((quiz) => (quiz._id = payload._id));
-			quiz.likes = payload.likes;
+			let quiz = state.quizzes.findIndex(
+				(quiz) => quiz._id === payload.updateLike._id,
+			);
+			state.quizzes[quiz].likes = payload.updateLike.likes;
 		},
 		[getQuizByCategory.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizByCategory;

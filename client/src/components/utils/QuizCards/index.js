@@ -104,15 +104,15 @@ const QuizCard = styled.TouchableOpacity`
 
 const QuizImg = styled.Image`
 	z-index: 3;
-	height: 70px;
-	width: 70px;
+	height: 80px;
+	width: 80px;
 	border-radius: 10px;
 `;
 
 const QuizInfo = styled.View`
 	height: 100%;
 	width: 85%;
-	padding: 15px;
+	padding: 0 15px;
 	justify-content: space-around;
 `;
 
@@ -120,6 +120,7 @@ const QuizTitle = styled.Text`
 	font-size: 18px;
 	font-weight: bold;
 	color: ${(props) => props.theme.text};
+	margin-top: 3px;
 `;
 
 const QuizCheck = styled.View`
