@@ -46,7 +46,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'QuizMakeQuestions'}
+				initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
