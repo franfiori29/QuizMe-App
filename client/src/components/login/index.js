@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 
-const { width: WIDTH } = Dimensions.get('window');
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
@@ -137,7 +136,7 @@ export default function Login({ navigation }) {
 						defaultValue=''
 					/>
 					{errors.password && (
-						<ErrorIcon right='70px'>
+						<ErrorIcon right='55px'>
 							<Icon
 								name={'ios-alert-circle'}
 								size={25}
@@ -153,7 +152,7 @@ export default function Login({ navigation }) {
 						/>
 					</Button>
 				</InputContainer>
-				<ButtonLogin width={WIDTH} onPress={handleSubmit(onSubmit)}>
+				<ButtonLogin onPress={handleSubmit(onSubmit)}>
 					<Description>
 						{loading ? (
 							<FontAwesome5
@@ -167,7 +166,6 @@ export default function Login({ navigation }) {
 					</Description>
 				</ButtonLogin>
 				{/* <SocialIconGoogle
-					width={WIDTH}
 					title={s.google}
 					button
 					type='google'
@@ -197,8 +195,6 @@ const Container = styled.View`
 	flex: 1;
 	justify-content: center;
 	align-items: center;
-	width: null;
-	height: null;
 `;
 const LogoView = styled.View`
 	align-items: center;
@@ -222,7 +218,8 @@ const InputContainer = styled.View`
 	position: relative;
 `;
 const InputLogin = styled.TextInput`
-	width: ${(props) => props.width - 55}px;
+	width: 95%;
+	align-self: center;
 	height: 45px;
 	/* border-radius: 25px; */
 	font-size: 16px;
@@ -234,16 +231,17 @@ const InputLogin = styled.TextInput`
 const IconImage = styled(Icon)`
 	position: absolute;
 	top: 8px;
-	left: 38px;
+	left: 20px;
 	z-index: 1;
 `;
 const Button = styled.TouchableOpacity`
 	position: absolute;
 	top: 8px;
-	right: 38px;
+	right: 20px;
 `;
 const ButtonLogin = styled.TouchableOpacity`
-	width: ${(props) => props.width - 55}px;
+	width: 95%;
+	align-self: center;
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
@@ -260,11 +258,12 @@ const TextView = styled.View`
 	align-items: center;
 	margin-top: 20px;
 `;
-const SocialIconGoogle = styled(SocialIcon)`
-	width: ${(props) => props.width - 55}px;
-	border-radius: 5px;
-	height: 45px;
-`;
+// const SocialIconGoogle = styled(SocialIcon)`
+// 	width: 95%;
+// 	align-self: center;
+// 	border-radius: 5px;
+// 	height: 45px;
+// `;
 
 const ErrorIcon = styled.View`
 	position: absolute;
