@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -12,36 +13,33 @@ import NavBar from '@components/utils/NavBar';
 
 //==>Assets
 import strings from './strings';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const QuizMakeQuestions = ({ navigation, route: { params } }) => {
+const QuizMakeQuestions = ({ navigation, routes: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
+	const { control, handleSubmit, errors, reset } = useForm();
 
-	const [question, setQuestion] = useState('');
-	const [option1, setOption1] = useState('');
-	const [option2, setOption2] = useState('');
-	const [option3, setOption3] = useState('');
-	const [option4, setOption4] = useState('');
 	const [checked, setChecked] = useState('1');
 
-	const handleNext = (submit) => {
+	const onNext = (data) => {
 		let objQuestion = {
-			title: question,
+			title: data.title,
 			options: [
 				{
-					title: option1,
+					title: data.option1,
 					result: false,
 				},
 				{
-					title: option2,
+					title: data.option2,
 					result: false,
 				},
 				{
-					title: option3,
+					title: data.option3,
 					result: false,
 				},
 				{
-					title: option4,
+					title: data.option4,
 					result: false,
 				},
 			],
@@ -52,20 +50,56 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		let quiz = {
 			...params.quiz,
 		};
+
 		quiz.questions.push(objQuestion);
-		if (submit === 'submit') {
-			handleSubmit(quiz);
-		} else {
-			setQuestion('');
-			setOption1('');
-			setOption2('');
-			setOption3('');
-			setOption4('');
-			setChecked('1');
-		}
+		setChecked('1');
+		reset({
+			title: '',
+			option1: '',
+			option2: '',
+			option3: '',
+			option4: '',
+		});
 	};
 
-	const handleSubmit = (quiz) => {
+	const onSubmit = (data) => {
+		let objQuestion = {
+			title: data.title,
+			options: [
+				{
+					title: data.option1,
+					result: false,
+				},
+				{
+					title: data.option2,
+					result: false,
+				},
+				{
+					title: data.option3,
+					result: false,
+				},
+				{
+					title: data.option4,
+					result: false,
+				},
+			],
+			score: 5,
+		};
+		objQuestion.options[checked - 1].result = true;
+
+		let quiz = {
+			...params.quiz,
+		};
+
+		quiz.questions.push(objQuestion);
+		setChecked('1');
+		reset({
+			title: '',
+			option1: '',
+			option2: '',
+			option3: '',
+			option4: '',
+		});
 		navigation.navigate('QuizMakeDetails', { quiz });
 	};
 
@@ -78,6 +112,18 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 					icon1='ios-close'
 					icon2=''
 				/>
+				<Text
+					style={{
+						textAlign: 'right',
+						fontWeight: 'bold',
+						paddingVertical: 10,
+						paddingHorizontal: 20,
+						textTransform: 'uppercase',
+						fontSize: 11,
+					}}
+				>
+					Pregunta N° {params.quiz.questions.length + 1}
+				</Text>
 				<Title>
 					<Text
 						style={{
@@ -101,36 +147,206 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 					</Text>
 				</Title>
 				<FormContainer>
-					<QuizInput
-						placeholder={s.question}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setQuestion(text)}
-						value={question}
-					/>
-					<QuizInput
-						placeholder={s.option1}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setOption1(text)}
-						value={option1}
-					/>
-					<QuizInput
-						placeholder={s.option2}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setOption2(text)}
-						value={option2}
-					/>
-					<QuizInput
-						placeholder={s.option3}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setOption3(text)}
-						value={option3}
-					/>
-					<QuizInput
-						placeholder={s.option4}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setOption4(text)}
-						value={option4}
-					/>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.question}
+										placeholderTextColor={theme.text}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='title'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.title && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.option1}
+										placeholderTextColor={theme.text}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='option1'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.option1 && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.option2}
+										placeholderTextColor={theme.text}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='option2'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.option2 && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.option3}
+										placeholderTextColor={theme.text}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='option3'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.option3 && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.option4}
+										placeholderTextColor={theme.text}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='option4'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.option4 && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
 					<Text
 						style={{
 							color: theme.text,
@@ -230,7 +446,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 					<View style={{ marginTop: 10 }}>
 						<ButtonPpal
 							string={s.next}
-							onSubmit={handleNext}
+							onSubmit={handleSubmit(onNext)}
 							navigation={navigation}
 							nav=''
 						/>
@@ -239,7 +455,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 						<View style={{ marginTop: 10, marginBottom: 10 }}>
 							<ButtonPpal
 								string={s.finish}
-								onSubmit={() => handleNext('submit')}
+								onSubmit={handleSubmit(onSubmit)}
 								navigation={navigation}
 								nav=''
 							/>
@@ -251,37 +467,43 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 	);
 };
 
-// QuizMakeQuestions.defaultProps = {
-// 	routes: {
-// 		params: {
-// 			quiz: {
-// 				categoryId: '5959e34adf833e1451a00005',
-// 				description: 'Demuestra que tan fan eres de rapido y furioso',
-// 				image:
-// 					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
-// 				questions: [],
-// 				time: 10,
-// 				title: 'Eres fan de Rapido y furioso?',
-// 			},
-// 		},
-// 	},
-// };
+QuizMakeQuestions.defaultProps = {
+	routes: {
+		params: {
+			quiz: {
+				categoryId: '5959e34adf833e1451a00005',
+				description: 'Demuestra que tan fan eres de rapido y furioso',
+				image:
+					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+				questions: [],
+				time: 10,
+				title: 'Eres fan de Rapido y furioso?',
+			},
+		},
+	},
+};
 
 const Screen = styled.ScrollView`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
+	position: relative;
 `;
 
 const Title = styled.View`
 	width: 95%;
 	align-self: center;
-	margin: 20px 0;
+	margin: 0 0 20px;
 `;
 
 const FormContainer = styled.View`
 	width: 95%;
 	align-self: center;
 	border-radius: 10px;
+`;
+
+const InputContainer = styled.View`
+	width: 100%;
+	position: relative;
 `;
 
 const QuizInput = styled.TextInput`
@@ -295,4 +517,22 @@ const QuizInput = styled.TextInput`
 	margin-bottom: 20px;
 	padding: 10px;
 `;
+
+const ErrorIcon = styled.View`
+	position: absolute;
+	top: 11px;
+	right: 35px;
+	flex-direction: row;
+	align-items: center;
+`;
+
+const ErrorBubble = styled.Text`
+	color: #d53051;
+	padding: 10px 20px;
+	border-color: #d53051;
+	border-width: 1px;
+	border-radius: 5px;
+	margin: 10px 0;
+`;
+
 export default QuizMakeQuestions;
