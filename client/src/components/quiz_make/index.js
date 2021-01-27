@@ -41,27 +41,29 @@ const QuizMake = ({ navigation }) => {
 		/* --- SUBE IMAGEN A FIREBASE --- */
 		let url;
 		let randomID = uuidv4();
-		try {
-			const blob = await new Promise((resolve, reject) => {
-				const xhr = new XMLHttpRequest();
-				xhr.onload = function () {
-					resolve(xhr.response);
-				};
-				xhr.onerror = function (e) {
-					reject(new TypeError('Network request failed'));
-				};
-				xhr.responseType = 'blob';
-				xhr.open('GET', image, true);
-				xhr.send(null);
-			});
-			const ref = fb.storage().ref(`QuizImage/${randomID}`);
-			const snapshot = await ref.put(blob);
-			url = await snapshot.ref.getDownloadURL();
-			if (Platform.OS !== 'web') {
-				blob.close();
+		if (image) {
+			try {
+				const blob = await new Promise((resolve, reject) => {
+					const xhr = new XMLHttpRequest();
+					xhr.onload = function () {
+						resolve(xhr.response);
+					};
+					xhr.onerror = function (e) {
+						reject(new TypeError('Network request failed'));
+					};
+					xhr.responseType = 'blob';
+					xhr.open('GET', image, true);
+					xhr.send(null);
+				});
+				const ref = fb.storage().ref(`QuizImage/${randomID}`);
+				const snapshot = await ref.put(blob);
+				url = await snapshot.ref.getDownloadURL();
+				if (Platform.OS !== 'web') {
+					blob.close();
+				}
+			} catch (err) {
+				console.log(err);
 			}
-		} catch (err) {
-			console.log(err);
 		}
 		/* --- SUBE IMAGEN A FIREBASE --- */
 		let quiz = {
@@ -88,7 +90,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen'
+					'Necesitamos permiso a tu galería para que puedas subir una imagen',
 				);
 				return;
 			}
