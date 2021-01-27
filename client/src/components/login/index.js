@@ -4,50 +4,35 @@ import { REACT_APP_API } from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import strings from './strings';
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logo from '@assets/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
+import { useForm, Controller } from 'react-hook-form';
 
 const { width: WIDTH } = Dimensions.get('window');
 export default function Login({ navigation }) {
 	const dispatch = useDispatch();
-	const [email, setEmail] = useState('');
-	const [userPassword, setUserPassword] = useState('');
-	const [hidePass, setHidePass] = useState(true);
-	const [errortext, setErrorText] = useState('');
 	const { language, theme } = useSelector((state) => state.global);
+	const { control, handleSubmit, errors, reset, register } = useForm();
+	const [loading, setLoading] = useState(false);
+	const [hidePass, setHidePass] = useState(true);
 	const s = strings[language];
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
-	const handleLoginPress = () => {
+	const onSubmit = (data) => {
 		let input = {
-			email: email,
-			password: userPassword,
+			email: data.email,
+			password: data.password,
 		};
-		setErrorText('');
-		const emailRegex = /\S+@\S+/;
-		if (!emailRegex.test(email)) {
-			alert('Ingrese un Email válido');
-			return;
-		}
-		const passwordRegex = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ!\s]+$/g;
-		if (!passwordRegex.test(userPassword)) {
-			alert('Caracteres inválidos en contraseña');
-			return;
-		}
-		if (!email) {
-			alert('El campo Email es requerido');
-			return;
-		}
-		if (!userPassword) {
-			alert('El campo Contraseña es requerido');
-			return;
-		} else {
-			axios.post(`${REACT_APP_API}/auth/login`, input).then((token) => {
+		setLoading(true);
+		axios
+			.post(`${REACT_APP_API}/auth/login`, input)
+			.then((token) => {
 				axios
 					.get(`${REACT_APP_API}/auth/me`, {
 						headers: {
@@ -57,14 +42,18 @@ export default function Login({ navigation }) {
 					.then((user) => {
 						dispatch(getUser(user.data));
 						dispatch(setToken(token.data));
+						reset({
+							emai: '',
+							password: '',
+						});
+						setLoading(false);
 						navigation.navigate('Home');
 					});
+			})
+			.catch(() => {
+				setLoading(false);
 			});
-		}
-	};
-
-	const handleSignUp = () => {
-		navigation.navigate('SignUp');
+		// }
 	};
 
 	return (
@@ -80,14 +69,40 @@ export default function Login({ navigation }) {
 						size={28}
 						color={'rgba(255,255,255,0.7)'}
 					/>
-					<InputLogin
-						onChangeText={(UserEmail) => setEmail(UserEmail)}
-						width={WIDTH}
-						placeholder={s.email}
-						onChangeText={(Email) => setEmail(Email)}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<InputLogin
+									placeholder={s.email}
+									onChangeText={(value) => onChange(value)}
+									placeholderTextColor={
+										'rgba(255,255,255,0.7)'
+									}
+									underlineColorAndroid='transparent'
+									value={value}
+								/>
+							);
+						}}
+						name='email'
+						rules={{
+							required: true,
+							pattern: {
+								value: /\S+@\S+/,
+								message: 'Not a valid email',
+							},
+						}}
+						defaultValue=''
 					/>
+					{errors.email && (
+						<ErrorIcon>
+							<Icon
+								name={'ios-alert-circle'}
+								size={25}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
 				</InputContainer>
 				<InputContainer>
 					<IconImage
@@ -95,19 +110,41 @@ export default function Login({ navigation }) {
 						size={28}
 						color={'rgba(255,255,255,0.7)'}
 					/>
-					<InputLogin
-						onChangeText={(UserPassword) =>
-							setUserPassword(UserPassword)
-						}
-						width={WIDTH}
-						placeholder={s.pass}
-						onChangeText={(UserPassword) =>
-							setUserPassword(UserPassword)
-						}
-						secureTextEntry={hidePass}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<InputLogin
+									placeholder={s.pass}
+									onChangeText={(value) => onChange(value)}
+									secureTextEntry={hidePass}
+									placeholderTextColor={
+										'rgba(255,255,255,0.7)'
+									}
+									underlineColorAndroid='transparent'
+									value={value}
+								/>
+							);
+						}}
+						name='password'
+						rules={{
+							required: true,
+							// pattern: {
+							// 	value: /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ!\s]+$/g,
+							// 	message: 'Not a valid email',
+							// },
+						}}
+						defaultValue=''
 					/>
+					{errors.password && (
+						<ErrorIcon right='70px'>
+							<Icon
+								name={'ios-alert-circle'}
+								size={25}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
 					<Button onPress={onPress}>
 						<Icon
 							name={'ios-eye-outline'}
@@ -116,10 +153,20 @@ export default function Login({ navigation }) {
 						/>
 					</Button>
 				</InputContainer>
-				<ButtonLogin width={WIDTH} onPress={handleLoginPress}>
-					<Description>{s.login}</Description>
+				<ButtonLogin width={WIDTH} onPress={handleSubmit(onSubmit)}>
+					<Description>
+						{loading ? (
+							<FontAwesome5
+								name={'circle-notch'}
+								size={26}
+								color={'rgba(255,255,255,0.7)'}
+							/>
+						) : (
+							s.login
+						)}
+					</Description>
 				</ButtonLogin>
-				<SocialIconGoogle
+				{/* <SocialIconGoogle
 					width={WIDTH}
 					title={s.google}
 					button
@@ -127,13 +174,13 @@ export default function Login({ navigation }) {
 					onPress={() =>
 						Linking.openURL(`${REACT_APP_API}/auth/google`)
 					}
-				/>
+				/> */}
 				<TextView>
 					<Text style={{ color: theme.text }}>
 						{s.acc}
 						<Text
 							style={{ fontWeight: '500', color: theme.primary }}
-							onPress={handleSignUp}
+							onPress={() => navigation.navigate('SignUp')}
 						>
 							{' '}
 							{s.signup}
@@ -171,6 +218,8 @@ const LogoText = styled.Text`
 `;
 const InputContainer = styled.View`
 	margin-top: 10px;
+	width: 100%;
+	position: relative;
 `;
 const InputLogin = styled.TextInput`
 	width: ${(props) => props.width - 55}px;
@@ -215,4 +264,21 @@ const SocialIconGoogle = styled(SocialIcon)`
 	width: ${(props) => props.width - 55}px;
 	border-radius: 5px;
 	height: 45px;
+`;
+
+const ErrorIcon = styled.View`
+	position: absolute;
+	top: 8px;
+	right: ${({ right }) => right || '35px'};
+	flex-direction: row;
+	align-items: center;
+`;
+
+const ErrorBubble = styled.Text`
+	color: #d53051;
+	padding: 10px 20px;
+	border-color: #d53051;
+	border-width: 1px;
+	border-radius: 5px;
+	margin: 10px 0;
 `;
