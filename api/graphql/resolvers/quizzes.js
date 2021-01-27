@@ -40,18 +40,26 @@ module.exports = {
 			return foundQuizzes;
 		},
 		getRandomQuiz: async () => {
-			const quizzes = await Quiz.find()
+			const count = await Quiz.countDocuments();
+			var random = Math.floor(Math.random() * count);
+			const quiz = await Quiz.findOne()
 				.populate('categoryId')
-				.populate('questions');
-			let random = Math.floor(Math.random() * (quizzes.length - 0)) + 0;
-
-			return quizzes[random];
+				.populate('questions')
+				.skip(random);
+			return quiz;
+		},
+		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }) => {
+			const quizzes = await Quiz.find()
+				.sort({ _id: 1 })
+				.skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
+				.limit(nPerPage);
+			return quizzes;
 		},
 	},
 	Mutation: {
 		createQuiz: async (_, { quiz }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
-				(q) => q._id,
+				(q) => q._id
 			);
 			const newQuiz = (await Quiz.create(quiz))
 				.populate('questions')
