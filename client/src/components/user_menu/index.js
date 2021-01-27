@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +18,7 @@ import strings from './strings';
 const UserMenu = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
+	const [ricky, setRicky] = useState(0);
 	const dispatch = useDispatch();
 	const s = strings[language];
 
@@ -27,6 +28,16 @@ const UserMenu = ({ navigation }) => {
 	};
 	const handleMail = () => {
 		navigation.navigate('MailUpdate');
+	};
+
+	const handleRicky = () => {
+		setRicky(ricky + 1);
+		setTimeout(() => {
+			setRicky(0);
+		}, 1000);
+		if (ricky > 5) {
+			navigation.navigate('Ricky');
+		}
 	};
 
 	return (
@@ -149,7 +160,10 @@ const UserMenu = ({ navigation }) => {
 				>
 					<Text style={{ color: theme.text }}>{s.info}</Text>
 				</MenuTouchOption>
-				<MenuTouchOption style={{ justifyContent: 'space-between' }}>
+				<MenuTouchOption
+					style={{ justifyContent: 'space-between' }}
+					onPress={handleRicky}
+				>
 					<Text style={{ color: theme.text }}>{s.version}</Text>
 					<Text style={{ color: theme.primary }}>0.1.0 (Demo 1)</Text>
 				</MenuTouchOption>
