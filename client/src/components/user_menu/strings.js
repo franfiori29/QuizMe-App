@@ -2,7 +2,7 @@ const strings = {
 	en: {
 		profile: 'View profile',
 		acc: 'Account Type:',
-		poor: 'Poor',
+		poor: 'Free',
 		premium: 'Premium',
 		premiumBtn: 'Go Premium',
 		subs: 'School subscriptions',
@@ -26,7 +26,7 @@ const strings = {
 	es: {
 		profile: 'Ver perfil',
 		acc: 'Tipo de cuenta:',
-		poor: 'Pobre',
+		poor: 'Gratis',
 		premium: 'Premium',
 		premiumBtn: 'Hacete Premium',
 		subs: 'Suscripciones a escuelas',

@@ -58,7 +58,10 @@ const UserMenu = ({ navigation }) => {
 				</UserContainer>
 				<AccType>
 					<Text style={{ color: theme.text }}>
-						{s.acc} {s.poor}
+						{s.acc}{' '}
+						<Text style={{ color: theme.text, fontWeight: 'bold' }}>
+							{s.poor}
+						</Text>
 					</Text>
 					<AccTypeButton>
 						<Text
@@ -148,7 +151,7 @@ const UserMenu = ({ navigation }) => {
 				</MenuTouchOption>
 				<MenuTouchOption style={{ justifyContent: 'space-between' }}>
 					<Text style={{ color: theme.text }}>{s.version}</Text>
-					<Text style={{ color: theme.primary }}>0.0.1(Alpha)</Text>
+					<Text style={{ color: theme.primary }}>0.1.0 (Demo 1)</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					style={{

@@ -15,6 +15,9 @@ import NavBar from '@components/utils/NavBar';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+//==> Assets
+import strings from './strings';
+
 const SearchScreen = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
@@ -22,10 +25,11 @@ const SearchScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const [searchInput, setSearchInput] = useState('');
 	const [categoryFilter, setCategoryFilter] = useState('');
+	const s = strings[language];
 
 	const filteredQuizzesWithCategoryFilter = useMemo(() => {
 		return filteredQuizzes.filter(
-			(quiz) => quiz.categoryId._id === categoryFilter
+			(quiz) => quiz.categoryId._id === categoryFilter,
 		);
 	}, [filteredQuizzes, categoryFilter]);
 
@@ -42,7 +46,7 @@ const SearchScreen = ({ navigation }) => {
 		<ThemeProvider theme={theme}>
 			<Screen>
 				<NavBar
-					string='Buscar'
+					string={s.nav}
 					nav1={() => {
 						navigation.goBack();
 						dispatch(clearfilteredQuizzes());
@@ -51,7 +55,7 @@ const SearchScreen = ({ navigation }) => {
 					icon2=''
 				/>
 				<InputContainer>
-					<Title>Busca un Quiz!</Title>
+					<Title>{s.title}</Title>
 					<IconImage
 						name={'ios-search-outline'}
 						size={28}
@@ -60,7 +64,7 @@ const SearchScreen = ({ navigation }) => {
 					/>
 
 					<InputLogin
-						placeholder='Buscar'
+						placeholder={s.ph1}
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
 						onChangeText={setSearchInput}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +20,6 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Assets
 import strings from './strings';
-import { Platform } from 'react-native';
 
 export default function Profile({ navigation }) {
 	const { theme, language } = useSelector((state) => state.global);
@@ -43,7 +42,7 @@ export default function Profile({ navigation }) {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`
+				`The image is available for sharing at: ${picture.remoteUri}`,
 			);
 			return;
 		}
@@ -113,7 +112,7 @@ export default function Profile({ navigation }) {
 									zIndex: 5,
 									height: 122,
 									width: 122,
-									borderRadius: '100px',
+									borderRadius: 100,
 									alignItems: 'center',
 									backgroundColor: 'rgba(0,0,0,0.7)',
 								}}
@@ -152,7 +151,7 @@ export default function Profile({ navigation }) {
 									color: theme.text,
 								}}
 							>
-								Arjentyna
+								Argentina
 							</Text>
 						</View>
 						<View>
@@ -171,7 +170,7 @@ export default function Profile({ navigation }) {
 									fontWeight: 'bold',
 								}}
 							>
-								Cambiar nombre{' '}
+								{s.changeName}
 							</UserText>
 						</TouchableOpacity>
 					</UserInfo>
@@ -236,7 +235,7 @@ export default function Profile({ navigation }) {
 								>
 									Division
 								</StatText>
-								<StatText>Bronze manco</StatText>
+								<StatText>Bronze</StatText>
 							</StatInfo>
 						</StatCard>
 					</View>

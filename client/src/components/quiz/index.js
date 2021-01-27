@@ -22,7 +22,7 @@ const MAX_POINTS = 1000;
 
 const { width: WIDTH } = Dimensions.get('window');
 const Quiz = ({ navigation, route: { params } }) => {
-	const { theme } = useSelector((state) => state.global);
+	const { theme, language } = useSelector((state) => state.global);
 	const { completedQuiz } = useSelector((state) => state.user);
 	const questions = params.questions;
 	const [current, setCurrent] = useState(0);
@@ -179,7 +179,9 @@ const Quiz = ({ navigation, route: { params } }) => {
 				<Header>
 					<Exit onPress={() => navigation.goBack()}>
 						<Icon name='ios-close' color={theme.text} size={28} />
-						<Text style={{ color: theme.text }}>Abandonar!</Text>
+						<Text style={{ color: theme.text }}>
+							{language === 'es' ? 'Abandonar' : 'Leave'}
+						</Text>
 					</Exit>
 					<Text
 						style={{

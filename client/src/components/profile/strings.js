@@ -7,6 +7,7 @@ const strings = {
 		games: 'Games played',
 		stats: 'Statistics',
 		points: 'Total Points',
+		changeName: 'Change name',
 	},
 
 	es: {
@@ -17,6 +18,7 @@ const strings = {
 		games: 'Partidas jugadas',
 		stats: 'Estadísticas',
 		points: 'Puntos Totales',
+		changeName: 'Cambiar nombre',
 	},
 };
 

@@ -73,7 +73,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 									marginBottom: 20,
 								}}
 							>
-								{quiz.time} segundos por pregunta
+								{quiz.time} {s.seconds}
 							</Text>
 							<Text
 								style={{
@@ -83,7 +83,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 									marginBottom: 20,
 								}}
 							>
-								Preguntas
+								{s.ques}
 							</Text>
 							{quiz.questions.map((question, i) => {
 								return (
@@ -122,7 +122,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 													question.options.find(
 														(option) =>
 															option.result ===
-															true
+															true,
 													).title
 												}
 											</Text>
@@ -143,7 +143,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 						</View>
 						<View style={{ marginBottom: 20 }}>
 							<ButtonPpal
-								string='Finalizar'
+								string={s.fin}
 								onSubmit={handleSubmit}
 								navigation={navigation}
 								nav=''
