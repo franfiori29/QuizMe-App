@@ -82,5 +82,22 @@ module.exports = {
 			const newCategory = await Category.create(category);
 			return newCategory;
 		},
+		updateHighscore: async (_, { quizId, score }, { user }) => {
+			const foundQuiz = await Quiz.findById(quizId);
+			let highScores = foundQuiz.highScores || [];
+			let newScore = { user: user._id, score };
+			highScores.push(newScore);
+			highScores = highScores
+				.sort((a, b) => (a.score <= b.score ? 1 : -1))
+				.splice(0, 3);
+			foundQuiz.highScores = highScores;
+			await foundQuiz.save();
+
+			return highScores.some(
+				(each) =>
+					each.score === newScore.score &&
+					each.user.toString() === newScore.user
+			);
+		},
 	},
 };

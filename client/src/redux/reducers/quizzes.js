@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
 import { gql } from 'graphql-request';
+import { mutationUpdateHighscore } from './querys/quizzes';
 
 const EntireQuizInfo = gql`
 	fragment EntireQuizInfo on Quiz {
@@ -150,6 +151,18 @@ export const getRandomQuiz = createAsyncThunk(
 	}
 );
 
+export const updateHighscore = createAsyncThunk(
+	'quiz/updateHighscore',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationUpdateHighscore, {
+			quizId: payload.quizId,
+			score: payload.score,
+		});
+		return clientRequest;
+	}
+);
+
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {
@@ -175,7 +188,7 @@ const quizSlice = createSlice({
 		[updateLike.fulfilled]: (state, { payload }) => {
 			let quiz = state.quizzes.find((quiz) => (quiz._id = payload._id));
 			quiz.likes = payload.likes;
-    },
+		},
 		[getQuizByCategory.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizByCategory;
 		},
@@ -184,6 +197,9 @@ const quizSlice = createSlice({
 		},
 		[getQuizzesBySearchInput.fulfilled]: (state, { payload }) => {
 			state.filteredQuizzes = payload.getQuizzesByInputSearch;
+		},
+		[updateHighscore.fulfilled]: (state, { payload }) => {
+			state.quiz.newHighscore = payload.updateHighscore;
 		},
 	},
 });

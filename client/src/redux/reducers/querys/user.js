@@ -8,7 +8,7 @@ export const queryGetCompletedQuizzes = gql`
 		}
 	}
 `;
-
+/* --- Mutations --- */
 export const queryUpdateUser = gql`
 	mutation($payload: UserInput) {
 		updateUser(userBody: $payload) {
@@ -22,7 +22,7 @@ export const queryUpdateUser = gql`
 		}
 	}
 `;
-/* --- Mutations --- */
+
 export const mutationCompletedQuiz = gql`
 	mutation completeQuiz($payload: ID!) {
 		completeQuiz(quizId: $payload) {
