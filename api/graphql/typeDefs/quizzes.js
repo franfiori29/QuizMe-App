@@ -61,5 +61,6 @@ module.exports = gql`
 
 	extend type Mutation {
 		createQuiz(quiz: QuizInput): Quiz
+		updateLike(quizId: ID!, giveLike: Boolean): Quiz
 	}
 `;

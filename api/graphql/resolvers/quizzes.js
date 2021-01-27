@@ -1,6 +1,7 @@
 const Quiz = require('../../models/Quiz.js');
 const Question = require('../../models/Question.js');
 const Category = require('../../models/Category.js');
+const User = require('../../models/User.js');
 
 module.exports = {
 	Query: {
@@ -32,6 +33,17 @@ module.exports = {
 				.populate('categoryId')
 				.execPopulate();
 			return newQuiz;
+		},
+		updateLike: async (_, { quizId, giveLike }, { user }) => {
+			const quizfind = await Quiz.findOneAndUpdate(
+				{ _id: quizId },
+				{ $inc: { likes: giveLike ? 1 : -1 } }
+			);
+			const userfind = await User.findOneAndUpdate(
+				{ _id: user._id },
+				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } }
+			);
+			return quizfind;
 		},
 	},
 };

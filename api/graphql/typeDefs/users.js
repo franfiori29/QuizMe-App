@@ -18,6 +18,7 @@ module.exports = gql`
 		countryCode: Int
 		role: Role
 		completedQuiz: [Quiz]
+		likedQuiz: [Quiz]
 	}
 
 	input UserInput {
