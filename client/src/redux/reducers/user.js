@@ -1,17 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
-import { gql } from 'graphql-request';
+import {
+	queryGetCompletedQuizzes,
+	queryUpdateUser,
+	mutationCompletedQuiz,
+	mutationChangePassword,
+	mutationChangeEmail,
+} from './querys/user';
+import fb from '../../firebase';
 
-const mutationCompletedQuiz = gql`
-	mutation completeQuiz($payload: ID!) {
-		completeQuiz(quizId: $payload) {
-			completedQuiz {
-				_id
-			}
-		}
-	}
-`;
-
+/* --- Async Thunk Actions --- */
 export const completeQuiz = createAsyncThunk(
 	'user/completeQuiz',
 	async (payload, { getState }) => {
@@ -29,7 +27,7 @@ const queryGetCompletedQuizzes = gql`
 			_id
 		}
 	}
-`;
+);
 
 export const getCompletedQuizzes = createAsyncThunk(
 	'user/getCompletedQuizzes',
@@ -40,29 +38,47 @@ export const getCompletedQuizzes = createAsyncThunk(
 	}
 );
 
-const queryUpdateUser = gql`
-	mutation($payload: UserInput) {
-		updateUser(userBody: $payload) {
-			_id
-			firstName
-			lastName
-			email
-			profilePic
-			countryCode
-			role
-		}
-	}
-`;
 export const updateUser = createAsyncThunk(
 	'user/update',
 	async (payload, { getState }) => {
-		const client = getClient(getState());
+		const state = getState();
+		const client = getClient(state);
 		const clientRequest = await client.request(queryUpdateUser, {
 			payload,
+		});
+		const previousUserProfilePic = state.user.info.profilePic;
+		if (previousUserProfilePic.includes('firebasestorage')) {
+			fb.storage().refFromURL(previousUserProfilePic).delete();
+		}
+		return clientRequest;
+	}
+);
+
+export const changePassword = createAsyncThunk(
+	'user/changePass',
+	async ({ currPass, newPass }, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationChangePassword, {
+			currPass,
+			newPass,
 		});
 		return clientRequest;
 	}
 );
+
+export const changeEmail = createAsyncThunk(
+	'user/changeEmail',
+	async ({ currPass, newMail }, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationChangeEmail, {
+			currPass,
+			newMail,
+		});
+		return clientRequest;
+	}
+);
+
+/* --- Slice --- */
 const userSlice = createSlice({
 	name: 'user',
 	initialState: {
@@ -101,6 +117,9 @@ const userSlice = createSlice({
 		},
 		[getCompletedQuizzes.fulfilled]: (state, { payload }) => {
 			state.completedQuiz = payload.getCompletedQuizzes;
+		},
+		[changeEmail.fulfilled]: (state, { payload }) => {
+			state.info.email = payload.changeEmail;
 		},
 	},
 });

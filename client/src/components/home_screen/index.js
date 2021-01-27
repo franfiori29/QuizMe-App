@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, RefreshControl } from 'react-native';
-import { getQuizzes } from '@redux/reducers/quizzes';
+import {
+	getQuizzes,
+	getQuizByCategory,
+	clearfilteredQuizzes,
+	getRandomQuiz,
+} from '@redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
 
@@ -10,9 +15,11 @@ import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
-import logo from '@assets/logo.png';
+import Catalog from '@components/catalog';
+
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
+import logo from '@assets/logo.png';
 
 //==>Assets
 import strings from './strings';
@@ -20,17 +27,21 @@ import strings from './strings';
 const HomeScreen = ({ navigation }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
-	const { quizzes } = useSelector((state) => state.quiz);
+	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
 
-	const handleSelect = () => {};
+	const handleSelect = (categoryId) => {
+		if (categoryId === '') return dispatch(clearfilteredQuizzes());
+		dispatch(getQuizByCategory(categoryId));
+	};
 
 	useEffect(() => {
 		dispatch(getQuizzes());
 		dispatch(getCategories());
 		dispatch(getCompletedQuizzes());
+		//dispatch(getRandomQuiz());
 	}, []);
 
 	return (
@@ -50,7 +61,10 @@ const HomeScreen = ({ navigation }) => {
 				<NavBar
 					string='QuizMeApp'
 					nav1={() => navigation.navigate('UserMenu')}
-					nav2={() => navigation.navigate('UserMenu')}
+					nav2={() => {
+						navigation.navigate('SearchScreen');
+						dispatch(clearfilteredQuizzes());
+					}}
 					icon1='ios-menu-outline'
 					icon2='ios-search-outline'
 				/>
@@ -91,6 +105,7 @@ const HomeScreen = ({ navigation }) => {
 						categories={categories}
 						handleSelect={handleSelect}
 					/>
+					<QuizCards quizzes={filteredQuizzes} />
 				</View>
 				<CategoryContainer>
 					<CategoryImg
@@ -99,9 +114,14 @@ const HomeScreen = ({ navigation }) => {
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
 				<ButtonPpal
+					navigation={navigation}
 					string={s.randomButton}
 					nav='QuizIndex'
-					navigation={navigation}
+					onSubmit={() => {
+						dispatch(getRandomQuiz()).then(() => {
+							navigation.navigate('QuizIndex', {});
+						});
+					}}
 				/>
 				<BottomBar>
 					<StyledText style={{ fontSize: 20, color: theme.primary }}>

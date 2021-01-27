@@ -31,6 +31,11 @@ module.exports = gql`
 		description_es: String
 	}
 
+	input InputCategory {
+		description_en: String!
+		description_es: String!
+	}
+
 	input InputOption {
 		title: String!
 		result: Boolean!
@@ -57,9 +62,13 @@ module.exports = gql`
 		getQuiz(id: ID!): Quiz
 		getQuizzes: [Quiz!]!
 		getCategories: [Category!]!
+		getQuizByCategory(catId: ID!): [Quiz!]!
+		getRandomQuiz: Quiz
+		getQuizzesByInputSearch(input: String!): [Quiz]!
 	}
 
 	extend type Mutation {
 		createQuiz(quiz: QuizInput): Quiz
+		createCategory(category: InputCategory): Category
 	}
 `;

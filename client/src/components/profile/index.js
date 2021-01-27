@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
@@ -43,7 +43,7 @@ export default function Profile({ navigation }) {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`,
+				`The image is available for sharing at: ${picture.remoteUri}`
 			);
 			return;
 		}
@@ -99,23 +99,23 @@ export default function Profile({ navigation }) {
 					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg
 							source={{
-								uri:
-									info !== null
-										? info.profilePic
-										: 'https://picsum.photos/150/150',
+								uri: info.profilePic
+									? info.profilePic
+									: 'https://picsum.photos/150/150',
 							}}
 						/>
 						{loading && (
 							<View
 								style={{
 									position: 'absolute',
+									top: -1,
+									left: -1,
 									zIndex: 5,
-									height: 130,
-									width: 140,
-									backgroundColor: 'rgba(0,0,0,0.8)',
+									height: 122,
+									width: 122,
+									borderRadius: '100px',
+									backgroundColor: 'rgba(0,0,0,.9)',
 									alignItems: 'center',
-									borderRadius: 100,
-									borderColor: 'red',
 								}}
 							>
 								<View
@@ -160,6 +160,13 @@ export default function Profile({ navigation }) {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('UpdateName')}
+						>
+							<UserText style={{ fontStyle: 'italic' }}>
+								Cambiar nombre{' '}
+							</UserText>
+						</TouchableOpacity>
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>
@@ -232,23 +239,6 @@ export default function Profile({ navigation }) {
 	);
 }
 
-const Header = styled.View`
-	width: 95%;
-	align-self: center;
-	height: 65px;
-	padding: 10px;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
-	align-items: center;
-	justify-content: center;
-`;
-
 const UserContainer = styled.View`
 	height: 200px;
 	width: 100%;
@@ -270,8 +260,8 @@ const UserInfo = styled.View`
 
 const UserImg = styled.Image`
 	z-index: 3;
-	height: 130px;
-	width: 130px;
+	height: 120px;
+	width: 120px;
 	border-radius: 100px;
 `;
 const Pencil = styled(Icon)`
