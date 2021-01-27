@@ -6,9 +6,11 @@ import styled, { ThemeProvider } from 'styled-components/native';
 import fb from '@root/src/firebase';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import { useForm, Controller } from 'react-hook-form';
 
 //==>Assets
 import strings from './strings';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 //==> Components
 import ScrollCategory from '@components/utils/ScrollCategory';
@@ -23,13 +25,10 @@ const QuizMake = ({ navigation }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const dispatch = useDispatch();
 	const s = strings[language];
+	const { control, handleSubmit, errors } = useForm();
 
 	const { categories } = useSelector((state) => state.categories);
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [category, setCategory] = useState('');
 	const [image, setImage] = useState(null);
-	const [time, setTime] = useState(0);
 
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 	useEffect(() => {
@@ -37,7 +36,7 @@ const QuizMake = ({ navigation }) => {
 	}, []);
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
-	const handleSubmit = async () => {
+	const onSubmit = async (data) => {
 		/* --- SUBE IMAGEN A FIREBASE --- */
 		let url;
 		let randomID = uuidv4();
@@ -67,13 +66,13 @@ const QuizMake = ({ navigation }) => {
 		}
 		/* --- SUBE IMAGEN A FIREBASE --- */
 		let quiz = {
-			title,
-			description,
+			title: data.title,
+			description: data.description,
 			image:
 				url ||
 				'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
-			categoryId: category,
-			time: Number(time),
+			categoryId: data.category,
+			time: Number(data.time),
 			questions: [],
 		};
 		navigation.navigate('QuizMakeQuestions', { quiz });
@@ -90,7 +89,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen',
+					'Necesitamos permiso a tu galería para que puedas subir una imagen'
 				);
 				return;
 			}
@@ -127,19 +126,86 @@ const QuizMake = ({ navigation }) => {
 					</Text>
 				</Title>
 				<FormContainer>
-					<QuizInput
-						placeholder={s.titlePlace}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setTitle(text)}
-						value={title}
-					/>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.titlePlace}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='title'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.title && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
 
-					<QuizInput
-						placeholder={s.descPlace}
-						placeholderTextColor={theme.text}
-						onChangeText={(text) => setDescription(text)}
-						value={description}
-					/>
+					<InputContainer>
+						<Controller
+							control={control}
+							render={({ onChange, onBlur, value }) => {
+								return (
+									<QuizInput
+										onBlur={onBlur}
+										placeholder={s.descPlace}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										value={value}
+									/>
+								);
+							}}
+							name='description'
+							rules={{ required: true }}
+							defaultValue=''
+						/>
+						{errors.description && (
+							<ErrorIcon>
+								<Text
+									style={{
+										color: '#D53051',
+										fontSize: 10,
+										textTransform: 'uppercase',
+										marginRight: 5,
+									}}
+								>
+									Requerido
+								</Text>
+								<Icon
+									name={'ios-alert-circle'}
+									size={15}
+									color={'#D53051'}
+								/>
+							</ErrorIcon>
+						)}
+					</InputContainer>
+
 					<Text
 						style={{
 							fontSize: 18,
@@ -165,10 +231,25 @@ const QuizMake = ({ navigation }) => {
 					>
 						{s.cat}
 					</Text>
-					<ScrollCategory
-						categories={categories}
-						handleSelect={handleSelect}
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<ScrollCategory
+									categories={categories}
+									handleSelect={onChange}
+								/>
+							);
+						}}
+						name='category'
+						rules={{ required: true }}
+						defaultValue=''
 					/>
+					{errors.category && (
+						<ErrorBubble>
+							Elegir una categoría para tu quiz.
+						</ErrorBubble>
+					)}
 					<View
 						style={{
 							width: '95%',
@@ -179,30 +260,42 @@ const QuizMake = ({ navigation }) => {
 							justifyContent: 'center',
 						}}
 					>
-						<Text
-							style={{
-								fontSize: 18,
-								color: theme.text,
-								marginTop: 20,
-								alignSelf: 'center',
-							}}
-						>
-							{s.time}
-						</Text>
-						<QuizInput
-							style={{ marginTop: 10, width: '100%' }}
-							placeholder='0'
-							placeholderTextColor={theme.text}
-							keyboardType='numeric'
-							onChangeText={(text) =>
-								setTime(text.replace(/[^0-9]+/, ''))
-							}
-							value={time.toString()}
-						/>
+						<InputContainer>
+							<Controller
+								control={control}
+								render={({ onChange, onBlur, value }) => {
+									return (
+										<QuizInput
+											onBlur={onBlur}
+											placeholder={s.time}
+											keyboardType='numeric'
+											onChangeText={(value) =>
+												onChange(
+													value.replace(/[^0-9]+/, '')
+												)
+											}
+											value={value}
+										/>
+									);
+								}}
+								name='time'
+								rules={{ required: true }}
+								defaultValue=''
+							/>
+							{errors.time && (
+								<ErrorIcon>
+									<Icon
+										name={'ios-alert-circle'}
+										size={15}
+										color={'#D53051'}
+									/>
+								</ErrorIcon>
+							)}
+						</InputContainer>
 					</View>
 					<ButtonPpal
 						string={s.next}
-						onSubmit={handleSubmit}
+						onSubmit={handleSubmit(onSubmit)}
 						navigation={navigation}
 						nav=''
 					/>
@@ -234,6 +327,11 @@ const FormContainer = styled.View`
 	align-items: center;
 `;
 
+const InputContainer = styled.View`
+	width: 100%;
+	position: relative;
+`;
+
 const QuizInput = styled.TextInput`
 	width: 95%;
 	align-self: center;
@@ -244,6 +342,23 @@ const QuizInput = styled.TextInput`
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
 	padding: 10px;
+`;
+
+const ErrorIcon = styled.View`
+	position: absolute;
+	top: 11px;
+	right: 35px;
+	flex-direction: row;
+	align-items: center;
+`;
+
+const ErrorBubble = styled.Text`
+	color: #d53051;
+	padding: 10px 20px;
+	border-color: #d53051;
+	border-width: 1px;
+	border-radius: 5px;
+	margin: 10px 0;
 `;
 
 export default QuizMake;
