@@ -30,24 +30,29 @@ export default function Login({ navigation }) {
 			password: data.password,
 		};
 		setLoading(true);
-		axios.post(`${REACT_APP_API}/auth/login`, input).then((token) => {
-			axios
-				.get(`${REACT_APP_API}/auth/me`, {
-					headers: {
-						Authorization: `Bearer ${token.data}`,
-					},
-				})
-				.then((user) => {
-					dispatch(getUser(user.data));
-					dispatch(setToken(token.data));
-					reset({
-						emai: '',
-						password: '',
+		axios
+			.post(`${REACT_APP_API}/auth/login`, input)
+			.then((token) => {
+				axios
+					.get(`${REACT_APP_API}/auth/me`, {
+						headers: {
+							Authorization: `Bearer ${token.data}`,
+						},
+					})
+					.then((user) => {
+						dispatch(getUser(user.data));
+						dispatch(setToken(token.data));
+						reset({
+							emai: '',
+							password: '',
+						});
+						setLoading(false);
+						navigation.navigate('Home');
 					});
-					setLoading(false);
-					navigation.navigate('Home');
-				});
-		});
+			})
+			.catch(() => {
+				setLoading(false);
+			});
 		// }
 	};
 
