@@ -99,7 +99,7 @@ const quizzes = [
 		title: 'Desafío químico',
 		description: '¿Eres un experto en química?',
 		image:
-			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451a00002'),
 		questions: [
