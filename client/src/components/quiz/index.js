@@ -47,7 +47,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
@@ -59,6 +59,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 				total: questions.length,
 				imageQuiz: params.imageQuiz,
 				points: newPoints,
+				quizId: params.id,
 			});
 		} else {
 			setTimer({ time: totalTime, on: true });
@@ -81,7 +82,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));

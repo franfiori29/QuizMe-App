@@ -21,6 +21,14 @@ export const completeQuiz = createAsyncThunk(
 	}
 );
 
+const queryGetCompletedQuizzes = gql`
+	{
+		getCompletedQuizzes {
+			_id
+		}
+	}
+);
+
 export const getCompletedQuizzes = createAsyncThunk(
 	'user/getCompletedQuizzes',
 	async (_, { getState }) => {
@@ -77,6 +85,7 @@ const userSlice = createSlice({
 		info: {},
 		token: '',
 		completedQuiz: [],
+		likedQuiz: [],
 	},
 	reducers: {
 		getUser: (state, { payload }) => {
@@ -88,6 +97,15 @@ const userSlice = createSlice({
 		logout: (state) => {
 			state.token = '';
 			state.info = {};
+		},
+		updateLikedQuizzes: (state, { payload }) => {
+			if (payload.giveLike) {
+				state.likedQuiz.push(payload.quizId);
+			} else {
+				state.likedQuiz = state.likedQuiz.filter(
+					(q) => q !== payload.quizId
+				);
+			}
 		},
 	},
 	extraReducers: {
@@ -106,6 +124,11 @@ const userSlice = createSlice({
 	},
 });
 
-export const { getUser, setToken, logout } = userSlice.actions;
+export const {
+	getUser,
+	setToken,
+	logout,
+	updateLikedQuizzes,
+} = userSlice.actions;
 
 export default userSlice.reducer;

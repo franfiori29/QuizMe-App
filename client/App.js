@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import HomeRoutes from './routes/home_routes';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';
+// import {
+// 	useFonts,
+// 	Roboto_100Thin,
+// 	Roboto_400Regular,
+// 	Roboto_500Medium,
+// } from '@expo-google-fonts/roboto';
+// import AppLoading from 'expo-app-loading';
 import { PersistGate } from 'redux-persist/integration/react';
+
 // import * as Notifications from 'expo-notifications';
 // import * as Permissions from 'expo-permissions';
 
@@ -29,7 +37,14 @@ export default function App() {
 	// 	token = (await Notifications.getExpoPushTokenAsync()).data;
 	// 	return token;
 	// }
-
+	// let [fontsLoaded] = useFonts({
+	// 	Roboto_100Thin,
+	// 	Roboto_400Regular,
+	// 	Roboto_500Medium,
+	// });
+	// if (!fontsLoaded) {
+	// 	return <AppLoading />;
+	// } else {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
@@ -42,3 +57,4 @@ export default function App() {
 		</Provider>
 	);
 }
+// }
