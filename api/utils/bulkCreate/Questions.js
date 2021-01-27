@@ -315,7 +315,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0025'),
 		title: '¿Cuál de éstos es un indicador de PH?',
 		image:
-			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
 			{ title: 'Papel químico', result: false },
 			{ title: 'Papel de potencial', result: false },
@@ -329,7 +329,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0026'),
 		title: 'Una sustancia con PH 7, ¿qué tipo de sustancia es?',
 		image:
-			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
 			{ title: 'Positiva', result: false },
 			{ title: 'Ácida', result: false },
@@ -343,7 +343,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0027'),
 		title: '¿Qué método permite separar un sólido de un líquido? ',
 		image:
-			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
 			{ title: 'Decantación', result: false },
 			{ title: 'Ebullición', result: false },
@@ -357,7 +357,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0028'),
 		title: '¿Qué es una mezcla?',
 		image:
-			'https://lh3.googleusercontent.com/proxy/8-dvP3B0-5aI3ilLWJSbs6TVfRizwRPW1krnctvmojg4xbfeaiVClAJQMnWV8bv8ga36TZD1O78qiW8aApv_1Oh-jMOCnpBSLbF7knYOKk-5tzvU',
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
 			{ title: 'Dos líquidos juntos', result: false },
 			{
