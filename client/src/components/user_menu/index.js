@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Switch } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 //==> Actions
@@ -16,6 +16,11 @@ import styled, { ThemeProvider } from 'styled-components/native';
 import strings from './strings';
 
 const UserMenu = ({ navigation }) => {
+	const [isEnabled, setIsEnabled] = useState(false);
+	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+	const [isEnabledLanguage, setIsEnabledLanguage] = useState(false);
+	const toggleSwitchLanguage = () =>
+		setIsEnabledLanguage((previousState) => !previousState);
 	const { language, theme } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
@@ -136,18 +141,17 @@ const UserMenu = ({ navigation }) => {
 					style={{ justifyContent: 'space-between' }}
 				>
 					<Text style={{ color: theme.text }}>{s.dark}</Text>
-					<Text style={{ fontWeight: 'bold', color: theme.primary }}>
-						{theme.mode === 'light' ? s.dark2 : s.dark1}
-					</Text>
+					<Switch onValueChange={toggleSwitch} value={isEnabled} />
 				</MenuTouchOption>
 				<MenuTouchOption
 					style={{ justifyContent: 'space-between' }}
 					onPress={() => dispatch(changeLanguage())}
 				>
 					<Text style={{ color: theme.text }}>{s.lang}</Text>
-					<Text style={{ fontWeight: 'bold', color: theme.primary }}>
-						{language.toUpperCase()}
-					</Text>
+					<Switch
+						onValueChange={toggleSwitchLanguage}
+						value={isEnabledLanguage}
+					/>
 				</MenuTouchOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.help}</Text>
