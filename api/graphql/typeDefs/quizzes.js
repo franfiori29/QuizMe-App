@@ -66,6 +66,7 @@ module.exports = gql`
 		getRandomQuiz: Quiz!
 		getNQuizzesPerPage: [Quiz]
 		getQuizzesByInputSearch(input: String!): [Quiz]!
+		searchByPopularity: [Quiz!]!
 	}
 
 	extend type Mutation {

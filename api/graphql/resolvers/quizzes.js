@@ -55,11 +55,19 @@ module.exports = {
 				.limit(nPerPage);
 			return quizzes;
 		},
+		searchByPopularity: async () => {
+			const quizzesByPopularity = await Quiz.find({}, null, {
+				sort: { likes: -1 },
+			})
+				.populate('categoryId')
+				.populate('questions');
+			return quizzesByPopularity;
+		},
 	},
 	Mutation: {
 		createQuiz: async (_, { quiz }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
-				(q) => q._id
+				(q) => q._id,
 			);
 			const newQuiz = (await Quiz.create(quiz))
 				.populate('questions')
@@ -71,11 +79,11 @@ module.exports = {
 			const quizfind = await Quiz.findOneAndUpdate(
 				{ _id: quizId },
 				{ $inc: { likes: giveLike ? 1 : -1 } },
-				{ new: true }
+				{ new: true },
 			);
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
-				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } }
+				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } },
 			);
 			return quizfind;
 		},
@@ -97,7 +105,7 @@ module.exports = {
 			return highScores.some(
 				(each) =>
 					each.score === newScore.score &&
-					each.user.toString() === newScore.user
+					each.user.toString() === newScore.user,
 			);
 		},
 	},
