@@ -125,6 +125,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 		if (timer.on) {
 			setSelected({ id: i, correct: result });
 			startTimeout(result);
+			Vibration.cancel();
 		}
 	};
 
@@ -181,6 +182,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 			sound2?.unloadAsync();
 			sound3?.unloadAsync();
 			sound4?.unloadAsync();
+			Vibration.cancel();
 		};
 	}, []);
 
@@ -203,7 +205,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 				<Header>
 					<Exit
 						onPress={() => {
-							navigation.goBack(), Vibration.cancel();
+							navigation.goBack();
 						}}
 					>
 						<Icon name='ios-close' color={theme.text} size={28} />
