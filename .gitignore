@@ -1,3 +1,5 @@
+package-lock.json
+yarn.lock
 # Logs
 logs
 *.log
@@ -106,7 +108,11 @@ dist
 .tern-port
 
 # Stores VSCode versions used for testing VSCode extensions
-.vscode-test
+.vscode
+
+.expo
+.expo-shared
+env.js
 
 # yarn v2
 .yarn/cache
