@@ -6,6 +6,7 @@ const globalSlice = createSlice({
 	initialState: {
 		language: 'en',
 		theme: lightTheme,
+		sound: true,
 	},
 	reducers: {
 		changeLanguage: (state) => {
@@ -15,9 +16,12 @@ const globalSlice = createSlice({
 			state.theme =
 				state.theme.mode === lightTheme.mode ? darkTheme : lightTheme;
 		},
+		switchSound: (state) => {
+			state.sound = state.sound ? false : true;
+		},
 	},
 });
 
-export const { changeLanguage, switchTheme } = globalSlice.actions;
+export const { changeLanguage, switchTheme, switchSound } = globalSlice.actions;
 
 export default globalSlice.reducer;

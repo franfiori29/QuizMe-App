@@ -26,7 +26,7 @@ import strings from './strings';
 
 const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
-	const { theme, language } = useSelector((state) => state.global);
+	const { theme, language, sound } = useSelector((state) => state.global);
 	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
@@ -41,7 +41,9 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		dispatch(getQuizzes());
 		dispatch(getCategories());
 		dispatch(getCompletedQuizzes());
-		playTheme();
+		if (sound) {
+			playTheme();
+		}
 	}, []);
 
 	return (
