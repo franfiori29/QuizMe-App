@@ -160,6 +160,26 @@ export const updateHighscore = createAsyncThunk(
 	},
 );
 
+/*Get quizzes by popularity*/
+
+const queryGtQuizzesByPopularity = gql`
+	{
+		searchByPopularity {
+			...EntireQuizInfo
+		}
+	}
+	${EntireQuizInfo}
+`;
+
+export const getQuizzesByPopularity = createAsyncThunk(
+	'quiz/getQuizzesByPopularity',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGtQuizzesByPopularity);
+		return clientRequest;
+	},
+);
+
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {
@@ -199,6 +219,9 @@ const quizSlice = createSlice({
 		},
 		[updateHighscore.fulfilled]: (state, { payload }) => {
 			state.quiz.newHighscore = payload.updateHighscore;
+		},
+		[getQuizzesByPopularity.fulfilled]: (state, { payload }) => {
+			state.quizzes = payload.searchByPopularity;
 		},
 	},
 });

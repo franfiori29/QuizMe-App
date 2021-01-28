@@ -6,6 +6,7 @@ import {
 	getQuizByCategory,
 	clearfilteredQuizzes,
 	getRandomQuiz,
+	getQuizzesByPopularity,
 } from '@redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
@@ -84,8 +85,12 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						<SelectorButton>
 							<SelectorText>{s.selector1}</SelectorText>
 						</SelectorButton>
-						<SelectorButton>
-							<SelectorText>{s.selector2}</SelectorText>
+						<SelectorButton
+							onPress={() => {
+								dispatch(getQuizzesByPopularity());
+							}}
+						>
+							<SelectorText>{s.popular}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
 					<QuizCards
