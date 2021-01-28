@@ -15,7 +15,7 @@ module.exports = gql`
 		profilePic: String
 		accountId: String
 		socialAccount: String
-		countryCode: Int
+		countryCode: String
 		role: Role
 		completedQuiz: [Quiz]
 		likedQuiz: [Quiz]
@@ -30,7 +30,7 @@ module.exports = gql`
 		profilePic: String
 		accountId: String
 		socialAccount: String
-		countryCode: Int
+		countryCode: String
 		role: Role
 	}
 
