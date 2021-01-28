@@ -45,7 +45,7 @@ const HomeRoutes = () => {
 		}
 		(async()=>{
 			const { sound } = await Audio.Sound.createAsync(mainThemeFile, {
-				isLooping: true,
+				isLooping: true, volume: 0.1
 			});
 			setMainTheme(sound);
 		})()
@@ -68,7 +68,9 @@ const HomeRoutes = () => {
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
-				<Screen name='Home' component={HomeScreen} initialParams={{playTheme}} />
+				<Screen name='Home' component={HomeScreen} options={({route}) => {
+					route.playTheme = playTheme;
+				}} />
 				<Screen name='SearchScreen' component={SearchScreen} />
 				<Screen name='UserMenu' component={UserMenu} />
 				<Screen name='MailUpdate' component={MailUpdate} />
@@ -84,7 +86,10 @@ const HomeRoutes = () => {
 				<Screen name='QuizMakeDetails' component={QuizMakeDetails} />
 				<Screen name='QuizIndex' component={QuizIndex} />
 				<Screen name='QuizResults' component={QuizResults}/>
-				<Screen name='Quiz' component={Quiz} initialParams={{stopTheme, playTheme}}/>
+				<Screen name='Quiz' component={Quiz} options={({route}) => {
+					route.playTheme = playTheme;
+					route.stopTheme = stopTheme;
+				}} />
 				<Screen name='Profile' component={Profile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
 				<Screen name='Ricky' component={Ricky} />

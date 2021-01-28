@@ -23,7 +23,7 @@ import logo from '@assets/logo.png';
 //==>Assets
 import strings from './strings';
 
-const HomeScreen = ({ navigation, route: { params } }) => {
+const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
 	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation, route: { params } }) => {
 		dispatch(getQuizzes());
 		dispatch(getCategories());
 		dispatch(getCompletedQuizzes());
-		params.playTheme();
+		playTheme();
 	}, []);
 
 	return (

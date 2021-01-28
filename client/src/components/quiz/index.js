@@ -23,12 +23,13 @@ import { shaking } from './animations';
 import { updateHighscore } from './../../redux/reducers/quizzes';
 
 const TIME = 10;
-const THEME_MAX_VOL = 0.15;
-const THEME_MIN_VOL = 0.05;
+const SFX_VOL = 0.03;
+const THEME_MAX_VOL = 0.03;
+const THEME_MIN_VOL = 0.01;
 const MAX_POINTS = 1000;
 
 const { width: WIDTH } = Dimensions.get('window');
-const Quiz = ({ navigation, route: { params } }) => {
+const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const { completedQuiz } = useSelector((state) => state.user);
 	const questions = params.questions;
@@ -146,44 +147,46 @@ const Quiz = ({ navigation, route: { params } }) => {
 	};
 
 	useEffect(() => {
-		const sound1 = new Audio.Sound();
-		const sound2 = new Audio.Sound();
-		const sound3 = new Audio.Sound();
-		const sound4 = new Audio.Sound();
-		params.stopTheme();
+		stopTheme();
+
+		let s1;
+		let s2;
+		let s3;
+		let s4;
+		let soundList;
 		async function loadSounds() {
 			try {
-				setSounds({
-					success: sound1,
-					wrong: sound2,
-					timer: sound3,
-					theme: sound4,
+				s1 = new Audio.Sound.createAsync(successSound, {
+					volume: SFX_VOL,
 				});
-				sound1.loadAsync(successSound);
-				sound2.loadAsync(wrongSound);
-				sound3.loadAsync(timerSound);
-				sound4
-					.loadAsync(themeSound)
-					.then(() => {
-						return sound4.setStatusAsync({
-							volume: THEME_MAX_VOL,
-							isLooping: true,
-						});
-					})
-					.then(() => {
-						sound4.playAsync();
+				s2 = new Audio.Sound.createAsync(wrongSound, {
+					volume: SFX_VOL,
+				});
+				s3 = new Audio.Sound.createAsync(timerSound, {
+					volume: SFX_VOL,
+				});
+				s4 = new Audio.Sound.createAsync(themeSound, {
+					volume: THEME_MAX_VOL,
+					isLooping: true,
+				});
+				Promise.all([s1, s2, s3, s4]).then((snds) => {
+					soundList = snds.map((n) => n.sound);
+					soundList[3].playAsync();
+					setSounds({
+						success: soundList[0],
+						wrong: soundList[1],
+						timer: soundList[2],
+						theme: soundList[3],
 					});
-			} catch {
-				console.log('sound loading error');
+				});
+			} catch (err) {
+				console.log('sound loading error' + err);
 			}
 		}
 		loadSounds();
 		return () => {
-			sound1?.unloadAsync();
-			sound2?.unloadAsync();
-			sound3?.unloadAsync();
-			sound4?.unloadAsync();
-			params.playTheme();
+			soundList.forEach((snd) => snd?.unloadAsync());
+			playTheme();
 			Vibration.cancel();
 		};
 	}, []);
