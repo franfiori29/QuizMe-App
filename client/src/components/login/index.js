@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Linking, Text, Animated, Easing } from 'react-native';
-import { REACT_APP_API } from '@root/env';
+import { Text, Animated, Easing } from 'react-native';
+import { REACT_APP_API, CLIENT_ID } from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -12,8 +12,61 @@ import logo from '@assets/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
+import * as Google from 'expo-google-app-auth';
 
 export default function Login({ navigation }) {
+	async function signInWithGoogleAsync() {
+		try {
+			const result = await Google.logInAsync({
+				androidClientId: CLIENT_ID,
+				scopes: ['profile', 'email'],
+			});
+
+			if (result.type === 'success') {
+				axios
+					.post(`${REACT_APP_API}/auth/register`, {
+						email: result.user.email,
+						firstName: result.user.givenName,
+						lastName: result.user.familyName,
+						accountId: result.user.id,
+						profilePic: result.user.photoUrl,
+						countryCode: 'AR',
+					})
+					.then((token) => {
+						axios
+							.get(`${REACT_APP_API}/auth/me`, {
+								headers: {
+									Authorization: `Bearer ${token.data}`,
+								},
+							})
+							.then((user) => {
+								dispatch(getUser(user.data));
+								dispatch(setToken(token.data));
+								reset({
+									emai: '',
+									password: '',
+								});
+								setLoading(false);
+								navigation.replace('Home');
+							});
+					})
+					.catch(() => {
+						setLoading(false);
+						setError('register', {
+							type: 'manual',
+							message:
+								'ERROR AL REGISTRARSE. INTENTELO MAS TARDE',
+						});
+					});
+			} else {
+				console.log('cancelled');
+			}
+		} catch (e) {
+			console.log('canceled', e);
+			return { error: true };
+		}
+	}
+
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const {
@@ -218,14 +271,12 @@ export default function Login({ navigation }) {
 						)}
 					</Description>
 				</ButtonLogin>
-				{/* <SocialIconGoogle
+				<SocialIconGoogle
 					title={s.google}
 					button
 					type='google'
-					onPress={() =>
-						Linking.openURL(`${REACT_APP_API}/auth/google`)
-					}
-				/> */}
+					onPress={() => signInWithGoogleAsync()}
+				/>
 				<TextView>
 					<Text style={{ color: theme.text }}>
 						{s.acc}
@@ -310,12 +361,12 @@ const TextView = styled.View`
 	align-items: center;
 	margin-top: 20px;
 `;
-// const SocialIconGoogle = styled(SocialIcon)`
-// 	width: 95%;
-// 	align-self: center;
-// 	border-radius: 5px;
-// 	height: 45px;
-// `;
+const SocialIconGoogle = styled(SocialIcon)`
+	width: 95%;
+	align-self: center;
+	border-radius: 5px;
+	height: 45px;
+`;
 
 const ErrorIcon = styled.View`
 	position: absolute;

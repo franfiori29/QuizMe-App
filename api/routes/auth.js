@@ -9,7 +9,7 @@ server.get('/me', async (req, res, next) => {
 		const { _id } = req.user;
 		const result = await User.findById(
 			_id,
-			'_id firstName lastName email countryCode roleId updatedAt'
+			'_id firstName lastName email countryCode profilePic roleId updatedAt'
 		);
 		if (req.user.updatedAt === result.updatedAt.toISOString()) {
 			return res.json(result);
@@ -48,21 +48,17 @@ server.get('/me', async (req, res, next) => {
 
 server.post('/register', async function (req, res, next) {
 	try {
-		const user = await User.create(req.body);
-		const {
-			_id,
-			firstName,
-			lastName,
-			email: userEmail,
-			profilePic,
-			countryCode,
-			role,
-			updatedAt,
-			premium,
-		} = user;
-		return res.send(
-			jwt.sign(
-				{
+		await User.findOrCreate(
+			{
+				$or: [
+					{ accountId: req.body.accountId },
+					{ email: req.body.email },
+				],
+			},
+			req.body,
+			(err, user, created) => {
+				if (err) throw new Error(err);
+				const {
 					_id,
 					firstName,
 					lastName,
@@ -72,9 +68,24 @@ server.post('/register', async function (req, res, next) {
 					role,
 					updatedAt,
 					premium,
-				},
-				SECRET
-			)
+				} = user;
+				return res.send(
+					jwt.sign(
+						{
+							_id,
+							firstName,
+							lastName,
+							email: userEmail,
+							profilePic,
+							countryCode,
+							role,
+							updatedAt,
+							premium,
+						},
+						SECRET
+					)
+				);
+			}
 		);
 	} catch (error) {
 		if (error.message === 'Input valid password')

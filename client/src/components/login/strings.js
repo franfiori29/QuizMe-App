@@ -3,7 +3,7 @@ const strings = {
 		email: 'Email',
 		pass: 'Password',
 		login: 'Log In',
-		google: 'Sign in With Google',
+		google: 'Login with Google',
 		acc: 'You do not have an account?',
 		signup: 'Sign up',
 		loginError: 'Invalid credentials',
