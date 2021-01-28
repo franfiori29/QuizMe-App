@@ -45,7 +45,7 @@ const HomeRoutes = () => {
 		}
 		(async()=>{
 			const { sound } = await Audio.Sound.createAsync(mainThemeFile, {
-				isLooping: true, volume: 0.7
+				isLooping: true, volume: 0.5
 			});
 			setMainTheme(sound);
 		})()
