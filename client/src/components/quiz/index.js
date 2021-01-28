@@ -33,7 +33,7 @@ const MAX_POINTS = 1000;
 
 const { width: WIDTH } = Dimensions.get('window');
 const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
-	const { theme, language } = useSelector((state) => state.global);
+	const { theme, language, sound } = useSelector((state) => state.global);
 	const { completedQuiz } = useSelector((state) => state.user);
 	const questions = useMemo(() => shuffle(params.questions), [
 		params.questions,
@@ -136,8 +136,10 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	};
 
 	const startTimeout = (result) => {
-		sounds.timer?.stopAsync();
-		sounds.theme?.setVolumeAsync(THEME_MIN_VOL);
+		if (sound) {
+			sounds.timer?.stopAsync();
+			sounds.theme?.setVolumeAsync(THEME_MIN_VOL);
+		}
 		result
 			? sounds.success?.playFromPositionAsync(0)
 			: sounds.wrong?.playFromPositionAsync(0);
@@ -175,14 +177,16 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					isLooping: true,
 				});
 				Promise.all([s1, s2, s3, s4]).then((snds) => {
-					soundList = snds.map((n) => n.sound);
-					soundList[3].playAsync();
-					setSounds({
-						success: soundList[0],
-						wrong: soundList[1],
-						timer: soundList[2],
-						theme: soundList[3],
-					});
+					if (sound) {
+						soundList = snds.map((n) => n.sound);
+						soundList[3].playAsync();
+						setSounds({
+							success: soundList[0],
+							wrong: soundList[1],
+							timer: soundList[2],
+							theme: soundList[3],
+						});
+					}
 				});
 			} catch (err) {
 				console.log('sound loading error' + err);
@@ -190,8 +194,10 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 		}
 		loadSounds();
 		return () => {
-			soundList.forEach((snd) => snd?.unloadAsync());
-			playTheme();
+			if (sound) {
+				soundList.forEach((snd) => snd?.unloadAsync());
+				playTheme();
+			}
 			Vibration.cancel();
 		};
 	}, []);

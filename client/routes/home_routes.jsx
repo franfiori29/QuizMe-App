@@ -45,7 +45,7 @@ const HomeRoutes = () => {
 		}
 		(async()=>{
 			const { sound } = await Audio.Sound.createAsync(mainThemeFile, {
-				isLooping: true, volume: 0.1
+				isLooping: true, volume: 0.7
 			});
 			setMainTheme(sound);
 		})()
@@ -54,6 +54,7 @@ const HomeRoutes = () => {
 	const playTheme = () => {
 		mainTheme?.playAsync()
 	}
+	
 	const stopTheme = () => {
 		mainTheme?.stopAsync()
 	}
@@ -72,7 +73,10 @@ const HomeRoutes = () => {
 					route.playTheme = playTheme;
 				}} />
 				<Screen name='SearchScreen' component={SearchScreen} />
-				<Screen name='UserMenu' component={UserMenu} />
+				<Screen name='UserMenu' component={UserMenu} options={({route}) => {
+					route.stopTheme = stopTheme, 
+					route.playTheme = playTheme;
+				}} />
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
 				<Screen name='Information' component={Information} />
