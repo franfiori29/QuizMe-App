@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
 import { gql } from 'graphql-request';
 import { mutationUpdateHighscore } from './querys/quizzes';
+import { shuffle } from '@utils/shuffle';
 
 const EntireQuizInfo = gql`
 	fragment EntireQuizInfo on Quiz {
@@ -41,9 +42,12 @@ const queryAllQuizzes = gql`
 
 export const getQuizzes = createAsyncThunk(
 	'quiz/getAll',
-	async (payload, { getState }) => {
+	async (_, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryAllQuizzes);
+		if (clientRequest.getQuizzes) {
+			clientRequest.getQuizzes = shuffle(clientRequest.getQuizzes);
+		}
 		return clientRequest;
 	},
 );
@@ -102,6 +106,11 @@ export const getQuizByCategory = createAsyncThunk(
 		const clientRequest = await client.request(queryGetQuizByCategory, {
 			payload,
 		});
+		if (clientRequest.getQuizByCategory) {
+			clientRequest.getQuizByCategory = shuffle(
+				clientRequest.getQuizByCategory,
+			);
+		}
 		return clientRequest;
 	},
 );
