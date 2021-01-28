@@ -57,14 +57,14 @@ const Quiz = ({ navigation, route: { params } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints =
 				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -95,7 +95,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -149,6 +149,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 		const sound2 = new Audio.Sound();
 		const sound3 = new Audio.Sound();
 		const sound4 = new Audio.Sound();
+		params.stopTheme();
 		async function loadSounds() {
 			try {
 				setSounds({
@@ -181,6 +182,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 			sound2?.unloadAsync();
 			sound3?.unloadAsync();
 			sound4?.unloadAsync();
+			params.playTheme();
 		};
 	}, []);
 
