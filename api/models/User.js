@@ -1,6 +1,7 @@
 const { model, Schema } = require('mongoose');
 const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
+const findOrCreate = require('mongoose-findorcreate');
 
 const userSchema = new Schema(
 	{
@@ -25,18 +26,14 @@ const userSchema = new Schema(
 		premium: { type: Boolean, default: false },
 		completedQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
 	},
-	{ timestamps: true },
+	{ timestamps: true }
 );
-
-userSchema.plugin(uniqueValidator, {
-	message: 'Error, expected {PATH} to be unique.',
-});
 
 userSchema.methods.compare = function (password, isReset) {
 	if (this.password || this.reset_code)
 		return bcrypt.compareSync(
 			password.toString(),
-			isReset ? this.reset_code : this.password,
+			isReset ? this.reset_code : this.password
 		);
 	else return false;
 };
@@ -47,7 +44,7 @@ userSchema.pre('save', function (next) {
 	else {
 		if (
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/.test(
-				that.password,
+				that.password
 			)
 		) {
 			const salt = bcrypt.genSaltSync(10);
@@ -57,5 +54,10 @@ userSchema.pre('save', function (next) {
 	}
 	next();
 });
+
+userSchema.plugin(uniqueValidator, {
+	message: 'Error, expected {PATH} to be unique.',
+});
+userSchema.plugin(findOrCreate);
 
 module.exports = model('User', userSchema);

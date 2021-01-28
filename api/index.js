@@ -73,6 +73,7 @@ mongoose
 		useUnifiedTopology: true,
 		autoCreate: true,
 		useCreateIndex: true,
+		useFindAndModify: false,
 	})
 	.then(async () => {
 		await mongoose.connection.db.dropDatabase();
