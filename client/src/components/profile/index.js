@@ -42,7 +42,7 @@ export default function Profile({ navigation }) {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`,
+				`The image is available for sharing at: ${picture.remoteUri}`
 			);
 			return;
 		}
@@ -160,19 +160,6 @@ export default function Profile({ navigation }) {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('UpdateName')}
-						>
-							<UserText
-								style={{
-									fontStyle: 'italic',
-									color: theme.primary,
-									fontWeight: 'bold',
-								}}
-							>
-								{s.changeName}
-							</UserText>
-						</TouchableOpacity>
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>

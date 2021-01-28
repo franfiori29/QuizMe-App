@@ -101,7 +101,13 @@ const UserMenu = ({ navigation }) => {
 					</TouchableOpacity>
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMail}>
-					<Text style={{ color: theme.text }}>
+					<Text
+						style={{
+							color: theme.text,
+							width: '95%',
+							height: '30px',
+						}}
+					>
 						{s.email}{' '}
 						<Text
 							style={{ fontWeight: 'bold', color: theme.primary }}
@@ -110,10 +116,8 @@ const UserMenu = ({ navigation }) => {
 						</Text>
 					</Text>
 				</MenuTouchOption>
-				<AccType>
-					<Text style={{ color: theme.text }}>
-						{s.user} {user.firstName} {user.lastName}
-					</Text>
+				<AccType onPress={() => navigation.navigate('UpdateName')}>
+					<Text style={{ color: theme.text }}>{s.user}</Text>
 					<AccTypeButton>
 						<Text
 							style={{
@@ -230,7 +234,7 @@ const UserText = styled.Text`
 	padding: 0 10px;
 `;
 
-const AccType = styled.View`
+const AccType = styled.TouchableOpacity`
 	width: 95%;
 	align-self: center;
 	height: 70px;
