@@ -8,6 +8,7 @@ const strings = {
 		stats: 'Statistics',
 		points: 'Total Points',
 		changeName: 'Change name',
+		validate: 'Validate',
 	},
 
 	es: {
@@ -19,6 +20,7 @@ const strings = {
 		stats: 'Estadísticas',
 		points: 'Puntos Totales',
 		changeName: 'Cambiar nombre',
+		validate: 'Validar',
 	},
 };
 

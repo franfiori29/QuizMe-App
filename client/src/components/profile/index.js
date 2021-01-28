@@ -42,7 +42,7 @@ export default function Profile({ navigation }) {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`
+				`The image is available for sharing at: ${picture.remoteUri}`,
 			);
 			return;
 		}
@@ -160,6 +160,16 @@ export default function Profile({ navigation }) {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
+						<AccTypeButton>
+							<Text
+								style={{
+									color: theme.primary,
+									textTransform: 'uppercase',
+								}}
+							>
+								{s.validate}
+							</Text>
+						</AccTypeButton>
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>
@@ -324,4 +334,13 @@ const StatInfo = styled.View`
 const StatText = styled.Text`
 	color: ${(props) => props.theme.text};
 	text-align: center;
+`;
+const AccTypeButton = styled.TouchableOpacity`
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid ${(props) => props.theme.primary};
+	border-radius: 5px;
 `;

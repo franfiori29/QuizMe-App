@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, Switch } from 'react-native';
+import {
+	Text,
+	TouchableOpacity,
+	Platform,
+	Vibration,
+	Switch,
+	View,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 //==> Actions
@@ -16,11 +23,6 @@ import styled, { ThemeProvider } from 'styled-components/native';
 import strings from './strings';
 
 const UserMenu = ({ navigation }) => {
-	const [isEnabled, setIsEnabled] = useState(false);
-	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-	const [isEnabledLanguage, setIsEnabledLanguage] = useState(false);
-	const toggleSwitchLanguage = () =>
-		setIsEnabledLanguage((previousState) => !previousState);
 	const { language, theme } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
@@ -36,6 +38,9 @@ const UserMenu = ({ navigation }) => {
 	};
 
 	const handleRicky = () => {
+		if (Platform.OS === 'android') {
+			Vibration.vibrate(100);
+		}
 		setRicky(ricky + 1);
 		setTimeout(() => {
 			setRicky(0);
@@ -45,6 +50,19 @@ const UserMenu = ({ navigation }) => {
 		}
 	};
 
+	const handleTheme = () => {
+		if (Platform.OS === 'android') {
+			Vibration.vibrate(100);
+		}
+		dispatch(switchTheme());
+	};
+
+	const handleLang = () => {
+		if (Platform.OS === 'android') {
+			Vibration.vibrate(100);
+		}
+		dispatch(changeLanguage());
+	};
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -105,7 +123,7 @@ const UserMenu = ({ navigation }) => {
 						style={{
 							color: theme.text,
 							width: '95%',
-							height: '30px',
+							height: 30,
 						}}
 					>
 						{s.email}{' '}
@@ -118,16 +136,6 @@ const UserMenu = ({ navigation }) => {
 				</MenuTouchOption>
 				<AccType onPress={() => navigation.navigate('UpdateName')}>
 					<Text style={{ color: theme.text }}>{s.user}</Text>
-					<AccTypeButton>
-						<Text
-							style={{
-								color: theme.primary,
-								textTransform: 'uppercase',
-							}}
-						>
-							{s.validate}
-						</Text>
-					</AccTypeButton>
 				</AccType>
 				<MenuTouchOption>
 					<Text
@@ -140,23 +148,39 @@ const UserMenu = ({ navigation }) => {
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.notif}</Text>
 				</MenuTouchOption>
-				<MenuTouchOption
-					onPress={() => dispatch(switchTheme())}
-					style={{ justifyContent: 'space-between' }}
-				>
+				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
 					<Text style={{ color: theme.text }}>{s.dark}</Text>
-					<Switch onValueChange={toggleSwitch} value={isEnabled} />
-				</MenuTouchOption>
-				<MenuTouchOption
-					style={{ justifyContent: 'space-between' }}
-					onPress={() => dispatch(changeLanguage())}
-				>
-					<Text style={{ color: theme.text }}>{s.lang}</Text>
 					<Switch
-						onValueChange={toggleSwitchLanguage}
-						value={isEnabledLanguage}
+						onValueChange={handleTheme}
+						value={theme.mode === 'light' ? false : true}
 					/>
-				</MenuTouchOption>
+				</MenuSolidOption>
+				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
+					<View
+						style={{
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'center',
+							paddingTop: 2,
+							paddingBottom: 2,
+						}}
+					>
+						<Text style={{ color: theme.text }}>{s.lang}</Text>
+						<Text
+							style={{
+								color: theme.primary,
+								fontWeight: 'bold',
+								marginLeft: 5,
+							}}
+						>
+							{language.toUpperCase()}
+						</Text>
+					</View>
+					<Switch
+						onValueChange={handleLang}
+						value={language === 'es' ? true : false}
+					/>
+				</MenuSolidOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.help}</Text>
 				</MenuTouchOption>
@@ -255,6 +279,17 @@ const AccTypeButton = styled.TouchableOpacity`
 `;
 
 const MenuTouchOption = styled.TouchableOpacity`
+	width: 95%;
+	align-self: center;
+	height: 70px;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	padding: 0 20px;
+	border-bottom-width: 1px;
+	border-bottom-color: #ccc;
+`;
+const MenuSolidOption = styled.View`
 	width: 95%;
 	align-self: center;
 	height: 70px;

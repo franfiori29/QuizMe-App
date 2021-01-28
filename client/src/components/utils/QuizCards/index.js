@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
-import { Text, Share } from 'react-native';
+import { Text, Share, Platform, Vibration } from 'react-native';
 import socialStrings from '@components/quiz_index/strings';
 
 const QuizCards = ({ quizzes, completedQuiz }) => {
@@ -38,11 +38,15 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 					<QuizCard
 						onLongPress={shareSocialMedia}
 						key={quiz._id}
-						onPress={() =>
+						onPress={() => {
+							if (Platform.OS === 'android') {
+								Vibration.vibrate(100);
+							}
+
 							navigation.navigate('QuizIndex', {
 								quiz,
-							})
-						}
+							});
+						}}
 					>
 						<QuizImg
 							source={{

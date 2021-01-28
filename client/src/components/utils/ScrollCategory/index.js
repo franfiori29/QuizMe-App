@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Platform, Vibration } from 'react-native';
 import styled from 'styled-components/native';
 import { getQuizByCategory } from '@redux/reducers/quizzes';
 
@@ -29,6 +30,8 @@ const ScrollCategory = ({ categories, handleSelect }) => {
 						handleSelect(
 							selected === category._id ? '' : category._id,
 						);
+
+						Platform.OS === 'android' && Vibration.vibrate(100);
 					}}
 				>
 					<CategoryName>
