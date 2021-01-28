@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import {
+	View,
+	Text,
+	Dimensions,
+	TouchableWithoutFeedback,
+	Vibration,
+	Platform,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import successSound from '@assets/audio/success.wav';
@@ -100,11 +107,16 @@ const Quiz = ({ navigation, route: { params } }) => {
 
 	useEffect(() => {
 		if (timer.time === 3) {
+			if (Platform.OS === 'android') {
+				Vibration.vibrate([100, 400, 100], true);
+			}
+
 			buttonRefArray.forEach((e) => e.current.animate(shaking, 3000));
 			sounds.timer?.playFromPositionAsync(3500);
 		}
 
 		if (timer.time <= 0 && timer.on) {
+			Vibration.cancel();
 			startTimeout(false);
 		}
 	}, [timer]);
@@ -189,7 +201,11 @@ const Quiz = ({ navigation, route: { params } }) => {
 		<ThemeProvider theme={theme}>
 			<Screen>
 				<Header>
-					<Exit onPress={() => navigation.goBack()}>
+					<Exit
+						onPress={() => {
+							navigation.goBack(), Vibration.cancel();
+						}}
+					>
 						<Icon name='ios-close' color={theme.text} size={28} />
 						<Text style={{ color: theme.text }}>
 							{language === 'es' ? 'Abandonar' : 'Leave'}
