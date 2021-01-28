@@ -23,14 +23,13 @@ import logo from '@assets/logo.png';
 //==>Assets
 import strings from './strings';
 
-const HomeScreen = ({ navigation, route: {params} }) => {
+const HomeScreen = ({ navigation, route: { params } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language } = useSelector((state) => state.global);
 	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
-	const { mainTheme } = useSelector((state) => state.global.audio);
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
@@ -43,7 +42,6 @@ const HomeScreen = ({ navigation, route: {params} }) => {
 		dispatch(getCompletedQuizzes());
 		params.playTheme();
 	}, []);
-
 
 	return (
 		<ThemeProvider theme={theme}>
