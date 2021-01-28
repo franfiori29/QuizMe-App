@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
 	View,
 	Text,
@@ -22,6 +22,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking } from './animations';
 import { updateHighscore } from './../../redux/reducers/quizzes';
 
+//Utils
+import { shuffle } from '@utils/shuffle';
+
 const TIME = 10;
 const SFX_VOL = 0.03;
 const THEME_MAX_VOL = 0.03;
@@ -32,7 +35,9 @@ const { width: WIDTH } = Dimensions.get('window');
 const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const { completedQuiz } = useSelector((state) => state.user);
-	const questions = params.questions;
+	const questions = useMemo(() => shuffle(params.questions), [
+		params.questions,
+	]);
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
 	const [ricky, setRicky] = useState(0);
@@ -58,14 +63,14 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id
+				(quiz) => quiz._id === params.id,
 			);
 			let newPoints =
 				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints })
+					updateHighscore({ quizId: params.id, score: newPoints }),
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -96,7 +101,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
 					easing: 'linear',
 				},
-				totalTime * 1000
+				totalTime * 1000,
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -204,6 +209,10 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 		}
 	};
 
+	const shuffledOptions = useMemo(() => shuffle(question.options), [
+		question,
+	]);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -275,7 +284,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					</TouchableWithoutFeedback>
 				</MiddleScreen>
 				<BottomScreen>
-					{question.options.map((option, i) => (
+					{shuffledOptions.map((option, i) => (
 						<Option
 							selectedColor={
 								selected.id === i
