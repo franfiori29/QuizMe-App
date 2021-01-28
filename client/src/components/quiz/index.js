@@ -97,8 +97,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 		if (current < questions.length && timer.on) {
 			barRef.current.animate(
 				{
-					0: { width: WIDTH, backgroundColor: 'rgba(0,255,0,1)' },
-					1: { width: 0, backgroundColor: 'rgba(255,0,0,1)' },
+					0: { width: WIDTH, backgroundColor: theme.primary },
+					1: { width: 0, backgroundColor: '#D53051' },
 					easing: 'linear',
 				},
 				totalTime * 1000,
@@ -289,8 +289,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							selectedColor={
 								selected.id === i
 									? selected.correct
-										? '#0f0'
-										: '#f00'
+										? theme.primary
+										: '#D53051'
 									: false
 							}
 							key={i}
@@ -304,6 +304,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 									alignSelf: 'center',
 									color: theme.text,
 									textAlign: 'center',
+									fontWeight: 'bold',
 								}}
 							>
 								{option.title}
@@ -345,9 +346,11 @@ const Option = styled.TouchableOpacity`
 `;
 
 const TimeBar = styled(Animatable.View)`
-	background-color: #0f0;
+	background-color: ${(props) => props.theme.primary};
 	height: 20px;
 	width: 100%;
+	border-bottom-right-radius: 100px;
+	border-top-right-radius: 100px;
 `;
 
 const QuizImg = styled.Image`
