@@ -39,10 +39,15 @@ module.exports = {
 				.populate('categoryId');
 			return foundQuizzes;
 		},
-		getRandomQuiz: async () => {
+		getRandomQuiz: async (_, __, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
 			const count = await Quiz.countDocuments();
-			var random = Math.floor(Math.random() * count);
-			const quiz = await Quiz.findOne()
+			let random = Math.abs(
+				Math.floor(Math.random() * count - completed.length),
+			);
+			const quiz = await Quiz.findOne({
+				_id: { $nin: completed },
+			})
 				.populate('categoryId')
 				.populate('questions')
 				.skip(random);
