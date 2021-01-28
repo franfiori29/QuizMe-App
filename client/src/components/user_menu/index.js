@@ -123,7 +123,7 @@ const UserMenu = ({ navigation }) => {
 						style={{
 							color: theme.text,
 							width: '95%',
-							height: '30px',
+							height: 30,
 						}}
 					>
 						{s.email}{' '}
@@ -136,16 +136,6 @@ const UserMenu = ({ navigation }) => {
 				</MenuTouchOption>
 				<AccType onPress={() => navigation.navigate('UpdateName')}>
 					<Text style={{ color: theme.text }}>{s.user}</Text>
-					<AccTypeButton>
-						<Text
-							style={{
-								color: theme.primary,
-								textTransform: 'uppercase',
-							}}
-						>
-							{s.validate}
-						</Text>
-					</AccTypeButton>
 				</AccType>
 				<MenuTouchOption>
 					<Text
