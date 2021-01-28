@@ -26,8 +26,13 @@ import { setToken } from '@redux/reducers/user';
 import QuizMakeDetails from '@components/quiz_make/details';
 import QuizMakeQuestions from '@components/quiz_make/questions';
 
+import mainThemeFile from '@assets/audio/main-theme.mp3';
+import { Audio } from 'expo-av';
+
+
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
+	const [mainTheme, setMainTheme] = React.useState();
 	useEffect(() => {
 		if (Platform.OS === 'web') {
 			const token = new URLSearchParams(window.location.search).get(
@@ -38,7 +43,20 @@ const HomeRoutes = () => {
 				dispatch(getUser());
 			}
 		}
+		(async()=>{
+			const { sound } = await Audio.Sound.createAsync(mainThemeFile, {
+				isLooping: true,
+			});
+			setMainTheme(sound);
+		})()
 	}, []);
+
+	const playTheme = () => {
+		mainTheme?.playAsync()
+	}
+	const stopTheme = () => {
+		mainTheme?.stopAsync()
+	}
 
 	const { Navigator, Screen } = createStackNavigator();
 	const { info: user } = useSelector((state) => state.user);
@@ -51,7 +69,7 @@ const HomeRoutes = () => {
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
-				<Screen name='Home' component={HomeScreen} />
+				<Screen name='Home' component={HomeScreen} initialParams={{playTheme}} />
 				<Screen name='SearchScreen' component={SearchScreen} />
 				<Screen name='UserMenu' component={UserMenu} />
 				<Screen name='MailUpdate' component={MailUpdate} />
@@ -66,8 +84,8 @@ const HomeRoutes = () => {
 				/>
 				<Screen name='QuizMakeDetails' component={QuizMakeDetails} />
 				<Screen name='QuizIndex' component={QuizIndex} />
-				<Screen name='QuizResults' component={QuizResults} />
-				<Screen name='Quiz' component={Quiz} />
+				<Screen name='QuizResults' component={QuizResults}/>
+				<Screen name='Quiz' component={Quiz} initialParams={{stopTheme, playTheme}}/>
 				<Screen name='Profile' component={Profile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
 				<Screen name='Ricky' component={Ricky} />
