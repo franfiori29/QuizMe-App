@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Text } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -41,6 +41,23 @@ export default function SignUp({ navigation }) {
 		}));
 	};
 
+	useEffect(() => {
+		axios
+			.get('https://ipapi.co/json/')
+			.then((response) => {
+				setUser((user) => ({
+					...user,
+					countryCode: response.data.country_code,
+				}));
+			})
+			.catch(() => {
+				setUser((user) => ({
+					...user,
+					countryCode: 'AR',
+				}));
+			});
+	}, []);
+
 	const handleSubmitPress = () => {
 		const emailRegex = /\S+@\S+/;
 		if (user.email && !emailRegex.test(user.email)) {
@@ -67,10 +84,6 @@ export default function SignUp({ navigation }) {
 		if (!user.lastName) {
 			setErrortext('El campo Apellido es requerido');
 			return;
-		}
-		if (!user.countryCode) {
-			setErrortext('El campo Codigo de pais es requerido');
-			return;
 		} else {
 			axios.post(`${REACT_APP_API}/auth/register`, user).then((token) => {
 				axios
@@ -82,8 +95,8 @@ export default function SignUp({ navigation }) {
 					.then((user) => {
 						dispatch(getUser(user.data));
 						dispatch(setToken(token.data));
+						navigation.navigate('Home');
 					});
-				navigation.navigate('Home');
 			});
 		}
 	};
@@ -172,23 +185,6 @@ export default function SignUp({ navigation }) {
 					</Button>
 				</InputContainer>
 
-				{/* <InputContainer>
-					<IconImage
-						name={'ios-person-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
-					/>
-					<InputSignUp
-						width={WIDTH}
-						placeholder={'País'}
-						value={user.countryCode}
-						onChangeText={(value) =>
-							handleInputChange('countryCode', value)
-						}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
-				</InputContainer> */}
 				<TextView>
 					<Text>
 						<Text

@@ -7,7 +7,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Nacho',
 		lastName: 'Contreras',
-		countryCode: 1,
+		countryCode: 'AR',
 		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
 	},
@@ -17,7 +17,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Emiliano',
 		lastName: 'Alfonso',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0001')],
 	},
 	{
@@ -26,7 +26,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Fran',
 		lastName: 'Fiori',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -35,7 +35,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Paco',
 		lastName: 'Ortiz',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -44,7 +44,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Tincho',
 		lastName: 'Sanchez',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -53,7 +53,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Bruno',
 		lastName: 'Gallardo',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -62,7 +62,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Santi',
 		lastName: 'Calisaya',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -71,7 +71,7 @@ const users = [
 		password: '!Qwerty123',
 		firstName: 'Ailin',
 		lastName: 'Nakaganeku',
-		countryCode: 1,
+		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 ];
