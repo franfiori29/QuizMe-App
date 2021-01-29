@@ -12,8 +12,12 @@ module.exports = {
 			if (!foundQuiz) throw new Error('Could not find quiz');
 			return foundQuiz;
 		},
-		getQuizzes: async () => {
-			const quizzes = await Quiz.find()
+		getQuizzes: async (_, __, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
+
+			const quizzes = await Quiz.find({
+				_id: { $nin: completed },
+			})
 				.populate('categoryId')
 				.populate('questions');
 			return quizzes;
@@ -22,17 +26,22 @@ module.exports = {
 			const categories = await Category.find();
 			return categories;
 		},
-		getQuizByCategory: async (_, { catId }) => {
+		getQuizByCategory: async (_, { catId }, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
+
 			const foundQuizzes = await Quiz.find({
+				_id: { $nin: completed },
 				categoryId: catId,
 			})
 				.populate('questions')
 				.populate('categoryId');
 			return foundQuizzes;
 		},
-		getQuizzesByInputSearch: async (_, { input }) => {
+		getQuizzesByInputSearch: async (_, { input }, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
 			const regex = new RegExp(input, 'i');
 			const foundQuizzes = await Quiz.find({
+				_id: { $nin: completed },
 				$or: [{ title: regex }, { description: regex }],
 			})
 				.populate('questions')
@@ -43,7 +52,7 @@ module.exports = {
 			const completed = (await User.findById(user._id)).completedQuiz;
 			const count = await Quiz.countDocuments();
 			let random = Math.abs(
-				Math.floor(Math.random() * count - completed.length),
+				Math.floor(Math.random() * count - completed.length)
 			);
 			const quiz = await Quiz.findOne({
 				_id: { $nin: completed },
@@ -53,17 +62,28 @@ module.exports = {
 				.skip(random);
 			return quiz;
 		},
-		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }) => {
-			const quizzes = await Quiz.find()
+		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
+			const quizzes = await Quiz.find({
+				_id: { $nin: completed },
+			})
 				.sort({ _id: 1 })
 				.skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
 				.limit(nPerPage);
 			return quizzes;
 		},
-		searchByPopularity: async () => {
-			const quizzesByPopularity = await Quiz.find({}, null, {
-				sort: { likes: -1 },
-			})
+		searchByPopularity: async (_, __, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
+
+			const quizzesByPopularity = await Quiz.find(
+				{
+					_id: { $nin: completed },
+				},
+				null,
+				{
+					sort: { likes: -1 },
+				}
+			)
 				.populate('categoryId')
 				.populate('questions');
 			return quizzesByPopularity;
@@ -72,7 +92,7 @@ module.exports = {
 	Mutation: {
 		createQuiz: async (_, { quiz }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
-				(q) => q._id,
+				(q) => q._id
 			);
 			const newQuiz = (await Quiz.create(quiz))
 				.populate('questions')
@@ -84,11 +104,11 @@ module.exports = {
 			const quizfind = await Quiz.findOneAndUpdate(
 				{ _id: quizId },
 				{ $inc: { likes: giveLike ? 1 : -1 } },
-				{ new: true },
+				{ new: true }
 			);
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
-				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } },
+				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } }
 			);
 			return quizfind;
 		},
@@ -110,7 +130,7 @@ module.exports = {
 			return highScores.some(
 				(each) =>
 					each.score === newScore.score &&
-					each.user.toString() === newScore.user,
+					each.user.toString() === newScore.user
 			);
 		},
 	},

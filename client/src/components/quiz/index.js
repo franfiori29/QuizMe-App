@@ -14,13 +14,14 @@ import wrongSound from '@assets/audio/wrong.wav';
 import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
 import { Audio } from 'expo-av';
-import { completeQuiz } from '@redux/reducers/user.js';
+import { completeQuiz, getCompletedQuizzes } from '@redux/reducers/user.js';
 
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking } from './animations';
-import { updateHighscore } from './../../redux/reducers/quizzes';
+import { updateHighscore, getQuizzes } from './../../redux/reducers/quizzes';
+import { getCategories } from '../../redux/reducers/categories';
 
 //Utils
 import { shuffle } from '@utils/shuffle';
@@ -63,15 +64,19 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints =
 				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
+				//added 76 -79
+				dispatch(getQuizzes());
+				dispatch(getCategories());
+				dispatch(getCompletedQuizzes());
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
@@ -101,7 +106,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: '#D53051' },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
