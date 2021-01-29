@@ -378,1291 +378,2282 @@ const questions = [
 		time: 10,
 		score: 5,
 	},
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title: 'What was the last Marx Brothers film to feature Zeppo?',
-	// 	options: [
-	// 		{ title: 'A Night at the Opera', result: false },
-	// 		{ title: 'A Day at the Races', result: false },
-	// 		{ title: 'Monkey Business', result: false },
-	// 		{ title: 'Duck Soup', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title:
-	// 		'In a standard set of playing cards, which is the only king without a moustache?',
-	// 	options: [
-	// 		{ title: 'Spades', result: false },
-	// 		{ title: 'Diamonds', result: false },
-	// 		{ title: 'Clubs', result: false },
-	// 		{ title: 'Hearts', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'What is the main character of Metal Gear Solid 2?',
-	// 	options: [
-	// 		{ title: 'Solidus Snake', result: false },
-	// 		{ title: 'Big Boss', result: false },
-	// 		{ title: 'Venom Snake', result: false },
-	// 		{ title: 'Raiden', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title:
-	// 		'What name represents the letter &quot;M&quot; in the NATO phonetic alphabet?',
-	// 	options: [
-	// 		{ title: 'Matthew', result: false },
-	// 		{ title: 'Mark', result: false },
-	// 		{ title: 'Max', result: false },
-	// 		{ title: 'Mike', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'History',
-	// 	title:
-	// 		'Which one of these tanks was designed and operated by the United Kingdom?',
-	// 	options: [
-	// 		{ title: 'M4 Sherman', result: false },
-	// 		{ title: 'Tiger H1', result: false },
-	// 		{ title: 'T-34', result: false },
-	// 		{ title: 'Tog II', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title: 'What was the first living creature in space?',
-	// 	options: [
-	// 		{ title: 'Monkey', result: false },
-	// 		{ title: 'Dog', result: false },
-	// 		{ title: 'Mouse', result: false },
-	// 		{ title: 'Fruit Flies ', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'What is the main ship used by Commander Shepard in the Mass Effect Franchise called?',
-	// 	options: [
-	// 		{ title: 'Osiris', result: false },
-	// 		{ title: 'Infinity', result: false },
-	// 		{ title: 'Endeavour', result: false },
-	// 		{ title: 'Normandy', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'History',
-	// 	title:
-	// 		'The Battle of the Somme in World War I took place in which country?',
-	// 	options: [
-	// 		{ title: 'Germany', result: false },
-	// 		{ title: 'Italy', result: false },
-	// 		{ title: 'Austria', result: false },
-	// 		{ title: 'France', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In &quot;Sonic the Hedgehog 2&quot; for the Sega Genesis, what do you input in the sound test screen to access the secret level select?',
-	// 	options: [
-	// 		{
-	// 			title:
-	// 				'The first release date of &quot;Sonic the Hedgehog&quot;',
-	// 			result: false,
-	// 		},
-	// 		{ title: 'The date Sonic Team was founded', result: false },
-	// 		{
-	// 			title:
-	// 				'The first release date of &quot;Sonic the Hedgehog 2&quot;',
-	// 			result: false,
-	// 		},
-	// 		{ title: 'The Lead Programmer&#039;s birthday', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title: 'Which of the following chemicals are found in eggplant seeds?',
-	// 	options: [
-	// 		{ title: 'Mescaline', result: false },
-	// 		{ title: 'Cyanide', result: false },
-	// 		{ title: 'Psilocybin', result: false },
-	// 		{ title: 'Nicotine', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Animals',
-	// 	title: 'What is the scientific name for the &quot;Polar Bear&quot;?',
-	// 	options: [
-	// 		{ title: 'Polar Bear', result: false },
-	// 		{ title: 'Ursus Spelaeus', result: false },
-	// 		{ title: 'Ursus Arctos', result: false },
-	// 		{ title: 'Ursus Maritimus', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'Meryl Silverburgh, a video game character from the Metal Gear series, was originally a character in which game?',
-	// 	options: [
-	// 		{ title: 'Gradius', result: false },
-	// 		{ title: 'Contra', result: false },
-	// 		{ title: 'Castlevania: Symphony of the Night', result: false },
-	// 		{ title: 'Policenauts', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In the beta version of the 1986 game &quot;The Legend of Zelda&quot;, players have the choice between a sword and what other item?',
-	// 	options: [
-	// 		{ title: 'Spear', result: false },
-	// 		{ title: 'Slingshot', result: false },
-	// 		{ title: 'Crossbow', result: false },
-	// 		{ title: 'Boomerang ', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Vehicles',
-	// 	title: 'Which one of these chassis codes are used by BMW 3-series?',
-	// 	options: [
-	// 		{ title: 'E39', result: false },
-	// 		{ title: 'E85', result: false },
-	// 		{ title: 'F10', result: false },
-	// 		{ title: 'E46', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Television',
-	// 	title: 'Who is the main character in the show &quot;Burn Notice&quot;?',
-	// 	options: [
-	// 		{ title: 'Sam Axe', result: false },
-	// 		{ title: 'Fiona Glenanne', result: false },
-	// 		{ title: 'Madeline Westen', result: false },
-	// 		{ title: 'Michael Westen', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title: 'Which of these is a type of stretch/deep tendon reflex?',
-	// 	options: [
-	// 		{ title: 'Gag reflex', result: false },
-	// 		{ title: 'Pupillary light reflex', result: false },
-	// 		{ title: 'Scratch reflex', result: false },
-	// 		{ title: 'Ankle jerk reflex', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title: 'The asteroid belt is located between which two planets?',
-	// 	options: [
-	// 		{ title: 'Jupiter and Saturn', result: false },
-	// 		{ title: 'Mercury and Venus', result: false },
-	// 		{ title: 'Earth and Mars', result: false },
-	// 		{ title: 'Mars and Jupiter', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'The Hunua Ranges is located in...',
-	// 	options: [
-	// 		{ title: 'Nepal', result: false },
-	// 		{ title: 'China', result: false },
-	// 		{ title: 'Mexico', result: false },
-	// 		{ title: 'New Zealand', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Books',
-	// 	title:
-	// 		'Which American author was also a budding travel writer and wrote of his adventures with his dog Charley?',
-	// 	options: [
-	// 		{ title: 'F. Scott Fitzgerald', result: false },
-	// 		{ title: 'Ernest Hemingway', result: false },
-	// 		{ title: 'William Faulkner', result: false },
-	// 		{ title: 'John Steinbeck', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Mythology',
-	// 	title: 'Which of the following is NOT a god in Norse Mythology.',
-	// 	options: [
-	// 		{ title: 'Loki', result: false },
-	// 		{ title: 'Tyr', result: false },
-	// 		{ title: 'Snotra', result: false },
-	// 		{ title: 'Jens', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In the first Left 4 Dead, you can play as either of these four characters.',
-	// 	options: [
-	// 		{ title: 'Bender, Andrew, Allison, and Brian', result: false },
-	// 		{ title: 'Coach, Ellis, Nick, and Rochelle', result: false },
-	// 		{ title: 'Harry, Ron, Hermione and Dumbledore', result: false },
-	// 		{ title: 'Francis, Bill, Zoey, and Louis', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Celebrities',
-	// 	title: 'Aubrey Graham is better known as',
-	// 	options: [
-	// 		{ title: 'Travis Scott', result: false },
-	// 		{ title: 'Lil Wayne', result: false },
-	// 		{ title: '2 Chainz', result: false },
-	// 		{ title: 'Drake', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'According to Overwatch&#039;s lore, who was once a member of the Deadlock Gang?',
-	// 	options: [
-	// 		{ title: 'Roadhog', result: false },
-	// 		{ title: 'Soldier 76', result: false },
-	// 		{ title: 'Junkrat', result: false },
-	// 		{ title: 'McCree', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In Terraria, which of these items is NOT crafted at a Mythril Anvil?',
-	// 	options: [
-	// 		{ title: 'Venom Staff', result: false },
-	// 		{ title: 'Sky Fracture', result: false },
-	// 		{ title: 'Orichalcum Tools', result: false },
-	// 		{ title: 'Ankh Charm', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science: Gadgets',
-	// 	title: 'When was the DVD invented?',
-	// 	options: [
-	// 		{ title: '2000', result: false },
-	// 		{ title: '1990', result: false },
-	// 		{ title: '1980', result: false },
-	// 		{ title: '1995', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'Which game in the &quot;Monster Hunter&quot; series introduced the &quot;Insect Glaive&quot; weapon?',
-	// 	options: [
-	// 		{ title: 'Monster Hunter Freedom', result: false },
-	// 		{ title: 'Monster Hunter Stories', result: false },
-	// 		{ title: 'Monster Hunter 2', result: false },
-	// 		{ title: 'Monster Hunter 4', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Japanese Anime & Manga',
-	// 	title: 'In &quot;To Love-Ru&quot;, Ren and Run are from what planet?',
-	// 	options: [
-	// 		{ title: 'Deviluke', result: false },
-	// 		{ title: 'Mistletoe', result: false },
-	// 		{ title: 'Okiwana', result: false },
-	// 		{ title: 'Memorze', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Music',
-	// 	title:
-	// 		'&quot;Make You Feel My Love&quot; was originally written and performed by which singer-songwriter?',
-	// 	options: [
-	// 		{ title: 'Elvis', result: false },
-	// 		{ title: 'Adele', result: false },
-	// 		{ title: 'Billy Joel', result: false },
-	// 		{ title: 'Bob Dylan', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title: 'Who founded the Khan Academy?',
-	// 	options: [
-	// 		{ title: 'Ben Khan', result: false },
-	// 		{ title: 'Kitt Khan', result: false },
-	// 		{ title: 'Adel Khan', result: false },
-	// 		{ title: 'Sal Khan', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Japanese Anime & Manga',
-	// 	title: 'In Haikyuu!!, who is not a member of Karasuno VBC?',
-	// 	options: [
-	// 		{ title: 'Tadashi Yamaguchi', result: false },
-	// 		{ title: 'Hisashi Kinoshita', result: false },
-	// 		{ title: 'Kazuhito Narita', result: false },
-	// 		{ title: 'Shigeru Yahaba', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'History',
-	// 	title: 'How old was Adolf Hitler when he died?',
-	// 	options: [
-	// 		{ title: '43', result: false },
-	// 		{ title: '65', result: false },
-	// 		{ title: '47', result: false },
-	// 		{ title: '56', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Books',
-	// 	title:
-	// 		'In the Magic: The Gathering universe,  the Antiquities, Ice Age, and Alliances expansions take place on which continent?',
-	// 	options: [
-	// 		{ title: 'Aerona', result: false },
-	// 		{ title: 'Shiv', result: false },
-	// 		{ title: 'Jamuraa', result: false },
-	// 		{ title: 'Terisiare', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title: 'Which country drives on the left side of the road?',
-	// 	options: [
-	// 		{ title: 'Germany', result: false },
-	// 		{ title: 'Russia', result: false },
-	// 		{ title: 'China', result: false },
-	// 		{ title: 'Japan', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'Which car is NOT featured in &quot;Need for Speed: Hot Pursuit 2&quot;?',
-	// 	options: [
-	// 		{ title: 'Ford Crown Victoria', result: false },
-	// 		{ title: 'BMW Z8', result: false },
-	// 		{ title: 'McLaren F1', result: false },
-	// 		{ title: 'Toyota MR2', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Animals',
-	// 	title: 'Which of these is a colony of polyps and not a jellyfish?',
-	// 	options: [
-	// 		{ title: 'Sea Wasp', result: false },
-	// 		{ title: 'Irukandji', result: false },
-	// 		{ title: 'Sea Nettle', result: false },
-	// 		{ title: 'Portuguese Man-of-War', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Mythology',
-	// 	title:
-	// 		'According to Japanese folklore, what is the favorite food of the Kappa.',
-	// 	options: [
-	// 		{ title: 'Kabocha', result: false },
-	// 		{ title: 'Nasu', result: false },
-	// 		{ title: 'Soba', result: false },
-	// 		{ title: 'Cucumbers', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Music',
-	// 	title: 'Who was &quot;Kung Fu Fighting&quot; in 1974?',
-	// 	options: [
-	// 		{ title: 'The Bee Gees', result: false },
-	// 		{ title: 'Heatwave', result: false },
-	// 		{ title: 'Kool &amp; the Gang', result: false },
-	// 		{ title: 'Carl Douglas', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Art',
-	// 	title: 'Which painting was not made by Vincent Van Gogh?',
-	// 	options: [
-	// 		{ title: 'Caf&eacute; Terrace at Night', result: false },
-	// 		{ title: 'Bedroom In Arles', result: false },
-	// 		{ title: 'Starry Night', result: false },
-	// 		{ title: 'The Ninth Wave', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In Counter-Strike: Global Offensive, what&#039;s the rarity of discontinued skins called?',
-	// 	options: [
-	// 		{ title: 'Discontinued', result: false },
-	// 		{ title: 'Diminshed', result: false },
-	// 		{ title: 'Limited', result: false },
-	// 		{ title: 'Contraband', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Books',
-	// 	title:
-	// 		'In Terry Pratchett&#039;s Discworld novel &#039;Wyrd Sisters&#039;, which of these are not one of the three main witches?',
-	// 	options: [
-	// 		{ title: 'Granny Weatherwax', result: false },
-	// 		{ title: 'Nanny Ogg', result: false },
-	// 		{ title: 'Magrat Garlick', result: false },
-	// 		{ title: 'Winny Hathersham', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'In 2004, which person(s) created &quot;Roblox&quot;?',
-	// 	options: [
-	// 		{ title: 'Erik Cassel', result: false },
-	// 		{ title: 'Jonas Alto and Sarah Smith', result: false },
-	// 		{ title: 'James Kolein', result: false },
-	// 		{ title: 'David Baszucki and Erik Cassel', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science: Computers',
-	// 	title: 'The acronym &quot;RIP&quot; stands for which of these?',
-	// 	options: [
-	// 		{ title: 'Runtime Instance Processes', result: false },
-	// 		{ title: 'Regular Interval Processes', result: false },
-	// 		{ title: 'Routine Inspection Protocol', result: false },
-	// 		{ title: 'Routing Information Protocol', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Politics',
-	// 	title:
-	// 		'What year did the effort to deploy the Common Core State Standards (CCSS) in the US begin?',
-	// 	options: [
-	// 		{ title: '2012', result: false },
-	// 		{ title: '2006', result: false },
-	// 		{ title: '1997', result: false },
-	// 		{ title: '2009', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title:
-	// 		'In the 2014 film &quot;Birdman&quot;, what is the primary instrument in the score?',
-	// 	options: [
-	// 		{ title: 'Saxophone', result: false },
-	// 		{ title: 'Violin', result: false },
-	// 		{ title: 'Actual Live Birds Singing', result: false },
-	// 		{ title: 'Drums', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Celebrities',
-	// 	title:
-	// 		'In 2014, this new top 100 rapper who featured in &quot;Computers&quot; and &quot;Body Dance&quot; was arrested in a NYPD sting for murder.',
-	// 	options: [
-	// 		{ title: 'DJ Snake', result: false },
-	// 		{ title: 'Swae Lee', result: false },
-	// 		{ title: 'Young Thug', result: false },
-	// 		{ title: 'Bobby Shmurda', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title: 'Which of these choices is not one of the phases of mitosis?',
-	// 	options: [
-	// 		{ title: 'Metaphase', result: false },
-	// 		{ title: 'Anaphase', result: false },
-	// 		{ title: 'Telophase', result: false },
-	// 		{ title: 'Diplophase', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'Which of these Japanese islands is the largest by area?',
-	// 	options: [
-	// 		{ title: 'Iki', result: false },
-	// 		{ title: 'Odaiba', result: false },
-	// 		{ title: 'Okinawa', result: false },
-	// 		{ title: 'Shikoku', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In Night In The Woods, what is Mae Borowski mother&#039;s name?',
-	// 	options: [
-	// 		{ title: 'Jenny', result: false },
-	// 		{ title: 'Margaret', result: false },
-	// 		{ title: 'Kate', result: false },
-	// 		{ title: 'Candy', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title: 'Which country has the union jack in its flag?',
-	// 	options: [
-	// 		{ title: 'South Africa', result: false },
-	// 		{ title: 'Canada', result: false },
-	// 		{ title: 'Hong Kong', result: false },
-	// 		{ title: 'New Zealand', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'How many obsidian blocks are required to build a nether portal in Minecraft?',
-	// 	options: [
-	// 		{ title: '14', result: false },
-	// 		{ title: '13', result: false },
-	// 		{ title: '16', result: false },
-	// 		{ title: '10', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Television',
-	// 	title:
-	// 		'In the TV show &#039;M*A*S*H&#039;, what was the nickname of Corporal Walter O&#039;Reilly?',
-	// 	options: [
-	// 		{ title: 'Hawkeye', result: false },
-	// 		{ title: 'Hot Lips', result: false },
-	// 		{ title: 'Trapper', result: false },
-	// 		{ title: 'Radar', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Sports',
-	// 	title:
-	// 		'Which English football club has the nickname &#039;The Foxes&#039;?',
-	// 	options: [
-	// 		{ title: 'Northampton Town', result: false },
-	// 		{ title: 'Bradford City', result: false },
-	// 		{ title: 'West Bromwich Albion', result: false },
-	// 		{ title: 'Leicester City', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title:
-	// 		'In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?',
-	// 	options: [
-	// 		{ title: 'I-950', result: false },
-	// 		{ title: 'T-888', result: false },
-	// 		{ title: 'T-1000', result: false },
-	// 		{ title: 'T-800', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title:
-	// 		'On the Beaufort Scale of wind force, what wind name is given to number 8?',
-	// 	options: [
-	// 		{ title: 'Storm', result: false },
-	// 		{ title: 'Hurricane', result: false },
-	// 		{ title: 'Breeze', result: false },
-	// 		{ title: 'Gale', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Books',
-	// 	title: 'What is the fourth book of the Old Testament?',
-	// 	options: [
-	// 		{ title: 'Genesis', result: false },
-	// 		{ title: 'Exodus', result: false },
-	// 		{ title: 'Leviticus', result: false },
-	// 		{ title: 'Numbers', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'Who made Garry&#039;s Mod?',
-	// 	options: [
-	// 		{ title: 'Randy Newman', result: false },
-	// 		{ title: 'Facepunch Studios', result: false },
-	// 		{ title: 'Gabe Newell', result: false },
-	// 		{ title: 'Garry Newman', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title: 'What is the molecular formula of Glucose?',
-	// 	options: [
-	// 		{ title: 'C2H4O2', result: false },
-	// 		{ title: 'K+', result: false },
-	// 		{ title: 'CH4', result: false },
-	// 		{ title: 'C6H12O6', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'History',
-	// 	title:
-	// 		'Which of the following ancient peoples was NOT classified as Hellenic (Greek)?',
-	// 	options: [
-	// 		{ title: 'Dorians', result: false },
-	// 		{ title: 'Achaeans', result: false },
-	// 		{ title: 'Ionians', result: false },
-	// 		{ title: 'Illyrians', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Japanese Anime & Manga',
-	// 	title:
-	// 		'In the anime Initial D, how does Takumi Fujiwara describe a drift?',
-	// 	options: [
-	// 		{
-	// 			title:
-	// 				'&#039;. . . the wheels lose traction, making the car slide sideways&#039;',
-	// 			result: false,
-	// 		},
-	// 		{
-	// 			title:
-	// 				'&#039;. . . the car oversteers through a curve, causing it to turn faster&#039;',
-	// 			result: false,
-	// 		},
-	// 		{ title: '&#039;. . . you turn a lot&#039;', result: false },
-	// 		{
-	// 			title:
-	// 				'&#039;. . . the front tires slide so the car won&#039;t face the inside&#039;',
-	// 			result: true,
-	// 		},
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title: 'Which one of the following rhythm games was made by Harmonix?',
-	// 	options: [
-	// 		{ title: 'Meat Beat Mania', result: false },
-	// 		{ title: 'Guitar Hero Live', result: false },
-	// 		{ title: 'Dance Dance Revolution', result: false },
-	// 		{ title: 'Rock Band', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'Why was the character Trevor Philips discharged from the Air Force?',
-	// 	options: [
-	// 		{ title: 'Injuries', result: false },
-	// 		{ title: 'Disease', result: false },
-	// 		{ title: 'Danger to Others', result: false },
-	// 		{ title: 'Mental Health Issues', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Music',
-	// 	title:
-	// 		'Madonna&#039;s song &quot;Hung Up&quot; includes a piece from which popular 70s song?',
-	// 	options: [
-	// 		{ title: 'Staying Alive', result: false },
-	// 		{ title: 'Night Fever', result: false },
-	// 		{ title: 'The Chain', result: false },
-	// 		{
-	// 			title: 'Gimmie! Gimmie! Gimme! (A Man After Midnight)',
-	// 			result: true,
-	// 		},
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science & Nature',
-	// 	title: 'If you planted the seeds of Quercus robur what would grow?',
-	// 	options: [
-	// 		{ title: 'Flowers', result: false },
-	// 		{ title: 'Vegtables', result: false },
-	// 		{ title: 'Grains', result: false },
-	// 		{ title: 'Trees', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'Who is the main character of &quot;Metal Gear Solid 3&quot;?',
-	// 	options: [
-	// 		{ title: 'Solid Snake', result: false },
-	// 		{ title: 'Liquid Snake', result: false },
-	// 		{ title: 'Venom Snake', result: false },
-	// 		{ title: 'Naked Snake', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Animals',
-	// 	title: 'What are rhino&#039;s horn made of?',
-	// 	options: [
-	// 		{ title: 'Bone', result: false },
-	// 		{ title: 'Ivory', result: false },
-	// 		{ title: 'Skin', result: false },
-	// 		{ title: 'Keratin', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Art',
-	// 	title: 'What year was the Mona Lisa finished?',
-	// 	options: [
-	// 		{ title: '1487', result: false },
-	// 		{ title: '1523', result: false },
-	// 		{ title: '1511', result: false },
-	// 		{ title: '1504', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Cartoon & Animations',
-	// 	title:
-	// 		'Which of the following films was Don Bluth both the writer, director, and producer for?',
-	// 	options: [
-	// 		{ title: 'Titan A.E.', result: false },
-	// 		{ title: 'Anastasia', result: false },
-	// 		{ title: 'The Land Before Time', result: false },
-	// 		{ title: 'All Dogs Go To Heaven', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Music',
-	// 	title: 'Which brass instrument has the lowest pitch in an orchestra?',
-	// 	options: [
-	// 		{ title: 'Trumpet', result: false },
-	// 		{ title: 'Saxophone', result: false },
-	// 		{ title: 'Trombone', result: false },
-	// 		{ title: 'Tuba', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'How many countries does Spain have a land border with?',
-	// 	options: [
-	// 		{ title: '2', result: false },
-	// 		{ title: '3', result: false },
-	// 		{ title: '4', result: false },
-	// 		{ title: '5', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'Who is the creator of the Super Smash Bros. Series?',
-	// 	options: [
-	// 		{ title: 'Reggie Fils-Aim&eacute;', result: false },
-	// 		{ title: 'Bill Trinen', result: false },
-	// 		{ title: 'Hideo Kojima', result: false },
-	// 		{ title: 'Masahiro Sakurai', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Music',
-	// 	title:
-	// 		'What is the English title of the vaporwave track &quot;リサフランク420 / 現代のコンピュー&quot; by Macintosh Plus (Vektroid)?',
-	// 	options: [
-	// 		{ title: 'Smoke Weed 420 / Everyday', result: false },
-	// 		{ title: 'Make Your Move 420 / My Mind', result: false },
-	// 		{
-	// 			title: 'It&#039;s All In Your Head 420 / Understand',
-	// 			result: false,
-	// 		},
-	// 		{ title: 'Lisa Frank 420 / Modern Computing', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'Which company did Bethesda purchase the Fallout Series from?',
-	// 	options: [
-	// 		{ title: 'Capcom', result: false },
-	// 		{ title: 'Blizzard Entertainment', result: false },
-	// 		{ title: 'Nintendo', result: false },
-	// 		{ title: 'Interplay Entertainment ', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Japanese Anime & Manga',
-	// 	title:
-	// 		'In the anime Assassination Classroom what is the class that Korosensei teaches?',
-	// 	options: [
-	// 		{ title: 'Class 3-A', result: false },
-	// 		{ title: 'Class 3-B', result: false },
-	// 		{ title: 'Class 3-D', result: false },
-	// 		{ title: 'Class 3-E', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'What animal is on Link&#039;s pajamas in The Legend of Zelda: The Wind Waker?',
-	// 	options: [
-	// 		{ title: 'Lobster', result: false },
-	// 		{ title: 'Salmon', result: false },
-	// 		{ title: 'Swordfish', result: false },
-	// 		{ title: 'Crawfish', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'In WarioWare: Smooth Moves, which one of these is NOT a Form?',
-	// 	options: [
-	// 		{ title: 'The Discard', result: false },
-	// 		{ title: 'The Elephant', result: false },
-	// 		{ title: 'The Mohawk', result: false },
-	// 		{ title: 'The Hotshot', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Vehicles',
-	// 	title: 'What engine is in the Lexus SC400?',
-	// 	options: [
-	// 		{ title: '2JZ-GTE', result: false },
-	// 		{ title: '7M-GTE', result: false },
-	// 		{ title: '5M-GE', result: false },
-	// 		{ title: '1UZ-FE', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Japanese Anime & Manga',
-	// 	title:
-	// 		'In the &quot;Toaru Majutsu no Index&quot; anime, Touma Kamijou is a level 0 esper that has the ability to do what?',
-	// 	options: [
-	// 		{ title: 'Teleport', result: false },
-	// 		{ title: 'Make telepathic communications', result: false },
-	// 		{ title: 'Create electricity from his own body', result: false },
-	// 		{ title: 'Dispell any esper or magical powers', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title:
-	// 		'According to Sherlock Holmes, &quot;If you eliminate the impossible, whatever remains, however improbable, must be the...&quot;',
-	// 	options: [
-	// 		{ title: 'Answer', result: false },
-	// 		{ title: 'Cause', result: false },
-	// 		{ title: 'Source', result: false },
-	// 		{ title: 'Truth', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title:
-	// 		'Darth Vader&#039;s famous reveal to Luke is iconic. But which of these is the right one?',
-	// 	options: [
-	// 		{ title: '&quot;Luke, I am your father.&quot;', result: false },
-	// 		{
-	// 			title: '&quot;You&#039;re wrong. I am your father.&quot;',
-	// 			result: false,
-	// 		},
-	// 		{
-	// 			title: '&quot;The truth is that I am your father.&quot;',
-	// 			result: false,
-	// 		},
-	// 		{ title: '&quot;No. I am your father.&quot;', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title:
-	// 		'What was the name of the actor who played Leatherface in the 1974 horror film, The Texas Chainsaw Massacre?',
-	// 	options: [
-	// 		{ title: 'Edwin Neal', result: false },
-	// 		{ title: 'John Dugan', result: false },
-	// 		{ title: 'Joe Bill Hogan', result: false },
-	// 		{ title: 'Gunnar Hansen', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title:
-	// 		'What type of cheese, loved by Wallace and Gromit, had it&#039;s sale prices rise after their successful short films?',
-	// 	options: [
-	// 		{ title: 'Cheddar', result: false },
-	// 		{ title: 'Moon Cheese', result: false },
-	// 		{ title: 'Edam', result: false },
-	// 		{ title: 'Wensleydale', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In the game &quot;Hearthstone&quot;, what is the best rank possible?',
-	// 	options: [
-	// 		{ title: 'Rank 1 Elite', result: false },
-	// 		{ title: 'Rank 1 Master', result: false },
-	// 		{ title: 'Rank 1 Supreme', result: false },
-	// 		{ title: 'Rank 1 Legend', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'History',
-	// 	title:
-	// 		'In what year did Kentucky become the 15th state to join the union?',
-	// 	options: [
-	// 		{ title: '1782', result: false },
-	// 		{ title: '1798', result: false },
-	// 		{ title: '1788', result: false },
-	// 		{ title: '1792', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Board Games',
-	// 	title: 'Which of the following tabletop games is the oldest?',
-	// 	options: [
-	// 		{ title: 'Chess', result: false },
-	// 		{ title: 'Mahjong', result: false },
-	// 		{ title: 'Shogi', result: false },
-	// 		{ title: 'Go', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'Toby Fox&#039;s &quot;Megalovania&quot; was first used where?',
-	// 	options: [
-	// 		{ title: 'Homestuck: [S] Wake', result: false },
-	// 		{ title: 'Undertale', result: false },
-	// 		{ title: 'Mother: Cognitive Dissonance', result: false },
-	// 		{
-	// 			title: 'Radiation&#039;s Earthbound Halloween Hack',
-	// 			result: true,
-	// 		},
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'What was the first &quot;Call Of Duty: Zombies&quot; map to be directed by Jason Blundell?',
-	// 	options: [
-	// 		{ title: 'Buried', result: false },
-	// 		{ title: 'Origins', result: false },
-	// 		{ title: 'Moon', result: false },
-	// 		{ title: 'Mob Of The Dead', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In the &quot;Call Of Duty: Zombies&quot; map &quot;Origins&quot;, how many numbered power generators are there?',
-	// 	options: [
-	// 		{ title: '8', result: false },
-	// 		{ title: '5', result: false },
-	// 		{ title: '3', result: false },
-	// 		{ title: '6', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title: 'What was the original release date of Grand Theft Auto V?',
-	// 	options: [
-	// 		{ title: 'August 17, 2013', result: false },
-	// 		{ title: 'April 14, 2015', result: false },
-	// 		{ title: 'November 18, 2014', result: false },
-	// 		{ title: 'September 17, 2013', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'General Knowledge',
-	// 	title: 'Chartreuse is a color between yellow and what?',
-	// 	options: [
-	// 		{ title: 'Red', result: false },
-	// 		{ title: 'Black', result: false },
-	// 		{ title: 'Purple', result: false },
-	// 		{ title: 'Green', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'History',
-	// 	title: 'When did construction of the Suez Canal finish?',
-	// 	options: [
-	// 		{ title: '1859', result: false },
-	// 		{ title: '1860', result: false },
-	// 		{ title: '1850', result: false },
-	// 		{ title: '1869', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'What is the official national language of Pakistan?',
-	// 	options: [
-	// 		{ title: 'Indian', result: false },
-	// 		{ title: 'Punjabi', result: false },
-	// 		{ title: 'Pashto', result: false },
-	// 		{ title: 'Urdu', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In the Half-Life universe, the Black Mesa Research Facility is located in which US state?',
-	// 	options: [
-	// 		{ title: 'Nevada', result: false },
-	// 		{ title: 'Arizona', result: false },
-	// 		{ title: 'Wyoming', result: false },
-	// 		{ title: 'New Mexico', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'What national museum will you find in Cooperstown, New York?',
-	// 	options: [
-	// 		{ title: 'Metropolitan Museum of Art', result: false },
-	// 		{ title: 'National Toy Hall of Fame', result: false },
-	// 		{ title: 'Museum of Modern Art', result: false },
-	// 		{ title: 'National Baseball Hall of Fame', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In Disney&#039;s &quot;Toontown Online&quot;, which of these species wasn&#039;t available as a Toon?',
-	// 	options: [
-	// 		{ title: 'Monkey', result: false },
-	// 		{ title: 'Bear', result: false },
-	// 		{ title: 'Pig', result: false },
-	// 		{ title: 'Cow', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'Which of these Japanese islands is the largest by area?',
-	// 	options: [
-	// 		{ title: 'Iki', result: false },
-	// 		{ title: 'Odaiba', result: false },
-	// 		{ title: 'Okinawa', result: false },
-	// 		{ title: 'Shikoku', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'In Night In The Woods, what is Mae Borowski mother&#039;s name?',
-	// 	options: [
-	// 		{ title: 'Jenny', result: false },
-	// 		{ title: 'Margaret', result: false },
-	// 		{ title: 'Kate', result: false },
-	// 		{ title: 'Candy', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Science: Mathematics',
-	// 	title:
-	// 		'Which of the following mathematicians made major contributions to game theory?',
-	// 	options: [
-	// 		{ title: 'Carl Friedrich Gauss', result: false },
-	// 		{ title: 'Leonhard Euler', result: false },
-	// 		{ title: 'Stefan Banach', result: false },
-	// 		{ title: 'John Von Neumann', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Geography',
-	// 	title: 'What city is the Terracotta Army located in?',
-	// 	options: [
-	// 		{ title: 'Beijing', result: false },
-	// 		{ title: 'Shanghai', result: false },
-	// 		{ title: 'Hong Kong', result: false },
-	// 		{ title: 'Xi&#039;an', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Video Games',
-	// 	title:
-	// 		'What Ultimate does Makoto Naegi, protagonist of Danganronpa: Trigger Happy Havoc, have? ',
-	// 	options: [
-	// 		{ title: 'Ultimate Unlucky Student', result: false },
-	// 		{ title: 'Ultimate Detective', result: false },
-	// 		{ title: 'Ultimate Runner', result: false },
-	// 		{ title: 'Ultimate Lucky Student', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
-	// {
-	// 	category: 'Entertainment: Film',
-	// 	title:
-	// 		'Who plays Jack Burton in the movie &quot;Big Trouble in Little China?&quot;',
-	// 	options: [
-	// 		{ title: 'Patrick Swayze', result: false },
-	// 		{ title: 'John Cusack', result: false },
-	// 		{ title: 'Harrison Ford', result: false },
-	// 		{ title: 'Kurt Russell', result: true },
-	// 	],
-	// 	time: 10,
-	// 	score: 5,
-	// },
+	// EL MUNDO DE JS
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0029'),
+		title: '¿En que año nacio lo que hoy conocemos como Javascript?',
+		options: [
+			{ title: '1999', result: false },
+			{ title: '2001', result: false },
+			{ title: '1997', result: false },
+			{ title: '1995', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0030'),
+		title: "¿Que tipo de notacion estoy usando si escribo 'result.data'",
+		options: [
+			{ title: 'DOT', result: true },
+			{ title: 'Bracket', result: false },
+			{ title: 'ES6', result: false },
+			{ title: 'ES5', result: false },
+		],
+		time: 15,
+		score: 3,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0031'),
+		title: '¿Un array que tipo de dato es?',
+		options: [
+			{ title: 'String', result: false },
+			{ title: 'Number', result: false },
+			{ title: 'Boolean', result: false },
+			{ title: 'Object', result: true },
+		],
+		time: 10,
+		score: 8,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0032'),
+		title:
+			'Si mostrara en consola la siguiente condicion ([] !== []) ¿Que devolveria?',
+		options: [
+			{ title: 'Error', result: false },
+			{ title: 'Undefined', result: false },
+			{ title: 'False', result: false },
+			{ title: 'True', result: true },
+		],
+		time: 10,
+		score: 7,
+	}, // TERMINA EL MUNDO DEL JS
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0033'),
+		title: '¿Cómo se llama esta pintura del 1656? ',
+		image: 'https://emtstatic.com/2017/12/meninas.jpg',
+		options: [
+			{ title: 'Las Meninas', result: true },
+			{ title: 'El beso', result: false },
+			{ title: 'Las señoras de Avignon', result: false },
+			{ title: 'La dama del armiño', result: false },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0034'),
+		title: '¿Cómo se llama esta obra del 1942? ',
+		image: 'https://blog.artsper.com/wp-content/uploads/2019/06/600.jpeg',
+		options: [
+			{ title: 'La noche', result: false },
+			{ title: 'Nightsky', result: false },
+			{ title: 'Nighthawks', result: true },
+			{ title: 'Ambiente nocturno', result: false },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0035'),
+		title: '¿Cómo se llama esta pintura del 1872? ',
+		image:
+			'https://todoestaennuestracabeza.files.wordpress.com/2012/06/impresion_sol_naciente11.jpg',
+		options: [
+			{ title: 'Walter Lillies', result: false },
+			{ title: 'Amanecer', result: false },
+			{ title: 'Sol en alza', result: false },
+			{ title: 'Impresión, sol naciente', result: true },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0036'),
+		title: '¿Cómo se llama esta pintura del 1656? ',
+		image:
+			'https://images-na.ssl-images-amazon.com/images/I/51cS5kQWTrL._AC_SX450_.jpg',
+		options: [
+			{ title: 'Lirios', result: true },
+			{ title: 'Lavandas', result: false },
+			{ title: 'Amapolas', result: true },
+			{ title: 'Campo de rosas', result: false },
+		],
+		time: 10,
+		score: 7,
+	}, //TERMINA COMO SE LLAMA LA OBRA
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0037'),
+		title:
+			'ifconfig has been deprecated, what command is now recommended for changing IP addresses in the live config?',
+		image:
+			'https://crock.com.ar/wp-content/uploads/2016/10/Patricio_Rey_Y_Sus_Redonditos_De_Ricota-Oktubre.jpg',
+		options: [
+			{ title: 'netconf', result: false },
+			{ title: 'ipman', result: false },
+			{ title: 'ip', result: true },
+			{ title: 'ipconfig', result: false },
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0038'),
+		title:
+			'What is the output of the following command?tail -n 20 test.txt',
+		image:
+			'https://static.posters.cz/image/750/marco-de-plastico-pink-floyd-dark-side-of-the-moon-i23364.jpg',
+		options: [
+			{ title: 'The first 20 lines of test.txt', result: false },
+			{
+				title:
+					'The last 20 lines of test.text including the black lines',
+				result: true,
+			},
+			{
+				title: 'The last 20 lines of test.text with lines numbers',
+				result: false,
+			},
+			{
+				title:
+					'The last 20 lines of test.text omitting the black lines',
+				result: false,
+			},
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0039'),
+		title:
+			'After installing a new package, in which directory are you most likely find its configuration file?',
+		image:
+			'https://www.latercera.com/resizer/C8sTiHepMe4vbe80EklUbolRcS4=/900x600/smart/cloudfront-us-east-1.images.arcpublishing.com/copesa/WWOU6GDWVRELDPUN3L2NMKSSW4.jpg',
+		options: [
+			{ title: '/opt', result: false },
+			{ title: '/conf', result: false },
+			{ title: '/etc', result: true },
+			{ title: '/lib', result: false },
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0040'),
+		title:
+			'What is the first character for a file or directory names if they should not be displayed by commands such as ls unless specifically requested?',
+		image:
+			'https://townsquare.media/site/295/files/2013/11/Beatles-Rubber-Soul.jpg',
+		options: [
+			{ title: '- (minus)', result: false },
+			{ title: '. (dot)', result: true },
+			{ title: ' (backslash)', result: false },
+			{ title: '_ (underscore)', result: false },
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		//ACA EMPIEZO YO NACHOTIPS
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0041'),
+		title: '¿Cuál de los siguientes sintaxis es correcta',
+		options: [
+			{ title: 'body {color: black};', result: false },
+			{
+				title: 'body {backgroundColor: blue, color: black}',
+				result: false,
+			},
+			{ title: 'body {background-color: blue}', result: false },
+			{ title: 'body {color: black;}', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0042'),
+		title: '¿Para que sirve la propiedad background-color?',
+		options: [
+			{ title: 'Para establecer un color de fuente', result: false },
+			{
+				title: 'Para establecer un color de fondo al elemento',
+				result: true,
+			},
+			{
+				title: 'Para establecer un gradiente al elemento',
+				result: false,
+			},
+			{
+				title: 'Para establecer un color en el body del documento',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0043'),
+		title: '¿Para que sirve la propiedad overflow?',
+		options: [
+			{
+				title:
+					'Para establecer  qué debe suceder si el contenido se desborda en el cuadro(caja) de un elemento.',
+				result: true,
+			},
+			{
+				title:
+					'Para establecer  qué debe suceder si el contenido no tiene color de fondo.',
+				result: false,
+			},
+			{
+				title:
+					'Para establecer  qué debe suceder si el contenido no se alinea en el centro.',
+				result: false,
+			},
+			{
+				title: 'Esta propiedad no existe en CSS2020',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0044'),
+		title:
+			'¿Que significa la siguiente sintaxis de la propiedad margin? "margin: 0px 20px"',
+		options: [
+			{
+				title: 'Que va a tener 20px de margen en todos los ejes',
+				result: false,
+			},
+			{
+				title:
+					'Que va a tener 20px de margen en el Vertical e 20px de margen en el eje Horizontal',
+				result: false,
+			},
+			{
+				title:
+					'Que va a tener 0 de margen en el Vertical e 20px de margen en el eje Horizontal',
+				result: true,
+			},
+			{
+				title: 'Que va a tener 20px de margen en el eje Horizontal',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	}, //ACA TERMINO YO NACHOTIPS
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0045'),
+		title: 'How did the dinosaurs die out?',
+		options: [
+			{ title: 'Because of the Ice age', result: false },
+			{ title: 'An asteroid impact', result: true },
+			{
+				title:
+					"DANG IT! They didn't die. In fact they excreted on your car last Friday.",
+				result: false,
+			},
+			{ title: 'A FLOOD 500 years ago', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0046'),
+		title: 'What kind of small objects composes much of the universe?',
+		options: [
+			{ title: 'Anti-matter', result: false },
+			{ title: 'Atoms', result: false },
+			{ title: 'My dreams', result: false },
+			{ title: 'Dark matter', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0047'),
+		title: 'Give an example of a decapod: ',
+		options: [
+			{ title: 'Unicorns!', result: false },
+			{ title: 'Crab', result: true },
+			{ title: "They don't exist", result: false },
+			{ title: 'Beetle', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0048'),
+		title: 'Which is a hypothetical string theory weightless particle?',
+		options: [
+			{ title: 'Anti-matter', result: false },
+			{ title: 'Baryonic Matter', result: false },
+			{ title: 'EARTH WORM JIM', result: false },
+			{ title: 'Dagobah', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0049'),
+		title: '¿Cuántos mundiales tiene Michael Schumacher?',
+		image:
+			'https://www.infobae.com/new-resizer/iTlkaCMRtjPmgb0bj4DhZgZ_sH0=/420x315/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/4CSV7B36DFDDURKGSKD3INJ5GU.jpg',
+		options: [
+			{ title: '5', result: false },
+			{ title: '8', result: false },
+			{ title: '7', result: true },
+			{ title: '6', result: false },
+		],
+		time: 5,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0050'),
+		title: '¿Cuántas Copas Libertadores ganó Ricardo Bochini?',
+		image:
+			'https://www.elcomercio.com/files/article_main/uploads/2019/11/15/5dcf5b0d76c36.jpeg',
+		options: [
+			{ title: '4', result: false },
+			{ title: '3', result: false },
+			{ title: '5', result: true },
+			{ title: '6', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0051'),
+		title: '¿Cuántos jugadores tiene un equipo de Handball?',
+		image:
+			'https://losolimpicos.com.ar/blog/wp-content/uploads/2016/08/handball-Argentina.jpg',
+		options: [
+			{ title: '7', result: true },
+			{ title: '6', result: false },
+			{ title: '5', result: false },
+			{ title: '4', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0052'),
+		title: 'El partido más largo de tenis de la historia duró:',
+		image:
+			'https://d2me2qg8dfiw8u.cloudfront.net/content/uploads/2020/06/24083428/2.53539380-752x428.jpg',
+		options: [
+			{ title: '7 horas', result: false },
+			{ title: '9 horas', result: false },
+			{ title: '11 horas', result: true },
+			{ title: '13 horas', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0053'),
+		title: '¿Cuál es la mascota de Neville Longbottom?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Hedwig', result: false },
+			{ title: 'Draco', result: false },
+			{ title: 'Trevor', result: true },
+			{ title: 'Sra. Norris', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0054'),
+		title: '¿Cuantos jugadores estan permitidos en un equipo de Quidditch?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: '14', result: false },
+			{ title: '11', result: false },
+			{ title: '7', result: true },
+			{ title: '15', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0055'),
+		title: '¿En que se transforma el Boggart de Parvati Patil? ',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'En Snape vestido de vieja', result: false },
+			{ title: 'En un Dementor', result: false },
+			{ title: 'En una momia bañada en sangre', result: true },
+			{ title: 'En Voldemort', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0056'),
+		title:
+			'¿Qué pagina de libro le dice Snape a Harry que ponga en la clase en la cual reemplaza a Lupin?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: '666', result: false },
+			{
+				title: '194',
+				result: false,
+			},
+			{
+				title: '394',
+				result: true,
+			},
+			{
+				title: '420',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		// ACA YO NACHOTIPS
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0057'),
+		title:
+			'¿Qué canción toca McFly en su prueba para el baile del instituto de 1985?',
+		options: [
+			{ title: "'Suspicius mind', de Elvis Presley", result: false },
+			{
+				title: "'California dreamin', de The Mamas & The Papas",
+				result: false,
+			},
+			{
+				title: "‘The power of love', de Huey Lewis and The News",
+				result: true,
+			},
+			{ title: "'Twist and shout', de los Beatles", result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0058'),
+		title:
+			'¿Cuál es el resultado de la siguiente multiplicación: (3/4)x4? ',
+		options: [
+			{ title: 'Nike Air MAG', result: true },
+			{ title: 'Nike Air FAST', result: false },
+			{ title: 'Nike Air JUMP', result: false },
+			{ title: 'Nike Air CRAFT', result: false },
+		],
+		time: 15,
+		score: 3,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0059'),
+		title: '¿Cómo se llama la novia de Marty McFly?',
+		options: [
+			{ title: 'Louise Harris', result: false },
+			{ title: 'Claire Alison', result: false },
+			{ title: 'Mary Jane', result: false },
+			{ title: 'Jennifer Parker', result: true },
+		],
+		time: 10,
+		score: 8,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0060'),
+		title: "¿En qué localidad nació el doctor Emmett Lathrop Brown, 'Doc'?",
+		options: [
+			{ title: 'Reno (Nevada)', result: false },
+			{ title: 'Yucca Valley (California)', result: false },
+			{ title: 'Lubbok (Texas)', result: false },
+			{ title: 'Hill Valley (California)', result: true },
+		],
+		time: 10,
+		score: 7,
+	}, // ACA TERMINO NACHOTIPS
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0061'),
+		title: 'Frase 1:',
+		options: [
+			{
+				title: 'La verdad es el peor enemigo de un mentiroso',
+				result: false,
+			},
+			{
+				title:
+					'Solo la verdad podría romperme. ¿Qué hay más duro que la verdad?',
+				result: true,
+			},
+			{ title: '¿Que seria de mi sin mis mentiras?', result: false },
+			{ title: 'Tu eres la unica dueña de mi verdad', result: false },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0062'),
+		title: 'Frase 2:',
+		options: [
+			{ title: 'Me gustan las monjas de mas de 40 años', result: false },
+			{
+				title:
+					'Sólo los sacerdotes y los locos no tienen miedo a nada, y yo nunca me he llevado muy bien con Dios:',
+				result: true,
+			},
+			{
+				title:
+					'Nunca me lleve bien con los dioses, ¿Como podría ponerme al nivel de un ser inferior?',
+				result: false,
+			},
+			{
+				title:
+					'La vida es una sola como para preocuparnos de la religión, o el amor...',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0063'),
+		title: 'Frase 3: ',
+		options: [
+			{
+				title:
+					'Todos los hombres sabios temen tres cosas: la ira de una mujer, la noche interminable y la deuda heredada.',
+				result: false,
+			},
+			{
+				title:
+					'Todos los hombres sabios temen tres cosas: la tormenta en el mar, la noche sin luna y la ira de un hombre apacible.',
+				result: true,
+			},
+			{
+				title:
+					'Todos los hombres sabios temen tres cosas: a los monstruos, a la oscuridad y a las alturas.',
+				result: false,
+			},
+			{
+				title:
+					'Todos los hombres sabios temen dos cosas: el día sin sol y la ira de una madre.',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0064'),
+		title: 'Frase 4:',
+		options: [
+			{
+				title:
+					'Sí, soy un mito. No existo en realidad. Es todo una ilusión de sus mentes',
+				result: false,
+			},
+			{
+				title:
+					'Sí, soy un mito. No existo en realidad. Es todo una ilusión de tu mente',
+				result: false,
+			},
+			{
+				title:
+					'Sí, soy un mito. Un mito muy especial que se crea a sí mismo. No me gusta que los demás  cuenten mentiras sobre mí.',
+				result: false,
+			},
+			{
+				title:
+					'Sí, soy un mito. Un mito muy especial que se crea a sí mismo. Las mejores mentiras sobre mí son las que yo mismo he contado.',
+				result: true,
+			},
+		],
+		time: 10,
+		score: 7,
+	}, //aca termina F
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0065'),
+		title:
+			'Adivina cuántos años tengo sabiendo que la tercera parte de ellos menos 1 es igual a la sexta parte',
+		options: [
+			{ title: '6', result: true },
+			{ title: '7', result: false },
+			{ title: '5', result: false },
+			{ title: '8', result: false },
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0066'),
+		title:
+			'Una rueda de un coche da 4590 vueltas en 9 minutos. ¿Cuántas vueltas dará en 24 horas y 24 minutos?',
+		options: [
+			{ title: '2868', result: false },
+			{ title: '746640', result: true },
+			{ title: '991440', result: false },
+			{ title: '41310', result: false },
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0067'),
+		title:
+			'Juan tiene 20 años menos que su padre y este tiene el triple de los años de su hijo. ¿Qué edad tienen cada uno?',
+		options: [
+			{ title: '11 Juan, 31 el padre', result: false },
+			{ title: '10 Juan, 30 el padre', result: false },
+			{ title: '12 Juan, 32 el padre', result: true },
+			{ title: '13 Juan, 33 el padre', result: false },
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0068'),
+		title:
+			'En una panadería con 80 kg son capaces de hacer 120 kg de pan. ¿Cuántos kg de harina serán necesarios para hacer 99 kg de pan?',
+		options: [
+			{
+				title: 'Si quieres hacer 99 panes necesitas 79 kg de harina',
+				result: false,
+			},
+			{
+				title: 'Si quieres hacer 99 panes necesitas 58 kg de harina',
+				result: false,
+			},
+			{
+				title: 'Si quieres hacer 99 panes necesitas 68 kg de harina',
+				result: false,
+			},
+			{
+				title: 'Si quieres hacer 99 panes necesitas 66kg de harina',
+				result: true,
+			},
+		],
+		time: 8,
+		score: 2,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0069'),
+		title: '¿Qué esposas de Enrique VIII fueron decapitadas?',
+		options: [
+			{ title: 'Catalina Howard y Catalina Parr', result: false },
+			{ title: 'Ana Bolena y Catalina de Aragón', result: false },
+			{ title: 'Ana de Cléveris y Ana Bolena', result: false },
+			{ title: 'Ana Bolena y Catherine Howard', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0070'),
+		title:
+			'¿Qué emperador romano legalizó el cristianismo y puso fin a la persecución de los cristianos?',
+		options: [
+			{ title: 'Nerón', result: false },
+			{ title: 'Adriano', result: false },
+			{ title: 'Constantino', result: true },
+			{ title: 'Trajano', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0071'),
+		title: '¿Quién fue el primer Presidente de Estados Unidos?',
+		options: [
+			{ title: 'George Washington', result: true },
+			{ title: 'Andrew Jackson', result: false },
+			{ title: 'Thomas Jefferson', result: false },
+			{ title: 'Abraham Lincoln', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0072'),
+		title: '¿Qué facción dirigió MaoZedong durante la guerra civil China?',
+		options: [
+			{ title: 'Confederados', result: false },
+			{ title: 'Comunistas', result: true },
+			{ title: 'Protestantes', result: false },
+			{ title: 'Nacionalistas', result: false },
+		],
+		time: 10,
+		score: 5,
+	}, //hasta acá ocupado
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0073'),
+		title: 'Frase 1:',
+		options: [
+			{ title: 'Estambul', result: false },
+			{ title: 'Ankara', result: true },
+			{ title: 'Bursa', result: false },
+			{ title: 'Antalya', result: false },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0074'),
+		title: 'La capital de Canadá es: ',
+		options: [
+			{ title: 'Ontario', result: false },
+			{ title: 'Ottawa', result: true },
+			{ title: 'Montreal', result: false },
+			{ title: 'Vancouver', result: false },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0075'),
+		title: 'La capital de Australia es: ',
+		options: [
+			{ title: 'Sidney', result: false },
+			{ title: 'Canberra', result: true },
+			{ title: 'Melbourne', result: false },
+			{ title: 'Darwin', result: false },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0076'),
+		title: 'La capital de Malasia es: ',
+		options: [
+			{ title: 'Malaca', result: false },
+			{ title: 'Kota Kinabalu', result: false },
+			{ title: 'Ipoh', result: false },
+			{ title: 'Kuala Lumpur', result: true },
+		],
+		time: 10,
+		score: 7,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0077'),
+		title: '¿A cuánto equivale π?',
+		options: [
+			{ title: '3,141592', result: true },
+			{ title: '3,149215', result: false },
+			{ title: '3,144423', result: false },
+			{ title: '3,144123', result: false },
+		],
+		time: 5,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0078'),
+		title: '¿Qué formula es esta? S = π x R²',
+		options: [
+			{ title: 'Diametro de un circulo', result: false },
+			{ title: 'Superficie de un circulo', result: true },
+			{ title: 'Volumen de un cilindro', result: false },
+			{ title: 'Superficie de paralelogramos', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0079'),
+		title: '¿Qué expresa esta formula? e = mc²',
+		options: [
+			{ title: 'La teoria de la probabilidad', result: false },
+			{ title: 'Equivalencia entre masa y volumen', result: true },
+			{ title: 'Circunferencia de un circuito', result: false },
+			{ title: 'Volumen de un cubo', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0080'),
+		title: '¿Como se le conoce a esta constante e?',
+		options: [
+			{ title: 'Infinito', result: false },
+			{ title: 'Pi', result: false },
+			{ title: 'Número de Euler', result: true },
+			{ title: 'Número áureo', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0081'),
+		title:
+			'¿Quién de los siguientes no fue parte de "Los Magníficos Siete"?',
+		options: [
+			{ title: 'Steve McQueen', result: false },
+			{ title: 'Robert Vaughn', result: false },
+			{ title: 'Clint Eastwood', result: true },
+			{ title: 'Charles Bronson', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0082'),
+		title: '¿Qué estado de EEUU no tiene una bandera cuadrada?',
+		options: [
+			{ title: 'Florida', result: false },
+			{ title: 'Nuevo México', result: false },
+			{ title: 'Ohio', result: true },
+			{ title: 'Idaho', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0083'),
+		title: '¿En qué año se considera el fin del imperio británico?',
+		options: [
+			{ title: '1929', result: false },
+			{ title: '1986', result: false },
+			{ title: '1997', result: true },
+			{ title: '1945', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0084'),
+		title: '¿En qué año se fundó Roma?',
+		options: [
+			{ title: '902 AC', result: false },
+			{ title: '524 AC', result: false },
+			{ title: '753 AC', result: true },
+			{ title: '697 AC', result: false },
+		],
+		time: 10,
+		score: 5,
+	}, // ACA SE TERMINO DE OCUPAR F
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0085'),
+		title: 'Capital de Santa Cruz: ',
+		options: [
+			{ title: 'Paraná', result: false },
+			{
+				title: 'Usuhaia',
+				result: false,
+			},
+			{
+				title: 'Río Gallegos',
+				result: true,
+			},
+			{
+				title: 'La Plata',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0086'),
+		title: 'Capital de Chaco: ',
+		options: [
+			{ title: 'Posadas', result: false },
+			{
+				title: 'Paraná',
+				result: false,
+			},
+			{
+				title: 'Resistencia',
+				result: true,
+			},
+			{
+				title: 'Rawson',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0087'),
+		title: 'Capital de Chubut: ',
+		options: [
+			{ title: 'San Luis', result: false },
+			{
+				title: 'Río Gallegos',
+				result: false,
+			},
+			{
+				title: 'Rawson',
+				result: true,
+			},
+			{
+				title: 'Santa Fe',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0088'),
+		title: 'Capital de Santa Fe',
+		options: [
+			{ title: 'Rosario', result: false },
+			{
+				title: 'La Pampa',
+				result: false,
+			},
+			{
+				title: 'Santa Fe',
+				result: true,
+			},
+			{
+				title: 'Pinamar',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	//2
+	// ACA EMPIEZO YOOO
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0089'),
+		title: '¿Qué es este símbolo?',
+		image:
+			'https://img.playbuzz.com/image/upload/ar_1.5,c_crop/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/v1554721423/hxycp39uazfxhiwj3w2m.jpg',
+		options: [
+			{ title: 'Una nota', result: false },
+			{ title: 'La nota DO', result: false },
+			{ title: 'La clave de sol', result: true },
+			{ title: 'La clave de do', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0090'),
+		title: "¿Quién compuso 'Las cuatro estaciones'?",
+		options: [
+			{ title: 'Bach', result: false },
+			{ title: 'Mozart', result: false },
+			{ title: 'Beethoven', result: false },
+			{ title: 'Vivaldi', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0091'),
+		title: 'Una de estas obras no es de Mozart. ¿Cuál de ellas?',
+		options: [
+			{ title: 'Madama Butterfly', result: true },
+			{ title: 'La Flauta mágica', result: false },
+			{ title: 'Las bodas de fígaro', result: false },
+			{ title: 'La falsa jardinera', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0092'),
+		title: '¿Qué es un aria dentro de una ópera?',
+		options: [
+			{ title: 'El primer acto de una opera', result: false },
+			{ title: 'La pieza compuesta para coro', result: false },
+			{ title: 'El primer acto de una opera', result: false },
+			{ title: 'La pieza compuesta para vos solista', result: true },
+		],
+		time: 10,
+		score: 5,
+	},
+	// ACA TERMINO YOOO
+	//3
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0093'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0094'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0095'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0096'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	//4
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0097'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0098'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0099'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0100'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0101'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0102'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0103'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0104'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0105'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0106'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0107'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0108'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0109'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0110'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0111'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0112'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0113'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0114'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0115'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0116'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0117'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0118'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0119'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0120'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0121'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0122'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0123'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0124'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0125'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0126'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0127'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0128'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0129'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0130'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0131'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0132'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0133'),
+		title: '¿Qué instrumento usamos para conocer la masa de un objeto?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'El kilo gramo', result: false },
+			{
+				title: 'La cinta metrica',
+				result: false,
+			},
+			{
+				title: 'La balanza',
+				result: true,
+			},
+			{
+				title: 'El termometro',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0134'),
+		title: '¿Cómo percibimos las características de los objetos?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Por nuestro carácter', result: false },
+			{
+				title: 'A través de guantes especiales',
+				result: false,
+			},
+			{
+				title: 'A través de los órganos de los sentidos',
+				result: true,
+			},
+			{
+				title: 'Por medio de la televisión',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0135'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0136'),
+		title: '¿Qué es una mezcla?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Dos líquidos juntos', result: false },
+			{
+				title: 'La unión de dos o más átomos en un núcleo',
+				result: false,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades',
+				result: true,
+			},
+			{
+				title:
+					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0137'),
+		title: "Who is Magnus' Dad?",
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Thor', result: false },
+			{
+				title: 'Natalie',
+				result: false,
+			},
+			{
+				title: 'Frey',
+				result: true,
+			},
+			{
+				title: 'Odin',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0138'),
+		title: 'What is Jack?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: "Fred's Staff", result: false },
+			{
+				title: 'Boom Daddy',
+				result: false,
+			},
+			{
+				title: 'Summarbrander',
+				result: true,
+			},
+			{
+				title: 'A Card',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0139'),
+		title: 'What does Jack think is a Hot Lady Sword?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Summarbrander Sword', result: false },
+			{
+				title: 'Freya Sword',
+				result: false,
+			},
+			{
+				title: 'Skofnung Sword',
+				result: true,
+			},
+			{
+				title: 'Loki Sword',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0140'),
+		title: 'What is Ratatoskr?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'A giant rat', result: false },
+			{
+				title: 'A giant cat',
+				result: false,
+			},
+			{
+				title: 'A giant squirrel',
+				result: true,
+			},
+			{
+				title: 'A Giant Dragon',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0141'),
+		title:
+			'Name of the riders sword that Eragon rejects in Ellesmera before crafting his own',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Brisingr', result: false },
+			{
+				title: 'Aya',
+				result: false,
+			},
+			{
+				title: 'Támerlein ',
+				result: true,
+			},
+			{
+				title: 'Tinkledeath',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0142'),
+		title: 'What members of the Foresworn nearly captured Oromis?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'Kialandí/Morzan', result: false },
+			{
+				title: 'Morzan/Unknown',
+				result: false,
+			},
+			{
+				title: 'Formora/Kialandí',
+				result: true,
+			},
+			{
+				title: 'Formora/Morzan',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0143'),
+		title: 'How many dwarf clans are there?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: '9', result: false },
+			{
+				title: '11',
+				result: false,
+			},
+			{
+				title: '13',
+				result: true,
+			},
+			{
+				title: '15',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0144'),
+		title:
+			'What is the name of the whirlpool of the southwest coast of Alagaësia?',
+		image:
+			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		options: [
+			{ title: 'The Inescapable', result: false },
+			{
+				title: 'The Terror',
+				result: false,
+			},
+			{
+				title: "The Boar's Eye",
+				result: true,
+			},
+			{
+				title: 'The Behemoth',
+				result: false,
+			},
+		],
+		time: 10,
+		score: 5,
+	},
+
+	//ACA TERMINA LINUX
 ];
 module.exports = questions;
