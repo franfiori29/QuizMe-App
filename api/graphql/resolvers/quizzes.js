@@ -39,14 +39,25 @@ module.exports = {
 				.populate('categoryId');
 			return foundQuizzes;
 		},
-		getRandomQuiz: async () => {
+		getRandomQuiz: async (_, __, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
 			const count = await Quiz.countDocuments();
-			var random = Math.floor(Math.random() * count);
-			const quiz = await Quiz.findOne()
+			let random = Math.abs(
+				Math.floor(Math.random() * count - completed.length)
+			);
+			const quiz = await Quiz.findOne({
+				_id: { $nin: completed },
+			})
 				.populate('categoryId')
 				.populate('questions')
 				.skip(random);
 			return quiz;
+		},
+		getUserQuizzes: async (_, { userId }) => {
+			const foundQuizzes = await Quiz.find({ creatorId: userId })
+				.populate('questions')
+				.populate('categoryId');
+			return foundQuizzes;
 		},
 		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }) => {
 			const quizzes = await Quiz.find()
@@ -55,17 +66,32 @@ module.exports = {
 				.limit(nPerPage);
 			return quizzes;
 		},
+		searchByPopularity: async () => {
+			const quizzesByPopularity = await Quiz.find({}, null, {
+				sort: { likes: -1 },
+			})
+				.populate('categoryId')
+				.populate('questions');
+			return quizzesByPopularity;
+		},
 	},
 	Mutation: {
-		createQuiz: async (_, { quiz }) => {
+		createQuiz: async (_, { quiz }, { user }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
 				(q) => q._id
 			);
-			const newQuiz = (await Quiz.create(quiz))
+			const newQuiz = await (
+				await Quiz.create({ ...quiz, creatorId: user._id })
+			)
 				.populate('questions')
 				.populate('categoryId')
 				.execPopulate();
 			return newQuiz;
+		},
+		destroyQuiz: async (_, { quizId }, { user }) => {
+			//TODO add admin privilege
+			await Quiz.deleteOne({ _id: quizId, creatorId: user._id });
+			return true;
 		},
 		updateLike: async (_, { quizId, giveLike }, { user }) => {
 			const quizfind = await Quiz.findOneAndUpdate(

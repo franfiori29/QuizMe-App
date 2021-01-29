@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 

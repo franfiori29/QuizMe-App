@@ -2,7 +2,7 @@ import React from 'react';
 import HomeRoutes from './routes/home_routes';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { store, persistor } from '@redux/store';
 // import {
 // 	useFonts,

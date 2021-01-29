@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Text,
 	TouchableOpacity,
@@ -10,7 +10,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 //==> Actions
-import { changeLanguage, switchTheme } from '@redux/reducers/global';
+import {
+	changeLanguage,
+	switchTheme,
+	switchSound,
+} from '@redux/reducers/global';
 import { logout } from '@redux/reducers/user';
 
 //==> Components
@@ -22,12 +26,20 @@ import styled, { ThemeProvider } from 'styled-components/native';
 //Assets
 import strings from './strings';
 
-const UserMenu = ({ navigation }) => {
-	const { language, theme } = useSelector((state) => state.global);
+const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
+	const { language, theme, sound } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
 	const dispatch = useDispatch();
 	const s = strings[language];
+
+	useEffect(() => {
+		if (!sound) {
+			stopTheme();
+		} else {
+			playTheme();
+		}
+	}, [sound]);
 
 	const handleLogout = () => {
 		dispatch(logout());
@@ -55,6 +67,12 @@ const UserMenu = ({ navigation }) => {
 			Vibration.vibrate(100);
 		}
 		dispatch(switchTheme());
+	};
+	const handleSound = () => {
+		if (Platform.OS === 'android') {
+			Vibration.vibrate(100);
+		}
+		dispatch(switchSound());
 	};
 
 	const handleLang = () => {
@@ -111,12 +129,10 @@ const UserMenu = ({ navigation }) => {
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.subs}</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('MyQuizzes')}
-					>
-						<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
-					</TouchableOpacity>
+				<MenuTouchOption
+					onPress={() => navigation.navigate('MyQuizzes')}
+				>
+					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMail}>
 					<Text
@@ -137,17 +153,21 @@ const UserMenu = ({ navigation }) => {
 				<AccType onPress={() => navigation.navigate('UpdateName')}>
 					<Text style={{ color: theme.text }}>{s.user}</Text>
 				</AccType>
-				<MenuTouchOption>
-					<Text
-						style={{ color: theme.text }}
-						onPress={() => navigation.navigate('PasswordUpdate')}
-					>
-						{s.pass}
-					</Text>
+				<MenuTouchOption
+					onPress={() => navigation.navigate('PasswordUpdate')}
+				>
+					<Text style={{ color: theme.text }}>{s.pass}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.notif}</Text>
 				</MenuTouchOption>
+				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
+					<Text style={{ color: theme.text }}>{s.sound}</Text>
+					<Switch
+						onValueChange={handleSound}
+						value={sound ? true : false}
+					/>
+				</MenuSolidOption>
 				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
 					<Text style={{ color: theme.text }}>{s.dark}</Text>
 					<Switch

@@ -6,6 +6,7 @@ import {
 	getQuizByCategory,
 	clearfilteredQuizzes,
 	getRandomQuiz,
+	getQuizzesByPopularity,
 } from '@redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
@@ -23,9 +24,9 @@ import logo from '@assets/logo.png';
 //==>Assets
 import strings from './strings';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
-	const { theme, language } = useSelector((state) => state.global);
+	const { theme, language, sound } = useSelector((state) => state.global);
 	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
@@ -40,6 +41,9 @@ const HomeScreen = ({ navigation }) => {
 		dispatch(getQuizzes());
 		dispatch(getCategories());
 		dispatch(getCompletedQuizzes());
+		if (sound) {
+			playTheme();
+		}
 	}, []);
 
 	return (
@@ -83,8 +87,12 @@ const HomeScreen = ({ navigation }) => {
 						<SelectorButton>
 							<SelectorText>{s.selector1}</SelectorText>
 						</SelectorButton>
-						<SelectorButton>
-							<SelectorText>{s.selector2}</SelectorText>
+						<SelectorButton
+							onPress={() => {
+								dispatch(getQuizzesByPopularity());
+							}}
+						>
+							<SelectorText>{s.popular}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
 					<QuizCards

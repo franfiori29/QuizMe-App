@@ -4,7 +4,7 @@ const strings = {
 		introTitle:
 			'Here we show you some suggestions for you to start	vitiate and buy us the membership',
 		selector1: 'Followed',
-		selector2: 'Popular',
+		popular: 'Popular',
 		completed: 'Completed',
 		search: 'Search by categories!',
 		find: "Didn't find one you like?",
@@ -17,7 +17,7 @@ const strings = {
 		introTitle:
 			'Aca te mostramos unas sugerencias para que te pongas a	viciar y nos compres la membresia',
 		selector1: 'Seguidos',
-		selector2: 'Populares',
+		popular: 'Populares',
 		completed: 'Completado',
 		search: '¡Busca por categorías!',
 		find: '¿No encontraste uno que te guste?',

@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 //==> Assets
 import strings from './strings';
+import logo from '@assets/logo.png';
 
 const SearchScreen = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
@@ -25,11 +26,12 @@ const SearchScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const [searchInput, setSearchInput] = useState('');
 	const [categoryFilter, setCategoryFilter] = useState('');
+	const [submit, setSubmit] = useState(false);
 	const s = strings[language];
 
 	const filteredQuizzesWithCategoryFilter = useMemo(() => {
 		return filteredQuizzes.filter(
-			(quiz) => quiz.categoryId._id === categoryFilter
+			(quiz) => quiz.categoryId._id === categoryFilter,
 		);
 	}, [filteredQuizzes, categoryFilter]);
 
@@ -38,13 +40,15 @@ const SearchScreen = ({ navigation }) => {
 	};
 
 	const handleSearch = () => {
+		setSubmit(true);
 		if (searchInput.length < 2) return alert('Poco texto');
 		dispatch(getQuizzesBySearchInput(searchInput));
 	};
+	categoryFilter ? filteredQuizzesWithCategoryFilter : filteredQuizzes;
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Screen>
+			<Screen contentContainerStyle={{ flexGrow: 1 }}>
 				<NavBar
 					string={s.nav}
 					nav1={() => {
@@ -67,7 +71,10 @@ const SearchScreen = ({ navigation }) => {
 						placeholder={s.ph1}
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
-						onChangeText={setSearchInput}
+						onChangeText={(text) => {
+							setSubmit(false);
+							return setSearchInput(text);
+						}}
 						onSubmitEditing={handleSearch}
 					/>
 				</InputContainer>
@@ -77,14 +84,37 @@ const SearchScreen = ({ navigation }) => {
 						handleSelect={handleSelect}
 					/>
 				</View>
-				<ScrollView>
-					<QuizCards
-						quizzes={
-							categoryFilter
-								? filteredQuizzesWithCategoryFilter
-								: filteredQuizzes
-						}
-					/>
+				<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+					{!!filteredQuizzes.length ||
+					!!filteredQuizzesWithCategoryFilter.length ? (
+						<QuizCards
+							quizzes={
+								categoryFilter
+									? filteredQuizzesWithCategoryFilter
+									: filteredQuizzes
+							}
+						/>
+					) : submit ? (
+						<View
+							style={{
+								justifyContent: 'space-between',
+								height: '100%',
+							}}
+						>
+							<SearchMessage>{s.msg2}</SearchMessage>
+							<Logo source={logo} />
+						</View>
+					) : (
+						<View
+							style={{
+								justifyContent: 'space-between',
+								height: '100%',
+							}}
+						>
+							<SearchMessage>{s.msg1}</SearchMessage>
+							<Logo source={logo} />
+						</View>
+					)}
 				</ScrollView>
 			</Screen>
 		</ThemeProvider>
@@ -125,6 +155,21 @@ const IconImage = styled(Icon)`
 	top: 54px;
 	right: 35px;
 	z-index: 1;
+`;
+
+const SearchMessage = styled.Text`
+	color: #999;
+	font-size: 26px;
+	text-align: center;
+	margin: 20px auto;
+	font-style: italic;
+`;
+
+const Logo = styled.Image`
+	align-self: flex-start;
+	width: 200px;
+	height: 200px;
+	opacity: 0.3;
 `;
 
 export default SearchScreen;

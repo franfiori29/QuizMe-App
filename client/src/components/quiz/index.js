@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
 	View,
 	Text,
@@ -22,16 +22,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking } from './animations';
 import { updateHighscore } from './../../redux/reducers/quizzes';
 
+//Utils
+import { shuffle } from '@utils/shuffle';
+
 const TIME = 10;
-const THEME_MAX_VOL = 0.15;
-const THEME_MIN_VOL = 0.05;
+const SFX_VOL = 0.03;
+const THEME_MAX_VOL = 0.03;
+const THEME_MIN_VOL = 0.01;
 const MAX_POINTS = 1000;
 
 const { width: WIDTH } = Dimensions.get('window');
-const Quiz = ({ navigation, route: { params } }) => {
-	const { theme, language } = useSelector((state) => state.global);
+const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
+	const { theme, language, sound } = useSelector((state) => state.global);
 	const { completedQuiz } = useSelector((state) => state.user);
-	const questions = params.questions;
+	const questions = useMemo(() => shuffle(params.questions), [
+		params.questions,
+	]);
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
 	const [ricky, setRicky] = useState(0);
@@ -64,7 +70,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -91,8 +97,8 @@ const Quiz = ({ navigation, route: { params } }) => {
 		if (current < questions.length && timer.on) {
 			barRef.current.animate(
 				{
-					0: { width: WIDTH, backgroundColor: theme.success },
-					1: { width: 0, backgroundColor: theme.wrong },
+					0: { width: WIDTH, backgroundColor: theme.primary },
+					1: { width: 0, backgroundColor: '#D53051' },
 					easing: 'linear',
 				},
 				totalTime * 1000
@@ -125,12 +131,15 @@ const Quiz = ({ navigation, route: { params } }) => {
 		if (timer.on) {
 			setSelected({ id: i, correct: result });
 			startTimeout(result);
+			Vibration.cancel();
 		}
 	};
 
 	const startTimeout = (result) => {
-		sounds.timer?.stopAsync();
-		sounds.theme?.setVolumeAsync(THEME_MIN_VOL);
+		if (sound) {
+			sounds.timer?.stopAsync();
+			sounds.theme?.setVolumeAsync(THEME_MIN_VOL);
+		}
 		result
 			? sounds.success?.playFromPositionAsync(0)
 			: sounds.wrong?.playFromPositionAsync(0);
@@ -145,42 +154,51 @@ const Quiz = ({ navigation, route: { params } }) => {
 	};
 
 	useEffect(() => {
-		const sound1 = new Audio.Sound();
-		const sound2 = new Audio.Sound();
-		const sound3 = new Audio.Sound();
-		const sound4 = new Audio.Sound();
+		stopTheme();
+
+		let s1;
+		let s2;
+		let s3;
+		let s4;
+		let soundList;
 		async function loadSounds() {
 			try {
-				setSounds({
-					success: sound1,
-					wrong: sound2,
-					timer: sound3,
-					theme: sound4,
+				s1 = new Audio.Sound.createAsync(successSound, {
+					volume: SFX_VOL,
 				});
-				sound1.loadAsync(successSound);
-				sound2.loadAsync(wrongSound);
-				sound3.loadAsync(timerSound);
-				sound4
-					.loadAsync(themeSound)
-					.then(() => {
-						return sound4.setStatusAsync({
-							volume: THEME_MAX_VOL,
-							isLooping: true,
+				s2 = new Audio.Sound.createAsync(wrongSound, {
+					volume: SFX_VOL,
+				});
+				s3 = new Audio.Sound.createAsync(timerSound, {
+					volume: SFX_VOL,
+				});
+				s4 = new Audio.Sound.createAsync(themeSound, {
+					volume: THEME_MAX_VOL,
+					isLooping: true,
+				});
+				Promise.all([s1, s2, s3, s4]).then((snds) => {
+					if (sound) {
+						soundList = snds.map((n) => n.sound);
+						soundList[3].playAsync();
+						setSounds({
+							success: soundList[0],
+							wrong: soundList[1],
+							timer: soundList[2],
+							theme: soundList[3],
 						});
-					})
-					.then(() => {
-						sound4.playAsync();
-					});
-			} catch {
-				console.log('sound loading error');
+					}
+				});
+			} catch (err) {
+				console.log('sound loading error' + err);
 			}
 		}
 		loadSounds();
 		return () => {
-			sound1?.unloadAsync();
-			sound2?.unloadAsync();
-			sound3?.unloadAsync();
-			sound4?.unloadAsync();
+			if (sound) {
+				soundList.forEach((snd) => snd?.unloadAsync());
+				playTheme();
+			}
+			Vibration.cancel();
 		};
 	}, []);
 
@@ -197,13 +215,17 @@ const Quiz = ({ navigation, route: { params } }) => {
 		}
 	};
 
+	const shuffledOptions = useMemo(() => shuffle(question.options), [
+		question,
+	]);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
 				<Header>
 					<Exit
 						onPress={() => {
-							navigation.goBack(), Vibration.cancel();
+							navigation.goBack();
 						}}
 					>
 						<Icon name='ios-close' color={theme.text} size={28} />
@@ -268,13 +290,13 @@ const Quiz = ({ navigation, route: { params } }) => {
 					</TouchableWithoutFeedback>
 				</MiddleScreen>
 				<BottomScreen>
-					{question.options.map((option, i) => (
+					{shuffledOptions.map((option, i) => (
 						<Option
 							selectedColor={
 								selected.id === i
 									? selected.correct
-										? theme.success
-										: theme.wrong
+										? theme.primary
+										: '#D53051'
 									: false
 							}
 							theme={theme}
@@ -289,7 +311,7 @@ const Quiz = ({ navigation, route: { params } }) => {
 									alignSelf: 'center',
 									color: theme.text,
 									textAlign: 'center',
-									fontWeight: 600,
+									fontWeight: 'bold',
 								}}
 							>
 								{option.title}
@@ -332,9 +354,11 @@ const Option = styled.TouchableOpacity`
 `;
 
 const TimeBar = styled(Animatable.View)`
-	background-color: ${({ theme }) => theme.success};
+	background-color: ${(props) => props.theme.primary};
 	height: 20px;
 	width: 100%;
+	border-bottom-right-radius: 100px;
+	border-top-right-radius: 100px;
 `;
 
 const QuizImg = styled.Image`

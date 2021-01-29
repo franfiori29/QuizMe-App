@@ -1,6 +1,7 @@
 const { model, Schema } = require('mongoose');
 const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
+const findOrCreate = require('mongoose-findorcreate');
 
 const userSchema = new Schema(
 	{
@@ -10,7 +11,7 @@ const userSchema = new Schema(
 		profilePic: { type: String },
 		accountId: { type: String, default: null },
 		socialAccount: { type: String, default: null },
-		countryCode: { type: Number, required: true },
+		countryCode: { type: String, required: true },
 		email: {
 			type: String,
 			unique: true,
@@ -27,10 +28,6 @@ const userSchema = new Schema(
 	},
 	{ timestamps: true }
 );
-
-userSchema.plugin(uniqueValidator, {
-	message: 'Error, expected {PATH} to be unique.',
-});
 
 userSchema.methods.compare = function (password, isReset) {
 	if (this.password || this.reset_code)
@@ -57,5 +54,10 @@ userSchema.pre('save', function (next) {
 	}
 	next();
 });
+
+userSchema.plugin(uniqueValidator, {
+	message: 'Error, expected {PATH} to be unique.',
+});
+userSchema.plugin(findOrCreate);
 
 module.exports = model('User', userSchema);
