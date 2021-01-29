@@ -54,8 +54,12 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 							}}
 						/>
 						<QuizInfo>
-							<QuizTitle>{quiz.title}</QuizTitle>
-							<StyledText>{quiz.description}</StyledText>
+							<QuizTitle numberOfLines={1} ellipsizeMode='tail'>
+								{quiz.title}
+							</QuizTitle>
+							<StyledText numberOfLines={2} ellipsizeMode='tail'>
+								{quiz.description}
+							</StyledText>
 							<StyledText>
 								<Icon
 									name={
@@ -103,7 +107,7 @@ const QuizCard = styled.TouchableOpacity`
 	border-bottom-color: #ccc;
 	align-items: center;
 	flex-direction: row;
-	padding: 15px 10px 10px 10px;
+	padding: 15px 10px 10px 0px;
 `;
 
 const QuizImg = styled.Image`
@@ -121,7 +125,7 @@ const QuizInfo = styled.View`
 `;
 
 const QuizTitle = styled.Text`
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 	color: ${(props) => props.theme.text};
 	margin-top: 3px;

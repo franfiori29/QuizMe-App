@@ -20,6 +20,8 @@ import NavBar from '@components/utils/NavBar';
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import logo from '@assets/logo.png';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
 
 //==>Assets
 import strings from './strings';
@@ -79,8 +81,9 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 				</IntroContainer>
 				<ButtonPpal
 					string={s.createQuiz}
-					nav='QuizMake'
-					navigation={navigation}
+					handleNav={() => {
+						navigation.navigate('QuizMake');
+					}}
 				/>
 				<View>
 					<SelectorContainer>
@@ -101,8 +104,11 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					/>
 				</View>
 				<CategoryContainer>
-					<CategoryImg
-						source={{ uri: 'https://picsum.photos/75/75' }}
+					<Icon
+						color={theme.text}
+						name='ios-library-outline'
+						size={70}
+						style={{ justifyContent: 'center' }}
 					/>
 					<CategoryTitle>{s.search}</CategoryTitle>
 				</CategoryContainer>
@@ -114,15 +120,16 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					<QuizCards quizzes={filteredQuizzes} />
 				</View>
 				<CategoryContainer>
-					<CategoryImg
-						source={{ uri: 'https://picsum.photos/75/75' }}
+					<Icon2
+						color={theme.text}
+						name='questioncircleo'
+						size={70}
+						style={{ justifyContent: 'center' }}
 					/>
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
 				<ButtonPpal
-					navigation={navigation}
 					string={s.randomButton}
-					nav='QuizIndex'
 					onSubmit={() => {
 						dispatch(getRandomQuiz()).then(() => {
 							navigation.navigate('QuizIndex', {});
@@ -146,22 +153,6 @@ const Screen = styled.ScrollView`
 
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
-`;
-const Header = styled.View`
-	width: 95%;
-	align-self: center;
-	height: 65px;
-	padding: 10px;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
-	align-items: center;
-	justify-content: center;
 `;
 
 const IntroContainer = styled.View`

@@ -6,6 +6,7 @@ import {
 	mutationCompletedQuiz,
 	mutationChangePassword,
 	mutationChangeEmail,
+	queryGetUserQuizzes,
 } from './querys/user';
 import fb from '../../firebase';
 
@@ -18,7 +19,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 export const getCompletedQuizzes = createAsyncThunk(
@@ -27,7 +28,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	}
+	},
 );
 
 export const updateUser = createAsyncThunk(
@@ -43,7 +44,7 @@ export const updateUser = createAsyncThunk(
 			fb.storage().refFromURL(previousUserProfilePic).delete();
 		}
 		return clientRequest;
-	}
+	},
 );
 
 export const changePassword = createAsyncThunk(
@@ -55,7 +56,7 @@ export const changePassword = createAsyncThunk(
 			newPass,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 export const changeEmail = createAsyncThunk(
@@ -67,7 +68,18 @@ export const changeEmail = createAsyncThunk(
 			newMail,
 		});
 		return clientRequest;
-	}
+	},
+);
+
+export const getUserQuizzes = createAsyncThunk(
+	'quiz/getUserQuizzes',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetUserQuizzes, {
+			payload,
+		});
+		return clientRequest;
+	},
 );
 
 /* --- Slice --- */
@@ -78,6 +90,7 @@ const userSlice = createSlice({
 		token: '',
 		completedQuiz: [],
 		likedQuiz: [],
+		userQuizzes: [],
 	},
 	reducers: {
 		getUser: (state, { payload }) => {
@@ -95,7 +108,7 @@ const userSlice = createSlice({
 				state.likedQuiz.push(payload.quizId);
 			} else {
 				state.likedQuiz = state.likedQuiz.filter(
-					(q) => q !== payload.quizId
+					(q) => q !== payload.quizId,
 				);
 			}
 		},
@@ -112,6 +125,9 @@ const userSlice = createSlice({
 		},
 		[changeEmail.fulfilled]: (state, { payload }) => {
 			state.info.email = payload.changeEmail;
+		},
+		[getUserQuizzes.fulfilled]: (state, { payload }) => {
+			state.userQuizzes = payload.getUserQuizzes;
 		},
 	},
 });
