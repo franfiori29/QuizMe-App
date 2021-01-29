@@ -63,14 +63,14 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints =
 				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -101,7 +101,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: '#D53051' },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -253,7 +253,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					</Text>
 				</Header>
 				<View style={{ position: 'relative' }}>
-					<TimeBar ref={barRef}></TimeBar>
+					<TimeBar ref={barRef} theme={theme}></TimeBar>
 					<Text
 						style={{
 							position: 'absolute',
@@ -299,6 +299,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 										: '#D53051'
 									: false
 							}
+							theme={theme}
 							key={i}
 							onPress={() => handleOptionPress(option.result, i)}
 						>
@@ -306,7 +307,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 								direction={i % 2 === 0 ? 'normal' : 'reverse'}
 								ref={buttonRefArray[i]}
 								style={{
-									width: '100%',
+									width: '95%',
 									alignSelf: 'center',
 									color: theme.text,
 									textAlign: 'center',
@@ -342,13 +343,14 @@ const Header = styled.View`
 const Option = styled.TouchableOpacity`
 	width: 95%;
 	align-self: center;
-	border-top-width: 1px;
-	border-top-color: #ccc;
+	margin: 6px 0px;
+	border-width: 2px;
+	border-color: ${({ theme }) => theme.primary};
+	border-radius: 4px;
 	flex: 1;
 	justify-content: center;
 	align-items: center;
-	background-color: ${(props) =>
-		props.selectedColor ? props.selectedColor : 'transparent'};
+	background-color: ${({ selectedColor }) => selectedColor || 'transparent'};
 `;
 
 const TimeBar = styled(Animatable.View)`
@@ -377,6 +379,7 @@ const BottomScreen = styled.View`
 	height: 40%;
 	width: 100%;
 	margin-top: auto;
+	margin-bottom: 10px;
 	align-items: center;
 	justify-content: space-between;
 `;
