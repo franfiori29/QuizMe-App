@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Animated, Easing } from 'react-native';
-import { REACT_APP_API, CLIENT_ID } from '@root/env';
+import { Text, Animated, Easing, Platform, Alert } from 'react-native';
+import { REACT_APP_API, CLIENT_ID, FACEBOOK_APP_ID } from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setToken } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 import * as Google from 'expo-google-app-auth';
+import * as Facebook from 'expo-facebook';
 
 export default function Login({ navigation }) {
 	async function signInWithGoogleAsync() {
@@ -64,6 +65,68 @@ export default function Login({ navigation }) {
 		} catch (e) {
 			console.log('canceled', e);
 			return { error: true };
+		}
+	}
+
+	async function logInFacebook() {
+		try {
+			await Facebook.initializeAsync({
+				appId: FACEBOOK_APP_ID,
+			});
+			const {
+				type,
+				token,
+				expirationDate,
+				permissions,
+				declinedPermissions,
+			} = await Facebook.logInWithReadPermissionsAsync({
+				permissions: ['email', 'user_photos'],
+			});
+			if (type === 'success') {
+				const response = await axios.get(
+					`https://graph.facebook.com/me?access_token=${token}&fields=id,first_name,email,last_name,picture.type(large)`
+				);
+				axios
+					.post(`${REACT_APP_API}/auth/register`, {
+						accountId: response.data.id,
+						email: response.data.email,
+						firstName: response.data.first_name,
+						lastName: response.data.last_name,
+						profilePic: response.data.picture.data.url,
+						countryCode: 'AR',
+					})
+					.then((token) => {
+						axios
+							.get(`${REACT_APP_API}/auth/me`, {
+								headers: {
+									Authorization: `Bearer ${token.data}`,
+								},
+							})
+							.then((user) => {
+								dispatch(getUser(user.data));
+								dispatch(setToken(token.data));
+								reset({
+									emai: '',
+									password: '',
+								});
+								setLoading(false);
+								navigation.replace('Home');
+							});
+					})
+					.catch(() => {
+						setLoading(false);
+						setError('register', {
+							type: 'manual',
+							message:
+								'ERROR AL REGISTRARSE. INTENTELO MAS TARDE',
+						});
+					});
+			} else {
+				// type === 'cancel'
+				console.log('cancelled');
+			}
+		} catch ({ message }) {
+			alert(`Facebook Login Error: ${message}`);
 		}
 	}
 
@@ -271,12 +334,22 @@ export default function Login({ navigation }) {
 						)}
 					</Description>
 				</ButtonLogin>
-				<SocialIconGoogle
-					title={s.google}
-					button
-					type='google'
-					onPress={() => signInWithGoogleAsync()}
-				/>
+				{Platform.OS === 'android' && (
+					<>
+						<SocialIconGoogle
+							title={s.google}
+							button
+							type='google'
+							onPress={() => signInWithGoogleAsync()}
+						/>
+						<SocialIconFacebook
+							title={s.facebook}
+							button
+							type='facebook'
+							onPress={() => logInFacebook()}
+						/>
+					</>
+				)}
 				<TextView>
 					<Text style={{ color: theme.text }}>
 						{s.acc}
@@ -362,6 +435,12 @@ const TextView = styled.View`
 	margin-top: 20px;
 `;
 const SocialIconGoogle = styled(SocialIcon)`
+	width: 95%;
+	align-self: center;
+	border-radius: 5px;
+	height: 45px;
+`;
+const SocialIconFacebook = styled(SocialIcon)`
 	width: 95%;
 	align-self: center;
 	border-radius: 5px;
