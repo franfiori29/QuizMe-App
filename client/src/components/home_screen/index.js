@@ -155,22 +155,6 @@ const Screen = styled.ScrollView`
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
 `;
-const Header = styled.View`
-	width: 95%;
-	align-self: center;
-	height: 65px;
-	padding: 10px;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-bottom-width: 1px;
-	border-bottom-color: #ccc;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
-	align-items: center;
-	justify-content: center;
-`;
 
 const IntroContainer = styled.View`
 	height: 230px;

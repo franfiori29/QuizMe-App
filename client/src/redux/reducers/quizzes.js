@@ -4,7 +4,7 @@ import { gql } from 'graphql-request';
 import { mutationUpdateHighscore } from './querys/quizzes';
 import { shuffle } from '@utils/shuffle';
 
-const EntireQuizInfo = gql`
+export const EntireQuizInfo = gql`
 	fragment EntireQuizInfo on Quiz {
 		_id
 		title
@@ -188,7 +188,6 @@ export const getQuizzesByPopularity = createAsyncThunk(
 		return clientRequest;
 	},
 );
-
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {

@@ -1,4 +1,5 @@
 import { gql } from 'graphql-request';
+import { EntireQuizInfo } from '../quizzes';
 
 /* --- Querys --- */
 export const queryGetCompletedQuizzes = gql`
@@ -43,4 +44,13 @@ export const mutationChangeEmail = gql`
 	mutation changeEmail($currPass: String!, $newMail: String!) {
 		changeEmail(currPass: $currPass, newMail: $newMail)
 	}
+`;
+
+export const queryGetUserQuizzes = gql`
+	query($payload: ID!) {
+		getUserQuizzes(userId: $payload) {
+			...EntireQuizInfo
+		}
+	}
+	${EntireQuizInfo}
 `;
