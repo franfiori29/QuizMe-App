@@ -255,10 +255,15 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 									width: 40,
 									flexDirection: 'row',
 									alignItems: 'center',
+									justifyContent: 'center',
 								}}
 							>
 								<Text
-									style={{ fontSize: 20, color: theme.text }}
+									style={{
+										fontSize: 20,
+										color: theme.text,
+										margin: 'auto',
+									}}
 								>
 									{n}
 								</Text>
