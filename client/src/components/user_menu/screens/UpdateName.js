@@ -25,7 +25,7 @@ const UpdateName = ({ navigation }) => {
 	const handleSubmit = () => {
 		if (name.name.length > 0 && name.lastName.length > 0) {
 			dispatch(
-				updateUser({ firstName: name.name, lastName: name.lastName }),
+				updateUser({ firstName: name.name, lastName: name.lastName })
 			);
 			navigation.navigate('UserMenu');
 		} else {
@@ -33,7 +33,7 @@ const UpdateName = ({ navigation }) => {
 				Alert.alert(
 					'Error',
 					s.err1[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false },
+					{ cancelable: false }
 				);
 			} else {
 				alert(s.err1);
@@ -77,8 +77,9 @@ const UpdateName = ({ navigation }) => {
 					<ButtonPpal string={s.btn1} onSubmit={handleSubmit} />
 					<ButtonPpal
 						string={s.btn2}
-						nav='UserMenu'
-						navigation={navigation}
+						handleNav={() => {
+							navigation.navigate('UserMenu');
+						}}
 					/>
 				</ButtonContainer>
 			</NameScreen>

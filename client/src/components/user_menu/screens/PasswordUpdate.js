@@ -102,8 +102,9 @@ const PasswordUpdate = ({ navigation }) => {
 					<ButtonPpal string={s.btn1} onSubmit={handleSubmit} />
 					<ButtonPpal
 						string={s.btn2}
-						nav='UserMenu'
-						navigation={navigation}
+						handleNav={() => {
+							navigation.navigate('UserMenu');
+						}}
 					/>
 				</ButtonContainer>
 			</PassScreen>

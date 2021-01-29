@@ -284,8 +284,6 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 						<ButtonPpal
 							string={s.next}
 							onSubmit={handleSubmit(onNext)}
-							navigation={navigation}
-							nav=''
 						/>
 					</View>
 					{params.quiz.questions.length >= 3 && (
@@ -293,8 +291,6 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							<ButtonPpal
 								string={s.finish}
 								onSubmit={handleSubmit(onSubmit)}
-								navigation={navigation}
-								nav=''
 							/>
 						</View>
 					)}
