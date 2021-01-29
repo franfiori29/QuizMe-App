@@ -122,7 +122,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 													question.options.find(
 														(option) =>
 															option.result ===
-															true,
+															true
 													).title
 												}
 											</Text>
@@ -145,8 +145,6 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 							<ButtonPpal
 								string={s.fin}
 								onSubmit={handleSubmit}
-								navigation={navigation}
-								nav=''
 							/>
 						</View>
 					</View>
