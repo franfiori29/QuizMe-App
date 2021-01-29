@@ -15,7 +15,7 @@ import {
 	switchTheme,
 	switchSound,
 } from '@redux/reducers/global';
-import { logout } from '@redux/reducers/user';
+import { logout, getUserQuizzes } from '@redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -28,7 +28,7 @@ import strings from './strings';
 
 const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound } = useSelector((state) => state.global);
-	const { info: user } = useSelector((state) => state.user);
+	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -81,6 +81,12 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 		}
 		dispatch(changeLanguage());
 	};
+
+	const handleMyQuizzes = () => {
+		dispatch(getUserQuizzes(user._id)).then(() =>
+			navigation.navigate('MyQuizzes', { quizzes: userQuizzes }),
+		);
+	};
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -129,9 +135,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.subs}</Text>
 				</MenuTouchOption>
-				<MenuTouchOption
-					onPress={() => navigation.navigate('MyQuizzes')}
-				>
+				<MenuTouchOption onPress={handleMyQuizzes}>
 					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMail}>
