@@ -43,7 +43,7 @@ module.exports = {
 			const completed = (await User.findById(user._id)).completedQuiz;
 			const count = await Quiz.countDocuments();
 			let random = Math.abs(
-				Math.floor(Math.random() * count - completed.length),
+				Math.floor(Math.random() * count - completed.length)
 			);
 			const quiz = await Quiz.findOne({
 				_id: { $nin: completed },
@@ -52,6 +52,12 @@ module.exports = {
 				.populate('questions')
 				.skip(random);
 			return quiz;
+		},
+		getUserQuizzes: async (_, { userId }) => {
+			const foundQuizzes = await Quiz.find({ creatorId: userId })
+				.populate('questions')
+				.populate('categoryId');
+			return foundQuizzes;
 		},
 		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }) => {
 			const quizzes = await Quiz.find()
@@ -70,25 +76,32 @@ module.exports = {
 		},
 	},
 	Mutation: {
-		createQuiz: async (_, { quiz }) => {
+		createQuiz: async (_, { quiz }, { user }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
-				(q) => q._id,
+				(q) => q._id
 			);
-			const newQuiz = (await Quiz.create(quiz))
+			const newQuiz = await (
+				await Quiz.create({ ...quiz, creatorId: user._id })
+			)
 				.populate('questions')
 				.populate('categoryId')
 				.execPopulate();
 			return newQuiz;
 		},
+		destroyQuiz: async (_, { quizId }, { user }) => {
+			//TODO add admin privilege
+			await Quiz.deleteOne({ _id: quizId, creatorId: user._id });
+			return true;
+		},
 		updateLike: async (_, { quizId, giveLike }, { user }) => {
 			const quizfind = await Quiz.findOneAndUpdate(
 				{ _id: quizId },
 				{ $inc: { likes: giveLike ? 1 : -1 } },
-				{ new: true },
+				{ new: true }
 			);
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
-				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } },
+				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } }
 			);
 			return quizfind;
 		},
@@ -110,7 +123,7 @@ module.exports = {
 			return highScores.some(
 				(each) =>
 					each.score === newScore.score &&
-					each.user.toString() === newScore.user,
+					each.user.toString() === newScore.user
 			);
 		},
 	},

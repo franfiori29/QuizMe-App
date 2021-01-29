@@ -129,12 +129,10 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.subs}</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('MyQuizzes')}
-					>
-						<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
-					</TouchableOpacity>
+				<MenuTouchOption
+					onPress={() => navigation.navigate('MyQuizzes')}
+				>
+					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMail}>
 					<Text
@@ -155,13 +153,10 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 				<AccType onPress={() => navigation.navigate('UpdateName')}>
 					<Text style={{ color: theme.text }}>{s.user}</Text>
 				</AccType>
-				<MenuTouchOption>
-					<Text
-						style={{ color: theme.text }}
-						onPress={() => navigation.navigate('PasswordUpdate')}
-					>
-						{s.pass}
-					</Text>
+				<MenuTouchOption
+					onPress={() => navigation.navigate('PasswordUpdate')}
+				>
+					<Text style={{ color: theme.text }}>{s.pass}</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
 					<Text style={{ color: theme.text }}>{s.notif}</Text>
