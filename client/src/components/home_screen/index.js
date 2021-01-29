@@ -20,6 +20,8 @@ import NavBar from '@components/utils/NavBar';
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import logo from '@assets/logo.png';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
 
 //==>Assets
 import strings from './strings';
@@ -101,8 +103,11 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					/>
 				</View>
 				<CategoryContainer>
-					<CategoryImg
-						source={{ uri: 'https://picsum.photos/75/75' }}
+					<Icon
+						color={theme.text}
+						name='ios-library-outline'
+						size={70}
+						style={{ justifyContent: 'center' }}
 					/>
 					<CategoryTitle>{s.search}</CategoryTitle>
 				</CategoryContainer>
@@ -114,8 +119,11 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					<QuizCards quizzes={filteredQuizzes} />
 				</View>
 				<CategoryContainer>
-					<CategoryImg
-						source={{ uri: 'https://picsum.photos/75/75' }}
+					<Icon2
+						color={theme.text}
+						name='questioncircleo'
+						size={70}
+						style={{ justifyContent: 'center' }}
 					/>
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
