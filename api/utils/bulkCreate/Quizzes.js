@@ -16,6 +16,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0003'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0004'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0000'),
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0001'),
@@ -32,6 +33,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0007'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0008'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0000'),
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0002'),
@@ -47,6 +49,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0011'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0012'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0000'),
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0003'),
@@ -62,6 +65,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0015'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0016'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0004'),
@@ -78,6 +82,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0019'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0020'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0005'),
@@ -93,6 +98,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0023'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0024'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0006'),
@@ -108,6 +114,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0027'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0028'),
 		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 ];
 

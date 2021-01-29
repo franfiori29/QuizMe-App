@@ -62,6 +62,7 @@ module.exports = {
 				.skip(random);
 			return quiz;
 		},
+
 		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }, { user }) => {
 			const completed = (await User.findById(user._id)).completedQuiz;
 			const quizzes = await Quiz.find({
@@ -72,6 +73,14 @@ module.exports = {
 				.limit(nPerPage);
 			return quizzes;
 		},
+      
+		getUserQuizzes: async (_, { userId }) => {
+			const foundQuizzes = await Quiz.find({ creatorId: userId })
+				.populate('questions')
+				.populate('categoryId');
+			return foundQuizzes;
+		},
+		
 		searchByPopularity: async (_, __, { user }) => {
 			const completed = (await User.findById(user._id)).completedQuiz;
 
@@ -90,15 +99,22 @@ module.exports = {
 		},
 	},
 	Mutation: {
-		createQuiz: async (_, { quiz }) => {
+		createQuiz: async (_, { quiz }, { user }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
 				(q) => q._id
 			);
-			const newQuiz = (await Quiz.create(quiz))
+			const newQuiz = await (
+				await Quiz.create({ ...quiz, creatorId: user._id })
+			)
 				.populate('questions')
 				.populate('categoryId')
 				.execPopulate();
 			return newQuiz;
+		},
+		destroyQuiz: async (_, { quizId }, { user }) => {
+			//TODO add admin privilege
+			await Quiz.deleteOne({ _id: quizId, creatorId: user._id });
+			return true;
 		},
 		updateLike: async (_, { quizId, giveLike }, { user }) => {
 			const quizfind = await Quiz.findOneAndUpdate(

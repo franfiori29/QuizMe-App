@@ -10,6 +10,7 @@ module.exports = gql`
 		categoryId: Category!
 		questions: [Question!]!
 		time: Int!
+		creatorId: ID!
 	}
 
 	type Question {
@@ -64,6 +65,7 @@ module.exports = gql`
 		getCategories: [Category!]!
 		getQuizByCategory(catId: ID!): [Quiz!]!
 		getRandomQuiz: Quiz!
+		getUserQuizzes(userId: ID!): [Quiz]
 		getNQuizzesPerPage: [Quiz]
 		getQuizzesByInputSearch(input: String!): [Quiz]!
 		searchByPopularity: [Quiz!]!
@@ -71,6 +73,7 @@ module.exports = gql`
 
 	extend type Mutation {
 		createQuiz(quiz: QuizInput): Quiz
+		destroyQuiz(quizId: ID!): Boolean!
 		updateLike(quizId: ID!, giveLike: Boolean): Quiz
 		createCategory(category: InputCategory): Category
 		updateHighscore(quizId: ID!, score: Int!): Boolean

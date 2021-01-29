@@ -187,166 +187,48 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							</ErrorIcon>
 						)}
 					</InputContainer>
-					<InputContainer>
-						<Controller
-							control={control}
-							render={({ onChange, onBlur, value }) => {
-								return (
-									<QuizInput
-										onBlur={onBlur}
-										placeholder={s.option1}
-										placeholderTextColor={theme.text}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										value={value}
+					{[1, 2, 3, 4].map((n) => (
+						<InputContainer key={`option${n}`}>
+							<Controller
+								control={control}
+								render={({ onChange, onBlur, value }) => {
+									return (
+										<QuizInput
+											onBlur={onBlur}
+											placeholder={s.option + n}
+											placeholderTextColor={theme.text}
+											onChangeText={(value) =>
+												onChange(value)
+											}
+											value={value}
+										/>
+									);
+								}}
+								name={`option${n}`}
+								rules={{ required: true }}
+								defaultValue=''
+							/>
+							{errors[`option${n}`] && (
+								<ErrorIcon>
+									<Text
+										style={{
+											color: '#D53051',
+											fontSize: 10,
+											textTransform: 'uppercase',
+											marginRight: 5,
+										}}
+									>
+										{s.req}
+									</Text>
+									<Icon
+										name={'ios-alert-circle'}
+										size={15}
+										color={'#D53051'}
 									/>
-								);
-							}}
-							name='option1'
-							rules={{ required: true }}
-							defaultValue=''
-						/>
-						{errors.option1 && (
-							<ErrorIcon>
-								<Text
-									style={{
-										color: '#D53051',
-										fontSize: 10,
-										textTransform: 'uppercase',
-										marginRight: 5,
-									}}
-								>
-									{s.req}
-								</Text>
-								<Icon
-									name={'ios-alert-circle'}
-									size={15}
-									color={'#D53051'}
-								/>
-							</ErrorIcon>
-						)}
-					</InputContainer>
-					<InputContainer>
-						<Controller
-							control={control}
-							render={({ onChange, onBlur, value }) => {
-								return (
-									<QuizInput
-										onBlur={onBlur}
-										placeholder={s.option2}
-										placeholderTextColor={theme.text}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										value={value}
-									/>
-								);
-							}}
-							name='option2'
-							rules={{ required: true }}
-							defaultValue=''
-						/>
-						{errors.option2 && (
-							<ErrorIcon>
-								<Text
-									style={{
-										color: '#D53051',
-										fontSize: 10,
-										textTransform: 'uppercase',
-										marginRight: 5,
-									}}
-								>
-									{s.req}
-								</Text>
-								<Icon
-									name={'ios-alert-circle'}
-									size={15}
-									color={'#D53051'}
-								/>
-							</ErrorIcon>
-						)}
-					</InputContainer>
-					<InputContainer>
-						<Controller
-							control={control}
-							render={({ onChange, onBlur, value }) => {
-								return (
-									<QuizInput
-										onBlur={onBlur}
-										placeholder={s.option3}
-										placeholderTextColor={theme.text}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										value={value}
-									/>
-								);
-							}}
-							name='option3'
-							rules={{ required: true }}
-							defaultValue=''
-						/>
-						{errors.option3 && (
-							<ErrorIcon>
-								<Text
-									style={{
-										color: '#D53051',
-										fontSize: 10,
-										textTransform: 'uppercase',
-										marginRight: 5,
-									}}
-								>
-									{s.req}
-								</Text>
-								<Icon
-									name={'ios-alert-circle'}
-									size={15}
-									color={'#D53051'}
-								/>
-							</ErrorIcon>
-						)}
-					</InputContainer>
-					<InputContainer>
-						<Controller
-							control={control}
-							render={({ onChange, onBlur, value }) => {
-								return (
-									<QuizInput
-										onBlur={onBlur}
-										placeholder={s.option4}
-										placeholderTextColor={theme.text}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										value={value}
-									/>
-								);
-							}}
-							name='option4'
-							rules={{ required: true }}
-							defaultValue=''
-						/>
-						{errors.option4 && (
-							<ErrorIcon>
-								<Text
-									style={{
-										color: '#D53051',
-										fontSize: 10,
-										textTransform: 'uppercase',
-										marginRight: 5,
-									}}
-								>
-									{s.req}
-								</Text>
-								<Icon
-									name={'ios-alert-circle'}
-									size={15}
-									color={'#D53051'}
-								/>
-							</ErrorIcon>
-						)}
-					</InputContainer>
+								</ErrorIcon>
+							)}
+						</InputContainer>
+					))}
 					<Text
 						style={{
 							color: theme.text,
@@ -366,82 +248,37 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							justifyContent: 'space-between',
 						}}
 					>
-						<View
-							style={{
-								width: 40,
-								flexDirection: 'row',
-								alignItems: 'center',
-							}}
-						>
-							<Text style={{ fontSize: 20, color: theme.text }}>
-								1
-							</Text>
-							<RadioButton
-								uncheckedColor={theme.text}
-								value='1'
-								status={
-									checked === '1' ? 'checked' : 'unchecked'
-								}
-								onPress={() => setChecked('1')}
-							/>
-						</View>
-						<View
-							style={{
-								width: 40,
-								flexDirection: 'row',
-								alignItems: 'center',
-							}}
-						>
-							<Text style={{ fontSize: 20, color: theme.text }}>
-								2
-							</Text>
-							<RadioButton
-								uncheckedColor={theme.text}
-								value='2'
-								status={
-									checked === '2' ? 'checked' : 'unchecked'
-								}
-								onPress={() => setChecked('2')}
-							/>
-						</View>
-						<View
-							style={{
-								width: 40,
-								flexDirection: 'row',
-								alignItems: 'center',
-							}}
-						>
-							<Text style={{ fontSize: 20, color: theme.text }}>
-								3
-							</Text>
-							<RadioButton
-								uncheckedColor={theme.text}
-								value='3'
-								status={
-									checked === '3' ? 'checked' : 'unchecked'
-								}
-								onPress={() => setChecked('3')}
-							/>
-						</View>
-						<View
-							style={{
-								width: 40,
-								flexDirection: 'row',
-								alignItems: 'center',
-							}}
-						>
-							<Text style={{ fontSize: 20, color: theme.text }}>
-								4
-							</Text>
-							<RadioButton
-								uncheckedColor={theme.text}
-								value='4'
-								status={
-									checked === '4' ? 'checked' : 'unchecked'
-								}
-								onPress={() => setChecked('4')}
-							/>
-						</View>
+						{[1, 2, 3, 4].map((n) => (
+							<View
+								key={`check${n}`}
+								style={{
+									width: 40,
+									flexDirection: 'row',
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<Text
+									style={{
+										fontSize: 20,
+										color: theme.text,
+										margin: 'auto',
+									}}
+								>
+									{n}
+								</Text>
+								<RadioButton
+									uncheckedColor={theme.text}
+									value={`${n}`}
+									status={
+										checked === `${n}`
+											? 'checked'
+											: 'unchecked'
+									}
+									onPress={() => setChecked(`${n}`)}
+								/>
+							</View>
+						))}
 					</View>
 					<View style={{ marginTop: 10 }}>
 						<ButtonPpal
