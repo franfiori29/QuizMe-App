@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, RefreshControl } from 'react-native';
+import { View, RefreshControl, ActivityIndicator } from 'react-native';
 import {
 	getQuizzes,
 	getQuizByCategory,
@@ -8,7 +8,7 @@ import {
 	getRandomQuiz,
 	getQuizzesByPopularity,
 } from '@redux/reducers/quizzes';
-import { getCategories } from '../../redux/reducers/categories';
+import { getCategories, sortCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
 
 //==> Components
@@ -29,24 +29,35 @@ import strings from './strings';
 const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language, sound } = useSelector((state) => state.global);
-	const { quizzes, filteredQuizzes } = useSelector((state) => state.quiz);
+	const { quizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
+	const [categoryLoading, setCategoryLoading] = useState(false);
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
-		dispatch(getQuizByCategory(categoryId));
+		setCategoryLoading(true);
+		dispatch(getQuizByCategory(categoryId)).then(() => {
+			setCategoryLoading(false);
+			navigation.navigate('SearchScreen', {
+				catHomeScreenFilter: categoryId,
+			});
+		});
 	};
 
 	useEffect(() => {
 		dispatch(getQuizzes());
-		dispatch(getCategories());
+		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
 		if (sound) {
 			playTheme();
 		}
 	}, []);
+
+	useEffect(() => {
+		dispatch(sortCategories(language));
+	}, [language]);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -57,7 +68,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						refreshing={false}
 						onRefresh={() => {
 							dispatch(getQuizzes());
-							dispatch(getCategories());
+							dispatch(getCategories(language));
 						}}
 					/>
 				}
@@ -117,7 +128,9 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						categories={categories}
 						handleSelect={handleSelect}
 					/>
-					<QuizCards quizzes={filteredQuizzes} />
+					{categoryLoading && (
+						<ActivityIndicator size='large' color={theme.primary} />
+					)}
 				</View>
 				<CategoryContainer>
 					<Icon2

@@ -1,14 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, Text, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getQuizzesBySearchInput,
 	clearfilteredQuizzes,
 } from '@redux/reducers/quizzes';
+import { Picker } from '@react-native-picker/picker';
 
 //==> Components
 import QuizCards from '@components/utils/QuizCards';
-import ScrollCategory from '@components/utils/ScrollCategory';
 import NavBar from '@components/utils/NavBar';
 
 //==> Styles
@@ -19,32 +19,29 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import strings from './strings';
 import logo from '@assets/logo.png';
 
-const SearchScreen = ({ navigation }) => {
+const SearchScreen = ({ navigation, route: { params } }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
 	const { filteredQuizzes } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 	const [searchInput, setSearchInput] = useState('');
 	const [categoryFilter, setCategoryFilter] = useState('');
-	const [submit, setSubmit] = useState(false);
 	const s = strings[language];
+	const [loading, setLoading] = useState(false);
 
-	const filteredQuizzesWithCategoryFilter = useMemo(() => {
-		return filteredQuizzes.filter(
-			(quiz) => quiz.categoryId._id === categoryFilter,
-		);
-	}, [filteredQuizzes, categoryFilter]);
-
-	const handleSelect = (categoryId) => {
-		setCategoryFilter(categoryId);
+	const handleSearch = (filter) => {
+		setLoading(true);
+		dispatch(
+			getQuizzesBySearchInput({ searchInput, categoryFilter: filter })
+		).then(() => setLoading(false));
 	};
 
-	const handleSearch = () => {
-		setSubmit(true);
-		if (searchInput.length < 2) return alert('Poco texto');
-		dispatch(getQuizzesBySearchInput(searchInput));
-	};
-	categoryFilter ? filteredQuizzesWithCategoryFilter : filteredQuizzes;
+	useEffect(() => {
+		if (params?.catHomeScreenFilter) {
+			setCategoryFilter(params.catHomeScreenFilter);
+			handleSearch(params.catHomeScreenFilter);
+		}
+	}, [params]);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -71,51 +68,55 @@ const SearchScreen = ({ navigation }) => {
 						placeholder={s.ph1}
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
-						onChangeText={(text) => {
-							setSubmit(false);
-							return setSearchInput(text);
-						}}
-						onSubmitEditing={handleSearch}
+						onChangeText={setSearchInput}
+						onSubmitEditing={() => handleSearch(categoryFilter)}
 					/>
 				</InputContainer>
-				<View>
-					<ScrollCategory
-						categories={categories}
-						handleSelect={handleSelect}
-					/>
+				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+					<Text style={{ marginLeft: 10, fontSize: 16 }}>
+						Category:
+					</Text>
+					<Picker
+						selectedValue={categoryFilter}
+						style={{
+							height: 50,
+							width: 300,
+						}}
+						onValueChange={(value) => {
+							handleSearch(value);
+							setCategoryFilter(value);
+						}}
+					>
+						<Picker.Item label='All' value='' />
+						{categories.map((cat) => (
+							<Picker.Item
+								key={cat._id}
+								value={cat._id}
+								label={cat[`description_${language}`]}
+							/>
+						))}
+					</Picker>
 				</View>
-				<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-					{!!filteredQuizzes.length ||
-					!!filteredQuizzesWithCategoryFilter.length ? (
-						<QuizCards
-							quizzes={
-								categoryFilter
-									? filteredQuizzesWithCategoryFilter
-									: filteredQuizzes
-							}
-						/>
-					) : submit ? (
-						<View
-							style={{
-								justifyContent: 'space-between',
-								height: '100%',
-							}}
-						>
-							<SearchMessage>{s.msg2}</SearchMessage>
-							<Logo source={logo} />
-						</View>
-					) : (
-						<View
-							style={{
-								justifyContent: 'space-between',
-								height: '100%',
-							}}
-						>
-							<SearchMessage>{s.msg1}</SearchMessage>
-							<Logo source={logo} />
-						</View>
-					)}
-				</ScrollView>
+				{loading ? (
+					<ActivityIndicator size='large' color={theme.primary} />
+				) : (
+					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+						{!!filteredQuizzes.length ? (
+							<QuizCards quizzes={filteredQuizzes} />
+						) : (
+							<View
+								style={{
+									justifyContent: 'space-between',
+									height: '100%',
+									margin: 10,
+								}}
+							>
+								<SearchMessage>{s.msg1}</SearchMessage>
+								<Logo source={logo} />
+							</View>
+						)}
+					</ScrollView>
+				)}
 			</Screen>
 		</ThemeProvider>
 	);
