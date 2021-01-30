@@ -11,10 +11,11 @@ import Icon2 from 'react-native-vector-icons/Feather';
 import NavBar from '@components/utils/NavBar';
 
 //==>Utils
-import s from './strings';
+import strings from './strings';
 
 const MyQuizzes = ({ navigation, route: { params } }) => {
 	const { language, theme } = useSelector((state) => state.global);
+	const s = strings[language];
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen
@@ -22,16 +23,14 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 				centerContent={true}
 			>
 				<NavBar
-					string='QuizMeApp'
+					string={s.nav}
 					nav1={() => navigation.goBack()}
 					nav2={() => navigation.navigate('SearchScreen')}
 					icon1='ios-close'
 					icon2='ios-search-outline'
 				/>
 				<IntroContainer>
-					<IntroTitle>
-						¡Aqui veras las quizzes que hayas creado!
-					</IntroTitle>
+					<IntroTitle>{s.title}</IntroTitle>
 				</IntroContainer>
 				<View style={{ flex: 1 }}>
 					{params.quizzes.map((quiz) => (
@@ -102,10 +101,10 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 								</View>
 								<BtnContainer>
 									<Btn>
-										<BtnText>Editar Quiz</BtnText>
+										<BtnText>{s.btn1}</BtnText>
 									</Btn>
 									<Btn>
-										<BtnText>Eliminar Quiz</BtnText>
+										<BtnText>{s.btn2}</BtnText>
 									</Btn>
 								</BtnContainer>
 							</InfoContainer>
