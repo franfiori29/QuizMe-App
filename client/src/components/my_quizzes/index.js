@@ -15,7 +15,6 @@ import s from './strings';
 
 const MyQuizzes = ({ navigation, route: { params } }) => {
 	const { language, theme } = useSelector((state) => state.global);
-	console.log(params.quizzes);
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen

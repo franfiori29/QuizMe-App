@@ -3,7 +3,8 @@ const User = require('./../../models/User.js');
 
 module.exports = {
 	Query: {
-		getUsers: async () => {
+		getUsers: async (_, __, { user }) => {
+			if (user.role !== 'ADMIN') throw new Error('Not authorized');
 			const users = await User.find();
 			return users;
 		},
@@ -51,6 +52,11 @@ module.exports = {
 				return newMail;
 			}
 			throw new Error('Auth Failed');
+		},
+		activateUser: async (_, { userId, isActive }, { user }) => {
+			if (user.role !== 'ADMIN') throw new Error('Not authorized');
+			await User.updateOne({ _id: userId }, { isActive });
+			return 'Updated Succesfully';
 		},
 	},
 };

@@ -25,6 +25,9 @@ import LogoAnimated from '@components/logo_animated';
 import { setToken } from '@redux/reducers/user';
 import QuizMakeDetails from '@components/quiz_make/details';
 import QuizMakeQuestions from '@components/quiz_make/questions';
+import AdminPanel from '@components/admin_panel';
+import AdminUsers from '@components/admin_panel/screens/users';
+import AdminQuizzes from '@components/admin_panel/screens/quizzes';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
@@ -55,7 +58,7 @@ const HomeRoutes = () => {
 		mainTheme?.playAsync();
 	};
 
-  const stopTheme = () => {
+	const stopTheme = () => {
 		mainTheme?.stopAsync();
 	};
 
@@ -69,14 +72,22 @@ const HomeRoutes = () => {
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
-				<Screen name='Home' component={HomeScreen} options={({ route }) => {
-					route.playTheme = playTheme;
-				}} />
-				<Screen name='SearchScreen' component={SearchScreen} />
-				<Screen name='UserMenu' component={UserMenu} options={({ route }) => {
-					route.stopTheme = stopTheme,
+				<Screen
+					name='Home'
+					component={HomeScreen}
+					options={({ route }) => {
 						route.playTheme = playTheme;
-				}} />
+					}}
+				/>
+				<Screen name='SearchScreen' component={SearchScreen} />
+				<Screen
+					name='UserMenu'
+					component={UserMenu}
+					options={({ route }) => {
+						(route.stopTheme = stopTheme),
+							(route.playTheme = playTheme);
+					}}
+				/>
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
 				<Screen name='Information' component={Information} />
@@ -90,13 +101,20 @@ const HomeRoutes = () => {
 				<Screen name='QuizMakeDetails' component={QuizMakeDetails} />
 				<Screen name='QuizIndex' component={QuizIndex} />
 				<Screen name='QuizResults' component={QuizResults} />
-				<Screen name='Quiz' component={Quiz} options={({ route }) => {
-					route.playTheme = playTheme;
-					route.stopTheme = stopTheme;
-				}} />
+				<Screen
+					name='Quiz'
+					component={Quiz}
+					options={({ route }) => {
+						route.playTheme = playTheme;
+						route.stopTheme = stopTheme;
+					}}
+				/>
 				<Screen name='Profile' component={Profile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
 				<Screen name='Ricky' component={Ricky} />
+				<Screen name='AdminPanel' component={AdminPanel} />
+				<Screen name='AdminUsers' component={AdminUsers} />
+				<Screen name='AdminQuizzes' component={AdminQuizzes} />
 			</Navigator>
 		</NavigationContainer>
 	);

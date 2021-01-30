@@ -84,9 +84,14 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 
 	const handleMyQuizzes = () => {
 		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes', { quizzes: userQuizzes }),
+			navigation.navigate('MyQuizzes', { quizzes: userQuizzes })
 		);
 	};
+
+	const handleAdminPanel = () => {
+		navigation.navigate('AdminPanel');
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -138,6 +143,13 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 				<MenuTouchOption onPress={handleMyQuizzes}>
 					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
 				</MenuTouchOption>
+				{user.role === 'ADMIN' && (
+					<MenuTouchOption onPress={handleAdminPanel}>
+						<Text style={{ color: theme.text }}>
+							{s.adminPanel}
+						</Text>
+					</MenuTouchOption>
+				)}
 				<MenuTouchOption onPress={handleMail}>
 					<Text
 						style={{
