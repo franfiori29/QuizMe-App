@@ -818,8 +818,8 @@ const questions = [
 		time: 10,
 		score: 5,
 	},
+	// <Volver al futuro>
 	{
-		// ACA YO NACHOTIPS
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0057'),
 		title:
 			'¿Qué canción toca McFly en su prueba para el baile del instituto de 1985?',
@@ -874,7 +874,8 @@ const questions = [
 		],
 		time: 10,
 		score: 7,
-	}, // ACA TERMINO NACHOTIPS
+	},
+	// </Volver al futuro>
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0061'),
 		title: 'Frase 1:',
@@ -1368,104 +1369,51 @@ const questions = [
 		time: 10,
 		score: 5,
 	},
-	// ACA TERMINO YOOO
-	//3
+	//NUEVA
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0093'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Como se llama el vocalista principal de la banda GNR?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Axel Rose', result: true },
+			{ title: 'William Bruce Bailey', result: false },
+			{ title: 'Saul Hudson', result: false },
+			{ title: 'Duff Mackaggan', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0094'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿A que banda pertenece el tema Patience?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Europe', result: false },
+			{ title: 'Guns And Roses', result: true },
+			{ title: 'Roxxete', result: false },
+			{ title: 'Metallica', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0095'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Cual es el genero musical de la banda Rata Blanca?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Rock', result: true },
+			{ title: 'Heavy metal', result: false },
+			{ title: 'Pop', result: false },
+			{ title: 'Hard Rock', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0096'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿A que banda pertenece la cancion It Must have been love?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Guns and Roses', result: true },
+			{ title: 'Roxxete', result: false },
+			{ title: 'Scorpions', result: false },
+			{ title: 'Rata Blanca', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1473,873 +1421,468 @@ const questions = [
 	//4
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0097'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'Las dimensiones de la cancha de baloncesto es de ……metros de longitud por ……metros de anchura',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '28/15', result: true },
+			{ title: '25/12,5', result: false },
+			{ title: '15/28', result: false },
+			{ title: '22/16', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0098'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'El terreno de juego deberá distar al menos……metros de cualquier obstáculo',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '2', result: true },
+			{ title: '3', result: false },
+			{ title: '1,5', result: false },
+			{ title: '5', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0099'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'La línea de tiros libres estará trazada paralela a cada línea de fondo. El borde exterior de esta línea estará situado a….',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '4 M', result: false },
+			{ title: '6 M', result: false },
+			{ title: '5,8 M', result: true },
+			{ title: '3 M', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0100'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'Deberán existir al menos ….. señales acústicas diferentes con sonidos claramente distintos y muy potentes, para indicar final del tiempo…etc',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '4', result: false },
+			{ title: '1', result: false },
+			{ title: '2', result: true },
+			{ title: '3', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
+	///sdadsad
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0101'),
-		title: '¿Qué es una mezcla?',
+		title: '¿Quién pintó este cuadro?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/6ae32e8a-8f4b-42ea-acdb-cc289c30e77b/27356fc0-5c66-426a-ae93-5a8eb91e146f.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Botticelli', result: true },
+			{ title: 'Miguel Angel', result: false },
+			{ title: 'Rafael', result: false },
+			{ title: 'Tiziano', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0102'),
-		title: '¿Qué es una mezcla?',
+		title: '¿En que siglo nació Velázquez?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'SIGLO XVII', result: true },
+			{ title: 'SIGLO XVIII', result: false },
+			{ title: 'SIGLO XV', result: false },
+			{ title: 'SIGLO XVI', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0103'),
-		title: '¿Qué es una mezcla?',
+		title: '¿En que museo está la Mona Lisa?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Museo del prado', result: false },
+			{ title: 'British Museum', result: false },
+			{ title: 'Louvre', result: true },
+			{ title: 'Galeria Uffizi', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0104'),
-		title: '¿Qué es una mezcla?',
+		title: '¿Quién pintó este cuadro?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/6ae32e8a-8f4b-42ea-acdb-cc289c30e77b/c721b679-ae20-40ea-877f-31e0f87ff3c0.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Vermeer', result: false },
+			{ title: 'Rubens', result: false },
+			{ title: 'Brueghet', result: false },
+			{ title: 'Rembrandt', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0105'),
-		title: '¿Qué es una mezcla?',
+		title: '¿En que siglo nació Van Gogh?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'SIGLO XIX', result: true },
+			{ title: 'SIGLO XX', result: false },
+			{ title: 'SIGLO XVII', result: false },
+			{ title: 'SIGLO XVI', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0106'),
-		title: '¿Qué es una mezcla?',
+		title: '¿Quién pintó este cuadro?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/6ae32e8a-8f4b-42ea-acdb-cc289c30e77b/88fb50f4-1758-4ed0-85e9-f6e8279136e8.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Dalí', result: true },
+			{ title: 'Magritte', result: false },
+			{ title: 'Picasso', result: false },
+			{ title: 'Miró', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0107'),
-		title: '¿Qué es una mezcla?',
+		title: '¿De que estilo es este cuadro?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/6ae32e8a-8f4b-42ea-acdb-cc289c30e77b/dca95151-aaf9-4c9c-ab88-9aaf5a196609.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Surrealismo', result: false },
+			{ title: 'Modernismo', result: false },
+			{ title: 'Impresionismo', result: true },
+			{ title: 'Expresionismo', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0108'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '"La piedad" es una escultura de',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Miguel Angel', result: true },
+			{ title: 'Bernini', result: false },
+			{ title: 'Donatello', result: false },
+			{ title: 'Van Gogh', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
+	//historia
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0109'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿En que año descubrió Colón América?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '1492', result: true },
+			{ title: '1502', result: false },
+			{ title: '1496', result: false },
+			{ title: '1488', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0110'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿En que guerra participó Juana de Arco?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Primera Cruzada', result: false },
+			{ title: 'Guerras Napoleonicas', result: false },
+			{ title: 'La guerra de los 100 años', result: true },
+			{ title: 'La guerra de los 30 años', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0111'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Cuál era la capital del Imperio Inca?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Cuzco', result: false },
+			{ title: 'Quito', result: false },
+			{ title: 'Machu Picchu', result: false },
+			{ title: 'Lima', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0112'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Cuándo se produjo principalmente el Siglo de Oro?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Siglo XVI', result: false },
+			{ title: 'Siglo XVII', result: false },
+			{ title: 'Siglo XV', result: false },
+			{ title: 'Siglo XIV', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0113'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Cómo se llamaba el padre de Alejandro Magno?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Ptolomeo I', result: false },
+			{ title: 'Filipo II de Macedonia', result: true },
+			{ title: 'Leonidas', result: false },
+			{ title: 'Filipo I de Grecia', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0114'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿De qué año es "la Pepa", la primera Constitución española?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '1812', result: true },
+			{ title: '1806', result: false },
+			{ title: '1822', result: false },
+			{ title: '1792', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0115'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Quién fue el primer emperador romano?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Julio Cesar', result: false },
+			{ title: 'Cesar Augusto', result: true },
+			{ title: 'Nerón', result: false },
+			{ title: 'Calígula', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0116'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Qué Rey encargó "Las Meninas"?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Felipe IV', result: true },
+			{ title: 'Felipe III', result: false },
+			{ title: 'Carlos III', result: false },
+			{ title: 'Felipe II', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0117'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Qué es Zelandia?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Una ciudad islandesa', result: false },
+			{ title: 'Un parque tematico', result: false },
+			{ title: 'Un país del hemisferio norte', result: false },
+			{ title: 'Un continente', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0118'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'El punto más profundo de la fosa de las Marianas está exactamente a...',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '11,144 metros de profundidad', result: false },
+			{ title: '11,054 metros de profundidad', result: false },
+			{ title: '11,044 metros de profundidad', result: false },
+			{ title: '11,034 metros de profundidad', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0119'),
-		title: '¿Qué es una mezcla?',
+		title: '¿Cuál es el país de los 1.000 lagos?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Finlandia', result: true },
+			{ title: 'Estados Unidos', result: false },
+			{ title: 'Canadá', result: false },
+			{ title: 'Brasil', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0120'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: 'El río más largo de Europa es...',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'El tajo', result: false },
+			{ title: 'El volga', result: true },
+			{ title: 'El Támesis', result: false },
+			{ title: 'El Ebro', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
+	//termina geografia
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0121'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: '¿Con qué respira una ballena?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Por la nariz', result: false },
+			{ title: 'Por la piel', result: false },
+			{ title: 'Pulmones', result: true },
+			{ title: 'Branquias', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0122'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'Al descendiente del cruce de un asno y una yegua se le conoce como:',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Caballo', result: false },
+			{ title: 'Burro', result: false },
+			{ title: 'Asno', result: false },
+			{ title: 'Mulo', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0123'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: 'Para los botánicos, el tomate es una:',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Carne', result: false },
+			{ title: 'Verdura', result: false },
+			{ title: 'Hortaliza', result: false },
+			{ title: 'Fruta', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0124'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'La fuerza física que la tierra ejerce sobre los cuerpos hacia su centro es la:',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Gravedad', result: true },
+			{ title: 'Normal', result: false },
+			{ title: 'Rozamiento', result: false },
+			{ title: 'Cinetica', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0125'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'¿Cómo se llama la teoría que considera que todos los organismos descendemos del mismo ancestro?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Ateismo', result: false },
+			{ title: 'Darwinismo', result: true },
+			{ title: 'Gradualismo', result: false },
+			{ title: 'Creacionismo', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0126'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'El proceso mediante el cual se generan moléculas orgánicas a partir de sustancias inorgánicas usando como fuente de energía el sol es:',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'La fotosintesis', result: true },
+			{ title: 'El canibalismo', result: false },
+			{ title: 'El catabolismo', result: false },
+			{ title: 'El anabolismo', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0127'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: 'Un miligramo son:',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '0,001 gramos', result: false },
+			{ title: '1000 microgramos', result: false },
+			{ title: '0,000001 kilogramos', result: false },
+			{ title: 'Todas son correctas', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0128'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: 'La velocidad a la que viaja la luz es',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: '300,00 m/s', result: false },
+			{ title: '300,00 km/s', result: true },
+			{ title: '300,00 km/h', result: false },
+			{ title: '300,00 cm/s', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
+	//aqui termina ciencias naturales
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0129'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'En 1990, este arcade con muñecos de nieve habitó las tascas y salas recreativas más selectas ¿Cómo se llamaba?',
+		image: 'https://i.blogs.es/783e97/snowbros/1366_2000.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Tumblepop.', result: false },
+			{ title: 'Snow bros.', result: true },
+			{ title: 'Super buster bros.', result: false },
+			{ title: 'Rainbow Islands', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0130'),
-		title: '¿Qué es una mezcla?',
+		title:
+			'¿Qué western pixelado protagonizaron estos caballeros en el año 91?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://2.bp.blogspot.com/-msBQLHA_CZY/UbG-2QWEXlI/AAAAAAAALKc/Q9Ym0e3uGro/s1600/sunset-riders-personajes-Frikarte.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Wild west C.O.W.boys of moo mesa.', result: false },
+			{ title: 'Gun Smoke', result: false },
+			{ title: 'Sunset Riders', result: true },
+			{ title: 'Blood Bros', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0131'),
-		title: '¿Qué es una mezcla?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title:
+			'1992: se estrena la versión Champion edition de Street fighter II ¿Qué ocurría cuando Zangief se alzaba con la victoria en el torneo?',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
 			{
-				title: 'La unión de dos o más átomos en un núcleo',
+				title:
+					'La madre de Zangief se reencontraba con su hijo tras años siguiéndole la pista por el globo.',
 				result: false,
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
+					'Mijaíl Gorbachov aparecía en un helicóptero para felicitar a Zangief y marcarse junto a él un baile cosaco.',
+				result: false,
+			},
+			{
+				title: 'El luchador se convertía en un héroe para la U.R.S.S.',
+				result: false,
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+					'Zangief volvía a casa junto a su esposa e hija tras perdonarle la vida a Bison.',
 				result: false,
 			},
 		],
@@ -2348,29 +1891,21 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0132'),
-		title: '¿Qué es una mezcla?',
+		title:
+			'¿En el aeropuerto de qué ciudad transcurría el primer nivel de Spinmaster (1993)?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://bonusstagemagazine.files.wordpress.com/2019/05/spinmaster-2.jpg',
 		options: [
-			{ title: 'Dos líquidos juntos', result: false },
-			{
-				title: 'La unión de dos o más átomos en un núcleo',
-				result: false,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
-				result: true,
-			},
-			{
-				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
-				result: false,
-			},
+			{ title: 'Nueva York', result: false },
+			{ title: 'Berlin', result: false },
+			{ title: 'Madrid', result: true },
+			{ title: 'Tokio', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
+	// </ Videojuegos>
+	// <Preguntas Aleatorias de CS Naturales>
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0133'),
 		title: '¿Qué instrumento usamos para conocer la masa de un objeto?',
@@ -2467,6 +2002,7 @@ const questions = [
 		time: 10,
 		score: 5,
 	},
+	// </Preguntas aleatorias de cs naturales >
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0137'),
 		title: "Who is Magnus' Dad?",
@@ -2653,7 +2189,56 @@ const questions = [
 		time: 10,
 		score: 5,
 	},
-
-	//ACA TERMINA LINUX
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0145'),
+		title: '¿Quién es el hombre que aparece en la imagen?',
+		image:
+			'https://static4.abc.es/media/play/2018/08/20/matt-groening-kgHG--1248x698@abc.jpg',
+		options: [
+			{ title: 'Sam Simon, productor ejecutivo', result: false },
+			{ title: 'El creador de la serie, Matt Groening', result: true },
+			{ title: 'Homero Simpson', result: true },
+			{ title: 'Montgomery Burns', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0146'),
+		title:
+			'Los únicos personajes que han sido dibujados con cinco dedos en la serie son…',
+		options: [
+			{ title: 'Dios y Jesucristo', result: true },
+			{ title: 'Paul McCartney y Yoko Ono', result: false },
+			{ title: 'Bruce Springsteen y Lady Gaga', result: true },
+			{ title: 'Apu y Bart', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0147'),
+		title: '¿Cuál es el nombre real del director Skinner?',
+		options: [
+			{ title: 'Armin Tanzarian', result: true },
+			{ title: 'Charlie Tinewarth', result: false },
+			{ title: 'Nedward Thomas', result: false },
+			{ title: 'Ned Jay', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0148'),
+		title: '¿Cómo se llama el perro de la familia?',
+		options: [
+			{ title: 'Bola de Nieve', result: false },
+			{ title: 'Huesos', result: false },
+			{ title: 'Pequeño ayudante de Santa Claus', result: true },
+			{ title: 'Bola de Nieve II', result: false },
+		],
+		time: 10,
+		score: 5,
+	},
 ];
 module.exports = questions;
