@@ -49,7 +49,7 @@ export const getQuizzes = createAsyncThunk(
 			clientRequest.getQuizzes = shuffle(clientRequest.getQuizzes);
 		}
 		return clientRequest;
-	},
+	}
 );
 const updateLikeRequest = gql`
 	mutation updateLike($quizId: ID!, $giveLike: Boolean) {
@@ -68,7 +68,7 @@ export const updateLike = createAsyncThunk(
 			giveLike: payload.giveLike,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 /* --- Create Quiz --- */
@@ -87,7 +87,7 @@ export const createQuiz = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(quizCreateOne, { payload });
 		return clientRequest;
-	},
+	}
 );
 
 const queryGetQuizByCategory = gql`
@@ -108,16 +108,16 @@ export const getQuizByCategory = createAsyncThunk(
 		});
 		if (clientRequest.getQuizByCategory) {
 			clientRequest.getQuizByCategory = shuffle(
-				clientRequest.getQuizByCategory,
+				clientRequest.getQuizByCategory
 			);
 		}
 		return clientRequest;
-	},
+	}
 );
 
 const queryGetQuizzesBySearchInput = gql`
-	query($payload: String!) {
-		getQuizzesByInputSearch(input: $payload) {
+	query($searchInput: String!, $categoryFilter: String) {
+		getQuizzesByInputSearch(input: $searchInput, cat: $categoryFilter) {
 			...EntireQuizInfo
 		}
 	}
@@ -126,16 +126,14 @@ const queryGetQuizzesBySearchInput = gql`
 
 export const getQuizzesBySearchInput = createAsyncThunk(
 	'quiz/getQuizzesBySearchInput',
-	async (payload, { getState }) => {
+	async ({ searchInput, categoryFilter }, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(
 			queryGetQuizzesBySearchInput,
-			{
-				payload,
-			},
+			{ searchInput, categoryFilter }
 		);
 		return clientRequest;
-	},
+	}
 );
 
 /* --- Get random quiz --- */
@@ -154,7 +152,7 @@ export const getRandomQuiz = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryRandomQuiz);
 		return clientRequest;
-	},
+	}
 );
 
 export const updateHighscore = createAsyncThunk(
@@ -166,7 +164,7 @@ export const updateHighscore = createAsyncThunk(
 			score: payload.score,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 /*Get quizzes by popularity*/
@@ -186,7 +184,7 @@ export const getQuizzesByPopularity = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGtQuizzesByPopularity);
 		return clientRequest;
-	},
+	}
 );
 const quizSlice = createSlice({
 	name: 'quiz',
@@ -212,7 +210,7 @@ const quizSlice = createSlice({
 		},
 		[updateLike.fulfilled]: (state, { payload }) => {
 			let quiz = state.quizzes.findIndex(
-				(quiz) => quiz._id === payload.updateLike._id,
+				(quiz) => quiz._id === payload.updateLike._id
 			);
 			state.quizzes[quiz].likes = payload.updateLike.likes;
 		},

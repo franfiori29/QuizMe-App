@@ -30,10 +30,11 @@ module.exports = {
 				.populate('categoryId');
 			return foundQuizzes;
 		},
-		getQuizzesByInputSearch: async (_, { input }) => {
+		getQuizzesByInputSearch: async (_, { input, cat }) => {
 			const regex = new RegExp(input, 'i');
 			const foundQuizzes = await Quiz.find({
 				$or: [{ title: regex }, { description: regex }],
+				...(!!cat && { categoryId: cat }),
 			})
 				.populate('questions')
 				.populate('categoryId');
