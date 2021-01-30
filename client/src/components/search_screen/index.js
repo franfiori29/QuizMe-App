@@ -39,7 +39,6 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 	useEffect(() => {
 		if (params?.catHomeScreenFilter) {
 			setCategoryFilter(params.catHomeScreenFilter);
-			handleSearch(params.catHomeScreenFilter);
 		}
 	}, [params]);
 
