@@ -6,11 +6,36 @@ import {
 	mutationCompletedQuiz,
 	mutationChangePassword,
 	mutationChangeEmail,
+	mutationActivateUser,
 	queryGetUserQuizzes,
+	queryGetUsers,
 } from './querys/user';
 import fb from '../../firebase';
 
 /* --- Async Thunk Actions --- */
+export const getUsers = createAsyncThunk(
+	'user/getUsers',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetUsers, {
+			payload,
+		});
+		return clientRequest.getUsers;
+	}
+);
+
+export const activateUser = createAsyncThunk(
+	'user/activateUser',
+	async ({ userId, isActive }, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationActivateUser, {
+			userId,
+			isActive,
+		});
+		return clientRequest.activateUser;
+	}
+);
+
 export const completeQuiz = createAsyncThunk(
 	'user/completeQuiz',
 	async (payload, { getState }) => {
@@ -19,7 +44,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const getCompletedQuizzes = createAsyncThunk(
@@ -28,7 +53,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	},
+	}
 );
 
 export const updateUser = createAsyncThunk(
@@ -44,7 +69,7 @@ export const updateUser = createAsyncThunk(
 			fb.storage().refFromURL(previousUserProfilePic).delete();
 		}
 		return clientRequest;
-	},
+	}
 );
 
 export const changePassword = createAsyncThunk(
@@ -56,7 +81,7 @@ export const changePassword = createAsyncThunk(
 			newPass,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const changeEmail = createAsyncThunk(
@@ -68,7 +93,7 @@ export const changeEmail = createAsyncThunk(
 			newMail,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const getUserQuizzes = createAsyncThunk(
@@ -79,7 +104,7 @@ export const getUserQuizzes = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 /* --- Slice --- */
@@ -91,6 +116,7 @@ const userSlice = createSlice({
 		completedQuiz: [],
 		likedQuiz: [],
 		userQuizzes: [],
+		users: [],
 	},
 	reducers: {
 		getUser: (state, { payload }) => {
@@ -108,7 +134,7 @@ const userSlice = createSlice({
 				state.likedQuiz.push(payload.quizId);
 			} else {
 				state.likedQuiz = state.likedQuiz.filter(
-					(q) => q !== payload.quizId,
+					(q) => q !== payload.quizId
 				);
 			}
 		},
@@ -128,6 +154,9 @@ const userSlice = createSlice({
 		},
 		[getUserQuizzes.fulfilled]: (state, { payload }) => {
 			state.userQuizzes = payload.getUserQuizzes;
+		},
+		[getUsers.fulfilled]: (state, { payload }) => {
+			state.users = payload;
 		},
 	},
 });

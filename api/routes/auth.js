@@ -9,7 +9,7 @@ server.get('/me', async (req, res, next) => {
 		const { _id } = req.user;
 		const result = await User.findById(
 			_id,
-			'_id firstName lastName email countryCode profilePic roleId updatedAt'
+			'_id firstName lastName email countryCode profilePic role updatedAt'
 		);
 		if (req.user.updatedAt === result.updatedAt.toISOString()) {
 			return res.json(result);

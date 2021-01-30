@@ -273,8 +273,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							style={{
 								color: theme.text,
 								fontWeight: 'bold',
-								fontSize: '20px',
-								paddingLeft: '10px',
+								fontSize: 20,
+								paddingLeft: 10,
 							}}
 						>
 							{Math.floor(timer.time / 60)}:
@@ -359,7 +359,7 @@ const hourglassOptions = {
 	iterationCount: 'infinite',
 	size: 28,
 	useNativeDriver: true,
-	style: { marginLeft: '10px' },
+	style: { marginLeft: 10 },
 };
 
 const Screen = styled.View`

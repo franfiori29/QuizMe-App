@@ -28,7 +28,7 @@ passport.use(
 				profile_pic,
 				email: userEmail,
 				countryCode,
-				roleId,
+				role,
 				updatedAt,
 			} = user;
 			return done(null, {
@@ -38,7 +38,7 @@ passport.use(
 				profile_pic,
 				email: userEmail,
 				countryCode,
-				roleId,
+				role,
 				updatedAt,
 			});
 		}
