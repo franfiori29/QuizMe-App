@@ -14,11 +14,8 @@
 		"apollo-server": "^2.19.2",
 		"apollo-server-express": "^2.19.2",
 		"bcrypt": "^5.0.0",
-<<<<<<< Updated upstream
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
-=======
->>>>>>> Stashed changes
 		"express": "^4.17.1",
 		"graphql": "^15.4.0",
 		"jsonwebtoken": "^8.5.1",
