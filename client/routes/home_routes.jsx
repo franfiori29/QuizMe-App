@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Platform } from 'react-native';
 
 //~~~Components~~~
-import Ricky from '@components/easter_eggs/Ricky'
+import Ricky from '@components/easter_eggs/Ricky';
 import QuizIndex from '@components/quiz_index';
 import Quiz from '@components/quiz';
 import HomeScreen from '@components/home_screen';
@@ -29,7 +29,6 @@ import QuizMakeQuestions from '@components/quiz_make/questions';
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
 
-
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
 	const [mainTheme, setMainTheme] = React.useState();
@@ -43,21 +42,22 @@ const HomeRoutes = () => {
 				dispatch(getUser());
 			}
 		}
-		(async()=>{
+		(async () => {
 			const { sound } = await Audio.Sound.createAsync(mainThemeFile, {
-				isLooping: true, volume: 0.5
+				isLooping: true,
+				volume: 0.5,
 			});
 			setMainTheme(sound);
-		})()
+		})();
 	}, []);
 
 	const playTheme = () => {
-		mainTheme?.playAsync()
-	}
-	
+		mainTheme?.playAsync();
+	};
+
 	const stopTheme = () => {
-		mainTheme?.stopAsync()
-	}
+		mainTheme?.stopAsync();
+	};
 
 	const { Navigator, Screen } = createStackNavigator();
 	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)
@@ -65,18 +65,26 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'UserMenu'}
+				initialRouteName={'Home'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
-				<Screen name='Home' component={HomeScreen} options={({route}) => {
-					route.playTheme = playTheme;
-				}} />
+				<Screen
+					name='Home'
+					component={HomeScreen}
+					options={({ route }) => {
+						route.playTheme = playTheme;
+					}}
+				/>
 				<Screen name='SearchScreen' component={SearchScreen} />
-				<Screen name='UserMenu' component={UserMenu} options={({route}) => {
-					route.stopTheme = stopTheme, 
-					route.playTheme = playTheme;
-				}} />
+				<Screen
+					name='UserMenu'
+					component={UserMenu}
+					options={({ route }) => {
+						(route.stopTheme = stopTheme),
+							(route.playTheme = playTheme);
+					}}
+				/>
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
 				<Screen name='Information' component={Information} />
@@ -89,11 +97,15 @@ const HomeRoutes = () => {
 				/>
 				<Screen name='QuizMakeDetails' component={QuizMakeDetails} />
 				<Screen name='QuizIndex' component={QuizIndex} />
-				<Screen name='QuizResults' component={QuizResults}/>
-				<Screen name='Quiz' component={Quiz} options={({route}) => {
-					route.playTheme = playTheme;
-					route.stopTheme = stopTheme;
-				}} />
+				<Screen name='QuizResults' component={QuizResults} />
+				<Screen
+					name='Quiz'
+					component={Quiz}
+					options={({ route }) => {
+						route.playTheme = playTheme;
+						route.stopTheme = stopTheme;
+					}}
+				/>
 				<Screen name='Profile' component={Profile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
 				<Screen name='Ricky' component={Ricky} />
