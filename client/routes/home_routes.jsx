@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Platform } from 'react-native';
 
 //~~~Components~~~
-import Ricky from '@components/easter_eggs/Ricky'
+import Ricky from '@components/easter_eggs/Ricky';
 import QuizIndex from '@components/quiz_index';
 import Quiz from '@components/quiz';
 import HomeScreen from '@components/home_screen';
@@ -29,7 +29,6 @@ import QuizMakeQuestions from '@components/quiz_make/questions';
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
 
-
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
 	const [mainTheme, setMainTheme] = React.useState();
@@ -45,19 +44,20 @@ const HomeRoutes = () => {
 		}
 		(async () => {
 			const { sound } = await Audio.Sound.createAsync(mainThemeFile, {
-				isLooping: true, volume: 0.5
+				isLooping: true,
+				volume: 0.5,
 			});
 			setMainTheme(sound);
-		})()
+		})();
 	}, []);
 
 	const playTheme = () => {
-		mainTheme?.playAsync()
-	}
+		mainTheme?.playAsync();
+	};
 
-	const stopTheme = () => {
-		mainTheme?.stopAsync()
-	}
+  const stopTheme = () => {
+		mainTheme?.stopAsync();
+	};
 
 	const { Navigator, Screen } = createStackNavigator();
 	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)

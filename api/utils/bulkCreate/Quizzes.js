@@ -185,7 +185,7 @@ const quizzes = [
 		title: "World's Hardest Science Quiz You'll Ever Take!",
 		description: 'Can you overcome this challenge?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://media.proprofs.com/images/QM/user_images/1826446/Discus%20(8)(1).jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
 		questions: [
@@ -195,7 +195,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0048'),
 		],
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
-	}, //abajo yo franf
+	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0012'),
 		title: 'Deportes varios',
@@ -265,7 +265,7 @@ const quizzes = [
 		title: 'Algoritmos',
 		description: 'Desafios matematicos',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://concepto.de/wp-content/uploads/2018/04/algoritmo-min-e1523301106897.jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -277,7 +277,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		//OCUPADO
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0017'),
 		title: 'Historia general',
 		description: 'Preguntas random sobre historia general. Desafiate!',
@@ -294,7 +293,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		// mío :D
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0018'),
 		title: 'Adivina la capital',
 		description:
@@ -302,7 +300,7 @@ const quizzes = [
 		image:
 			'https://www.caracteristicas.co/wp-content/uploads/2017/07/geografia-1-e1571191548230.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0009'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0010'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0073'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0074'),
@@ -315,8 +313,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0019'),
 		title: 'La matematica y sus variables',
 		description: '¿Que tanto conoces de matematica? 🤯',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		image: 'https://miro.medium.com/max/624/1*1CziRAeRnF4UsCrhryH9yw.png',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -328,7 +325,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		// mío xD
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0020'),
 		title: 'Mix de preguntas!',
 		description:
@@ -346,7 +342,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0006'),
 	},
 	{
-		// mine
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0021'),
 		title: 'Provincias argentinas',
 		description:
@@ -364,7 +359,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		// ARRANCO AQUI YO, SI, YO
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0022'),
 		title: '¿Cuanto sabes de musica?',
 		description:
@@ -382,14 +376,13 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		//MíA
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0023'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: 'La mejor epoca de la musca',
+		description: "¿Que tanto sabes de los 80' y 90'?",
 		image:
-			'https://i.pinimg.com/originals/ca/11/15/ca111590fed43d85e149f09cd553ab42.jpg',
+			'https://images-na.ssl-images-amazon.com/images/I/91IHBdxcdnL.png',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0012'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0003'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0093'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0094'),
@@ -400,12 +393,11 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0024'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: 'Basquet',
+		description: '¿Que tanto amas este deporte?',
+		image: 'https://static3.a24.com/images/2019/8/20/rypjJy9EB.jpeg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0004'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0097'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0098'),
@@ -416,12 +408,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0025'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: 'El mundo del arte',
+		description: '¿Que tanto sabes de arte?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://aws.admagazine.com/prod/designs/v1/assets/1200x628/69052.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0101'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0102'),
@@ -432,12 +424,11 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0026'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		title: 'Me gusta el arte...',
+		description: 'Demuestranos lo que sabes',
+		image: 'https://media.metrolatam.com/2018/01/24/elgrito-600x400.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0105'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0106'),
@@ -448,12 +439,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0027'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: 'El mundo segun quizmeApp',
+		description: 'Si sabes de historia demuestralo!',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://www.ui1.es/sites/default/files/blog/images/estudiar-historia-geografia_1.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0009'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0109'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0110'),
@@ -464,12 +455,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0028'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: 'El mundo en una historia',
+		description: 'Demuestralo',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/a2bbd257-386f-4d52-8766-be89fe8be46a/c4710221-53da-4be5-be2f-5f22e66db7ed.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0009'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0113'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0114'),
@@ -480,12 +471,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0029'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: '¿Que tanto sabes del mundo?',
+		description: 'Demuestranos en este quiz de geografia',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://www.caracteristicas.co/wp-content/uploads/2017/05/historia-e1568077367159.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0010'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0117'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0118'),
@@ -496,12 +487,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0030'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: 'Las ciencias de la naturaleza',
+		description: 'Demuestra lo que sabes en esta ciencia',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://sites.google.com/site/institucionciudadibague/_/rsrc/1529547093500/contenidos-de-aprendizaje/ciencias-naturales/Naturales.png',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0011'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0121'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0122'),
@@ -512,12 +503,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0031'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: 'El mundo de las ciencias naturales',
+		description: 'Solo para los aficionados a las ciencias naturales',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://conceptodefinicion.de/wp-content/uploads/2011/08/Ciencias_Naturales-2.jpg',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0011'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0125'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0126'),
@@ -528,12 +519,12 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0032'),
-		title: 'Desafío químico',
-		description: '¿Eres un experto en química?',
+		title: '¿Cuanto sabes del arcade de los 90?',
+		description: 'Demuestranos que tanto sabes de los viejos fichines',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://larepublica.pe/resizer/zyNRfxmqAyRP-5rZWyj3JXvMH4A=/1250x735/top/smart/cloudfront-us-east-1.images.arcpublishing.com/gruporepublica/PGRPRUGRNNEXZB345OEXC6LXHA.png',
 		likes: 10,
-		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0012'),
 		questions: [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0129'),
 			mongoose.Types.ObjectId('5959e34adf833e1451af0130'),
@@ -543,13 +534,12 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		//aca yo paqin
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0033'),
 		title: 'Preguntas aleatorias de Cs. Naturales',
 		description:
 			'Demuestra tus conocimentos sobre esta ciencia en este quiz!',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://www.definicion.co/wp-content/uploads/2015/04/Dentro-de-las-Ciencias-Naturales-hay-distintas-ramas1.jpg',
 		likes: 21,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0011'),
 		questions: [
@@ -592,6 +582,22 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0144'),
 		],
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
+	},
+	{
+		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0036'),
+		title: 'El fabuloso mundo de la familia simpson',
+		description: '¿Que tanto sabes sobre esta familia?',
+		image:
+			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
+		likes: 10,
+		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0012'),
+		questions: [
+			mongoose.Types.ObjectId('5959e34adf833e1451af0145'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0146'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0147'),
+			mongoose.Types.ObjectId('5959e34adf833e1451af0148'),
+		],
+		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 ];
 
