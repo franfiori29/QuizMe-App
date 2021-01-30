@@ -185,7 +185,7 @@ const quizzes = [
 		title: "World's Hardest Science Quiz You'll Ever Take!",
 		description: 'Can you overcome this challenge?',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://media.proprofs.com/images/QM/user_images/1826446/Discus%20(8)(1).jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
 		questions: [
@@ -265,7 +265,7 @@ const quizzes = [
 		title: 'Algoritmos',
 		description: 'Desafios matematicos',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://concepto.de/wp-content/uploads/2018/04/algoritmo-min-e1523301106897.jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -315,8 +315,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0019'),
 		title: 'La matematica y sus variables',
 		description: '¿Que tanto conoces de matematica? 🤯',
-		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+		image: 'https://miro.medium.com/max/624/1*1CziRAeRnF4UsCrhryH9yw.png',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -545,7 +544,7 @@ const quizzes = [
 		description:
 			'Demuestra tus conocimentos sobre esta ciencia en este quiz!',
 		image:
-			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
+			'https://www.definicion.co/wp-content/uploads/2015/04/Dentro-de-las-Ciencias-Naturales-hay-distintas-ramas1.jpg',
 		likes: 21,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0011'),
 		questions: [
