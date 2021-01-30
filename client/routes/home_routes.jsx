@@ -55,7 +55,7 @@ const HomeRoutes = () => {
 		mainTheme?.playAsync();
 	};
 
-	const stopTheme = () => {
+  const stopTheme = () => {
 		mainTheme?.stopAsync();
 	};
 
@@ -65,26 +65,18 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'Home'}
+				initialRouteName={'LogoAnimated'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
-				<Screen
-					name='Home'
-					component={HomeScreen}
-					options={({ route }) => {
-						route.playTheme = playTheme;
-					}}
-				/>
+				<Screen name='Home' component={HomeScreen} options={({ route }) => {
+					route.playTheme = playTheme;
+				}} />
 				<Screen name='SearchScreen' component={SearchScreen} />
-				<Screen
-					name='UserMenu'
-					component={UserMenu}
-					options={({ route }) => {
-						(route.stopTheme = stopTheme),
-							(route.playTheme = playTheme);
-					}}
-				/>
+				<Screen name='UserMenu' component={UserMenu} options={({ route }) => {
+					route.stopTheme = stopTheme,
+						route.playTheme = playTheme;
+				}} />
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
 				<Screen name='Information' component={Information} />
@@ -98,14 +90,10 @@ const HomeRoutes = () => {
 				<Screen name='QuizMakeDetails' component={QuizMakeDetails} />
 				<Screen name='QuizIndex' component={QuizIndex} />
 				<Screen name='QuizResults' component={QuizResults} />
-				<Screen
-					name='Quiz'
-					component={Quiz}
-					options={({ route }) => {
-						route.playTheme = playTheme;
-						route.stopTheme = stopTheme;
-					}}
-				/>
+				<Screen name='Quiz' component={Quiz} options={({ route }) => {
+					route.playTheme = playTheme;
+					route.stopTheme = stopTheme;
+				}} />
 				<Screen name='Profile' component={Profile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
 				<Screen name='Ricky' component={Ricky} />
