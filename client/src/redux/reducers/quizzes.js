@@ -1,64 +1,43 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
-import { gql } from 'graphql-request';
-import { mutationUpdateHighscore } from './querys/quizzes';
+import {
+	mutationUpdateHighscore,
+	mutationDestroyQuiz,
+	queryAllQuizzes,
+	updateLikeRequest,
+	quizCreateOne,
+	queryGetQuizByCategory,
+	queryGetQuizzesBySearchInput,
+	queryRandomQuiz,
+	queryGtQuizzesByPopularity,
+} from './querys/quizzes';
 import { shuffle } from '@utils/shuffle';
 
-export const EntireQuizInfo = gql`
-	fragment EntireQuizInfo on Quiz {
-		_id
-		title
-		description
-		image
-		likes
-		time
-		categoryId {
-			_id
-			description_en
-			description_es
-		}
-		questions {
-			_id
-			title
-			score
-			image
-			options {
-				title
-				result
-			}
-		}
-	}
-`;
-
-/* --- Get all quizzes --- */
-const queryAllQuizzes = gql`
-	{
-		getQuizzes {
-			...EntireQuizInfo
-		}
-	}
-	${EntireQuizInfo}
-`;
+/* --- Async Thunk Actions --- */
 
 export const getQuizzes = createAsyncThunk(
 	'quiz/getAll',
-	async (_, { getState }) => {
+	async (payload, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryAllQuizzes);
-		if (clientRequest.getQuizzes) {
+		if (clientRequest.getQuizzes && !payload?.notShuffle) {
 			clientRequest.getQuizzes = shuffle(clientRequest.getQuizzes);
 		}
 		return clientRequest;
 	}
 );
-const updateLikeRequest = gql`
-	mutation updateLike($quizId: ID!, $giveLike: Boolean) {
-		updateLike(quizId: $quizId, giveLike: $giveLike) {
-			likes
-			_id
-		}
+
+export const destroyQuiz = createAsyncThunk(
+	'quiz/destroyQuiz',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationDestroyQuiz, {
+			quizId: payload.quizId,
+		});
+		return clientRequest.destroyQuiz;
 	}
-`;
+);
+
 export const updateLike = createAsyncThunk(
 	'quiz/updateLike',
 	async (payload, { getState }) => {
@@ -71,16 +50,6 @@ export const updateLike = createAsyncThunk(
 	}
 );
 
-/* --- Create Quiz --- */
-const quizCreateOne = gql`
-	mutation createQuiz($payload: QuizInput) {
-		createQuiz(quiz: $payload) {
-			...EntireQuizInfo
-		}
-	}
-	${EntireQuizInfo}
-`;
-
 export const createQuiz = createAsyncThunk(
 	'quiz/createOne',
 	async (payload, { getState }) => {
@@ -89,15 +58,6 @@ export const createQuiz = createAsyncThunk(
 		return clientRequest;
 	}
 );
-
-const queryGetQuizByCategory = gql`
-	query($payload: ID!) {
-		getQuizByCategory(catId: $payload) {
-			...EntireQuizInfo
-		}
-	}
-	${EntireQuizInfo}
-`;
 
 export const getQuizByCategory = createAsyncThunk(
 	'quiz/getByCat',
@@ -115,15 +75,6 @@ export const getQuizByCategory = createAsyncThunk(
 	}
 );
 
-const queryGetQuizzesBySearchInput = gql`
-	query($searchInput: String!, $categoryFilter: String) {
-		getQuizzesByInputSearch(input: $searchInput, cat: $categoryFilter) {
-			...EntireQuizInfo
-		}
-	}
-	${EntireQuizInfo}
-`;
-
 export const getQuizzesBySearchInput = createAsyncThunk(
 	'quiz/getQuizzesBySearchInput',
 	async ({ searchInput, categoryFilter }, { getState }) => {
@@ -135,16 +86,6 @@ export const getQuizzesBySearchInput = createAsyncThunk(
 		return clientRequest;
 	}
 );
-
-/* --- Get random quiz --- */
-const queryRandomQuiz = gql`
-	{
-		getRandomQuiz {
-			...EntireQuizInfo
-		}
-	}
-	${EntireQuizInfo}
-`;
 
 export const getRandomQuiz = createAsyncThunk(
 	'quiz/getRandom',
@@ -167,17 +108,6 @@ export const updateHighscore = createAsyncThunk(
 	}
 );
 
-/*Get quizzes by popularity*/
-
-const queryGtQuizzesByPopularity = gql`
-	{
-		searchByPopularity {
-			...EntireQuizInfo
-		}
-	}
-	${EntireQuizInfo}
-`;
-
 export const getQuizzesByPopularity = createAsyncThunk(
 	'quiz/getQuizzesByPopularity',
 	async (_, { getState }) => {
@@ -186,6 +116,7 @@ export const getQuizzesByPopularity = createAsyncThunk(
 		return clientRequest;
 	}
 );
+
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {

@@ -21,6 +21,7 @@ const strings = {
 		info: 'Information',
 		version: 'Version',
 		logout: 'Log Out',
+		adminPanel: 'Admin Panel',
 	},
 
 	es: {
@@ -45,6 +46,7 @@ const strings = {
 		info: 'Información',
 		version: 'Versión',
 		logout: 'Cerrar sesión',
+		adminPanel: 'Panel de Admin',
 	},
 };
 

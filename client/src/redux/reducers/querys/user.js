@@ -1,5 +1,5 @@
 import { gql } from 'graphql-request';
-import { EntireQuizInfo } from '../quizzes';
+import { EntireQuizInfo } from './quizzes';
 
 /* --- Querys --- */
 export const queryGetCompletedQuizzes = gql`
@@ -9,7 +9,31 @@ export const queryGetCompletedQuizzes = gql`
 		}
 	}
 `;
+
+export const queryGetUsers = gql`
+	{
+		getUsers {
+			_id
+			firstName
+			lastName
+			email
+			profilePic
+			accountId
+			socialAccount
+			countryCode
+			role
+			isActive
+		}
+	}
+`;
 /* --- Mutations --- */
+
+export const mutationActivateUser = gql`
+	mutation activateUser($userId: ID!, $isActive: Boolean!) {
+		activateUser(userId: $userId, isActive: $isActive)
+	}
+`;
+
 export const queryUpdateUser = gql`
 	mutation($payload: UserInput) {
 		updateUser(userBody: $payload) {
