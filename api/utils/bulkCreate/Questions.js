@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0001'),
-		title: '¿Qué fórmula es usada para encontrar el area de un triángulo?',
+		title: '¿Qué fórmula es usada para encontrar el área de un triángulo?',
 		options: [
-			{ title: 'A = π*r^2', result: false },
-			{ title: 'A = b*(h)', result: false },
-			{ title: 'A = l*(w)*(h)', result: false },
-			{ title: 'A = (1/2)*b*(h)V', result: true },
+			{ title: 'A = π * r^2', result: false },
+			{ title: 'A = b * h', result: false },
+			{ title: 'A = l * b * h', result: false },
+			{ title: 'A = (b * h) / 2', result: true },
 		],
 		time: 10,
 		score: 5,
@@ -16,7 +16,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0002'),
 		title:
-			'¿Cuál es el resultado de la siguiente multiplicación: (3/4)x4? ',
+			'¿Cuál es el resultado de la siguiente multiplicación: (3/4) x 4? ',
 		options: [
 			{ title: '3', result: true },
 			{ title: '2', result: false },
@@ -28,7 +28,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0003'),
-		title: 'La expresión 2+4x4-1 da: ',
+		title: 'La expresión 2 + 4 x 4 - 1 da: ',
 		options: [
 			{ title: '24', result: false },
 			{ title: '15', result: false },
@@ -40,7 +40,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0004'),
-		title: '5x5+(5x0)+1+2x0 es:',
+		title: '5 x 5 + (5 x 0) + 1 + 2 x 0 es:',
 		options: [
 			{ title: '0', result: false },
 			{ title: '1', result: false },
@@ -116,7 +116,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0010'),
-		title: 'Qué banda sacó este disco en 1973 ',
+		title: '¿Qué banda sacó este disco en 1973?',
 		image:
 			'https://static.posters.cz/image/750/marco-de-plastico-pink-floyd-dark-side-of-the-moon-i23364.jpg',
 		options: [
@@ -130,7 +130,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0011'),
-		title: 'Este álbum del 2010 es de la banda: ',
+		title: 'Este álbum del 2010 es de la banda:',
 		image:
 			'https://www.latercera.com/resizer/C8sTiHepMe4vbe80EklUbolRcS4=/900x600/smart/cloudfront-us-east-1.images.arcpublishing.com/copesa/WWOU6GDWVRELDPUN3L2NMKSSW4.jpg',
 		options: [
@@ -151,7 +151,7 @@ const questions = [
 			{ title: 'Pink Floyd', result: false },
 			{ title: 'The beatles', result: true },
 			{ title: 'Queen', result: false },
-			{ title: 'Rolling stones', result: false },
+			{ title: 'Rolling Stones', result: false },
 		],
 		time: 8,
 		score: 2,
@@ -159,7 +159,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0013'),
 		title:
-			'What is the record for red cards given in a single soccer game?',
+			'¿Cuál es el record de tarjetas rojas sacadas durante un único partido?',
 		options: [
 			{ title: '24', result: false },
 			{ title: '12', result: false },
@@ -172,19 +172,20 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0014'),
 		title:
-			'Which two countries participated in the first international soccer match?',
+			'¿Qué dos países participaron en el primer partido internacional de fútbol?',
 		options: [
-			{ title: 'Germany and France', result: false },
-			{ title: 'Scotland and England', result: true },
-			{ title: 'Germany and Scotland', result: false },
-			{ title: 'France and England', result: false },
+			{ title: 'Alemania y Francia', result: false },
+			{ title: 'Escocia e Inglaterra', result: true },
+			{ title: 'Alemania y Escocia', result: false },
+			{ title: 'Francia e Inglaterra', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0015'),
-		title: 'Who was the first player to score at five World Cup editions?',
+		title:
+			'¿Quién fue el primer jugador que anotó goles durante cinco Copas Mundiales?',
 		options: [
 			{ title: 'Marta', result: true },
 			{ title: 'Pelé', result: false },
@@ -196,7 +197,8 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0016'),
-		title: 'How old was the youngest professional soccer player?',
+		title:
+			'¿Qué edad tenía el jugador profesional de fútbol más joven del mundo?',
 		options: [
 			{ title: '12', result: false },
 			{ title: '14', result: true },
@@ -208,7 +210,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0017'),
-		title: '¿Quién fue el maestro sith del conde Dooku?',
+		title: '¿Quién fue el maestro Sith del conde Dooku?',
 		options: [
 			{ title: 'Darth Maul', result: false },
 			{ title: 'Darth Sidious', result: true },
@@ -246,7 +248,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0020'),
 		title:
-			'¿Cómo se llama el planeta en que se retira Yoda tras la masacre de ‘La venganza de los Sith’?',
+			'¿Cómo se llama el planeta al que se retira Yoda tras la masacre de "La venganza de los Sith"?',
 		options: [
 			{ title: 'Bespin', result: false },
 			{ title: 'Naboo', result: false },
@@ -300,7 +302,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0024'),
-		title: '¿Quién es este actor?',
+		title: '¿Quién es este comandante?',
 		image: 'https://www.ellitoral.com/um/fotos/228579_fort.jpg',
 		options: [
 			{ title: 'Ricardo Darin', result: false },
@@ -313,7 +315,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0025'),
-		title: '¿Cuál de éstos es un indicador de PH?',
+		title: '¿Cuál de éstos es un indicador de pH?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -327,7 +329,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0026'),
-		title: 'Una sustancia con PH 7, ¿qué tipo de sustancia es?',
+		title: 'Una sustancia con pH 7, ¿qué tipo de sustancia es?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -341,7 +343,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0027'),
-		title: '¿Qué método permite separar un sólido de un líquido? ',
+		title: '¿Qué método permite separar un sólido de un líquido?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -366,12 +368,12 @@ const questions = [
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
+					'La unión de dos o más sustancias que mantienen sus propiedades',
 				result: true,
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+					'La unión de dos o más sustancias que mantienen sus propiedades alteradas',
 				result: false,
 			},
 		],
@@ -381,7 +383,7 @@ const questions = [
 	// EL MUNDO DE JS
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0029'),
-		title: '¿En que año nacio lo que hoy conocemos como Javascript?',
+		title: '¿En qué año nació lo que hoy conocemos como Javascript?',
 		options: [
 			{ title: '1999', result: false },
 			{ title: '2001', result: false },
@@ -393,19 +395,19 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0030'),
-		title: "¿Que tipo de notacion estoy usando si escribo 'result.data'",
+		title: "¿Qué tipo de notacion estoy usando si escribo 'result.data'",
 		options: [
-			{ title: 'DOT', result: true },
-			{ title: 'Bracket', result: false },
-			{ title: 'ES6', result: false },
-			{ title: 'ES5', result: false },
+			{ title: 'Dot notation', result: true },
+			{ title: 'Bracket notation', result: false },
+			{ title: 'ES6 notation', result: false },
+			{ title: 'ES5 notation', result: false },
 		],
 		time: 15,
 		score: 3,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0031'),
-		title: '¿Un array que tipo de dato es?',
+		title: '¿Qué tipo de dato es un array?',
 		options: [
 			{ title: 'String', result: false },
 			{ title: 'Number', result: false },
@@ -418,7 +420,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0032'),
 		title:
-			'Si mostrara en consola la siguiente condicion ([] !== []) ¿Que devolveria?',
+			'Si mostrara en consola la siguiente condicion: ([] !== []) ¿Qué devolveria?',
 		options: [
 			{ title: 'Error', result: false },
 			{ title: 'Undefined', result: false },
@@ -430,7 +432,7 @@ const questions = [
 	}, // TERMINA EL MUNDO DEL JS
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0033'),
-		title: '¿Cómo se llama esta pintura del 1656? ',
+		title: '¿Cómo se llama esta pintura de 1656?',
 		image: 'https://emtstatic.com/2017/12/meninas.jpg',
 		options: [
 			{ title: 'Las Meninas', result: true },
@@ -443,7 +445,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0034'),
-		title: '¿Cómo se llama esta obra del 1942? ',
+		title: '¿Cómo se llama esta obra de 1942?',
 		image: 'https://blog.artsper.com/wp-content/uploads/2019/06/600.jpeg',
 		options: [
 			{ title: 'La noche', result: false },
@@ -456,7 +458,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0035'),
-		title: '¿Cómo se llama esta pintura del 1872? ',
+		title: '¿Cómo se llama esta pintura del 1872?',
 		image:
 			'https://todoestaennuestracabeza.files.wordpress.com/2012/06/impresion_sol_naciente11.jpg',
 		options: [
@@ -470,7 +472,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0036'),
-		title: '¿Cómo se llama esta pintura del 1656? ',
+		title: '¿Cómo se llama esta pintura de 1656?',
 		image:
 			'https://images-na.ssl-images-amazon.com/images/I/51cS5kQWTrL._AC_SX450_.jpg',
 		options: [
@@ -485,7 +487,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0037'),
 		title:
-			'ifconfig has been deprecated, what command is now recommended for changing IP addresses in the live config?',
+			'ifconfig está en desuso. ¿Qué comando se recomienza usar para cambiar una dirección IP en live-config?',
 		image:
 			'https://crock.com.ar/wp-content/uploads/2016/10/Patricio_Rey_Y_Sus_Redonditos_De_Ricota-Oktubre.jpg',
 		options: [
@@ -499,24 +501,24 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0038'),
-		title:
-			'What is the output of the following command?tail -n 20 test.txt',
+		title: '¿Qué devuelve el siguiente comando? tail -n 20 test.txt',
 		image:
 			'https://static.posters.cz/image/750/marco-de-plastico-pink-floyd-dark-side-of-the-moon-i23364.jpg',
 		options: [
-			{ title: 'The first 20 lines of test.txt', result: false },
+			{ title: 'Las primeras veinte líneas de test.txt', result: false },
 			{
 				title:
-					'The last 20 lines of test.text including the black lines',
+					'Las últimas 20 líneas de test.text, incluyendo las líneas en blanco',
 				result: true,
 			},
 			{
-				title: 'The last 20 lines of test.text with lines numbers',
+				title:
+					'Las últimas veinte líneas de test.text, con líneas numeradas',
 				result: false,
 			},
 			{
 				title:
-					'The last 20 lines of test.text omitting the black lines',
+					'Las últimas veinte líneas de test.text, excluyendo las líneas en blanco',
 				result: false,
 			},
 		],
@@ -526,7 +528,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0039'),
 		title:
-			'After installing a new package, in which directory are you most likely find its configuration file?',
+			'Después de instalar un nuevo paquete, ¿en qué directorio es más probable que se halle su archivo de configuración?',
 		image:
 			'https://www.latercera.com/resizer/C8sTiHepMe4vbe80EklUbolRcS4=/900x600/smart/cloudfront-us-east-1.images.arcpublishing.com/copesa/WWOU6GDWVRELDPUN3L2NMKSSW4.jpg',
 		options: [
@@ -541,14 +543,14 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0040'),
 		title:
-			'What is the first character for a file or directory names if they should not be displayed by commands such as ls unless specifically requested?',
+			'¿Cuál es el primer caracter en el nombre de un archivo o directorio si no queremos que se muestren usando comandos como ls a no ser que lo especifiquemos?',
 		image:
 			'https://townsquare.media/site/295/files/2013/11/Beatles-Rubber-Soul.jpg',
 		options: [
-			{ title: '- (minus)', result: false },
-			{ title: '. (dot)', result: true },
-			{ title: ' (backslash)', result: false },
-			{ title: '_ (underscore)', result: false },
+			{ title: '- (guion)', result: false },
+			{ title: '. (punto)', result: true },
+			{ title: '\\ (barra invertida)', result: false },
+			{ title: '_ (guion bajo)', result: false },
 		],
 		time: 8,
 		score: 2,
@@ -556,26 +558,26 @@ const questions = [
 	{
 		//ACA EMPIEZO YO NACHOTIPS
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0041'),
-		title: '¿Cuál de los siguientes sintaxis es correcta',
+		title: '¿Cuál de las siguientes declaraciones es la correcta?',
 		options: [
 			{ title: 'body {color: black};', result: false },
 			{
-				title: 'body {backgroundColor: blue, color: black}',
+				title: 'body {backgroundColor: blue; color: black}',
 				result: false,
 			},
-			{ title: 'body {background-color: blue}', result: false },
-			{ title: 'body {color: black;}', result: true },
+			{ title: 'body: {background-color: blue}', result: false },
+			{ title: 'body {color: black}', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0042'),
-		title: '¿Para que sirve la propiedad background-color?',
+		title: '¿Para qué sirve la propiedad background-color?',
 		options: [
-			{ title: 'Para establecer un color de fuente', result: false },
+			{ title: 'Para establecer un color de texto', result: false },
 			{
-				title: 'Para establecer un color de fondo al elemento',
+				title: 'Para definirle un color de fondo al elemento',
 				result: true,
 			},
 			{
@@ -592,25 +594,25 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0043'),
-		title: '¿Para que sirve la propiedad overflow?',
+		title: '¿Para qué sirve la propiedad overflow?',
 		options: [
 			{
 				title:
-					'Para establecer  qué debe suceder si el contenido se desborda en el cuadro(caja) de un elemento.',
+					'Para establecer qué debe suceder si el contenido se desborda de su contenedor.',
 				result: true,
 			},
 			{
 				title:
-					'Para establecer  qué debe suceder si el contenido no tiene color de fondo.',
+					'Para establecer qué debe suceder si el contenido no tiene color de fondo y resulta ilegible.',
 				result: false,
 			},
 			{
 				title:
-					'Para establecer  qué debe suceder si el contenido no se alinea en el centro.',
+					'Para establecer qué debe suceder si el contenido no se alinea verticalmente.',
 				result: false,
 			},
 			{
-				title: 'Esta propiedad no existe en CSS2020',
+				title: 'Esta propiedad no existe en CSS3',
 				result: false,
 			},
 		],
@@ -620,7 +622,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0044'),
 		title:
-			'¿Que significa la siguiente sintaxis de la propiedad margin? "margin: 0px 20px"',
+			'¿Qué significa la siguiente sintaxis de la propiedad margin? "margin: 0px 20px"',
 		options: [
 			{
 				title: 'Que va a tener 20px de margen en todos los ejes',
@@ -628,16 +630,17 @@ const questions = [
 			},
 			{
 				title:
-					'Que va a tener 20px de margen en el Vertical e 20px de margen en el eje Horizontal',
+					'Que va a tener 20px de margen vertical y 20px de margen horizontal',
 				result: false,
 			},
 			{
 				title:
-					'Que va a tener 0 de margen en el Vertical e 20px de margen en el eje Horizontal',
+					'Que va a tener 0px de margen vertical y 20px de margen horizontal',
 				result: true,
 			},
 			{
-				title: 'Que va a tener 20px de margen en el eje Horizontal',
+				title:
+					'Que va a tener 0px de margen arriba y 20px de margen debajo',
 				result: false,
 			},
 		],
@@ -646,59 +649,61 @@ const questions = [
 	}, //ACA TERMINO YO NACHOTIPS
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0045'),
-		title: 'How did the dinosaurs die out?',
+		title: '¿Cómo se extinguieron los dinosaurios?',
 		options: [
-			{ title: 'Because of the Ice age', result: false },
-			{ title: 'An asteroid impact', result: true },
+			{ title: 'Por la Era Glacial', result: false },
+			{ title: 'Por el impacto de un asteroide', result: true },
 			{
 				title:
-					"DANG IT! They didn't die. In fact they excreted on your car last Friday.",
+					'¡No murieron! De hecho este viernes vieron tu auto y lo rayaron todo',
 				result: false,
 			},
-			{ title: 'A FLOOD 500 years ago', result: false },
+			{ title: 'Por una inundación hace 500 años', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0046'),
-		title: 'What kind of small objects composes much of the universe?',
+		title:
+			'¿Cómo se llaman los objetos pequeños que componen todo en el Universo?',
 		options: [
-			{ title: 'Anti-matter', result: false },
-			{ title: 'Atoms', result: false },
-			{ title: 'My dreams', result: false },
-			{ title: 'Dark matter', result: true },
+			{ title: 'Antimateria', result: false },
+			{ title: 'Átomos', result: true },
+			{ title: 'Mis sueños', result: false },
+			{ title: 'Materia oscura', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0047'),
-		title: 'Give an example of a decapod: ',
+		title: 'Indica un ejemplo de un decápodo.',
 		options: [
-			{ title: 'Unicorns!', result: false },
-			{ title: 'Crab', result: true },
-			{ title: "They don't exist", result: false },
-			{ title: 'Beetle', result: false },
+			{ title: 'Unicornios', result: false },
+			{ title: 'Cangrejos', result: true },
+			{ title: 'No existen', result: false },
+			{ title: 'Escarabajos', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0048'),
-		title: 'Which is a hypothetical string theory weightless particle?',
+		title:
+			'¿Cómo se llama la partícula sin masa hipotética que surgió en la teoría de cuerdas?',
 		options: [
-			{ title: 'Anti-matter', result: false },
-			{ title: 'Baryonic Matter', result: false },
-			{ title: 'EARTH WORM JIM', result: false },
-			{ title: 'Dagobah', result: true },
+			{ title: 'Antimateria', result: false },
+			{ title: 'Materia oscura bariónica', result: true },
+			{ title: 'Earthworm Jim', result: false },
+			{ title: 'Dagobah', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0049'),
-		title: '¿Cuántos mundiales tiene Michael Schumacher?',
+		title: '¿Cuántos mundiales ganó Michael Schumacher?',
 		image:
 			'https://www.infobae.com/new-resizer/iTlkaCMRtjPmgb0bj4DhZgZ_sH0=/420x315/filters:format(jpg):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/4CSV7B36DFDDURKGSKD3INJ5GU.jpg',
 		options: [
@@ -726,7 +731,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0051'),
-		title: '¿Cuántos jugadores tiene un equipo de Handball?',
+		title: '¿Cuántos jugadores tiene un equipo de handball?',
 		image:
 			'https://losolimpicos.com.ar/blog/wp-content/uploads/2016/08/handball-Argentina.jpg',
 		options: [
@@ -740,7 +745,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0052'),
-		title: 'El partido más largo de tenis de la historia duró:',
+		title: 'El partido de tenis más largo de la historia duró:',
 		image:
 			'https://d2me2qg8dfiw8u.cloudfront.net/content/uploads/2020/06/24083428/2.53539380-752x428.jpg',
 		options: [
@@ -768,7 +773,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0054'),
-		title: '¿Cuantos jugadores estan permitidos en un equipo de Quidditch?',
+		title: '¿Cuántos jugadores se permiten en un equipo de Quidditch?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -782,7 +787,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0055'),
-		title: '¿En que se transforma el Boggart de Parvati Patil? ',
+		title: '¿En qué se transforma el Boggart de Parvati Patil? ',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -797,7 +802,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0056'),
 		title:
-			'¿Qué pagina de libro le dice Snape a Harry que ponga en la clase en la cual reemplaza a Lupin?',
+			'Cuando Snape reemplaza a Lupin en su clase, ¿en qué página les dice que abran su libro?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -830,7 +835,7 @@ const questions = [
 				result: false,
 			},
 			{
-				title: "‘The power of love', de Huey Lewis and The News",
+				title: "'The power of love', de Huey Lewis and The News",
 				result: true,
 			},
 			{ title: "'Twist and shout', de los Beatles", result: false },
@@ -841,7 +846,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0058'),
 		title:
-			'¿Cuál es el resultado de la siguiente multiplicación: (3/4)x4? ',
+			'¿Cuál es el modelo de zapatillas Nike popularizado en esta película? ',
 		options: [
 			{ title: 'Nike Air MAG', result: true },
 			{ title: 'Nike Air FAST', result: false },
@@ -865,7 +870,8 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0060'),
-		title: "¿En qué localidad nació el doctor Emmett Lathrop Brown, 'Doc'?",
+		title:
+			"¿En qué localidad nació el doctor Emmett Lathrop Brown, alias 'Doc'?",
 		options: [
 			{ title: 'Reno (Nevada)', result: false },
 			{ title: 'Yucca Valley (California)', result: false },
@@ -889,8 +895,8 @@ const questions = [
 					'Solo la verdad podría romperme. ¿Qué hay más duro que la verdad?',
 				result: true,
 			},
-			{ title: '¿Que seria de mi sin mis mentiras?', result: false },
-			{ title: 'Tu eres la unica dueña de mi verdad', result: false },
+			{ title: '¿Qué sería de mí sin mis mentiras?', result: false },
+			{ title: 'Tú eres la única dueña de mi verdad', result: false },
 		],
 		time: 10,
 		score: 7,
@@ -899,20 +905,20 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0062'),
 		title: 'Frase 2:',
 		options: [
-			{ title: 'Me gustan las monjas de mas de 40 años', result: false },
+			{ title: 'Me gustan las monjas de más de 40 años', result: false },
 			{
 				title:
-					'Sólo los sacerdotes y los locos no tienen miedo a nada, y yo nunca me he llevado muy bien con Dios:',
+					'Sólo los sacerdotes y los locos no tienen miedo a nada, y yo nunca me he llevado muy bien con Dios',
 				result: true,
 			},
 			{
 				title:
-					'Nunca me lleve bien con los dioses, ¿Como podría ponerme al nivel de un ser inferior?',
+					'Nunca me lleve bien con los dioses, ¿cómo podría ponerme al nivel de un ser inferior?',
 				result: false,
 			},
 			{
 				title:
-					'La vida es una sola como para preocuparnos de la religión, o el amor...',
+					'La vida es una sola como para preocuparnos por la religión, o el amor...',
 				result: false,
 			},
 		],
@@ -963,7 +969,7 @@ const questions = [
 			},
 			{
 				title:
-					'Sí, soy un mito. Un mito muy especial que se crea a sí mismo. No me gusta que los demás  cuenten mentiras sobre mí.',
+					'Sí, soy un mito. Un mito muy especial que se crea a sí mismo. No me gusta que los demás cuenten mentiras sobre mí.',
 				result: false,
 			},
 			{
@@ -985,7 +991,7 @@ const questions = [
 			{ title: '5', result: false },
 			{ title: '8', result: false },
 		],
-		time: 8,
+		time: 30,
 		score: 2,
 	},
 	{
@@ -998,45 +1004,45 @@ const questions = [
 			{ title: '991440', result: false },
 			{ title: '41310', result: false },
 		],
-		time: 8,
+		time: 30,
 		score: 2,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0067'),
 		title:
-			'Juan tiene 20 años menos que su padre y este tiene el triple de los años de su hijo. ¿Qué edad tienen cada uno?',
+			'Juan tiene 20 años menos que su padre y este tiene el triple de los años de su hijo. ¿Qué edad tiene cada uno?',
 		options: [
 			{ title: '11 Juan, 31 el padre', result: false },
 			{ title: '10 Juan, 30 el padre', result: false },
 			{ title: '12 Juan, 32 el padre', result: true },
 			{ title: '13 Juan, 33 el padre', result: false },
 		],
-		time: 8,
+		time: 30,
 		score: 2,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0068'),
 		title:
-			'En una panadería con 80 kg son capaces de hacer 120 kg de pan. ¿Cuántos kg de harina serán necesarios para hacer 99 kg de pan?',
+			'En una panadería, con 80 kg de harina son capaces de hacer 120 kg de pan. ¿Cuántos kg de harina serán necesarios para hacer 99 kg de pan?',
 		options: [
 			{
-				title: 'Si quieres hacer 99 panes necesitas 79 kg de harina',
+				title: 'Para 99 panes necesitas 79 kg de harina',
 				result: false,
 			},
 			{
-				title: 'Si quieres hacer 99 panes necesitas 58 kg de harina',
+				title: 'Para 99 panes necesitas 58 kg de harina',
 				result: false,
 			},
 			{
-				title: 'Si quieres hacer 99 panes necesitas 68 kg de harina',
+				title: 'Para 99 panes necesitas 68 kg de harina',
 				result: false,
 			},
 			{
-				title: 'Si quieres hacer 99 panes necesitas 66kg de harina',
+				title: 'Para 99 panes necesitas 66kg de harina',
 				result: true,
 			},
 		],
-		time: 8,
+		time: 30,
 		score: 2,
 	},
 	{
@@ -1066,7 +1072,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0071'),
-		title: '¿Quién fue el primer Presidente de Estados Unidos?',
+		title: '¿Quién fue el primer presidente de Estados Unidos?',
 		options: [
 			{ title: 'George Washington', result: true },
 			{ title: 'Andrew Jackson', result: false },
@@ -1078,7 +1084,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0072'),
-		title: '¿Qué facción dirigió MaoZedong durante la guerra civil China?',
+		title: '¿Qué facción dirigió Mao Zedong durante la guerra civil China?',
 		options: [
 			{ title: 'Confederados', result: false },
 			{ title: 'Comunistas', result: true },
@@ -1090,7 +1096,7 @@ const questions = [
 	}, //hasta acá ocupado
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0073'),
-		title: 'Frase 1:',
+		title: '¿Cuál es la capital de Turquía?',
 		options: [
 			{ title: 'Estambul', result: false },
 			{ title: 'Ankara', result: true },
@@ -1102,7 +1108,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0074'),
-		title: 'La capital de Canadá es: ',
+		title: 'La capital de Canadá es:',
 		options: [
 			{ title: 'Ontario', result: false },
 			{ title: 'Ottawa', result: true },
@@ -1114,7 +1120,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0075'),
-		title: 'La capital de Australia es: ',
+		title: 'La capital de Australia es:',
 		options: [
 			{ title: 'Sidney', result: false },
 			{ title: 'Canberra', result: true },
@@ -1126,7 +1132,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0076'),
-		title: 'La capital de Malasia es: ',
+		title: 'Selecciona la capital de Malasia',
 		options: [
 			{ title: 'Malaca', result: false },
 			{ title: 'Kota Kinabalu', result: false },
@@ -1150,12 +1156,12 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0078'),
-		title: '¿Qué formula es esta? S = π x R²',
+		title: '¿Qué se calcula con la siguiente fórmula? S = π x r²',
 		options: [
-			{ title: 'Diametro de un circulo', result: false },
-			{ title: 'Superficie de un circulo', result: true },
-			{ title: 'Volumen de un cilindro', result: false },
-			{ title: 'Superficie de paralelogramos', result: false },
+			{ title: 'El diámetro de un círculo', result: false },
+			{ title: 'La superficie de un círculo', result: true },
+			{ title: 'El volumen de un cilindro', result: false },
+			{ title: 'La superficie de los paralelogramos', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1164,20 +1170,20 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0079'),
 		title: '¿Qué expresa esta formula? e = mc²',
 		options: [
-			{ title: 'La teoria de la probabilidad', result: false },
-			{ title: 'Equivalencia entre masa y volumen', result: true },
-			{ title: 'Circunferencia de un circuito', result: false },
-			{ title: 'Volumen de un cubo', result: false },
+			{ title: 'La teoría de la probabilidad', result: false },
+			{ title: 'La equivalencia entre masa y volumen', result: true },
+			{ title: 'La circunferencia de un circuito', result: false },
+			{ title: 'El volumen de un cubo', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0080'),
-		title: '¿Como se le conoce a esta constante e?',
+		title: '¿Con qué nombre se conoce a la constante e?',
 		options: [
-			{ title: 'Infinito', result: false },
-			{ title: 'Pi', result: false },
+			{ title: 'Número áurico', result: false },
+			{ title: 'Número de Fidias', result: false },
 			{ title: 'Número de Euler', result: true },
 			{ title: 'Número áureo', result: false },
 		],
@@ -1199,7 +1205,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0082'),
-		title: '¿Qué estado de EEUU no tiene una bandera cuadrada?',
+		title: '¿Qué estado de EE.UU. no tiene una bandera cuadrada?',
 		options: [
 			{ title: 'Florida', result: false },
 			{ title: 'Nuevo México', result: false },
@@ -1235,11 +1241,11 @@ const questions = [
 	}, // ACA SE TERMINO DE OCUPAR F
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0085'),
-		title: 'Capital de Santa Cruz: ',
+		title: '¿Cuál es la capital de Santa Cruz?',
 		options: [
 			{ title: 'Paraná', result: false },
 			{
-				title: 'Usuhaia',
+				title: 'Ushuaia',
 				result: false,
 			},
 			{
@@ -1256,7 +1262,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0086'),
-		title: 'Capital de Chaco: ',
+		title: 'Indica la capital de Chaco',
 		options: [
 			{ title: 'Posadas', result: false },
 			{
@@ -1277,7 +1283,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0087'),
-		title: 'Capital de Chubut: ',
+		title: 'La capital de Chubut es:',
 		options: [
 			{ title: 'San Luis', result: false },
 			{
@@ -1298,7 +1304,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0088'),
-		title: 'Capital de Santa Fe',
+		title: '¿Cuál es la capital de Santa Fe?',
 		options: [
 			{ title: 'Rosario', result: false },
 			{
@@ -1325,10 +1331,10 @@ const questions = [
 		image:
 			'https://img.playbuzz.com/image/upload/ar_1.5,c_crop/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/v1554721423/hxycp39uazfxhiwj3w2m.jpg',
 		options: [
-			{ title: 'Una nota', result: false },
-			{ title: 'La nota DO', result: false },
-			{ title: 'La clave de sol', result: true },
+			{ title: 'Una nota del pentagrama', result: false },
 			{ title: 'La clave de do', result: false },
+			{ title: 'La clave de sol', result: true },
+			{ title: 'La clave de fa', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1361,10 +1367,10 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0092'),
 		title: '¿Qué es un aria dentro de una ópera?',
 		options: [
-			{ title: 'El primer acto de una opera', result: false },
-			{ title: 'La pieza compuesta para coro', result: false },
-			{ title: 'El primer acto de una opera', result: false },
-			{ title: 'La pieza compuesta para vos solista', result: true },
+			{ title: 'El primer acto de la ópera', result: false },
+			{ title: 'Una pieza compuesta para coro', result: false },
+			{ title: 'Una obra recitada, ubicada entre actos', result: false },
+			{ title: 'Una pieza compuesta para voz solista', result: true },
 		],
 		time: 10,
 		score: 5,
@@ -1372,7 +1378,8 @@ const questions = [
 	//NUEVA
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0093'),
-		title: '¿Como se llama el vocalista principal de la banda GNR?',
+		title:
+			'¿Cómo se llama el vocalista principal de la banda Guns And Roses?',
 		options: [
 			{ title: 'Axel Rose', result: true },
 			{ title: 'William Bruce Bailey', result: false },
@@ -1384,7 +1391,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0094'),
-		title: '¿A que banda pertenece el tema Patience?',
+		title: '¿A qué banda pertenece el tema Patience?',
 		options: [
 			{ title: 'Europe', result: false },
 			{ title: 'Guns And Roses', result: true },
@@ -1396,7 +1403,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0095'),
-		title: '¿Cual es el genero musical de la banda Rata Blanca?',
+		title: '¿De qué género musical es la banda Rata Blanca?',
 		options: [
 			{ title: 'Rock', result: true },
 			{ title: 'Heavy metal', result: false },
@@ -1408,10 +1415,10 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0096'),
-		title: '¿A que banda pertenece la cancion It Must have been love?',
+		title: '¿A qué banda pertenece la cancion It Must have been love?',
 		options: [
-			{ title: 'Guns and Roses', result: true },
-			{ title: 'Roxxete', result: false },
+			{ title: 'Guns and Roses', result: false },
+			{ title: 'Roxxete', result: true },
 			{ title: 'Scorpions', result: false },
 			{ title: 'Rata Blanca', result: false },
 		],
@@ -1422,12 +1429,12 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0097'),
 		title:
-			'Las dimensiones de la cancha de baloncesto es de ……metros de longitud por ……metros de anchura',
+			'Las dimensiones de una cancha de baloncesto son: X metros de largo por Y metros de ancho',
 		options: [
-			{ title: '28/15', result: true },
-			{ title: '25/12,5', result: false },
-			{ title: '15/28', result: false },
-			{ title: '22/16', result: false },
+			{ title: '28 x 15', result: true },
+			{ title: '25 x 12,5', result: false },
+			{ title: '15 x 28', result: false },
+			{ title: '22 x 16', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1435,7 +1442,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0098'),
 		title:
-			'El terreno de juego deberá distar al menos……metros de cualquier obstáculo',
+			'El terreno de juego deberá distar al menos X metros de cualquier obstáculo',
 		options: [
 			{ title: '2', result: true },
 			{ title: '3', result: false },
@@ -1448,12 +1455,12 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0099'),
 		title:
-			'La línea de tiros libres estará trazada paralela a cada línea de fondo. El borde exterior de esta línea estará situado a….',
+			'La línea de tiros libres estará trazada paralela a cada línea de fondo. El borde exterior de esta línea estará situado a...',
 		options: [
-			{ title: '4 M', result: false },
-			{ title: '6 M', result: false },
-			{ title: '5,8 M', result: true },
-			{ title: '3 M', result: false },
+			{ title: '4 metros', result: false },
+			{ title: '6 metros', result: false },
+			{ title: '5,8 metros', result: true },
+			{ title: '3 metros', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1461,7 +1468,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0100'),
 		title:
-			'Deberán existir al menos ….. señales acústicas diferentes con sonidos claramente distintos y muy potentes, para indicar final del tiempo…etc',
+			'Deberán existir al menos X señales acústicas diferentes con sonidos claramente distintos y muy potentes, para indicar final del tiempo, etc.',
 		options: [
 			{ title: '4', result: false },
 			{ title: '1', result: false },
@@ -1479,7 +1486,7 @@ const questions = [
 			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/6ae32e8a-8f4b-42ea-acdb-cc289c30e77b/27356fc0-5c66-426a-ae93-5a8eb91e146f.jpg',
 		options: [
 			{ title: 'Botticelli', result: true },
-			{ title: 'Miguel Angel', result: false },
+			{ title: 'Miguel Ángel', result: false },
 			{ title: 'Rafael', result: false },
 			{ title: 'Tiziano', result: false },
 		],
@@ -1488,14 +1495,14 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0102'),
-		title: '¿En que siglo nació Velázquez?',
+		title: '¿En qué siglo nació Velázquez?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'SIGLO XVII', result: true },
-			{ title: 'SIGLO XVIII', result: false },
-			{ title: 'SIGLO XV', result: false },
-			{ title: 'SIGLO XVI', result: false },
+			{ title: 'Siglo XVII', result: true },
+			{ title: 'Siglo XVIII', result: false },
+			{ title: 'Siglo XV', result: false },
+			{ title: 'Siglo XVI', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1530,14 +1537,14 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0105'),
-		title: '¿En que siglo nació Van Gogh?',
+		title: '¿En qué siglo nació Van Gogh?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'SIGLO XIX', result: true },
-			{ title: 'SIGLO XX', result: false },
-			{ title: 'SIGLO XVII', result: false },
-			{ title: 'SIGLO XVI', result: false },
+			{ title: 'Siglo XIX', result: true },
+			{ title: 'Siglo XX', result: false },
+			{ title: 'Siglo XVII', result: false },
+			{ title: 'Siglo XVI', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1558,7 +1565,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0107'),
-		title: '¿De que estilo es este cuadro?',
+		title: '¿De qué estilo es este cuadro?',
 		image:
 			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/6ae32e8a-8f4b-42ea-acdb-cc289c30e77b/dca95151-aaf9-4c9c-ab88-9aaf5a196609.jpg',
 		options: [
@@ -1574,7 +1581,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0108'),
 		title: '"La piedad" es una escultura de',
 		options: [
-			{ title: 'Miguel Angel', result: true },
+			{ title: 'Miguel Ángel', result: true },
 			{ title: 'Bernini', result: false },
 			{ title: 'Donatello', result: false },
 			{ title: 'Van Gogh', result: false },
@@ -1585,7 +1592,7 @@ const questions = [
 	//historia
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0109'),
-		title: '¿En que año descubrió Colón América?',
+		title: '¿En qué año Colón descubrió América?',
 		options: [
 			{ title: '1492', result: true },
 			{ title: '1502', result: false },
@@ -1597,7 +1604,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0110'),
-		title: '¿En que guerra participó Juana de Arco?',
+		title: '¿En qué guerra participó Juana de Arco?',
 		options: [
 			{ title: 'Primera Cruzada', result: false },
 			{ title: 'Guerras Napoleonicas', result: false },
@@ -1611,7 +1618,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0111'),
 		title: '¿Cuál era la capital del Imperio Inca?',
 		options: [
-			{ title: 'Cuzco', result: false },
+			{ title: 'Cusco', result: true },
 			{ title: 'Quito', result: false },
 			{ title: 'Machu Picchu', result: false },
 			{ title: 'Lima', result: false },
@@ -1623,7 +1630,7 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0112'),
 		title: '¿Cuándo se produjo principalmente el Siglo de Oro?',
 		options: [
-			{ title: 'Siglo XVI', result: false },
+			{ title: 'Siglo XVI', result: true },
 			{ title: 'Siglo XVII', result: false },
 			{ title: 'Siglo XV', result: false },
 			{ title: 'Siglo XIV', result: false },
@@ -1659,8 +1666,8 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0115'),
 		title: '¿Quién fue el primer emperador romano?',
 		options: [
-			{ title: 'Julio Cesar', result: false },
-			{ title: 'Cesar Augusto', result: true },
+			{ title: 'Julio César', result: false },
+			{ title: 'César Augusto', result: true },
 			{ title: 'Nerón', result: false },
 			{ title: 'Calígula', result: false },
 		],
@@ -1669,7 +1676,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0116'),
-		title: '¿Qué Rey encargó "Las Meninas"?',
+		title: '¿Qué rey encargó "Las Meninas"?',
 		options: [
 			{ title: 'Felipe IV', result: true },
 			{ title: 'Felipe III', result: false },
@@ -1684,7 +1691,7 @@ const questions = [
 		title: '¿Qué es Zelandia?',
 		options: [
 			{ title: 'Una ciudad islandesa', result: false },
-			{ title: 'Un parque tematico', result: false },
+			{ title: 'Un parque temático', result: false },
 			{ title: 'Un país del hemisferio norte', result: false },
 			{ title: 'Un continente', result: true },
 		],
@@ -1696,17 +1703,17 @@ const questions = [
 		title:
 			'El punto más profundo de la fosa de las Marianas está exactamente a...',
 		options: [
-			{ title: '11,144 metros de profundidad', result: false },
-			{ title: '11,054 metros de profundidad', result: false },
-			{ title: '11,044 metros de profundidad', result: false },
-			{ title: '11,034 metros de profundidad', result: true },
+			{ title: '11.144 metros de profundidad', result: false },
+			{ title: '11.054 metros de profundidad', result: false },
+			{ title: '11.044 metros de profundidad', result: false },
+			{ title: '11.034 metros de profundidad', result: true },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0119'),
-		title: '¿Cuál es el país de los 1.000 lagos?',
+		title: '¿Cuál es el país de los mil lagos?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -1722,8 +1729,8 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0120'),
 		title: 'El río más largo de Europa es...',
 		options: [
-			{ title: 'El tajo', result: false },
-			{ title: 'El volga', result: true },
+			{ title: 'El Tajo', result: false },
+			{ title: 'El Volga', result: true },
 			{ title: 'El Támesis', result: false },
 			{ title: 'El Ebro', result: false },
 		],
@@ -1735,18 +1742,17 @@ const questions = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0121'),
 		title: '¿Con qué respira una ballena?',
 		options: [
-			{ title: 'Por la nariz', result: false },
-			{ title: 'Por la piel', result: false },
-			{ title: 'Pulmones', result: true },
-			{ title: 'Branquias', result: false },
+			{ title: 'Con la nariz', result: false },
+			{ title: 'Con la piel', result: false },
+			{ title: 'Con los pulmones', result: true },
+			{ title: 'Con las branquias', result: false },
 		],
 		time: 10,
 		score: 5,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0122'),
-		title:
-			'Al descendiente del cruce de un asno y una yegua se le conoce como:',
+		title: 'Al cruce entre un asno y una yegua se lo conoce como:',
 		options: [
 			{ title: 'Caballo', result: false },
 			{ title: 'Burro', result: false },
@@ -1773,10 +1779,10 @@ const questions = [
 		title:
 			'La fuerza física que la tierra ejerce sobre los cuerpos hacia su centro es la:',
 		options: [
-			{ title: 'Gravedad', result: true },
-			{ title: 'Normal', result: false },
-			{ title: 'Rozamiento', result: false },
-			{ title: 'Cinetica', result: false },
+			{ title: 'Fuerza de gravedad', result: true },
+			{ title: 'Fuerza normal', result: false },
+			{ title: 'Fuerza de rozamiento', result: false },
+			{ title: 'Fuerza cinética', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1786,7 +1792,7 @@ const questions = [
 		title:
 			'¿Cómo se llama la teoría que considera que todos los organismos descendemos del mismo ancestro?',
 		options: [
-			{ title: 'Ateismo', result: false },
+			{ title: 'Ateísmo', result: false },
 			{ title: 'Darwinismo', result: true },
 			{ title: 'Gradualismo', result: false },
 			{ title: 'Creacionismo', result: false },
@@ -1799,8 +1805,8 @@ const questions = [
 		title:
 			'El proceso mediante el cual se generan moléculas orgánicas a partir de sustancias inorgánicas usando como fuente de energía el sol es:',
 		options: [
-			{ title: 'La fotosintesis', result: true },
-			{ title: 'El canibalismo', result: false },
+			{ title: 'La fotosíntesis', result: true },
+			{ title: 'La polinización', result: false },
 			{ title: 'El catabolismo', result: false },
 			{ title: 'El anabolismo', result: false },
 		],
@@ -1821,12 +1827,12 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0128'),
-		title: 'La velocidad a la que viaja la luz es',
+		title: 'La velocidad a la que viaja la luz es de:',
 		options: [
-			{ title: '300,00 m/s', result: false },
-			{ title: '300,00 km/s', result: true },
-			{ title: '300,00 km/h', result: false },
-			{ title: '300,00 cm/s', result: false },
+			{ title: '300.000 m/s', result: false },
+			{ title: '300.000 km/s', result: true },
+			{ title: '300.000 km/h', result: false },
+			{ title: '300.000 cm/s', result: false },
 		],
 		time: 10,
 		score: 5,
@@ -1835,12 +1841,12 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0129'),
 		title:
-			'En 1990, este arcade con muñecos de nieve habitó las tascas y salas recreativas más selectas ¿Cómo se llamaba?',
+			'En 1990, este arcade con muñecos de nieve habitó las tascas y salas recreativas más selectas. ¿Cómo se llamaba?',
 		image: 'https://i.blogs.es/783e97/snowbros/1366_2000.jpg',
 		options: [
-			{ title: 'Tumblepop.', result: false },
-			{ title: 'Snow bros.', result: true },
-			{ title: 'Super buster bros.', result: false },
+			{ title: 'Tumblepop', result: false },
+			{ title: 'Snow Bros', result: true },
+			{ title: 'Super Buster Bros', result: false },
 			{ title: 'Rainbow Islands', result: false },
 		],
 		time: 10,
@@ -1849,11 +1855,11 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0130'),
 		title:
-			'¿Qué western pixelado protagonizaron estos caballeros en el año 91?',
+			'¿Qué western pixelado protagonizaron estos caballeros en el año 1991?',
 		image:
 			'https://2.bp.blogspot.com/-msBQLHA_CZY/UbG-2QWEXlI/AAAAAAAALKc/Q9Ym0e3uGro/s1600/sunset-riders-personajes-Frikarte.jpg',
 		options: [
-			{ title: 'Wild west C.O.W.boys of moo mesa.', result: false },
+			{ title: 'Wild west C.O.W.boys of moo mesa', result: false },
 			{ title: 'Gun Smoke', result: false },
 			{ title: 'Sunset Riders', result: true },
 			{ title: 'Blood Bros', result: false },
@@ -1864,7 +1870,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0131'),
 		title:
-			'1992: se estrena la versión Champion edition de Street fighter II ¿Qué ocurría cuando Zangief se alzaba con la victoria en el torneo?',
+			'En 1992 se estrenó la versión Champion Edition de Street fighter II. ¿Qué ocurría cuando Zangief se alzaba con la victoria en el torneo?',
 		options: [
 			{
 				title:
@@ -1912,9 +1918,9 @@ const questions = [
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'El kilo gramo', result: false },
+			{ title: 'El kilogramo', result: false },
 			{
-				title: 'La cinta metrica',
+				title: 'La cinta métrica',
 				result: false,
 			},
 			{
@@ -1922,7 +1928,7 @@ const questions = [
 				result: true,
 			},
 			{
-				title: 'El termometro',
+				title: 'El termómetro',
 				result: false,
 			},
 		],
@@ -1965,12 +1971,12 @@ const questions = [
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
+					'La unión de dos o más sustancias que mantienen sus propiedades',
 				result: true,
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+					'La unión de dos o más sustancias que mantienen sus propiedades alteradas',
 				result: false,
 			},
 		],
@@ -1990,12 +1996,12 @@ const questions = [
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades',
+					'La unión de dos o más sustancias que mantienen sus propiedades',
 				result: true,
 			},
 			{
 				title:
-					'Unión de dos o más sustancias que mantienen sus propiedades alteradas',
+					'La unión de dos o más sustancias que mantienen sus propiedades alteradas',
 				result: false,
 			},
 		],
@@ -2005,7 +2011,7 @@ const questions = [
 	// </Preguntas aleatorias de cs naturales >
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0137'),
-		title: "Who is Magnus' Dad?",
+		title: '¿Quién es el padre de Magnus?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -2028,7 +2034,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0138'),
-		title: 'What is Jack?',
+		title: '¿Qué es Jack?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -2051,7 +2057,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0139'),
-		title: 'What does Jack think is a Hot Lady Sword?',
+		title: '¿Quién piensa Jack que es una "Hot Lady Sword"?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -2074,21 +2080,21 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0140'),
-		title: 'What is Ratatoskr?',
+		title: '¿Qué es Ratatoskr?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'A giant rat', result: false },
+			{ title: 'Una rata gigante', result: false },
 			{
-				title: 'A giant cat',
+				title: 'Un gato gigante',
 				result: false,
 			},
 			{
-				title: 'A giant squirrel',
+				title: 'Una ardilla gigante',
 				result: true,
 			},
 			{
-				title: 'A Giant Dragon',
+				title: 'Un dragón gigante',
 				result: false,
 			},
 		],
@@ -2098,7 +2104,7 @@ const questions = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0141'),
 		title:
-			'Name of the riders sword that Eragon rejects in Ellesmera before crafting his own',
+			'¿Cómo se llama la espada que Eragon rechaza en Ellesmera antes de crear la suya propia?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -2121,21 +2127,21 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0142'),
-		title: 'What members of the Foresworn nearly captured Oromis?',
+		title: '¿Qué miembros de Los Apóstatas casi capturan a Oromis?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'Kialandí/Morzan', result: false },
+			{ title: 'Kialandí y Morzan', result: false },
 			{
-				title: 'Morzan/Unknown',
+				title: 'Morzan y alguien desconocido',
 				result: false,
 			},
 			{
-				title: 'Formora/Kialandí',
+				title: 'Formora y Kialandí',
 				result: true,
 			},
 			{
-				title: 'Formora/Morzan',
+				title: 'Formora y Morzan',
 				result: false,
 			},
 		],
@@ -2144,7 +2150,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0143'),
-		title: 'How many dwarf clans are there?',
+		title: '¿Cuántos clanes de enanos existen?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
@@ -2167,22 +2173,21 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0144'),
-		title:
-			'What is the name of the whirlpool of the southwest coast of Alagaësia?',
+		title: '¿Cómo se llama en remolino de la costa sudeste de Alagaësia?',
 		image:
 			'https://cdn.mos.cms.futurecdn.net/Pt5VdLCdzSc35GTt75C4Cf-1200-80.jpg',
 		options: [
-			{ title: 'The Inescapable', result: false },
+			{ title: 'El inescapable', result: false },
 			{
-				title: 'The Terror',
+				title: 'El terror',
 				result: false,
 			},
 			{
-				title: "The Boar's Eye",
+				title: 'El ojo del jabalí',
 				result: true,
 			},
 			{
-				title: 'The Behemoth',
+				title: 'El coloso',
 				result: false,
 			},
 		],
@@ -2191,7 +2196,7 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0145'),
-		title: '¿Quién es el hombre que aparece en la imagen?',
+		title: '¿Quién es el hombre que aparece en esta imagen?',
 		image:
 			'https://static4.abc.es/media/play/2018/08/20/matt-groening-kgHG--1248x698@abc.jpg',
 		options: [
@@ -2218,12 +2223,12 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0147'),
-		title: '¿Cuál es el nombre real del director Skinner?',
+		title: '¿Cuál es el verdadero nombre del director Skinner?',
 		options: [
-			{ title: 'Armin Tanzarian', result: true },
-			{ title: 'Charlie Tinewarth', result: false },
-			{ title: 'Nedward Thomas', result: false },
-			{ title: 'Ned Jay', result: false },
+			{ title: 'Armando Barrera', result: true },
+			{ title: 'Carlos Latagris', result: false },
+			{ title: 'Eduardo Panteras', result: false },
+			{ title: 'Seymour Jay', result: false },
 		],
 		time: 10,
 		score: 5,
