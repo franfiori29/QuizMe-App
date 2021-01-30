@@ -50,9 +50,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		dispatch(getQuizzes());
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
-		if (sound) {
-			playTheme();
-		}
+		sound && playTheme();
 	}, []);
 
 	useEffect(() => {

@@ -43,6 +43,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 
 	const handleLogout = () => {
 		dispatch(logout());
+		stopTheme();
 		navigation.navigate('Login');
 	};
 	const handleMail = () => {
@@ -84,7 +85,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 
 	const handleMyQuizzes = () => {
 		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes', { quizzes: userQuizzes })
+			navigation.navigate('MyQuizzes', { quizzes: userQuizzes }),
 		);
 	};
 
