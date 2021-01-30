@@ -127,7 +127,9 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 							{s.poor}
 						</Text>
 					</Text>
-					<AccTypeButton>
+					<AccTypeButton
+						onPress={() => navigation.navigate('PremiumScreen')}
+					>
 						<Text
 							style={{
 								color: theme.primary,

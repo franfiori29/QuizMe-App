@@ -17,6 +17,7 @@ import MailUpdate from '@components/user_menu/screens/MailUpdate';
 import PasswordUpdate from '@components/user_menu/screens/PasswordUpdate';
 import UpdateName from '@components/user_menu/screens/UpdateName';
 import Information from '@components/user_menu/screens/Information';
+import PremiumScreen from '@components/user_menu/screens/PremiumScreen';
 import Profile from '@components/profile';
 import MyQuizzes from '@components/my_quizzes';
 import QuizMake from '@components/quiz_make';
@@ -88,6 +89,7 @@ const HomeRoutes = () => {
 							(route.playTheme = playTheme);
 					}}
 				/>
+				<Screen name='PremiumScreen' component={PremiumScreen} />
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
 				<Screen name='Information' component={Information} />
