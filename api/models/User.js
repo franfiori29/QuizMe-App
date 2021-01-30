@@ -25,6 +25,7 @@ const userSchema = new Schema(
 		},
 		premium: { type: Boolean, default: false },
 		completedQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
+		isActive: { type: Boolean, default: true },
 	},
 	{ timestamps: true }
 );

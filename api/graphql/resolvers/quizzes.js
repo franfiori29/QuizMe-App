@@ -90,8 +90,13 @@ module.exports = {
 			return newQuiz;
 		},
 		destroyQuiz: async (_, { quizId }, { user }) => {
-			//TODO add admin privilege
-			await Quiz.deleteOne({ _id: quizId, creatorId: user._id });
+			let where;
+			if (user.role === 'ADMIN') {
+				where = { _id: quizId };
+			} else {
+				where = { _id: quizId, creatorId: user._id };
+			}
+			await Quiz.deleteOne(where);
 			return true;
 		},
 		updateLike: async (_, { quizId, giveLike }, { user }) => {

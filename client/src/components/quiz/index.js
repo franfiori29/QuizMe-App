@@ -15,12 +15,12 @@ import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
 import { Audio } from 'expo-av';
 import { completeQuiz } from '@redux/reducers/user.js';
+import { updateHighscore } from '@redux/reducers/quizzes';
 
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking, bounceInDisappear, rotation } from './animations';
-import { updateHighscore } from './../../redux/reducers/quizzes';
 
 //Utils
 import { shuffle } from '@utils/shuffle';
@@ -273,8 +273,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							style={{
 								color: theme.text,
 								fontWeight: 'bold',
-								fontSize: '20px',
-								paddingLeft: '10px',
+								fontSize: 20,
+								paddingLeft: 10,
 							}}
 						>
 							{Math.floor(timer.time / 60)}:
@@ -359,7 +359,7 @@ const hourglassOptions = {
 	iterationCount: 'infinite',
 	size: 28,
 	useNativeDriver: true,
-	style: { marginLeft: '10px' },
+	style: { marginLeft: 10 },
 };
 
 const Screen = styled.View`
