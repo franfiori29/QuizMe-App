@@ -43,3 +43,43 @@ export const shaking = {
 	},
 	easing: 'linear',
 };
+
+export const bounceInDisappear = {
+	0: {
+		opacity: 0,
+		scale: 0.3,
+	},
+	0.2: {
+		scale: 1.4,
+	},
+	0.4: {
+		scale: 0.9,
+	},
+	0.6: {
+		opacity: 1,
+		scale: 1.1,
+	},
+	0.8: {
+		scale: 0.9,
+	},
+	0.9: {
+		opacity: 1,
+		scale: 1,
+	},
+	0.99: {
+		opacity: 1,
+		scale: 1,
+	},
+	1: {
+		opacity: 0,
+	},
+};
+
+export const rotation = {
+	0: { rotateZ: '0deg' },
+	0.7: { rotateZ: '0deg' },
+	0.75: { rotateZ: '-10deg' },
+	0.9: { rotateZ: '380deg' },
+	0.97: { rotateZ: '350deg' },
+	1: { rotateZ: '360deg' },
+};
