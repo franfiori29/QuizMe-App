@@ -195,7 +195,7 @@ const quizzes = [
 			mongoose.Types.ObjectId('5959e34adf833e1451af0048'),
 		],
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
-	}, //abajo yo franf
+	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0012'),
 		title: 'Deportes varios',
@@ -277,7 +277,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		//OCUPADO
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0017'),
 		title: 'Historia general',
 		description: 'Preguntas random sobre historia general. Desafiate!',
@@ -294,7 +293,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		// mío :D
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0018'),
 		title: 'Adivina la capital',
 		description:
@@ -327,7 +325,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		// mío xD
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0020'),
 		title: 'Mix de preguntas!',
 		description:
@@ -345,7 +342,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0006'),
 	},
 	{
-		// mine
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0021'),
 		title: 'Provincias argentinas',
 		description:
@@ -538,7 +534,6 @@ const quizzes = [
 		creatorId: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 	},
 	{
-		//aca yo paqin
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0033'),
 		title: 'Preguntas aleatorias de Cs. Naturales',
 		description:
