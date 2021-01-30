@@ -83,7 +83,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 										bottom: 60,
 									}}
 								>
-									<Text>
+									<Text style={{ color: theme.text }}>
 										<Icon
 											name={'ios-heart-sharp'}
 											size={15}
@@ -91,7 +91,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 										/>
 										{quiz.likes}
 									</Text>
-									<Text>
+									<Text style={{ color: theme.text }}>
 										<Icon2
 											name={'clock'}
 											size={15}
@@ -165,11 +165,13 @@ const Title = styled.Text`
 	text-align: center;
 	font-size: 20px;
 	margin: 5px auto;
+	color: ${(props) => props.theme.text};
 `;
 const Description = styled.Text`
 	margin: auto;
 	text-align: center;
 	font-size: 14px;
+	color: ${(props) => props.theme.text};
 `;
 const Category = styled.View`
 	position: absolute;
