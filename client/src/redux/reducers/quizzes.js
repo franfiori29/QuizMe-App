@@ -116,9 +116,16 @@ export const getQuizByCategory = createAsyncThunk(
 );
 
 const queryGetQuizzesBySearchInput = gql`
-	query($searchInput: String!, $categoryFilter: String) {
-		getQuizzesByInputSearch(input: $searchInput, cat: $categoryFilter) {
-			...EntireQuizInfo
+	query($searchInput: String!, $categoryFilter: String, $page: Int) {
+		getQuizzesByInputSearch(
+			input: $searchInput
+			cat: $categoryFilter
+			page: $page
+		) {
+			quizzes {
+				...EntireQuizInfo
+			}
+			hasNextPage
 		}
 	}
 	${EntireQuizInfo}
@@ -126,11 +133,11 @@ const queryGetQuizzesBySearchInput = gql`
 
 export const getQuizzesBySearchInput = createAsyncThunk(
 	'quiz/getQuizzesBySearchInput',
-	async ({ searchInput, categoryFilter }, { getState }) => {
+	async ({ searchInput, categoryFilter, page }, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(
 			queryGetQuizzesBySearchInput,
-			{ searchInput, categoryFilter }
+			{ searchInput, categoryFilter, page }
 		);
 		return clientRequest;
 	}
@@ -192,6 +199,7 @@ const quizSlice = createSlice({
 		quiz: {},
 		quizzes: [],
 		filteredQuizzes: [],
+		hasNextPage: true,
 		categories: [],
 		randomQuiz: {},
 	},
@@ -221,7 +229,11 @@ const quizSlice = createSlice({
 			state.randomQuiz = payload.getRandomQuiz;
 		},
 		[getQuizzesBySearchInput.fulfilled]: (state, { payload }) => {
-			state.filteredQuizzes = payload.getQuizzesByInputSearch;
+			state.hasNextPage = payload.getQuizzesByInputSearch.hasNextPage;
+			state.filteredQuizzes = [
+				...state.filteredQuizzes,
+				...payload.getQuizzesByInputSearch.quizzes,
+			];
 		},
 		[updateHighscore.fulfilled]: (state, { payload }) => {
 			state.quiz.newHighscore = payload.updateHighscore;

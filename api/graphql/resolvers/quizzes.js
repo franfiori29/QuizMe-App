@@ -30,15 +30,19 @@ module.exports = {
 				.populate('categoryId');
 			return foundQuizzes;
 		},
-		getQuizzesByInputSearch: async (_, { input, cat }) => {
+		getQuizzesByInputSearch: async (_, { input, cat, page }) => {
 			const regex = new RegExp(input, 'i');
-			const foundQuizzes = await Quiz.find({
-				$or: [{ title: regex }, { description: regex }],
-				...(!!cat && { categoryId: cat }),
-			})
-				.populate('questions')
-				.populate('categoryId');
-			return foundQuizzes;
+			const foundQuizzes = await Quiz.paginate(
+				{
+					$or: [{ title: regex }, { description: regex }],
+					...(!!cat && { categoryId: cat }),
+				},
+				{ page, limit: 10, populate: ['questions', 'categoryId'] }
+			);
+			return {
+				quizzes: foundQuizzes.docs,
+				hasNextPage: foundQuizzes.hasNextPage,
+			};
 		},
 		getRandomQuiz: async (_, __, { user }) => {
 			const completed = (await User.findById(user._id)).completedQuiz;

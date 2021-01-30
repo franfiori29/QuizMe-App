@@ -26,9 +26,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 			<ContainerPpal>
 				<ContainerTop>
 					<Banner source={{ uri: quiz.image }} />
-					<BackButtonContainer
-						onPress={() => navigation.navigate('Home')}
-					>
+					<BackButtonContainer onPress={() => navigation.goBack()}>
 						<Icon
 							name='ios-arrow-back'
 							color={theme.text}

@@ -32,6 +32,11 @@ module.exports = gql`
 		description_es: String
 	}
 
+	type QueryInfo {
+		quizzes: [Quiz]!
+		hasNextPage: Boolean
+	}
+
 	input InputCategory {
 		description_en: String!
 		description_es: String!
@@ -67,7 +72,11 @@ module.exports = gql`
 		getRandomQuiz: Quiz!
 		getUserQuizzes(userId: ID!): [Quiz]
 		getNQuizzesPerPage: [Quiz]
-		getQuizzesByInputSearch(input: String!, cat: String): [Quiz]!
+		getQuizzesByInputSearch(
+			input: String!
+			cat: String
+			page: Int
+		): QueryInfo
 		searchByPopularity: [Quiz!]!
 	}
 
