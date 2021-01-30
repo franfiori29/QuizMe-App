@@ -19,7 +19,7 @@ import { completeQuiz } from '@redux/reducers/user.js';
 //Styles ==>
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { shaking } from './animations';
+import { shaking, bounceInDisappear, rotation } from './animations';
 import { updateHighscore } from './../../redux/reducers/quizzes';
 
 //Utils
@@ -30,8 +30,10 @@ const SFX_VOL = 0.03;
 const THEME_MAX_VOL = 0.03;
 const THEME_MIN_VOL = 0.01;
 const MAX_POINTS = 1000;
-
 const { width: WIDTH } = Dimensions.get('window');
+const ERROR_COLOR = '#D53051';
+const AnimatedHourglass = Animatable.createAnimatableComponent(Icon);
+
 const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const { theme, language, sound } = useSelector((state) => state.global);
 	const { completedQuiz } = useSelector((state) => state.user);
@@ -44,6 +46,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const totalTime = params.time || TIME;
 	const [timer, setTimer] = useState({ time: totalTime, on: true });
 	const [points, setPoints] = useState(0);
+	const iconRef = useRef();
 	const barRef = useRef();
 	const button0 = useRef();
 	const button1 = useRef();
@@ -63,14 +66,15 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
-			let newPoints =
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result);
+			let newPoints = Math.floor(
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
+			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -84,7 +88,9 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			setTimer({ time: totalTime, on: true });
 			if (result) {
 				setPoints((prevPoints) => {
-					return prevPoints + (timer.time / totalTime) * MAX_POINTS;
+					return Math.floor(
+						prevPoints + (timer.time / totalTime) * MAX_POINTS
+					);
 				});
 				setCorrect((c) => c + 1);
 			}
@@ -98,10 +104,11 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			barRef.current.animate(
 				{
 					0: { width: WIDTH, backgroundColor: theme.primary },
-					1: { width: 0, backgroundColor: '#D53051' },
+					0.5: { backgroundColor: '#e2ca12' },
+					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -132,6 +139,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			setSelected({ id: i, correct: result });
 			startTimeout(result);
 			Vibration.cancel();
+			iconRef.current.animate(bounceInDisappear, 1000);
 		}
 	};
 
@@ -253,40 +261,58 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					</Text>
 				</Header>
 				<View style={{ position: 'relative' }}>
-					<TimeBar ref={barRef}></TimeBar>
-					<Text
-						style={{
-							position: 'absolute',
-							right: 10,
-							color: theme.text,
-						}}
+					<TimeBar ref={barRef} theme={theme}></TimeBar>
+					<View
+						style={{ flexDirection: 'row', alignItems: 'center' }}
 					>
-						{timer.time}
-					</Text>
+						<AnimatedHourglass
+							color={theme.text}
+							{...hourglassOptions}
+						/>
+						<Text
+							style={{
+								color: theme.text,
+								fontWeight: 'bold',
+								fontSize: '20px',
+								paddingLeft: '10px',
+							}}
+						>
+							{Math.floor(timer.time / 60)}:
+							{(timer.time % 60).toString().padStart(2, '0')}
+						</Text>
+					</View>
 				</View>
 				<MiddleScreen>
-					<Text
-						style={{
-							marginTop: 30,
-							fontWeight: 'bold',
-							fontSize: 20,
-							color: theme.text,
-							maxWidth: '95%',
-							alignSelf: 'center',
-							marginBottom: 15,
-							textAlign: 'center',
-						}}
-					>
-						{question.title}
-					</Text>
+					<QuestionTitle>{question.title}</QuestionTitle>
 					<TouchableWithoutFeedback onPress={handleRicky}>
-						<QuizImg
-							source={{
-								uri: question.image
-									? question.image
-									: params.imageQuiz,
+						<View
+							style={{
+								flex: 1,
+								width: '100%',
+								height: '100%',
+								position: 'relative',
 							}}
-						/>
+						>
+							<QuizImg
+								source={{
+									uri: question.image
+										? question.image
+										: params.imageQuiz,
+								}}
+							/>
+							<ThumbsIconContainer>
+								<AnimatedIcon
+									ref={iconRef}
+									name={`ios-thumbs-${
+										selected.correct ? 'up' : 'down'
+									}-outline`}
+									color={theme.white}
+									size={28}
+									correct={selected.correct}
+									theme={theme}
+								/>
+							</ThumbsIconContainer>
+						</View>
 					</TouchableWithoutFeedback>
 				</MiddleScreen>
 				<BottomScreen>
@@ -296,9 +322,10 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 								selected.id === i
 									? selected.correct
 										? theme.primary
-										: '#D53051'
+										: ERROR_COLOR
 									: false
 							}
+							theme={theme}
 							key={i}
 							onPress={() => handleOptionPress(option.result, i)}
 						>
@@ -306,7 +333,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 								direction={i % 2 === 0 ? 'normal' : 'reverse'}
 								ref={buttonRefArray[i]}
 								style={{
-									width: '100%',
+									width: '95%',
 									alignSelf: 'center',
 									color: theme.text,
 									textAlign: 'center',
@@ -321,6 +348,18 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			</Screen>
 		</ThemeProvider>
 	);
+};
+
+const hourglassOptions = {
+	name: 'ios-hourglass-outline',
+	animation: rotation,
+	duration: 3000,
+	delay: 500,
+	easing: 'ease-in-out',
+	iterationCount: 'infinite',
+	size: 28,
+	useNativeDriver: true,
+	style: { marginLeft: '10px' },
 };
 
 const Screen = styled.View`
@@ -339,16 +378,29 @@ const Header = styled.View`
 	background-color: ${(props) => props.theme.bg};
 `;
 
+const QuestionTitle = styled.Text`
+	margin-top: 30px;
+	font-weight: bold;
+	font-size: 20px;
+	color: ${({ theme }) => theme.text};
+	max-width: 95%;
+	align-self: center;
+	margin-bottom: 15px;
+	text-align: center;
+`;
+
 const Option = styled.TouchableOpacity`
 	width: 95%;
 	align-self: center;
-	border-top-width: 1px;
-	border-top-color: #ccc;
+	margin: 6px 0px;
+	border-width: 2px;
+	border-color: ${({ selectedColor, theme }) =>
+		selectedColor || theme.primary};
+	border-radius: 4px;
 	flex: 1;
 	justify-content: center;
 	align-items: center;
-	background-color: ${(props) =>
-		props.selectedColor ? props.selectedColor : 'transparent'};
+	background-color: ${({ selectedColor }) => selectedColor || 'transparent'};
 `;
 
 const TimeBar = styled(Animatable.View)`
@@ -360,10 +412,29 @@ const TimeBar = styled(Animatable.View)`
 `;
 
 const QuizImg = styled.Image`
-	z-index: 3;
-	height: 70%;
-	width: 95%;
+	height: 100%;
 `;
+
+const ThumbsIconContainer = styled.View`
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+`;
+
+const ThumbsIcon = styled(Icon)`
+	color: white;
+	font-size: 60px;
+	padding: 20px;
+	opacity: 0;
+	background-color: ${({ correct, theme }) =>
+		correct ? theme.primary : ERROR_COLOR};
+	border-radius: 999px;
+`;
+const AnimatedIcon = Animatable.createAnimatableComponent(ThumbsIcon);
 
 const MiddleScreen = styled.View`
 	height: 40%;
@@ -377,6 +448,7 @@ const BottomScreen = styled.View`
 	height: 40%;
 	width: 100%;
 	margin-top: auto;
+	margin-bottom: 10px;
 	align-items: center;
 	justify-content: space-between;
 `;

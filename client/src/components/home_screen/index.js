@@ -81,8 +81,9 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 				</IntroContainer>
 				<ButtonPpal
 					string={s.createQuiz}
-					nav='QuizMake'
-					navigation={navigation}
+					handleNav={() => {
+						navigation.navigate('QuizMake');
+					}}
 				/>
 				<View>
 					<SelectorContainer>
@@ -128,9 +129,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					<CategoryTitle>{s.find}</CategoryTitle>
 				</CategoryContainer>
 				<ButtonPpal
-					navigation={navigation}
 					string={s.randomButton}
-					nav='QuizIndex'
 					onSubmit={() => {
 						dispatch(getRandomQuiz()).then(() => {
 							navigation.navigate('QuizIndex', {});

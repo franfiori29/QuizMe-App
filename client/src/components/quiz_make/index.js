@@ -85,7 +85,7 @@ const QuizMake = ({ navigation }) => {
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
 				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen',
+					'Necesitamos permiso a tu galería para que puedas subir una imagen'
 				);
 				return;
 			}
@@ -214,8 +214,6 @@ const QuizMake = ({ navigation }) => {
 					<ButtonPpal
 						string={image ? s.img1 : s.img2}
 						onSubmit={pickImage}
-						navigation={navigation}
-						nav=''
 					/>
 					<Text
 						style={{
@@ -263,10 +261,7 @@ const QuizMake = ({ navigation }) => {
 											keyboardType='numeric'
 											onChangeText={(value) =>
 												onChange(
-													value.replace(
-														/[^0-9]+/,
-														'',
-													),
+													value.replace(/[^0-9]+/, '')
 												)
 											}
 											value={value}
@@ -301,8 +296,6 @@ const QuizMake = ({ navigation }) => {
 					<ButtonPpal
 						string={s.next}
 						onSubmit={handleSubmit(onSubmit)}
-						navigation={navigation}
-						nav=''
 					/>
 				</FormContainer>
 			</Screen>
