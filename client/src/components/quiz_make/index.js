@@ -13,12 +13,12 @@ import strings from './strings';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 //==> Components
-import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
 
 /* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 import { getCategories } from '@redux/reducers/categories';
+import { Picker } from '@react-native-picker/picker';
 /* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
 const QuizMake = ({ navigation }) => {
@@ -32,7 +32,7 @@ const QuizMake = ({ navigation }) => {
 
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 	useEffect(() => {
-		dispatch(getCategories());
+		dispatch(getCategories(language));
 	}, []);
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
@@ -229,10 +229,24 @@ const QuizMake = ({ navigation }) => {
 						control={control}
 						render={({ onChange, onBlur, value }) => {
 							return (
-								<ScrollCategory
-									categories={categories}
-									handleSelect={onChange}
-								/>
+								<Picker
+									selectedValue={value}
+									style={{
+										height: 50,
+										width: 300,
+									}}
+									onValueChange={onChange}
+								>
+									{categories.map((cat) => (
+										<Picker.Item
+											key={cat._id}
+											value={cat._id}
+											label={
+												cat[`description_${language}`]
+											}
+										/>
+									))}
+								</Picker>
 							);
 						}}
 						name='category'

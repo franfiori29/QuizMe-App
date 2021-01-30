@@ -5,7 +5,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0000'),
 		title: 'Fórmulas matemáticas',
 		description:
-			'Resuelve las más difíciles fórmulas matemáticas conocidas por el hombre!',
+			'¡Resuelve las fórmulas matemáticas más difíciles conocidas por el hombre!',
 		image:
 			'https://i.pinimg.com/736x/c8/e5/75/c8e5753370bad54c7977d485e0a0e29d.jpg',
 		likes: 8,
@@ -22,7 +22,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0001'),
 		title: 'Fisica: Fuerza',
 		description:
-			'Adentrate en el maravilloso mundo de la fisica. Solo tu puedes hacerlo',
+			'Adentrate en el maravilloso mundo de la fisica. Solo tú puedes hacerlo.',
 		image:
 			'https://thefactfactor.com/wp-content/uploads/2019/10/Force-01.png',
 		likes: 2,
@@ -38,7 +38,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0002'),
 		title: 'Adivina la banda',
-		description: 'Adivina la banda a partir de la tapa del disco',
+		description: 'Adivina la banda según la tapa del disco',
 		image:
 			'https://www.educaciontrespuntocero.com/wp-content/uploads/2019/10/music.jpg',
 		likes: 8,
@@ -53,9 +53,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0003'),
-		title: 'Soccer Trivia!',
+		title: '¡Quiz de fútbol!',
 		description:
-			'Are you the best soccer fan? Then this trivia is for you!',
+			'¿Eres el mayor fanático del fútbol? ¡Esta trivia es para ti!',
 		image: 'https://i.ytimg.com/vi/RSiua8GslHA/maxresdefault.jpg',
 		likes: 1,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0004'),
@@ -69,9 +69,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0004'),
-		title: 'Star Wars Trivia',
+		title: 'Trivia de Star Wars',
 		description:
-			'Demostrale a tus amigos que eres el más fanático de Star Wars!',
+			'¡Demuéstrale a tus amigos que eres el mayor fanático de Star Wars!',
 		image:
 			'https://www.3dnatives.com/es/wp-content/uploads/sites/4/article_starwars.jpg',
 		likes: 52,
@@ -87,7 +87,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0005'),
 		title: '¿Quién es el actor?',
-		description: '¿Eres un cinéfilo? Demuéstralo!',
+		description: '¿Eres un cinéfilo? ¡Demuéstralo!',
 		image:
 			'https://upload.wikimedia.org/wikipedia/commons/3/37/A_Traditional_Wooden_Slate_Clapperboard.jpg',
 		likes: 25,
@@ -118,8 +118,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0007'),
-		title: 'El mundo de segun Javascript',
-		description: '¿Que tanto conoces de JS?',
+		title: 'El mundo según Javascript',
+		description: '¿Qué tanto conoces de este lenguaje?',
 		image:
 			'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/480px-Unofficial_JavaScript_logo_2.svg.png',
 		likes: 10,
@@ -136,7 +136,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0008'),
 		title: '¿Cómo se llama la obra?',
 		description:
-			'Acierta el nombre de la pintura y consigue el máximo puntaje!',
+			'¡Acierta el nombre de la pintura y consigue el máximo puntaje!',
 		image: 'https://obxartstudio.com/wp-content/uploads/2016/10/Art.jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
@@ -150,8 +150,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0009'),
-		title: 'Linux Evaluation',
-		description: '¿How much do you know about Linux?',
+		title: 'Evaluación de Linux',
+		description: '¿Cuánto sabes sobre estos sistemas operativos?',
 		image:
 			'https://i.pinimg.com/originals/95/e8/b6/95e8b6ece922616207a98d213c4ebfad.jpg',
 		likes: 420,
@@ -168,7 +168,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0010'),
 		title: 'El maravilloso mundo del CSS',
-		description: '¿Eres un valiente guerrero del css? Demuestralo',
+		description: '¿Eres un valiente guerrero del CSS? ¡Demuestralo!',
 		image: 'https://programacion.net/files/article/20160902010934_CSS3.jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0007'),
@@ -182,8 +182,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0011'),
-		title: "World's Hardest Science Quiz You'll Ever Take!",
-		description: 'Can you overcome this challenge?',
+		title: '¡El quiz de ciencias más difícil que existe!',
+		description: '¿Puedes superar este desafío?',
 		image:
 			'https://media.proprofs.com/images/QM/user_images/1826446/Discus%20(8)(1).jpg',
 		likes: 10,
@@ -200,7 +200,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0012'),
 		title: 'Deportes varios',
 		description:
-			'¿Sos un experto en deportes? Si tu respuesta es sí, demostralo!',
+			'¿Eres un experto en deportes? Si tu respuesta es sí, ¡demuéstralo!',
 		image:
 			'https://media.istockphoto.com/photos/various-sport-equipments-on-grass-picture-id949190756?k=6&m=949190756&s=612x612&w=0&h=dNek5l5xc68G0gCZv-fe0vHP8kjDpAYFrRnSPh8iLyc=',
 		likes: 86,
@@ -216,8 +216,8 @@ const quizzes = [
 
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0013'),
-		title: 'Demuestra tus conocimientos sobre Harry Potter',
-		description: '¿Eres un verdadero Potterhead?',
+		title: '¿Eres un verdadero Potterhead?',
+		description: 'Demuestra tus conocimientos sobre Harry Potter',
 		image: 'https://i.ytimg.com/vi/oZxjKRmONEA/maxresdefault.jpg',
 		likes: 77,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0005'),
@@ -232,7 +232,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0014'),
 		title: 'Volver al futuro',
-		description: '¿Cuanto sabes sobre volver al futuro?',
+		description: '¿Cuánto sabes sobre esta trilogía de películas?',
 		image:
 			'https://updatemexico.com/wp-content/uploads/2020/05/back-to-the-future-iii-header.jpg',
 		likes: 10,
@@ -248,7 +248,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0015'),
 		title: 'Frases de Kvothe',
-		description: '¿Puedes decir cual es la frase correcta?',
+		description: '¿Puedes decir cuál es la frase correcta?',
 		image: 'https://pbs.twimg.com/media/CiGXjHFUgAAdFA4.jpg',
 		likes: 97,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0006'),
@@ -263,7 +263,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0016'),
 		title: 'Algoritmos',
-		description: 'Desafios matematicos',
+		description: 'Desafíos matemáticos',
 		image:
 			'https://concepto.de/wp-content/uploads/2018/04/algoritmo-min-e1523301106897.jpg',
 		likes: 10,
@@ -279,7 +279,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0017'),
 		title: 'Historia general',
-		description: 'Preguntas random sobre historia general. Desafiate!',
+		description: 'Preguntas aleatorias sobre historia general. ¡Desafíate!',
 		image:
 			'https://newmedia.ufm.edu/wp-content/uploads/2018/07/%C2%BFCo%CC%81mo-hacemos-Historia.jpg',
 		likes: 10,
@@ -294,9 +294,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0018'),
-		title: 'Adivina la capital',
+		title: 'Capitales del mundo',
 		description:
-			'¿Eres un experto en capital del mundo? Este quiz es para ti',
+			'¿Conoces la capital de cualquier país del globo? ¡Acepta el desafío!',
 		image:
 			'https://www.caracteristicas.co/wp-content/uploads/2017/07/geografia-1-e1571191548230.jpg',
 		likes: 10,
@@ -311,8 +311,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0019'),
-		title: 'La matematica y sus variables',
-		description: '¿Que tanto conoces de matematica? 🤯',
+		title: 'La matemática y sus variables',
+		description: '¿Qué tanto conoces de esta ciencia? 🤯',
 		image: 'https://miro.medium.com/max/624/1*1CziRAeRnF4UsCrhryH9yw.png',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
@@ -326,9 +326,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0020'),
-		title: 'Mix de preguntas!',
+		title: '¡Mix de preguntas!',
 		description:
-			'Este quiz es una recolección de las preguntas más insólitas jamás escritas, ¿estás dispuesto a completarlo?',
+			'Este quiz es una recolección de las preguntas más insólitas jamás escritas. ¿Estás dispuesto a completarlo?',
 		image:
 			'https://justfreewpthemes.com/wp-content/uploads/2019/06/WordPress-Quiz-plugin.jpg',
 		likes: 10,
@@ -345,7 +345,7 @@ const quizzes = [
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0021'),
 		title: 'Provincias argentinas',
 		description:
-			'¿Sabés las capitales de las provincias de Argentina? Esta es tu oportunidad',
+			'¿Sabes las capitales de las provincias de Argentina? Esta es tu oportunidad de probarlo.',
 		image:
 			'https://ichef.bbci.co.uk/news/640/cpsprodpb/A1F2/production/_115185414_1-1.jpg',
 		likes: 10,
@@ -360,9 +360,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0022'),
-		title: '¿Cuanto sabes de musica?',
+		title: '¿Cuánto sabes de musica?',
 		description:
-			'Atrevete a responder preguntas que deberias saber si realmente sabes de musica',
+			'Atrévete a responder preguntas que deberías saber si te haces llamar un conocedor de este arte.',
 		image:
 			'https://img.playbuzz.com/image/upload/ar_1.8867924528301887,c_crop/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/v1554721326/bdvpqbs1mdg4zo1368sp.jpg',
 		likes: 10,
@@ -377,8 +377,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0023'),
-		title: 'La mejor epoca de la musca',
-		description: "¿Que tanto sabes de los 80' y 90'?",
+		title: 'La mejor época de la música',
+		description: "¿Qué tanto sabes sobre las bandas de los años '80 y '90?",
 		image:
 			'https://images-na.ssl-images-amazon.com/images/I/91IHBdxcdnL.png',
 		likes: 10,
@@ -393,8 +393,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0024'),
-		title: 'Basquet',
-		description: '¿Que tanto amas este deporte?',
+		title: 'Básquet',
+		description: '¿Qué tanto amas este deporte?',
 		image: 'https://static3.a24.com/images/2019/8/20/rypjJy9EB.jpeg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0004'),
@@ -409,7 +409,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0025'),
 		title: 'El mundo del arte',
-		description: '¿Que tanto sabes de arte?',
+		description: '¿Qué tanto sabes de arte?',
 		image:
 			'https://aws.admagazine.com/prod/designs/v1/assets/1200x628/69052.jpg',
 		likes: 10,
@@ -425,7 +425,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0026'),
 		title: 'Me gusta el arte...',
-		description: 'Demuestranos lo que sabes',
+		description: 'Demuéstranos lo que sabes',
 		image: 'https://media.metrolatam.com/2018/01/24/elgrito-600x400.jpg',
 		likes: 10,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
@@ -439,8 +439,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0027'),
-		title: 'El mundo segun quizmeApp',
-		description: 'Si sabes de historia demuestralo!',
+		title: 'El mundo según QuizmeApp',
+		description: '¡Si sabes de historia demuestralo!',
 		image:
 			'https://www.ui1.es/sites/default/files/blog/images/estudiar-historia-geografia_1.jpg',
 		likes: 10,
@@ -456,7 +456,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0028'),
 		title: 'El mundo en una historia',
-		description: 'Demuestralo',
+		description: 'Demuéstralo',
 		image:
 			'https://img.playbuzz.com/image/upload/ar_1.5,c_pad,f_jpg,b_auto/q_auto:good,f_auto,fl_lossy,w_640,c_limit,dpr_1/cdn/a2bbd257-386f-4d52-8766-be89fe8be46a/c4710221-53da-4be5-be2f-5f22e66db7ed.jpg',
 		likes: 10,
@@ -471,8 +471,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0029'),
-		title: '¿Que tanto sabes del mundo?',
-		description: 'Demuestranos en este quiz de geografia',
+		title: '¿Qué tanto sabes del mundo?',
+		description: 'Comprueba tus conocimientos con este quiz de geografía',
 		image:
 			'https://www.caracteristicas.co/wp-content/uploads/2017/05/historia-e1568077367159.jpg',
 		likes: 10,
@@ -488,7 +488,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0030'),
 		title: 'Las ciencias de la naturaleza',
-		description: 'Demuestra lo que sabes en esta ciencia',
+		description: 'Demuestra lo que sabes al respecto',
 		image:
 			'https://sites.google.com/site/institucionciudadibague/_/rsrc/1529547093500/contenidos-de-aprendizaje/ciencias-naturales/Naturales.png',
 		likes: 10,
@@ -504,7 +504,7 @@ const quizzes = [
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0031'),
 		title: 'El mundo de las ciencias naturales',
-		description: 'Solo para los aficionados a las ciencias naturales',
+		description: 'Sólo para los aficionados a esta rama de la ciencia',
 		image:
 			'https://conceptodefinicion.de/wp-content/uploads/2011/08/Ciencias_Naturales-2.jpg',
 		likes: 10,
@@ -519,8 +519,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0032'),
-		title: '¿Cuanto sabes del arcade de los 90?',
-		description: 'Demuestranos que tanto sabes de los viejos fichines',
+		title: '¿Cuánto sabes del arcade de los años 90?',
+		description: 'Demuestra lo que sabes de los viejos fichines',
 		image:
 			'https://larepublica.pe/resizer/zyNRfxmqAyRP-5rZWyj3JXvMH4A=/1250x735/top/smart/cloudfront-us-east-1.images.arcpublishing.com/gruporepublica/PGRPRUGRNNEXZB345OEXC6LXHA.png',
 		likes: 10,
@@ -535,9 +535,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0033'),
-		title: 'Preguntas aleatorias de Cs. Naturales',
+		title: 'Preguntas aleatorias de Ciencias Naturales',
 		description:
-			'Demuestra tus conocimentos sobre esta ciencia en este quiz!',
+			'¡Demuestra tus conocimentos sobre esta ciencia con este quiz!',
 		image:
 			'https://www.definicion.co/wp-content/uploads/2015/04/Dentro-de-las-Ciencias-Naturales-hay-distintas-ramas1.jpg',
 		likes: 21,
@@ -552,8 +552,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0034'),
-		title: 'Magnus Chase Quiz',
-		description: '¿Just a Quiz for Magnus Chase Fans?',
+		title: 'Trivia de Magnus Chase',
+		description: '¡El quiz perfecto para fanáticos de esta saga!',
 		image:
 			'https://images-na.ssl-images-amazon.com/images/I/51XraG33L2L._AC_UL600_SR396,600_.jpg',
 		likes: 21,
@@ -568,9 +568,9 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0035'),
-		title: 'Eragon Inheritance Cycle ULTIMATE Knowledge Quiz',
+		title: '¡El quiz definitivo sobre Eragon!',
 		description:
-			"This is a very tough and obscure Eragon quiz! Certainly some questions are harder than others, but I hope that you find this is a challenge. The questions are in no particular order, and do not follow the chronology of the books. There are definitely SPOILERS in the quiz so watch out!!! The one thing that I couldn't do was properly replicate the dwarves accent marks, so I used normal accents instead. Let me know if you find any inconsistencies with the books, although I'm fairly sure all of the quiz is accurate. Thanks for doing the quiz!",
+			'Este quiz sobre El ciclo El Legado es difícil y algunas preguntas son más complejas que otras. No siguen la cronología de los libros y contienen SPOILERS.',
 		image:
 			'https://i0.wp.com/thegameofnerds.com/wp-content/uploads/2018/09/Eragon-Banner-INterview-GEEK-GIRL.jpg',
 		likes: 74,
@@ -585,8 +585,8 @@ const quizzes = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451ac0036'),
-		title: 'El fabuloso mundo de la familia simpson',
-		description: '¿Que tanto sabes sobre esta familia?',
+		title: 'El fabuloso mundo de la familia Simpson',
+		description: '¿Qué tanto sabes sobre ellos?',
 		image:
 			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
 		likes: 10,
