@@ -231,6 +231,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			navigation.navigate('Ricky');
 		}
 	};
+	const handleTts = () => setTts(false);
 
 	const shuffledOptions = useMemo(() => shuffle(question.options), [
 		question,
@@ -355,7 +356,9 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							{!tts ? (
 								<TtsButtons
 									onPress={() => {
-										Speech.speak(option.title);
+										Speech.speak(option.title, {
+											onDone: () => setTts(false),
+										});
 										setTts(true);
 									}}
 								>
