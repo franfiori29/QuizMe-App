@@ -1,21 +1,17 @@
-// const strings = {
-// 	en: {
-// 		email: 'Email',
-// 		pass: 'Password',
-// 		login: 'Log In',
-// 		google: 'Sign in With Google',
-// 		acc: 'You do not have an account?',
-// 		signup: 'Sign up',
-// 	},
+const strings = {
+	en: {
+		nav: 'My Quizzes',
+		title: 'Here you will see the quizzes you have created!',
+		btn1: 'Edit Quiz',
+		btn2: 'Delete Quiz',
+	},
 
-// 	es: {
-// 		email: 'Correo',
-// 		pass: 'Contraseña',
-// 		login: 'Iniciar sesión',
-// 		google: 'Iniciar con Google',
-// 		acc: '¿No tienes una cuenta?',
-// 		signup: 'Regístrate',
-// 	},
-// };
+	es: {
+		nav: 'Mis Quizzes',
+		title: '¡Aquí veras las quizzes que hayas creado!',
+		btn1: 'Editar Quiz',
+		btn2: 'Eliminar Quiz',
+	},
+};
 
-// export default strings;
+export default strings;
