@@ -230,13 +230,14 @@ const ButtonLoadMore = styled.TouchableOpacity`
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
-	margin-top: 20px;
+	margin: 20px auto;
 	padding: 16px 70px;
 	border-radius: 5px;
 `;
 const Description = styled.Text`
-	color: rgba(255, 255, 255, 0.7);
+	color: ${(props) => props.theme.white};
 	font-size: 16px;
+	font-weight: bold;
 	text-align: center;
 `;
 
