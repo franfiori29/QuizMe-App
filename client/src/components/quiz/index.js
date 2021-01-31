@@ -6,24 +6,28 @@ import {
 	TouchableWithoutFeedback,
 	Vibration,
 	Platform,
+	TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Speech from 'expo-speech';
 import * as Animatable from 'react-native-animatable';
-import successSound from '@assets/audio/success.wav';
-import wrongSound from '@assets/audio/wrong.wav';
-import timerSound from '@assets/audio/timer.m4a';
-import themeSound from '@assets/audio/samba-theme-loop.wav';
 import { Audio } from 'expo-av';
 import { completeQuiz } from '@redux/reducers/user.js';
 import { updateHighscore } from '@redux/reducers/quizzes';
 
-//Styles ==>
+//==>Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { shaking, bounceInDisappear, rotation } from './animations';
 
-//Utils
+//==>Utils
 import { shuffle } from '@utils/shuffle';
+
+//==>Assets
+import successSound from '@assets/audio/success.wav';
+import wrongSound from '@assets/audio/wrong.wav';
+import timerSound from '@assets/audio/timer.m4a';
+import themeSound from '@assets/audio/samba-theme-loop.wav';
 
 const TIME = 10;
 const SFX_VOL = 0.03;
@@ -42,6 +46,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	]);
 	const [current, setCurrent] = useState(0);
 	const [correct, setCorrect] = useState(0);
+	const [tts, setTts] = useState(false);
 	const [ricky, setRicky] = useState(0);
 	const totalTime = params.time || TIME;
 	const [timer, setTimer] = useState({ time: totalTime, on: true });
@@ -66,15 +71,15 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id
+				(quiz) => quiz._id === params.id,
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints })
+					updateHighscore({ quizId: params.id, score: newPoints }),
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -89,7 +94,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS
+						prevPoints + (timer.time / totalTime) * MAX_POINTS,
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -108,7 +113,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000
+				totalTime * 1000,
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -141,6 +146,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			Vibration.cancel();
 			iconRef.current.animate(bounceInDisappear, 1000);
 		}
+		setTts(false);
+		Speech.stop();
 	};
 
 	const startTimeout = (result) => {
@@ -153,6 +160,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			: sounds.wrong?.playFromPositionAsync(0);
 		barRef.current.stopAnimation();
 		buttonRefArray.forEach((e) => e.current.stopAnimation());
+		setTts(false);
+		Speech.stop();
 		setTimer({ time: totalTime, on: false });
 		setTimeout(() => {
 			sounds.theme?.setVolumeAsync(THEME_MAX_VOL);
@@ -222,6 +231,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			navigation.navigate('Ricky');
 		}
 	};
+	const handleTts = () => setTts(false);
 
 	const shuffledOptions = useMemo(() => shuffle(question.options), [
 		question,
@@ -233,6 +243,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 				<Header>
 					<Exit
 						onPress={() => {
+							Speech.stop();
 							navigation.goBack();
 						}}
 					>
@@ -333,7 +344,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 								direction={i % 2 === 0 ? 'normal' : 'reverse'}
 								ref={buttonRefArray[i]}
 								style={{
-									width: '95%',
+									width: '85%',
 									alignSelf: 'center',
 									color: theme.text,
 									textAlign: 'center',
@@ -342,6 +353,37 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							>
 								{option.title}
 							</Animatable.Text>
+							{!tts ? (
+								<TtsButtons
+									onPress={() => {
+										Speech.speak(option.title, {
+											onDone: () => setTts(false),
+										});
+										setTts(true);
+									}}
+								>
+									<Icon
+										color={theme.text}
+										name='ios-play'
+										size={30}
+										style={{ justifyContent: 'center' }}
+									/>
+								</TtsButtons>
+							) : (
+								<TtsButtons
+									onPress={() => {
+										Speech.stop();
+										setTts(false);
+									}}
+								>
+									<Icon
+										color={theme.text}
+										name='ios-pause'
+										size={30}
+										style={{ justifyContent: 'center' }}
+									/>
+								</TtsButtons>
+							)}
 						</Option>
 					))}
 				</BottomScreen>
@@ -401,6 +443,7 @@ const Option = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
 	background-color: ${({ selectedColor }) => selectedColor || 'transparent'};
+	flex-direction: row;
 `;
 
 const TimeBar = styled(Animatable.View)`
@@ -459,4 +502,10 @@ const Exit = styled.TouchableOpacity`
 	justify-content: center;
 `;
 
+const TtsButtons = styled.TouchableOpacity`
+	width: 15%;
+	align-self: center;
+	align-items: center;
+	justify-content: center;
+`;
 export default Quiz;

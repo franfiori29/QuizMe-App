@@ -1,13 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {
-	View,
-	ScrollView,
-	Text,
-	ActivityIndicator,
-	FlatList,
-	Button,
-	TouchableOpacity,
-} from 'react-native';
+import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getQuizzesBySearchInput,
@@ -45,7 +37,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			})
+			}),
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
@@ -94,14 +86,22 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 					/>
 				</InputContainer>
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-					<Text style={{ marginLeft: 10, fontSize: 16 }}>
+					<Text
+						style={{
+							marginLeft: 10,
+							fontSize: 16,
+							color: theme.text,
+						}}
+					>
 						Category:
 					</Text>
 					<Picker
 						selectedValue={categoryFilter}
 						style={{
 							height: 50,
-							width: 300,
+							width: '80%',
+							alignSelf: 'center',
+							color: theme.text,
 						}}
 						onValueChange={(value) => {
 							setPage(1);
@@ -230,13 +230,14 @@ const ButtonLoadMore = styled.TouchableOpacity`
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
-	margin-top: 20px;
+	margin: 20px auto;
 	padding: 16px 70px;
 	border-radius: 5px;
 `;
 const Description = styled.Text`
-	color: rgba(255, 255, 255, 0.7);
+	color: ${(props) => props.theme.white};
 	font-size: 16px;
+	font-weight: bold;
 	text-align: center;
 `;
 
