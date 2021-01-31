@@ -29,7 +29,9 @@ const NavbarAdmin = () => {
 					/>
 					<TextIcon>Quizzes</TextIcon>
 				</HeaderButton>
-				<HeaderButton onPress={() => navigation.navigate('AdminUsers')}>
+				<HeaderButton
+					onPress={() => navigation.navigate('AdminCategories')}
+				>
 					<Icon
 						name='ios-library-outline'
 						color={theme.white}

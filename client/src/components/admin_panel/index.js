@@ -8,6 +8,7 @@ import Navbar from '../utils/NavBar';
 import strings from './strings';
 import { getUsers } from '../../redux/reducers/user';
 import { getQuizzes } from '../../redux/reducers/quizzes';
+import { getCategories } from '../../redux/reducers/categories';
 
 const AdminPanel = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const AdminPanel = ({ navigation }) => {
 	useEffect(() => {
 		dispatch(getUsers());
 		dispatch(getQuizzes({ notShuffle: true }));
+		dispatch(getCategories(language));
 	}, []);
 	const s = strings[language];
 

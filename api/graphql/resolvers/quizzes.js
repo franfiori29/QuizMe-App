@@ -103,6 +103,11 @@ module.exports = {
 			await Quiz.deleteOne(where);
 			return true;
 		},
+		destroyCategory: async (_, { catId }, { user }) => {
+			if (user.role !== 'ADMIN') throw new Error('Not authorized');
+			await Category.deleteOne({ _id: catId });
+			return true;
+		},
 		updateLike: async (_, { quizId, giveLike }, { user }) => {
 			const quizfind = await Quiz.findOneAndUpdate(
 				{ _id: quizId },
