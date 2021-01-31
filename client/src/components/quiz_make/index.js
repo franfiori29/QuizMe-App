@@ -68,6 +68,7 @@ const QuizMake = ({ navigation }) => {
 		let quiz = {
 			title: data.title,
 			description: data.description,
+			language: data.language,
 			image:
 				url ||
 				'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
@@ -237,6 +238,7 @@ const QuizMake = ({ navigation }) => {
 									}}
 									onValueChange={onChange}
 								>
+									<Picker.Item key={'none'} label='' />
 									{categories.map((cat) => (
 										<Picker.Item
 											key={cat._id}
@@ -254,6 +256,46 @@ const QuizMake = ({ navigation }) => {
 						defaultValue=''
 					/>
 					{errors.category && <ErrorBubble>{s.req2}</ErrorBubble>}
+					<Text
+						style={{
+							fontSize: 18,
+							color: theme.text,
+							marginTop: 20,
+							marginBottom: 10,
+						}}
+					>
+						Idioma
+					</Text>
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<Picker
+									selectedValue={value}
+									style={{
+										height: 50,
+										width: 300,
+									}}
+									onValueChange={onChange}
+								>
+									<Picker.Item key={'none'} label='' />
+									<Picker.Item
+										key={'es'}
+										value={'es'}
+										label='Español'
+									/>
+									<Picker.Item
+										key={'en'}
+										value={'en'}
+										label='English'
+									/>
+								</Picker>
+							);
+						}}
+						name='language'
+						rules={{ required: true }}
+						defaultValue=''
+					/>
 					<View
 						style={{
 							width: '95%',
@@ -264,6 +306,9 @@ const QuizMake = ({ navigation }) => {
 							justifyContent: 'center',
 						}}
 					>
+						{errors.language && (
+							<ErrorBubble>Elegí un lenguaje</ErrorBubble>
+						)}
 						<InputContainer>
 							<Controller
 								control={control}

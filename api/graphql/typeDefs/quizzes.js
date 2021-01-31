@@ -6,6 +6,7 @@ module.exports = gql`
 		title: String!
 		description: String!
 		image: String!
+		language: String!
 		likes: Int!
 		categoryId: Category!
 		questions: [Question!]!
@@ -58,6 +59,7 @@ module.exports = gql`
 		title: String!
 		description: String!
 		image: String!
+		language: String!
 		likes: Int
 		time: Int
 		categoryId: String!

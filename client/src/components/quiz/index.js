@@ -71,15 +71,15 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -94,7 +94,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS,
+						prevPoints + (timer.time / totalTime) * MAX_POINTS
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -113,7 +113,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -357,6 +357,10 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 								<TtsButtons
 									onPress={() => {
 										Speech.speak(option.title, {
+											language:
+												params.language === 'es'
+													? 'es-ES'
+													: 'en-US',
 											onDone: () => setTts(false),
 										});
 										setTts(true);

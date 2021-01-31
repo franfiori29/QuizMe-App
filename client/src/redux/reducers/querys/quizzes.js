@@ -8,6 +8,7 @@ export const EntireQuizInfo = gql`
 		title
 		description
 		image
+		language
 		likes
 		time
 		categoryId {
