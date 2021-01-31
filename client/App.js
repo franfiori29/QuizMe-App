@@ -4,12 +4,23 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider, useSelector } from 'react-redux';
 import { store, persistor } from '@redux/store';
-// import {
-// 	useFonts,
-// 	Roboto_100Thin,
-// 	Roboto_400Regular,
-// 	Roboto_500Medium,
-// } from '@expo-google-fonts/roboto';
+import {
+	useFonts,
+	Nunito_200ExtraLight,
+	Nunito_200ExtraLight_Italic,
+	Nunito_300Light,
+	Nunito_300Light_Italic,
+	Nunito_400Regular,
+	Nunito_400Regular_Italic,
+	Nunito_600SemiBold,
+	Nunito_600SemiBold_Italic,
+	Nunito_700Bold,
+	Nunito_700Bold_Italic,
+	Nunito_800ExtraBold,
+	Nunito_800ExtraBold_Italic,
+	Nunito_900Black,
+	Nunito_900Black_Italic,
+} from '@expo-google-fonts/nunito';
 // import AppLoading from 'expo-app-loading';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -17,6 +28,23 @@ import { PersistGate } from 'redux-persist/integration/react';
 // import * as Permissions from 'expo-permissions';
 
 export default function App() {
+	let [fontsLoaded] = useFonts({
+		Nunito_200ExtraLight,
+		Nunito_200ExtraLight_Italic,
+		Nunito_300Light,
+		Nunito_300Light_Italic,
+		Nunito_400Regular,
+		Nunito_400Regular_Italic,
+		Nunito_600SemiBold,
+		Nunito_600SemiBold_Italic,
+		Nunito_700Bold,
+		Nunito_700Bold_Italic,
+		Nunito_800ExtraBold,
+		Nunito_800ExtraBold_Italic,
+		Nunito_900Black,
+		Nunito_900Black_Italic,
+	});
+
 	// useEffect(() => {
 	// 	registerForPushNotification().then((token) => console.log(token));
 	// }, []);
