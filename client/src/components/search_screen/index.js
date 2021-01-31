@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+	View,
+	ScrollView,
+	Text,
+	ActivityIndicator,
+	FlatList,
+	Button,
+	TouchableOpacity,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getQuizzesBySearchInput,
@@ -8,8 +16,8 @@ import {
 import { Picker } from '@react-native-picker/picker';
 
 //==> Components
-import QuizCards from '@components/utils/QuizCards';
 import NavBar from '@components/utils/NavBar';
+import QuizCard from '@components/utils/QuizCard';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -22,29 +30,39 @@ import logo from '@assets/logo.png';
 const SearchScreen = ({ navigation, route: { params } }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
-	const { filteredQuizzes } = useSelector((state) => state.quiz);
+	const { filteredQuizzes, hasNextPage } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 	const [searchInput, setSearchInput] = useState('');
 	const [categoryFilter, setCategoryFilter] = useState('');
 	const s = strings[language];
 	const [loading, setLoading] = useState(false);
+	const [page, setPage] = useState(1);
+	const [loadingMore, setLoadingMore] = useState(false);
 
-	const handleSearch = (filter) => {
-		setLoading(true);
+	const handleSearch = (filter, nextPage) => {
 		dispatch(
-			getQuizzesBySearchInput({ searchInput, categoryFilter: filter })
-		).then(() => setLoading(false));
+			getQuizzesBySearchInput({
+				searchInput,
+				categoryFilter: filter,
+				page: nextPage,
+			})
+		).then(() => {
+			setLoading(false);
+			setPage((prev) => prev + 1);
+			setLoadingMore(false);
+		});
 	};
 
 	useEffect(() => {
 		if (params?.catHomeScreenFilter) {
 			setCategoryFilter(params.catHomeScreenFilter);
+			setPage(2);
 		}
 	}, [params]);
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Screen contentContainerStyle={{ flexGrow: 1 }}>
+			<Screen>
 				<NavBar
 					string={s.nav}
 					nav1={() => {
@@ -62,13 +80,17 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						color={'rgba(255,255,255,0.7)'}
 						onPress={handleSearch}
 					/>
-
 					<InputLogin
 						placeholder={s.ph1}
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
 						onChangeText={setSearchInput}
-						onSubmitEditing={() => handleSearch(categoryFilter)}
+						onSubmitEditing={() => {
+							setPage(1);
+							setLoading(true);
+							dispatch(clearfilteredQuizzes());
+							handleSearch(categoryFilter, 1);
+						}}
 					/>
 				</InputContainer>
 				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -82,7 +104,10 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							width: 300,
 						}}
 						onValueChange={(value) => {
-							handleSearch(value);
+							setPage(1);
+							setLoading(true);
+							dispatch(clearfilteredQuizzes());
+							handleSearch(value, 1);
 							setCategoryFilter(value);
 						}}
 					>
@@ -98,30 +123,57 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				</View>
 				{loading ? (
 					<ActivityIndicator size='large' color={theme.primary} />
+				) : filteredQuizzes.length ? (
+					<FlatList
+						style={{}}
+						data={filteredQuizzes}
+						renderItem={(item) => <QuizCard quiz={item.item} />}
+						keyExtractor={(item) => item._id}
+						refreshing={loading}
+						onEndReachedThreshold={10}
+						ListFooterComponent={() =>
+							filteredQuizzes.length > 0 &&
+							hasNextPage && (
+								<ButtonLoadMore
+									onPress={() => {
+										if (!loadingMore) {
+											handleSearch(categoryFilter, page);
+											setLoadingMore(true);
+										}
+									}}
+								>
+									<Description>
+										{loadingMore ? s.loading : s.loadMore}
+									</Description>
+								</ButtonLoadMore>
+								// <Button
+								// 	color={theme.primary}
+								// 	title='Cargas más'
+								// 	onPress={() =>
+								// 		handleSearch(categoryFilter, page)
+								// 	}
+								// />
+							)
+						}
+					/>
 				) : (
-					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-						{!!filteredQuizzes.length ? (
-							<QuizCards quizzes={filteredQuizzes} />
-						) : (
-							<View
-								style={{
-									justifyContent: 'space-between',
-									height: '100%',
-									margin: 10,
-								}}
-							>
-								<SearchMessage>{s.msg1}</SearchMessage>
-								<Logo source={logo} />
-							</View>
-						)}
-					</ScrollView>
+					<View
+						style={{
+							justifyContent: 'space-between',
+							height: '100%',
+							margin: 10,
+						}}
+					>
+						<SearchMessage>{s.msg1}</SearchMessage>
+						<Logo source={logo} />
+					</View>
 				)}
 			</Screen>
 		</ThemeProvider>
 	);
 };
 
-const Screen = styled.ScrollView`
+const Screen = styled.View`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
 `;
@@ -170,6 +222,22 @@ const Logo = styled.Image`
 	width: 200px;
 	height: 200px;
 	opacity: 0.3;
+`;
+
+const ButtonLoadMore = styled.TouchableOpacity`
+	width: 95%;
+	align-self: center;
+	height: 45px;
+	background-color: ${(props) => props.theme.primary};
+	justify-content: center;
+	margin-top: 20px;
+	padding: 16px 70px;
+	border-radius: 5px;
+`;
+const Description = styled.Text`
+	color: rgba(255, 255, 255, 0.7);
+	font-size: 16px;
+	text-align: center;
 `;
 
 export default SearchScreen;

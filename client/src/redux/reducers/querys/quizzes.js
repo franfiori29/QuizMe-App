@@ -49,9 +49,16 @@ export const queryGetQuizByCategory = gql`
 `;
 
 export const queryGetQuizzesBySearchInput = gql`
-	query($searchInput: String!, $categoryFilter: String) {
-		getQuizzesByInputSearch(input: $searchInput, cat: $categoryFilter) {
-			...EntireQuizInfo
+	query($searchInput: String!, $categoryFilter: String, $page: Int) {
+		getQuizzesByInputSearch(
+			input: $searchInput
+			cat: $categoryFilter
+			page: $page
+		) {
+			quizzes {
+				...EntireQuizInfo
+			}
+			hasNextPage
 		}
 	}
 	${EntireQuizInfo}

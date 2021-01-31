@@ -1,5 +1,5 @@
 const { model, Schema } = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const quizSchema = new Schema(
 	{
@@ -34,5 +34,7 @@ const quizSchema = new Schema(
 	},
 	{ timestamps: true }
 );
+
+quizSchema.plugin(mongoosePaginate);
 
 module.exports = model('Quiz', quizSchema);

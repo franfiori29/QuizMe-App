@@ -77,11 +77,11 @@ export const getQuizByCategory = createAsyncThunk(
 
 export const getQuizzesBySearchInput = createAsyncThunk(
 	'quiz/getQuizzesBySearchInput',
-	async ({ searchInput, categoryFilter }, { getState }) => {
+	async ({ searchInput, categoryFilter, page }, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(
 			queryGetQuizzesBySearchInput,
-			{ searchInput, categoryFilter }
+			{ searchInput, categoryFilter, page }
 		);
 		return clientRequest;
 	}
@@ -123,6 +123,7 @@ const quizSlice = createSlice({
 		quiz: {},
 		quizzes: [],
 		filteredQuizzes: [],
+		hasNextPage: true,
 		categories: [],
 		randomQuiz: {},
 	},
@@ -152,7 +153,11 @@ const quizSlice = createSlice({
 			state.randomQuiz = payload.getRandomQuiz;
 		},
 		[getQuizzesBySearchInput.fulfilled]: (state, { payload }) => {
-			state.filteredQuizzes = payload.getQuizzesByInputSearch;
+			state.hasNextPage = payload.getQuizzesByInputSearch.hasNextPage;
+			state.filteredQuizzes = [
+				...state.filteredQuizzes,
+				...payload.getQuizzesByInputSearch.quizzes,
+			];
 		},
 		[updateHighscore.fulfilled]: (state, { payload }) => {
 			state.quiz.newHighscore = payload.updateHighscore;
