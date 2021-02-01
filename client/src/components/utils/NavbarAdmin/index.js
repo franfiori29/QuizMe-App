@@ -7,6 +7,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 //---Components -- //
 import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
+import CategoryCards from '@components/admin_panel/screens/categories';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -47,6 +48,20 @@ const NavbarAdmin = () => {
 					}}
 					name='Quizzes'
 					component={AdminQuizzes}
+				/>
+				<Tab.Screen
+					options={{
+						tabBarLabel: 'Categorias',
+						tabBarIcon: ({ color }) => (
+							<MaterialCommunityIcons
+								name='ios-book-outline'
+								color={color}
+								size={25}
+							/>
+						),
+					}}
+					name='Categorias'
+					component={CategoryCards}
 				/>
 			</Tab.Navigator>
 		</ThemeProvider>
