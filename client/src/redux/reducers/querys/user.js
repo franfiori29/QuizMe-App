@@ -78,3 +78,14 @@ export const queryGetUserQuizzes = gql`
 	}
 	${EntireQuizInfo}
 `;
+
+export const mutationValidateUser = gql`
+	mutation($payload: ID!) {
+		validateUser(userId: $payload)
+	}
+`;
+export const mutationPremiumUser = gql`
+	mutation {
+		premiumUser
+	}
+`;

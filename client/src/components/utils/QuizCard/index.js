@@ -72,7 +72,14 @@ const QuizCardComponent = ({ quiz }) => {
 			</QuizInfo>
 			{completedQuiz && completedQuiz.some((e) => e._id === quiz._id) && (
 				<QuizCheck>
-					<Text style={{ color: theme.primary }}>{s.completed}</Text>
+					<Text
+						style={{
+							color: theme.primar,
+							fontFamily: 'Nunito_600SemiBold',
+						}}
+					>
+						{s.completed}
+					</Text>
 					<Icon
 						name='checkmark-circle-outline'
 						size={20}
@@ -86,6 +93,7 @@ const QuizCardComponent = ({ quiz }) => {
 
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const QuizCard = styled.TouchableOpacity`
@@ -114,7 +122,7 @@ const QuizInfo = styled.View`
 
 const QuizTitle = styled.Text`
 	font-size: 16px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.text};
 	margin-top: 3px;
 `;

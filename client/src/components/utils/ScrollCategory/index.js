@@ -69,6 +69,7 @@ const CategoryName = styled.Text`
 	text-align: center;
 	text-transform: uppercase;
 	color: ${(props) => props.theme.primary};
+	font-family: 'Nunito_800ExtraBold';
 `;
 
 export default ScrollCategory;

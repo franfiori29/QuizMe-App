@@ -34,7 +34,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
 		);
 	};
 
@@ -58,7 +58,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 						<Text
 							style={{
 								fontSize: 14,
-								fontWeight: 'bold',
+								fontFamily: 'Nunito_800ExtraBold',
 								textAlign: 'center',
 								color: theme.text,
 							}}
@@ -66,7 +66,13 @@ const QuizResults = ({ route: { params }, navigation }) => {
 							{s.msj1} {params.points} {s.msj2}
 						</Text>
 						<HighScoreBadge>
-							<Text style={{ fontSize: 14, color: theme.white }}>
+							<Text
+								style={{
+									fontSize: 14,
+									color: theme.white,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
 								{language === 'es'
 									? 'Nuevo Puntaje Alto!🎉'
 									: 'New High Score!🎉'}
@@ -141,7 +147,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 const FinishedTitle = styled.Text`
 	font-size: 20px;
 	text-align: center;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	margin-top: 20px;
 	color: ${({ theme }) => theme.text};
 `;
@@ -170,6 +176,7 @@ const EmojiContainer = styled.Text`
 	font-size: 40px;
 	text-align: center;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_800ExtraBold';
 `;
 
 const ProgressBar = styled.View`
@@ -198,6 +205,7 @@ const ProgressBarText = styled.Text`
 	left: 15px;
 	z-index: 2;
 	transform: translateY(-7px);
+	font-family: 'Nunito_800ExtraBold';
 `;
 
 const AnswersNumberContainer = styled.View`
@@ -227,7 +235,7 @@ const AnswersIncorrect = styled.View`
 
 const AnswersNumber = styled.Text`
 	align-self: center;
-	font-weight: 900;
+	font-family: 'Nunito_600SemiBold';
 	font-size: 12px;
 	color: ${(props) => props.theme.text};
 	margin-bottom: 5px;
@@ -239,6 +247,7 @@ const AnswersText = styled.Text`
 	text-transform: uppercase;
 	color: ${(props) => props.theme.text};
 	margin-bottom: 5px;
+	font-family: 'Nunito_800ExtraBold';
 `;
 
 const FavoriteContainer = styled.View`
@@ -251,7 +260,7 @@ const FavoriteContainer = styled.View`
 `;
 
 const FavoriteText = styled.Text`
-	font-weight: 700;
+	font-family: 'Nunito_800ExtraBold';
 	margin-bottom: 10px;
 	color: ${(props) => props.theme.text};
 `;
@@ -282,14 +291,14 @@ const BtnSec = styled.TouchableOpacity`
 
 const BtnText = styled.Text`
 	color: #f7fdff;
-	font-weight: 700;
+	font-family: 'Nunito_800ExtraBold';
 	align-self: center;
 	margin: auto;
 `;
 
 const BtnSecText = styled.Text`
 	color: #04aa8c;
-	font-weight: 700;
+	font-family: 'Nunito_800ExtraBold';
 	align-self: center;
 `;
 const ViewSocialMedia = styled.View`

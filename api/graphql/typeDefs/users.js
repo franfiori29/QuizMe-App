@@ -20,6 +20,8 @@ module.exports = gql`
 		completedQuiz: [Quiz]
 		likedQuiz: [Quiz]
 		isActive: Boolean
+		premium: Boolean
+		validated: Boolean
 	}
 
 	input UserInput {
@@ -46,5 +48,7 @@ module.exports = gql`
 		changePassword(newPass: String!, currPass: String!): String
 		changeEmail(newMail: String!, currPass: String!): String
 		activateUser(userId: ID!, isActive: Boolean!): String
+		validateUser(userId: ID!): String!
+		premiumUser: String!
 	}
 `;

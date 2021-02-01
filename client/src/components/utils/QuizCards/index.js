@@ -76,7 +76,12 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 						{completedQuiz &&
 							completedQuiz.some((e) => e._id === quiz._id) && (
 								<QuizCheck>
-									<Text style={{ color: theme.primary }}>
+									<Text
+										style={{
+											color: theme.primary,
+											fontFamily: 'Nunito_800ExtraBold',
+										}}
+									>
 										{s.completed}
 									</Text>
 									<Icon
@@ -94,6 +99,7 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const QuizCardsContainer = styled.View`
@@ -126,7 +132,7 @@ const QuizInfo = styled.View`
 
 const QuizTitle = styled.Text`
 	font-size: 16px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.text};
 	margin-top: 3px;
 `;

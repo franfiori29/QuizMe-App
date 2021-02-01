@@ -36,7 +36,12 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					<Title>{quiz.title}</Title>
 					<QuantityContainer>
 						<TouchableOpacity>
-							<Text style={{ color: theme.primary }}>
+							<Text
+								style={{
+									color: theme.primary,
+									fontFamily: 'Nunito_600SemiBold',
+								}}
+							>
 								{quiz.questions.length} {s.quest}
 							</Text>
 						</TouchableOpacity>
@@ -70,7 +75,10 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 						>
 							<Text
 								adjustsFontSizeToFit={true}
-								style={{ color: theme.primary }}
+								style={{
+									color: theme.primary,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
 							>
 								{s.startBtn}
 							</Text>
@@ -117,7 +125,6 @@ const BackButtonContainer = styled.TouchableOpacity`
 	position: absolute;
 	background-color: ${(props) => props.theme.bg};
 	border-bottom-right-radius: 5px;
-	border: 1px solid transparent;
 	border-bottom-color: #ccc;
 	border-right-color: #ccc;
 	width: 50px;
@@ -135,6 +142,7 @@ const Title = styled.Text`
 	text-transform: uppercase;
 	margin-top: 30px;
 	color: ${(props) => props.theme.primary};
+	font-family: 'Nunito_800ExtraBold';
 `;
 
 const QuantityContainer = styled.View`
@@ -150,6 +158,7 @@ const Description = styled.Text`
 	margin: 20px 0;
 	text-align: center;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const StartButton = styled.TouchableOpacity`

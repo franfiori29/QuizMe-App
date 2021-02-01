@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -91,6 +91,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							marginLeft: 10,
 							fontSize: 16,
 							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
 						}}
 					>
 						Category:
@@ -102,6 +103,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							width: '80%',
 							alignSelf: 'center',
 							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
 						}}
 						onValueChange={(value) => {
 							setPage(1);
@@ -146,13 +148,6 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 										{loadingMore ? s.loading : s.loadMore}
 									</Description>
 								</ButtonLoadMore>
-								// <Button
-								// 	color={theme.primary}
-								// 	title='Cargas más'
-								// 	onPress={() =>
-								// 		handleSearch(categoryFilter, page)
-								// 	}
-								// />
 							)
 						}
 					/>
@@ -183,7 +178,7 @@ const Title = styled.Text`
 	align-self: center;
 	color: ${(props) => props.theme.text};
 	font-size: 28px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 `;
 const InputContainer = styled.View`
@@ -200,6 +195,7 @@ const InputLogin = styled.TextInput`
 	background-color: ${(props) => props.theme.bg};
 	color: ${(props) => props.theme.text};
 	margin: 10px 0;
+	font-family: 'Nunito_400Regular';
 `;
 const IconImage = styled(Icon)`
 	color: ${(props) => props.theme.primary};
@@ -214,7 +210,7 @@ const SearchMessage = styled.Text`
 	font-size: 26px;
 	text-align: center;
 	margin: 20px auto;
-	font-style: italic;
+	font-family: 'Nunito_600SemiBold_Italic';
 `;
 
 const Logo = styled.Image`
@@ -239,6 +235,7 @@ const Description = styled.Text`
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
+	font-family: 'Nunito_800ExtraBold';
 `;
 
 export default SearchScreen;
