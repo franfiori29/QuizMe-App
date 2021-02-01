@@ -19,7 +19,7 @@ module.exports = {
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
 				{ $push: { completedQuiz: quizId } },
-				{ new: true }
+				{ new: true },
 			);
 			return userfind;
 		},
@@ -28,7 +28,7 @@ module.exports = {
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
 				userBody,
-				{ new: true }
+				{ new: true },
 			);
 			return userfind;
 		},
@@ -57,6 +57,15 @@ module.exports = {
 			if (user.role !== 'ADMIN') throw new Error('Not authorized');
 			await User.updateOne({ _id: userId }, { isActive });
 			return 'Updated Succesfully';
+		},
+
+		validateUser: async (_, { userID }) => {
+			await User.updateOne({ _id: userID }, { validated: true });
+			return 'Validated succesfully';
+		},
+		premiumUser: async (_, __, { user }) => {
+			await User.updateOne({ _id: user._id }, { premium: true });
+			return 'User premiumnificated (? succesfully';
 		},
 	},
 };

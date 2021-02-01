@@ -31,12 +31,6 @@ export default function Profile({ navigation }) {
 	const dispatch = useDispatch();
 	const s = strings[language];
 
-	// const stylesSpinner = StyleSheet.create({
-	// 	spinnerTextStyle: {
-	// 		color: theme.text,
-	// 	},
-	// });
-
 	const openImagePickerAsync = async () => {
 		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
 
@@ -142,9 +136,39 @@ export default function Profile({ navigation }) {
 					</TouchableOpacity>
 					<UserInfo>
 						<View>
-							<UserName>
-								{user.firstName} {user.lastName}
-							</UserName>
+							<View
+								style={{
+									flexDirection: 'row',
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<UserName>
+									{user.firstName} {user.lastName}
+								</UserName>
+								{user.validated && (
+									<Icon
+										name='checkmark-circle-outline'
+										size={20}
+										style={{
+											color: theme.primary,
+											zIndex: 20,
+											marginLeft: 5,
+										}}
+									/>
+								)}
+								{user.premium && (
+									<Icon
+										color={'rgb(250,210,1)'}
+										name='ios-star'
+										size={20}
+										style={{
+											zIndex: 20,
+											marginLeft: 5,
+										}}
+									/>
+								)}
+							</View>
 							<Text
 								style={{
 									color: theme.text,
@@ -160,11 +184,7 @@ export default function Profile({ navigation }) {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
-						<AccTypeButton
-							onPress={() =>
-								navigation.navigate('ValidateScreen')
-							}
-						>
+						{user.validated ? (
 							<Text
 								style={{
 									color: theme.primary,
@@ -172,9 +192,25 @@ export default function Profile({ navigation }) {
 									fontFamily: 'Nunito_600SemiBold',
 								}}
 							>
-								{s.validate}
+								{s.validate2}
 							</Text>
-						</AccTypeButton>
+						) : (
+							<AccTypeButton
+								onPress={() =>
+									navigation.navigate('ValidateScreen')
+								}
+							>
+								<Text
+									style={{
+										color: theme.primary,
+										textTransform: 'uppercase',
+										fontFamily: 'Nunito_600SemiBold',
+									}}
+								>
+									{s.validate}
+								</Text>
+							</AccTypeButton>
+						)}
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>

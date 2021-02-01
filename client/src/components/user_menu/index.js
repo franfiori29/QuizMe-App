@@ -22,6 +22,7 @@ import NavBar from '@components/utils/NavBar';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 //Assets
 import strings from './strings';
@@ -111,9 +112,39 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 								'https://picsum.photos/100/100',
 						}}
 					/>
-					<UserName>
-						{user.firstName} {user.lastName}
-					</UserName>
+					<View
+						style={{
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<UserName>
+							{user.firstName} {user.lastName}
+						</UserName>
+						{user.validated && (
+							<Icon
+								name='checkmark-circle-outline'
+								size={20}
+								style={{
+									color: theme.primary,
+									zIndex: 20,
+									marginLeft: 5,
+								}}
+							/>
+						)}
+						{user.premium && (
+							<Icon
+								color={'rgb(250,210,1)'}
+								name='ios-star'
+								size={20}
+								style={{
+									zIndex: 20,
+									marginLeft: 5,
+								}}
+							/>
+						)}
+					</View>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Profile')}
 					>

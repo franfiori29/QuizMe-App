@@ -138,6 +138,7 @@ const Title = styled.Text`
 	font-size: 28px;
 	color: ${(props) => props.theme.text};
 	margin: 20px auto;
+	font-family: 'Nunito_600SemiBold';
 `;
 const Intro = styled.Text`
 	width: 95%;
@@ -146,6 +147,7 @@ const Intro = styled.Text`
 	font-size: 18px;
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
+	font-family: 'Nunito_400Regular';
 `;
 
 const About = styled.View`
@@ -167,13 +169,13 @@ const Coder = styled.View`
 
 const Name = styled.Text`
 	font-size: 20px;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.text};
 	margin: 0 auto;
 `;
 const LastName = styled.Text`
 	font-size: 20px;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.text};
 	margin: 0 auto;
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { validateUser } from '@redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -13,6 +14,7 @@ import logo from '@assets/logo.png';
 import validationS from './strings/validationS';
 
 const ValidateScreen = ({ navigation }) => {
+	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const { info: user } = useSelector((state) => state.user);
 	const s = validationS[language];
@@ -46,7 +48,13 @@ const ValidateScreen = ({ navigation }) => {
 						}}
 					>
 						<Logo source={logo} />
-						<Btn>
+						<Btn
+							onPress={() =>
+								dispatch(validateUser(user._id)).then(
+									alert('se valido'),
+								)
+							}
+						>
 							<BtnText>{s.btn}</BtnText>
 						</Btn>
 					</View>

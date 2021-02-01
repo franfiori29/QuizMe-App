@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { premiumUser } from '@redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -8,11 +9,11 @@ import NavBar from '@components/utils/NavBar';
 import styled, { ThemeProvider } from 'styled-components/native';
 import logo from '@assets/logo.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 //==>Assets
 import premiumS from './strings/premiumS';
 
 const PremiumScreen = ({ navigation }) => {
+	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const s = premiumS[language];
 	return (
@@ -59,7 +60,13 @@ const PremiumScreen = ({ navigation }) => {
 						<InfoText>{s.cont4}</InfoText>
 					</Info>
 					<BtnContainer>
-						<Btn>
+						<Btn
+							onPress={() =>
+								dispatch(premiumUser()).then(
+									alert('sos premium'),
+								)
+							}
+						>
 							<BtnText>{s.btn}</BtnText>
 						</Btn>
 					</BtnContainer>
