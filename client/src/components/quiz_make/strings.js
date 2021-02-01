@@ -29,6 +29,10 @@ const strings = {
 		noEdit: "You won't be able to edit the quiz",
 		cancel: 'Cancel',
 		finishEdit: 'Finish edit',
+		typeClassic: 'Classic',
+		typeBoolean: 'True/False',
+		true: 'True',
+		false: 'False',
 	},
 
 	es: {
@@ -62,6 +66,10 @@ const strings = {
 		noEdit: 'Una vez creado el quiz no podrás editarlo',
 		cancel: 'Cancelar',
 		finishEdit: 'Finalizar edición',
+		typeClassic: 'Clasica',
+		typeBoolean: 'Verdadero/Falso',
+		true: 'Verdadero',
+		false: 'Falso',
 	},
 };
 

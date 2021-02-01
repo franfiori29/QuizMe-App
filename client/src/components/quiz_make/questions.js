@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useFocusEffect } from '@react-navigation/native';
+import { Picker } from '@react-native-picker/picker';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -18,20 +19,30 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
+	const [type, setType] = useState('classic');
 	const s = strings[language];
 	const { control, handleSubmit, errors, reset } = useForm();
 
 	const [checked, setChecked] = useState('1');
-
 	const onNext = (data) => {
-		let objQuestion = {
-			title: data.title,
-			options: [
+		let options;
+		if (type === 'classic') {
+			options = [
 				{ title: data.option1, result: false },
 				{ title: data.option2, result: false },
 				{ title: data.option3, result: false },
 				{ title: data.option4, result: false },
-			],
+			];
+		} else {
+			options = [
+				{ title: strings[params.quiz.language].true, result: false },
+				{ title: strings[params.quiz.language].false, result: false },
+			];
+		}
+
+		let objQuestion = {
+			title: data.title,
+			options,
 			score: 5,
 		};
 
@@ -57,26 +68,23 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 	};
 
 	const onSubmit = (data) => {
+		let options;
+		if (type === 'classic') {
+			options = [
+				{ title: data.option1, result: false },
+				{ title: data.option2, result: false },
+				{ title: data.option3, result: false },
+				{ title: data.option4, result: false },
+			];
+		} else {
+			options = [
+				{ title: strings[params.quiz.language].true, result: false },
+				{ title: strings[params.quiz.language].false, result: false },
+			];
+		}
 		let objQuestion = {
 			title: data.title,
-			options: [
-				{
-					title: data.option1,
-					result: false,
-				},
-				{
-					title: data.option2,
-					result: false,
-				},
-				{
-					title: data.option3,
-					result: false,
-				},
-				{
-					title: data.option4,
-					result: false,
-				},
-			],
+			options: options,
 			score: 5,
 		};
 		objQuestion.options[checked - 1].result = true;
@@ -96,21 +104,35 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		});
 		navigation.navigate('QuizMakeDetails', { quiz });
 	};
-
+	console.log('checked', checked);
 	useFocusEffect(
 		useCallback(() => {
 			if (params.edit !== undefined) {
-				reset({
-					title: params.quiz.questions[params.edit].title,
-					option1:
-						params.quiz.questions[params.edit].options[0].title,
-					option2:
-						params.quiz.questions[params.edit].options[1].title,
-					option3:
-						params.quiz.questions[params.edit].options[2].title,
-					option4:
-						params.quiz.questions[params.edit].options[3].title,
-				});
+				if (params.quiz.questions[params.edit].options.length > 2) {
+					reset({
+						title: params.quiz.questions[params.edit].title,
+						option1:
+							params.quiz.questions[params.edit].options[0].title,
+						option2:
+							params.quiz.questions[params.edit].options[1].title,
+						option3:
+							params.quiz.questions[params.edit].options[2].title,
+						option4:
+							params.quiz.questions[params.edit].options[3].title,
+					});
+				} else {
+					setType('boolean');
+					reset({
+						title: params.quiz.questions[params.edit].title,
+					});
+					setChecked(
+						(
+							params.quiz.questions[
+								params.edit
+							].options.findIndex((option) => option.result) + 1
+						).toString()
+					);
+				}
 			}
 		}, [params.edit])
 	);
@@ -120,8 +142,8 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 			<Screen centerContent={true}>
 				<NavBar
 					string={s.nav}
-					nav1={() => navigation.navigate('Home')}
-					icon1='ios-close'
+					nav1={() => navigation.goBack()}
+					icon1='ios-arrow-back'
 					icon2=''
 				/>
 				<Text
@@ -132,6 +154,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 						paddingHorizontal: 20,
 						textTransform: 'uppercase',
 						fontSize: 11,
+						color: theme.text,
 					}}
 				>
 					{s.question} N°{' '}
@@ -160,6 +183,27 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 					</Text>
 				</Title>
 				<FormContainer>
+					<Picker
+						selectedValue={type}
+						style={{
+							marginBottom: 20,
+							height: 40,
+							width: '95%',
+							alignSelf: 'center',
+							color: theme.text,
+							backgroundColor: theme.bg,
+							borderRadius: 10,
+							padding: 10,
+							borderColor: theme.primary,
+						}}
+						onValueChange={(value) => {
+							setType(value);
+						}}
+					>
+						<Picker.Item value='classic' label={s.typeClassic} />
+						<Picker.Item value='boolean' label={s.typeBoolean} />
+					</Picker>
+
 					<InputContainer>
 						<Controller
 							control={control}
@@ -200,99 +244,153 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							</ErrorIcon>
 						)}
 					</InputContainer>
-					{[1, 2, 3, 4].map((n) => (
-						<InputContainer key={`option${n}`}>
-							<Controller
-								control={control}
-								render={({ onChange, onBlur, value }) => {
-									return (
-										<QuizInput
-											onBlur={onBlur}
-											placeholder={s.option + n}
-											placeholderTextColor={theme.text}
-											onChangeText={(value) =>
-												onChange(value)
-											}
-											value={value}
-										/>
-									);
-								}}
-								name={`option${n}`}
-								rules={{ required: true }}
-								defaultValue=''
-							/>
-							{errors[`option${n}`] && (
-								<ErrorIcon>
-									<Text
-										style={{
-											color: '#D53051',
-											fontSize: 10,
-											textTransform: 'uppercase',
-											marginRight: 5,
+					{type === 'classic' ? (
+						<>
+							{[1, 2, 3, 4].map((n) => (
+								<InputContainer key={`option${n}`}>
+									<Controller
+										control={control}
+										render={({
+											onChange,
+											onBlur,
+											value,
+										}) => {
+											return (
+												<QuizInput
+													onBlur={onBlur}
+													placeholder={s.option + n}
+													placeholderTextColor={
+														theme.text
+													}
+													onChangeText={(value) =>
+														onChange(value)
+													}
+													value={value}
+												/>
+											);
 										}}
-									>
-										{s.req}
-									</Text>
-									<Icon
-										name={'ios-alert-circle'}
-										size={15}
-										color={'#D53051'}
+										name={`option${n}`}
+										rules={{ required: true }}
+										defaultValue=''
 									/>
-								</ErrorIcon>
-							)}
-						</InputContainer>
-					))}
-					<Text
-						style={{
-							color: theme.text,
-							alignSelf: 'center',
-							fontSize: 18,
-							marginTop: 5,
-							marginBottom: 5,
-						}}
-					>
-						{s.correct}
-					</Text>
-					<View
-						style={{
-							width: '95%',
-							alignSelf: 'center',
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-						}}
-					>
-						{[1, 2, 3, 4].map((n) => (
-							<View
-								key={`check${n}`}
+									{errors[`option${n}`] && (
+										<ErrorIcon>
+											<Text
+												style={{
+													color: '#D53051',
+													fontSize: 10,
+													textTransform: 'uppercase',
+													marginRight: 5,
+												}}
+											>
+												{s.req}
+											</Text>
+											<Icon
+												name={'ios-alert-circle'}
+												size={15}
+												color={'#D53051'}
+											/>
+										</ErrorIcon>
+									)}
+								</InputContainer>
+							))}
+							<Text
 								style={{
-									width: 40,
-									flexDirection: 'row',
-									alignItems: 'center',
-									justifyContent: 'center',
+									color: theme.text,
+									alignSelf: 'center',
+									fontSize: 18,
+									marginTop: 5,
+									marginBottom: 5,
 								}}
 							>
-								<Text
-									style={{
-										fontSize: 20,
-										color: theme.text,
-										margin: 'auto',
-									}}
-								>
-									{n}
-								</Text>
-								<RadioButton
-									uncheckedColor={theme.text}
-									value={`${n}`}
-									status={
-										checked === `${n}`
-											? 'checked'
-											: 'unchecked'
-									}
-									onPress={() => setChecked(`${n}`)}
-								/>
+								{s.correct}
+							</Text>
+							<View
+								style={{
+									width: '95%',
+									alignSelf: 'center',
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+								}}
+							>
+								{[1, 2, 3, 4].map((n) => (
+									<View
+										key={`check${n}`}
+										style={{
+											width: 40,
+											flexDirection: 'row',
+											alignItems: 'center',
+											justifyContent: 'center',
+										}}
+									>
+										<Text
+											style={{
+												fontSize: 20,
+												color: theme.text,
+												margin: 'auto',
+											}}
+										>
+											{n}
+										</Text>
+										<RadioButton
+											uncheckedColor={theme.text}
+											value={`${n}`}
+											status={
+												checked === `${n}`
+													? 'checked'
+													: 'unchecked'
+											}
+											onPress={() => setChecked(`${n}`)}
+										/>
+									</View>
+								))}
 							</View>
-						))}
-					</View>
+						</>
+					) : (
+						<>
+							<View
+								style={{
+									width: '95%',
+									alignSelf: 'center',
+									flexDirection: 'row',
+									justifyContent: 'space-around',
+								}}
+							>
+								{[s.true, s.false].map((n, i) => (
+									<View
+										key={`check${n}`}
+										style={{
+											flexDirection: 'column',
+											alignItems: 'center',
+											justifyContent: 'center',
+										}}
+									>
+										<Text
+											style={{
+												fontSize: 20,
+												color: theme.text,
+											}}
+										>
+											{n}
+										</Text>
+
+										<RadioButton
+											uncheckedColor={theme.text}
+											value={`${n}`}
+											status={
+												checked === `${i + 1}`
+													? 'checked'
+													: 'unchecked'
+											}
+											onPress={() =>
+												setChecked(`${i + 1}`)
+											}
+										/>
+									</View>
+								))}
+							</View>
+						</>
+					)}
 					<View style={{ marginTop: 10 }}>
 						<ButtonPpal
 							string={
@@ -329,6 +427,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 // 				questions: [],
 // 				time: 10,
 // 				title: 'Eres fan de Rapido y furioso?',
+// 				language: 'es',
 // 			},
 // 		},
 // 	},
