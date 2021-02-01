@@ -92,7 +92,7 @@ const IntroImg = styled.Image`
 
 const IntroTitle = styled.Text`
 	font-size: 24px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	color: ${(props) => props.theme.primary};
 	margin-bottom: 10px;
@@ -104,6 +104,7 @@ const IntroText = styled.Text`
 	max-width: 95%;
 	align-self: center;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_400Regular';
 `;
 
 const PremiumInfo = styled.View`
@@ -125,8 +126,8 @@ const Info = styled.View`
 `;
 
 const InfoText = styled.Text`
+	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.text};
-	font-weight: bold;
 `;
 
 const BtnContainer = styled.View`
@@ -144,7 +145,7 @@ const Btn = styled.TouchableOpacity`
 
 const BtnText = styled.Text`
 	color: ${(props) => props.theme.white};
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	font-size: 18px;
 	margin: auto;

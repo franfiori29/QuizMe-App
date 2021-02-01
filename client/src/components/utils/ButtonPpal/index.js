@@ -25,7 +25,7 @@ const ButtonPpalCont = styled.TouchableOpacity`
 `;
 const ButtonPpalText = styled.Text`
 	text-transform: uppercase;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.white};
 `;
 

@@ -117,13 +117,25 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Profile')}
 					>
-						<UserText>{s.profile.toUpperCase()}</UserText>
+						<UserText style={{ fontFamily: 'Nunito_800ExtraBold' }}>
+							{s.profile.toUpperCase()}
+						</UserText>
 					</TouchableOpacity>
 				</UserContainer>
 				<AccType>
-					<Text style={{ color: theme.text }}>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
 						{s.acc}{' '}
-						<Text style={{ color: theme.text, fontWeight: 'bold' }}>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_800ExtraBold',
+							}}
+						>
 							{s.poor}
 						</Text>
 					</Text>
@@ -134,6 +146,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 							style={{
 								color: theme.primary,
 								textTransform: 'uppercase',
+								fontFamily: 'Nunito_600SemiBold',
 							}}
 						>
 							{s.premiumBtn}
@@ -141,14 +154,33 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					</AccTypeButton>
 				</AccType>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>{s.subs}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.subs}
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMyQuizzes}>
-					<Text style={{ color: theme.text }}>{s.myQuiz}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.myQuiz}
+					</Text>
 				</MenuTouchOption>
 				{user.role === 'ADMIN' && (
 					<MenuTouchOption onPress={handleAdminPanel}>
-						<Text style={{ color: theme.text }}>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
 							{s.adminPanel}
 						</Text>
 					</MenuTouchOption>
@@ -159,36 +191,75 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 							color: theme.text,
 							width: '95%',
 							height: 30,
+							fontFamily: 'Nunito_400Regular',
 						}}
 					>
 						{s.email}{' '}
 						<Text
-							style={{ fontWeight: 'bold', color: theme.primary }}
+							style={{
+								fontFamily: 'Nunito_800ExtraBold',
+								color: theme.primary,
+							}}
 						>
 							{user.email}
 						</Text>
 					</Text>
 				</MenuTouchOption>
 				<AccType onPress={() => navigation.navigate('UpdateName')}>
-					<Text style={{ color: theme.text }}>{s.user}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.user}
+					</Text>
 				</AccType>
 				<MenuTouchOption
 					onPress={() => navigation.navigate('PasswordUpdate')}
 				>
-					<Text style={{ color: theme.text }}>{s.pass}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.pass}
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>{s.notif}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.notif}
+					</Text>
 				</MenuTouchOption>
 				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
-					<Text style={{ color: theme.text }}>{s.sound}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.sound}
+					</Text>
 					<Switch
 						onValueChange={handleSound}
 						value={sound ? true : false}
 					/>
 				</MenuSolidOption>
 				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
-					<Text style={{ color: theme.text }}>{s.dark}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.dark}
+					</Text>
 					<Switch
 						onValueChange={handleTheme}
 						value={theme.mode === 'light' ? false : true}
@@ -204,11 +275,18 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 							paddingBottom: 2,
 						}}
 					>
-						<Text style={{ color: theme.text }}>{s.lang}</Text>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
+							{s.lang}
+						</Text>
 						<Text
 							style={{
 								color: theme.primary,
-								fontWeight: 'bold',
+								fontFamily: 'Nunito_800ExtraBold',
 								marginLeft: 5,
 							}}
 						>
@@ -221,22 +299,57 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					/>
 				</MenuSolidOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>{s.help}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.help}
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption>
-					<Text style={{ color: theme.text }}>{s.rate}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.rate}
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					onPress={() => navigation.navigate('Information')}
 				>
-					<Text style={{ color: theme.text }}>{s.info}</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.info}
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					style={{ justifyContent: 'space-between' }}
 					onPress={handleRicky}
 				>
-					<Text style={{ color: theme.text }}>{s.version}</Text>
-					<Text style={{ color: theme.primary }}>0.1.0 (Demo 1)</Text>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.version}
+					</Text>
+					<Text
+						style={{
+							color: theme.primary,
+							fontFamily: 'Nunito_800ExtraBold',
+						}}
+					>
+						0.2.0 (Demo 2)
+					</Text>
 				</MenuTouchOption>
 				<MenuTouchOption
 					style={{
@@ -250,7 +363,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					<Text
 						style={{
 							color: theme.primary,
-							fontWeight: 'bold',
+							fontFamily: 'Nunito_800ExtraBold',
 							fontSize: 16,
 						}}
 					>
@@ -286,7 +399,7 @@ const UserImg = styled.Image`
 
 const UserName = styled.Text`
 	font-size: 20px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	color: ${(props) => props.theme.text};
 `;
