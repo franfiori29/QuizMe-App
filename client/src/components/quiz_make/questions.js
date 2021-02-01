@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import { useFocusEffect } from '@react-navigation/native';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -26,30 +27,23 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		let objQuestion = {
 			title: data.title,
 			options: [
-				{
-					title: data.option1,
-					result: false,
-				},
-				{
-					title: data.option2,
-					result: false,
-				},
-				{
-					title: data.option3,
-					result: false,
-				},
-				{
-					title: data.option4,
-					result: false,
-				},
+				{ title: data.option1, result: false },
+				{ title: data.option2, result: false },
+				{ title: data.option3, result: false },
+				{ title: data.option4, result: false },
 			],
 			score: 5,
 		};
+
 		objQuestion.options[checked - 1].result = true;
 
 		let quiz = {
 			...params.quiz,
 		};
+		if (params.edit !== undefined) {
+			quiz.questions[params.edit] = objQuestion;
+			return navigation.navigate('QuizMakeDetails', { quiz });
+		}
 
 		quiz.questions.push(objQuestion);
 		setChecked('1');
@@ -103,6 +97,24 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		navigation.navigate('QuizMakeDetails', { quiz });
 	};
 
+	useFocusEffect(
+		useCallback(() => {
+			if (params.edit !== undefined) {
+				reset({
+					title: params.quiz.questions[params.edit].title,
+					option1:
+						params.quiz.questions[params.edit].options[0].title,
+					option2:
+						params.quiz.questions[params.edit].options[1].title,
+					option3:
+						params.quiz.questions[params.edit].options[2].title,
+					option4:
+						params.quiz.questions[params.edit].options[3].title,
+				});
+			}
+		}, [params.edit])
+	);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen centerContent={true}>
@@ -122,7 +134,8 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 						fontSize: 11,
 					}}
 				>
-					{s.question} N° {params.quiz.questions.length + 1}
+					{s.question} N°{' '}
+					{params?.edit + 1 || params.quiz.questions.length + 1}
 				</Text>
 				<Title>
 					<Text
@@ -282,18 +295,23 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 					</View>
 					<View style={{ marginTop: 10 }}>
 						<ButtonPpal
-							string={s.next}
+							string={
+								params.edit !== undefined
+									? s.finishEdit
+									: s.next
+							}
 							onSubmit={handleSubmit(onNext)}
 						/>
 					</View>
-					{params.quiz.questions.length >= 3 && (
-						<View style={{ marginTop: 10, marginBottom: 10 }}>
-							<ButtonPpal
-								string={s.finish}
-								onSubmit={handleSubmit(onSubmit)}
-							/>
-						</View>
-					)}
+					{params.quiz.questions.length >= 3 &&
+						params.edit === undefined && (
+							<View style={{ marginTop: 10, marginBottom: 10 }}>
+								<ButtonPpal
+									string={s.finish}
+									onSubmit={handleSubmit(onSubmit)}
+								/>
+							</View>
+						)}
 				</FormContainer>
 			</Screen>
 		</ThemeProvider>

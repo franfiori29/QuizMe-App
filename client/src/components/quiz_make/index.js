@@ -3,9 +3,6 @@ import { Text, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
-import fb from '@root/src/firebase';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import { useForm, Controller } from 'react-hook-form';
 
 //==>Assets
@@ -21,7 +18,7 @@ import { getCategories } from '@redux/reducers/categories';
 import { Picker } from '@react-native-picker/picker';
 /* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
-const QuizMake = ({ navigation }) => {
+const QuizMake = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -30,52 +27,26 @@ const QuizMake = ({ navigation }) => {
 	const { categories } = useSelector((state) => state.categories);
 	const [image, setImage] = useState(null);
 
-	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 	useEffect(() => {
 		dispatch(getCategories(language));
 	}, []);
-	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
 	const onSubmit = async (data) => {
-		/* --- SUBE IMAGEN A FIREBASE --- */
-		let url;
-		let randomID = uuidv4();
-		if (image) {
-			try {
-				const blob = await new Promise((resolve, reject) => {
-					const xhr = new XMLHttpRequest();
-					xhr.onload = function () {
-						resolve(xhr.response);
-					};
-					xhr.onerror = function (e) {
-						reject(new TypeError('Network request failed'));
-					};
-					xhr.responseType = 'blob';
-					xhr.open('GET', image, true);
-					xhr.send(null);
-				});
-				const ref = fb.storage().ref(`QuizImage/${randomID}`);
-				const snapshot = await ref.put(blob);
-				url = await snapshot.ref.getDownloadURL();
-				if (Platform.OS !== 'web') {
-					blob.close();
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		}
-		/* --- SUBE IMAGEN A FIREBASE --- */
 		let quiz = {
 			title: data.title,
 			description: data.description,
 			language: data.language,
-			image:
-				url ||
-				'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+			image,
 			categoryId: data.category,
 			time: Number(data.time),
 			questions: [],
 		};
+		if (params?.quiz) {
+			quiz.questions = params.quiz.questions;
+			return navigation.navigate('QuizMakeDetails', {
+				quiz,
+			});
+		}
 		navigation.navigate('QuizMakeQuestions', { quiz });
 	};
 
@@ -85,9 +56,7 @@ const QuizMake = ({ navigation }) => {
 				status,
 			} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 			if (status !== 'granted') {
-				alert(
-					'Necesitamos permiso a tu galería para que puedas subir una imagen'
-				);
+				alert(s.permit);
 				return;
 			}
 		}
@@ -264,7 +233,7 @@ const QuizMake = ({ navigation }) => {
 							marginBottom: 10,
 						}}
 					>
-						Idioma
+						{s.lang}
 					</Text>
 					<Controller
 						control={control}
@@ -306,9 +275,7 @@ const QuizMake = ({ navigation }) => {
 							justifyContent: 'center',
 						}}
 					>
-						{errors.language && (
-							<ErrorBubble>Elegí un lenguaje</ErrorBubble>
-						)}
+						{errors.language && <ErrorBubble>{s.req3}</ErrorBubble>}
 						<InputContainer>
 							<Controller
 								control={control}
