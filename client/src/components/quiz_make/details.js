@@ -25,7 +25,7 @@ import NavBar from '@components/utils/NavBar';
 //==> Assets
 import strings from './strings';
 
-const QuizMakeDetails = ({ navigation, routes: { params } }) => {
+const QuizMakeDetails = ({ navigation, route: { params } }) => {
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
