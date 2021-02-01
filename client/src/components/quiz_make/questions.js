@@ -27,22 +27,10 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		let objQuestion = {
 			title: data.title,
 			options: [
-				{
-					title: data.option1,
-					result: false,
-				},
-				{
-					title: data.option2,
-					result: false,
-				},
-				{
-					title: data.option3,
-					result: false,
-				},
-				{
-					title: data.option4,
-					result: false,
-				},
+				{ title: data.option1, result: false },
+				{ title: data.option2, result: false },
+				{ title: data.option3, result: false },
+				{ title: data.option4, result: false },
 			],
 			score: 5,
 		};
@@ -309,7 +297,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 						<ButtonPpal
 							string={
 								params.edit !== undefined
-									? 'Terminar edición'
+									? s.finishEdit
 									: s.next
 							}
 							onSubmit={handleSubmit(onNext)}

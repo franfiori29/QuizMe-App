@@ -1,6 +1,17 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import {
+	Image,
+	Text,
+	TouchableOpacity,
+	View,
+	Platform,
+	Alert,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import fb from '@root/src/firebase';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -14,15 +25,60 @@ import NavBar from '@components/utils/NavBar';
 //==> Assets
 import strings from './strings';
 
-const QuizMakeDetails = ({ navigation, route: { params } }) => {
+const QuizMakeDetails = ({ navigation, routes: { params } }) => {
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 	const quiz = params.quiz;
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		let url;
+		let randomID = uuidv4();
+		if (quiz.image) {
+			try {
+				const blob = await new Promise((resolve, reject) => {
+					const xhr = new XMLHttpRequest();
+					xhr.onload = function () {
+						resolve(xhr.response);
+					};
+					xhr.onerror = function (e) {
+						reject(new TypeError('Network request failed'));
+					};
+					xhr.responseType = 'blob';
+					xhr.open('GET', quiz.image, true);
+					xhr.send(null);
+				});
+				const ref = fb.storage().ref(`QuizImage/${randomID}`);
+				const snapshot = await ref.put(blob);
+				url = await snapshot.ref.getDownloadURL();
+				if (Platform.OS !== 'web') {
+					blob.close();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		quiz.image =
+			url || 'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg';
 		dispatch(createQuiz(quiz));
 		navigation.navigate('Home');
+	};
+
+	const confirmSubmit = () => {
+		if (Platform.OS === 'web') {
+			if (window.confirm(s.youSure)) return handleSubmit();
+		} else {
+			Alert.alert(s.youSure, s.noEdit, [
+				{
+					text: 'OK',
+					onPress: () => handleSubmit(),
+				},
+				{
+					text: s.cancel,
+					style: 'cancel',
+				},
+			]);
+		}
 	};
 
 	return (
@@ -43,6 +99,8 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 								marginTop: 20,
 								marginBottom: 20,
 								fontWeight: 'bold',
+								width: '90%',
+								alignSelf: 'center',
 							}}
 						>
 							{quiz.title}
@@ -55,7 +113,11 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 								height: 200,
 								marginBottom: 20,
 							}}
-							source={{ uri: quiz.image }}
+							source={{
+								uri:
+									quiz.image ||
+									'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+							}}
 						/>
 						<View
 							style={{
@@ -162,7 +224,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 						<View style={{ marginBottom: 20 }}>
 							<ButtonPpal
 								string={s.fin}
-								onSubmit={handleSubmit}
+								onSubmit={confirmSubmit}
 							/>
 						</View>
 					</View>
@@ -173,7 +235,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 };
 
 //PASARLE LA PROPS ROUTES NO ROUTE
-//QuizMakeDetails.defaultProps = {
+// QuizMakeDetails.defaultProps = {
 // 	routes: {
 // 		params: {
 // 			quiz: {
