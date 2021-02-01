@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, Text, Alert, Platform } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { destroyQuiz } from '@redux/reducers/quizzes';
+import { getUserQuizzes } from '@redux/reducers/user';
+import { getQuizzes } from '@redux/reducers/quizzes';
 
 /* --- Styles --- */
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -13,9 +16,39 @@ import NavBar from '@components/utils/NavBar';
 //==>Utils
 import strings from './strings';
 
-const MyQuizzes = ({ navigation, route: { params } }) => {
+const MyQuizzes = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
+	const { userQuizzes, info } = useSelector((state) => state.user);
+
 	const s = strings[language];
+	const dispatch = useDispatch();
+
+	const removeAccepted = (id) => {
+		dispatch(destroyQuiz({ quizId: id })).then(() => {
+			dispatch(getUserQuizzes(info._id));
+			dispatch(getQuizzes());
+		});
+	};
+
+	const handleRemove = (id) => {
+		if (Platform.OS === 'web') {
+			if (confirm('ESTAS SEGURO?????')) {
+				removeAccepted(id);
+			}
+		} else {
+			Alert.alert('!!!!', 'Estas seguro?', [
+				{
+					text: 'Cancel',
+					style: 'cancel',
+				},
+				{
+					text: 'OK',
+					onPress: () => removeAccepted(id),
+				},
+			]);
+		}
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen
@@ -33,7 +66,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 					<IntroTitle>{s.title}</IntroTitle>
 				</IntroContainer>
 				<View style={{ flex: 1 }}>
-					{params.quizzes.map((quiz) => (
+					{userQuizzes.map((quiz) => (
 						<QuizContainer key={quiz._id}>
 							<QuizImage
 								source={{
@@ -111,7 +144,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 									<Btn>
 										<BtnText>{s.btn1}</BtnText>
 									</Btn>
-									<Btn>
+									<Btn onPress={() => handleRemove(quiz._id)}>
 										<BtnText>{s.btn2}</BtnText>
 									</Btn>
 								</BtnContainer>
@@ -149,7 +182,8 @@ const QuizContainer = styled.View`
 	flex: 1;
 	width: 95%;
 	align-self: center;
-	height: 250px;
+	min-height: 250px;
+	max-height: 250px;
 	margin: 10px auto;
 	border: 3px solid ${(props) => props.theme.primary};
 	border-radius: 10px;

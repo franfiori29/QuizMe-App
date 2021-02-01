@@ -386,6 +386,7 @@ const LogoText = styled.Text`
 	font-size: 30px;
 	font-weight: 500;
 	margin-top: 10px;
+	margin-bottom: 20px;
 	opacity: 0.5;
 `;
 const InputContainer = styled.View`
@@ -421,7 +422,8 @@ const ButtonLogin = styled.TouchableOpacity`
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
-	margin-top: 20px;
+	margin-top: 30px;
+	margin-bottom: 10px;
 	padding: 16px 70px;
 	border-radius: 5px;
 `;
@@ -439,12 +441,14 @@ const SocialIconGoogle = styled(SocialIcon)`
 	align-self: center;
 	border-radius: 5px;
 	height: 45px;
+	margin-bottom: 10px;
 `;
 const SocialIconFacebook = styled(SocialIcon)`
 	width: 95%;
 	align-self: center;
 	border-radius: 5px;
 	height: 45px;
+	margin-bottom: 10px;
 `;
 
 const ErrorIcon = styled.View`

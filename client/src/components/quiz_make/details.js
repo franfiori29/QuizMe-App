@@ -1,6 +1,17 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import {
+	Image,
+	Text,
+	TouchableOpacity,
+	View,
+	Platform,
+	Alert,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import fb from '@root/src/firebase';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -19,27 +30,82 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 	const quiz = params.quiz;
-	const handleSubmit = () => {
+
+	const handleSubmit = async () => {
+		let url;
+		let randomID = uuidv4();
+		if (quiz.image) {
+			try {
+				const blob = await new Promise((resolve, reject) => {
+					const xhr = new XMLHttpRequest();
+					xhr.onload = function () {
+						resolve(xhr.response);
+					};
+					xhr.onerror = function (e) {
+						reject(new TypeError('Network request failed'));
+					};
+					xhr.responseType = 'blob';
+					xhr.open('GET', quiz.image, true);
+					xhr.send(null);
+				});
+				const ref = fb.storage().ref(`QuizImage/${randomID}`);
+				const snapshot = await ref.put(blob);
+				url = await snapshot.ref.getDownloadURL();
+				if (Platform.OS !== 'web') {
+					blob.close();
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		quiz.image =
+			url || 'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg';
 		dispatch(createQuiz(quiz));
 		navigation.navigate('Home');
 	};
+
+	const confirmSubmit = () => {
+		if (Platform.OS === 'web') {
+			if (window.confirm(s.youSure)) return handleSubmit();
+		} else {
+			Alert.alert(s.youSure, s.noEdit, [
+				{
+					text: 'OK',
+					onPress: () => handleSubmit(),
+				},
+				{
+					text: s.cancel,
+					style: 'cancel',
+				},
+			]);
+		}
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen centerContent={true}>
 				<NavBar string={s.nav2} />
 				<View>
-					<Text
-						style={{
-							fontSize: 28,
-							color: theme.text,
-							textAlign: 'center',
-							marginTop: 20,
-							marginBottom: 20,
-							fontWeight: 'bold',
-						}}
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate('QuizMake', { quiz })
+						}
 					>
-						{quiz.title}
-					</Text>
+						<Text
+							style={{
+								fontSize: 28,
+								color: theme.text,
+								textAlign: 'center',
+								marginTop: 20,
+								marginBottom: 20,
+								fontWeight: 'bold',
+								width: '90%',
+								alignSelf: 'center',
+							}}
+						>
+							{quiz.title}
+						</Text>
+					</TouchableOpacity>
 					<View>
 						<Image
 							style={{
@@ -47,7 +113,11 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 								height: 200,
 								marginBottom: 20,
 							}}
-							source={{ uri: quiz.image }}
+							source={{
+								uri:
+									quiz.image ||
+									'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+							}}
 						/>
 						<View
 							style={{
@@ -87,64 +157,74 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 							</Text>
 							{quiz.questions.map((question, i) => {
 								return (
-									<QuizScreen key={i}>
-										<View
-											style={{
-												paddingRight: 10,
-												paddingLeft: 10,
-												flex: 1,
-											}}
-										>
-											<Text
+									<TouchableOpacity
+										key={i}
+										onPress={() =>
+											navigation.navigate(
+												'QuizMakeQuestions',
+												{ quiz, edit: i }
+											)
+										}
+									>
+										<QuizScreen>
+											<View
 												style={{
-													fontSize: 20,
-													color: theme.text,
+													paddingRight: 10,
+													paddingLeft: 10,
+													flex: 1,
 												}}
 											>
-												{question.title}
-											</Text>
-										</View>
-										<View
-											style={{
-												paddingRight: 10,
-												paddingLeft: 10,
-												flex: 1,
-											}}
-										>
-											<Text
+												<Text
+													style={{
+														fontSize: 20,
+														color: theme.text,
+													}}
+												>
+													{question.title}
+												</Text>
+											</View>
+											<View
 												style={{
-													fontSize: 20,
-													color: theme.text,
-													paddingRight: 20,
+													paddingRight: 10,
+													paddingLeft: 10,
+													flex: 1,
 												}}
 											>
-												{
-													question.options.find(
-														(option) =>
-															option.result ===
-															true
-													).title
-												}
-											</Text>
-											<Icon
-												name='checkmark-circle-outline'
-												size={20}
-												style={{
-													color: theme.primary,
-													position: 'absolute',
-													top: 5,
-													right: 5,
-												}}
-											/>
-										</View>
-									</QuizScreen>
+												<Text
+													style={{
+														fontSize: 20,
+														color: theme.text,
+														paddingRight: 20,
+													}}
+												>
+													{
+														question.options.find(
+															(option) =>
+																option.result ===
+																true
+														).title
+													}
+												</Text>
+												<Icon
+													name='checkmark-circle-outline'
+													size={20}
+													style={{
+														color: theme.primary,
+														position: 'absolute',
+														top: 5,
+														right: 5,
+													}}
+												/>
+											</View>
+										</QuizScreen>
+									</TouchableOpacity>
 								);
 							})}
 						</View>
 						<View style={{ marginBottom: 20 }}>
 							<ButtonPpal
 								string={s.fin}
-								onSubmit={handleSubmit}
+								onSubmit={confirmSubmit}
 							/>
 						</View>
 					</View>
@@ -155,7 +235,7 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 };
 
 //PASARLE LA PROPS ROUTES NO ROUTE
-//QuizMakeDetails.defaultProps = {
+// QuizMakeDetails.defaultProps = {
 // 	routes: {
 // 		params: {
 // 			quiz: {
@@ -163,33 +243,32 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 				description: 'Demuestra que tan fan eres de rapido y furioso',
 // 				image:
 // 					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+// 				language: 'es',
 // 				questions: [
 // 					{
-// 						title:
-// 							'Es la aasdflkahsdfklajsdhflkajsdfhlaksdjfhlaskjdfhlaksjdfhalskdjfhalskdjfhsdlk',
+// 						title: 'Cual es A?',
 // 						options: [
 // 							{
-// 								title:
-// 									'aasdasdfrwadsfskjfghbvlaskjdfhlaksdjhlksdjfhsldkfahsdlfadklafsad',
+// 								title: 'A',
 // 								result: true,
 // 							},
 // 							{
-// 								title: 'b',
+// 								title: 'B',
 // 								result: false,
 // 							},
 // 							{
-// 								title: 'c',
+// 								title: 'C',
 // 								result: false,
 // 							},
 // 							{
-// 								title: 'd',
+// 								title: 'D',
 // 								result: false,
 // 							},
 // 						],
 // 						score: 5,
 // 					},
 // 					{
-// 						title: 'Es la b',
+// 						title: 'Cual es B?',
 // 						options: [
 // 							{
 // 								title: 'a',
@@ -214,19 +293,11 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 						title: 'Es la c',
 // 						options: [
 // 							{
-// 								title: 'a',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'b',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'c',
+// 								title: 'Verdadero',
 // 								result: true,
 // 							},
 // 							{
-// 								title: 'd',
+// 								title: 'Falso',
 // 								result: false,
 // 							},
 // 						],
@@ -236,19 +307,11 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 						title: 'Es la d',
 // 						options: [
 // 							{
-// 								title: 'a',
+// 								title: 'Verdadero',
 // 								result: false,
 // 							},
 // 							{
-// 								title: 'b',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'c',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'd',
+// 								title: 'Falso',
 // 								result: true,
 // 							},
 // 						],

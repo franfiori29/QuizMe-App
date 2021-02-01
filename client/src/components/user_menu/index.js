@@ -86,7 +86,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 
 	const handleMyQuizzes = () => {
 		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes', { quizzes: userQuizzes }),
+			navigation.navigate('MyQuizzes')
 		);
 	};
 

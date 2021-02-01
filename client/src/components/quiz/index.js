@@ -6,7 +6,6 @@ import {
 	TouchableWithoutFeedback,
 	Vibration,
 	Platform,
-	TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Speech from 'expo-speech';
@@ -44,7 +43,13 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const questions = useMemo(() => shuffle(params.questions), [
 		params.questions,
 	]);
+
 	const [current, setCurrent] = useState(0);
+	const question = questions[current];
+	const shuffledOptions = useMemo(() => shuffle(question.options), [
+		question,
+	]);
+
 	const [correct, setCorrect] = useState(0);
 	const [tts, setTts] = useState(false);
 	const [ricky, setRicky] = useState(0);
@@ -129,7 +134,11 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 				Vibration.vibrate([100, 400, 100], true);
 			}
 
-			buttonRefArray.forEach((e) => e.current.animate(shaking, 3000));
+			buttonRefArray.forEach(
+				(e, i) =>
+					i < shuffledOptions.length &&
+					e.current.animate(shaking, 3000)
+			);
 			sounds.timer?.playFromPositionAsync(3500);
 		}
 
@@ -159,7 +168,9 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			? sounds.success?.playFromPositionAsync(0)
 			: sounds.wrong?.playFromPositionAsync(0);
 		barRef.current.stopAnimation();
-		buttonRefArray.forEach((e) => e.current.stopAnimation());
+		buttonRefArray.forEach(
+			(e, i) => i < shuffledOptions.length && e.current.stopAnimation()
+		);
 		setTts(false);
 		Speech.stop();
 		setTimer({ time: totalTime, on: false });
@@ -219,7 +230,6 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 		};
 	}, []);
 
-	const question = questions[current];
 	if (!question) return null;
 
 	const handleRicky = () => {
@@ -232,11 +242,6 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 		}
 	};
 	const handleTts = () => setTts(false);
-
-	const shuffledOptions = useMemo(() => shuffle(question.options), [
-		question,
-	]);
-
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
