@@ -2202,7 +2202,7 @@ const questions = [
 		options: [
 			{ title: 'Sam Simon, productor ejecutivo', result: false },
 			{ title: 'El creador de la serie, Matt Groening', result: true },
-			{ title: 'Homero Simpson', result: true },
+			{ title: 'Homero Simpson', result: false },
 			{ title: 'Montgomery Burns', result: false },
 		],
 		time: 10,
@@ -2215,7 +2215,7 @@ const questions = [
 		options: [
 			{ title: 'Dios y Jesucristo', result: true },
 			{ title: 'Paul McCartney y Yoko Ono', result: false },
-			{ title: 'Bruce Springsteen y Lady Gaga', result: true },
+			{ title: 'Bruce Springsteen y Lady Gaga', result: false },
 			{ title: 'Apu y Bart', result: false },
 		],
 		time: 10,
@@ -2235,12 +2235,10 @@ const questions = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451af0148'),
-		title: '¿Cómo se llama el perro de la familia?',
+		title: 'Homero tiene tres hijos?',
 		options: [
-			{ title: 'Bola de Nieve', result: false },
-			{ title: 'Huesos', result: false },
-			{ title: 'Pequeño ayudante de Santa Claus', result: true },
-			{ title: 'Bola de Nieve II', result: false },
+			{ title: 'Verdadero', result: true },
+			{ title: 'Falso', result: false },
 		],
 		time: 10,
 		score: 5,

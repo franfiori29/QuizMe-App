@@ -243,33 +243,32 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 				description: 'Demuestra que tan fan eres de rapido y furioso',
 // 				image:
 // 					'https://therubyhub.com/wp-content/uploads/2019/09/Quiz.jpg',
+// 				language: 'es',
 // 				questions: [
 // 					{
-// 						title:
-// 							'Es la aasdflkahsdfklajsdhflkajsdfhlaksdjfhlaskjdfhlaksjdfhalskdjfhalskdjfhsdlk',
+// 						title: 'Cual es A?',
 // 						options: [
 // 							{
-// 								title:
-// 									'aasdasdfrwadsfskjfghbvlaskjdfhlaksdjhlksdjfhsldkfahsdlfadklafsad',
+// 								title: 'A',
 // 								result: true,
 // 							},
 // 							{
-// 								title: 'b',
+// 								title: 'B',
 // 								result: false,
 // 							},
 // 							{
-// 								title: 'c',
+// 								title: 'C',
 // 								result: false,
 // 							},
 // 							{
-// 								title: 'd',
+// 								title: 'D',
 // 								result: false,
 // 							},
 // 						],
 // 						score: 5,
 // 					},
 // 					{
-// 						title: 'Es la b',
+// 						title: 'Cual es B?',
 // 						options: [
 // 							{
 // 								title: 'a',
@@ -294,19 +293,11 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 						title: 'Es la c',
 // 						options: [
 // 							{
-// 								title: 'a',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'b',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'c',
+// 								title: 'Verdadero',
 // 								result: true,
 // 							},
 // 							{
-// 								title: 'd',
+// 								title: 'Falso',
 // 								result: false,
 // 							},
 // 						],
@@ -316,19 +307,11 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 // 						title: 'Es la d',
 // 						options: [
 // 							{
-// 								title: 'a',
+// 								title: 'Verdadero',
 // 								result: false,
 // 							},
 // 							{
-// 								title: 'b',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'c',
-// 								result: false,
-// 							},
-// 							{
-// 								title: 'd',
+// 								title: 'Falso',
 // 								result: true,
 // 							},
 // 						],
