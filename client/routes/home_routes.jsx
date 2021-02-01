@@ -29,6 +29,7 @@ import QuizMakeQuestions from '@components/quiz_make/questions';
 import AdminPanel from '@components/admin_panel';
 import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
+import AdminCategories from '@components/admin_panel/screens/categories';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
@@ -117,6 +118,7 @@ const HomeRoutes = () => {
 				<Screen name='AdminPanel' component={AdminPanel} />
 				<Screen name='AdminUsers' component={AdminUsers} />
 				<Screen name='AdminQuizzes' component={AdminQuizzes} />
+				<Screen name='AdminCategories' component={AdminCategories} />
 			</Navigator>
 		</NavigationContainer>
 	);
