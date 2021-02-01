@@ -62,5 +62,6 @@ const HeaderButton = styled.TouchableOpacity`
 
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 export default NavBar;

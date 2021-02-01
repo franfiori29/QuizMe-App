@@ -160,7 +160,11 @@ export default function Profile({ navigation }) {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
-						<AccTypeButton>
+						<AccTypeButton
+							onPress={() =>
+								navigation.navigate('ValidateScreen')
+							}
+						>
 							<Text
 								style={{
 									color: theme.primary,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 //==> Components
@@ -49,15 +48,7 @@ const PremiumScreen = ({ navigation }) => {
 						/>
 						<InfoText>{s.cont2}</InfoText>
 					</Info>
-					<Info>
-						<Icon
-							color='pink'
-							name='ios-book'
-							size={40}
-							style={{ justifyContent: 'center' }}
-						/>
-						<InfoText>{s.cont3}</InfoText>
-					</Info>
+
 					<Info>
 						<Icon
 							color='yellow'
