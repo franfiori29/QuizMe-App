@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/Ionicons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 //---Components -- //
+import AdminCategories from '@components/admin_panel/screens/categories';
 import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
 
@@ -47,6 +48,20 @@ const NavbarAdmin = () => {
 					}}
 					name='Quizzes'
 					component={AdminQuizzes}
+				/>
+				<Tab.Screen
+					options={{
+						tabBarLabel: 'Categorias',
+						tabBarIcon: ({ color }) => (
+							<MaterialCommunityIcons
+								name='ios-book-outline'
+								color={color}
+								size={25}
+							/>
+						),
+					}}
+					name='Categorias'
+					component={AdminCategories}
 				/>
 			</Tab.Navigator>
 		</ThemeProvider>
