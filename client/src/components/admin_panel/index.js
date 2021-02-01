@@ -21,16 +21,6 @@ const AdminPanel = ({ navigation }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
-				<Navbar
-					string={s.adminPanel}
-					nav1={() => navigation.navigate('UserMenu')}
-					icon1='ios-arrow-back'
-				/>
-				<Body>
-					<Text>Grafico de total de Quizzes</Text>
-					<Text>Grafico de total de categorias por quizzes</Text>
-					<Text>Cantidad de usuarios premium y free</Text>
-				</Body>
 				<NavbarAdmin />
 			</Screen>
 		</ThemeProvider>
@@ -47,3 +37,7 @@ const Body = styled.View`
 `;
 
 export default AdminPanel;
+
+// <Text>Grafico de total de Quizzes</Text>
+// <Text>Grafico de total de categorias por quizzes</Text>
+// <Text>Cantidad de usuarios premium y free</Text>

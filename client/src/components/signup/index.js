@@ -10,8 +10,6 @@ import axios from 'axios';
 import strings from './strings';
 import logo from '@assets/logo.png';
 
-const { width: WIDTH } = Dimensions.get('window');
-
 export default function SignUp({ navigation }) {
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
@@ -115,7 +113,6 @@ export default function SignUp({ navigation }) {
 						color={'rgba(255,255,255,0.7)'}
 					/>
 					<InputSignUp
-						width={WIDTH}
 						placeholder={s.name}
 						value={user.firstName}
 						onChangeText={(value) =>
@@ -132,7 +129,6 @@ export default function SignUp({ navigation }) {
 						color={'rgba(255,255,255,0.7)'}
 					/>
 					<InputSignUp
-						width={WIDTH}
 						placeholder={s.lastName}
 						value={user.lastName}
 						onChangeText={(value) =>
@@ -149,7 +145,6 @@ export default function SignUp({ navigation }) {
 						color={'rgba(255,255,255,0.7)'}
 					/>
 					<InputSignUp
-						width={WIDTH}
 						placeholder={s.email}
 						value={user.email}
 						onChangeText={(value) =>
@@ -166,7 +161,6 @@ export default function SignUp({ navigation }) {
 						color={'rgba(255,255,255,0.7)'}
 					/>
 					<InputSignUp
-						width={WIDTH}
 						placeholder={s.pass}
 						value={user.password}
 						onChangeText={(value) =>
@@ -196,7 +190,7 @@ export default function SignUp({ navigation }) {
 					</Text>
 				</TextView>
 
-				<ButtonSignUp width={WIDTH} onPress={handleSubmitPress}>
+				<ButtonSignUp onPress={handleSubmitPress}>
 					<Description>{s.signup}</Description>
 				</ButtonSignUp>
 				<TextView>
@@ -221,12 +215,9 @@ const Container = styled.View`
 	flex: 1;
 	justify-content: center;
 	align-items: center;
-	width: null;
-	height: null;
 `;
 const LogoView = styled.View`
 	align-items: center;
-	margin-bottom: 40px;
 `;
 const Logo = styled.Image`
 	width: 100px;
@@ -237,14 +228,19 @@ const LogoText = styled.Text`
 	color: ${(props) => props.theme.primary};
 	font-size: 30px;
 	font-weight: 500;
-	margin-top: 10px;
+	margin-top: 5px;
+	margin-bottom: 20px;
 	opacity: 0.5;
 `;
 const InputContainer = styled.View`
 	margin-top: 10px;
+	width: 100%;
+	position: relative;
 `;
 const InputSignUp = styled.TextInput`
-	width: ${(props) => props.width - 55}px;
+	width: 95%;
+	align-self: center;
+	border-radius: 5px;
 	height: 45px;
 	font-size: 16px;
 	padding-left: 45px;
@@ -255,21 +251,23 @@ const InputSignUp = styled.TextInput`
 const IconImage = styled(Icon)`
 	position: absolute;
 	top: 8px;
-	left: 38px;
+	left: 20px;
 	z-index: 1;
 `;
 const Button = styled.TouchableOpacity`
 	position: absolute;
 	top: 8px;
-	right: 38px;
+	right: 20px;
 `;
 const ButtonSignUp = styled.TouchableOpacity`
-	width: ${(props) => props.width - 55}px;
-	border-radius: 5px;
+	width: 95%;
+	align-self: center;
 	height: 45px;
 	background-color: ${(props) => props.theme.primary};
 	justify-content: center;
+	margin-bottom: 5px;
 	padding: 16px 70px;
+	border-radius: 5px;
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
