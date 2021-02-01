@@ -21,7 +21,7 @@ import { getCategories } from '@redux/reducers/categories';
 import { Picker } from '@react-native-picker/picker';
 /* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
-const QuizMake = ({ navigation }) => {
+const QuizMake = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -35,9 +35,23 @@ const QuizMake = ({ navigation }) => {
 		dispatch(getCategories(language));
 	}, []);
 	/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
-
 	const onSubmit = async (data) => {
 		/* --- SUBE IMAGEN A FIREBASE --- */
+		if (params?.quiz) {
+			let quiz = {
+				title: data.title,
+				description: data.description,
+				language: data.language,
+				image: params.quiz.image,
+				categoryId: data.category,
+				time: Number(data.time),
+				questions: params.quiz.questions,
+			};
+
+			return navigation.navigate('QuizMakeDetails', {
+				quiz,
+			});
+		}
 		let url;
 		let randomID = uuidv4();
 		if (image) {

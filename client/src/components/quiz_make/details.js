@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 //==> Styles
@@ -19,27 +19,35 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 	const quiz = params.quiz;
+
 	const handleSubmit = () => {
 		dispatch(createQuiz(quiz));
 		navigation.navigate('Home');
 	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen centerContent={true}>
 				<NavBar string={s.nav2} />
 				<View>
-					<Text
-						style={{
-							fontSize: 28,
-							color: theme.text,
-							textAlign: 'center',
-							marginTop: 20,
-							marginBottom: 20,
-							fontWeight: 'bold',
-						}}
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate('QuizMake', { quiz })
+						}
 					>
-						{quiz.title}
-					</Text>
+						<Text
+							style={{
+								fontSize: 28,
+								color: theme.text,
+								textAlign: 'center',
+								marginTop: 20,
+								marginBottom: 20,
+								fontWeight: 'bold',
+							}}
+						>
+							{quiz.title}
+						</Text>
+					</TouchableOpacity>
 					<View>
 						<Image
 							style={{
@@ -87,57 +95,67 @@ const QuizMakeDetails = ({ navigation, route: { params } }) => {
 							</Text>
 							{quiz.questions.map((question, i) => {
 								return (
-									<QuizScreen key={i}>
-										<View
-											style={{
-												paddingRight: 10,
-												paddingLeft: 10,
-												flex: 1,
-											}}
-										>
-											<Text
+									<TouchableOpacity
+										key={i}
+										onPress={() =>
+											navigation.navigate(
+												'QuizMakeQuestions',
+												{ quiz, edit: i }
+											)
+										}
+									>
+										<QuizScreen>
+											<View
 												style={{
-													fontSize: 20,
-													color: theme.text,
+													paddingRight: 10,
+													paddingLeft: 10,
+													flex: 1,
 												}}
 											>
-												{question.title}
-											</Text>
-										</View>
-										<View
-											style={{
-												paddingRight: 10,
-												paddingLeft: 10,
-												flex: 1,
-											}}
-										>
-											<Text
+												<Text
+													style={{
+														fontSize: 20,
+														color: theme.text,
+													}}
+												>
+													{question.title}
+												</Text>
+											</View>
+											<View
 												style={{
-													fontSize: 20,
-													color: theme.text,
-													paddingRight: 20,
+													paddingRight: 10,
+													paddingLeft: 10,
+													flex: 1,
 												}}
 											>
-												{
-													question.options.find(
-														(option) =>
-															option.result ===
-															true
-													).title
-												}
-											</Text>
-											<Icon
-												name='checkmark-circle-outline'
-												size={20}
-												style={{
-													color: theme.primary,
-													position: 'absolute',
-													top: 5,
-													right: 5,
-												}}
-											/>
-										</View>
-									</QuizScreen>
+												<Text
+													style={{
+														fontSize: 20,
+														color: theme.text,
+														paddingRight: 20,
+													}}
+												>
+													{
+														question.options.find(
+															(option) =>
+																option.result ===
+																true
+														).title
+													}
+												</Text>
+												<Icon
+													name='checkmark-circle-outline'
+													size={20}
+													style={{
+														color: theme.primary,
+														position: 'absolute',
+														top: 5,
+														right: 5,
+													}}
+												/>
+											</View>
+										</QuizScreen>
+									</TouchableOpacity>
 								);
 							})}
 						</View>
