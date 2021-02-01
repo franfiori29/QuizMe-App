@@ -72,6 +72,7 @@ const users = [
 		firstName: 'Ailin',
 		lastName: 'Nakaganeku',
 		countryCode: 'AR',
+		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 ];

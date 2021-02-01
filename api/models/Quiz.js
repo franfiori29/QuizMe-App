@@ -32,6 +32,11 @@ const quizSchema = new Schema(
 				score: { type: Number, required: true },
 			},
 		],
+		type: {
+			type: String,
+			enum: ['classic', 'boolean', 'image'],
+			default: 'classic',
+		},
 	},
 	{ timestamps: true }
 );
