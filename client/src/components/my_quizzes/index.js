@@ -66,7 +66,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 											color: theme.primary,
 											textAlign: 'center',
 											margin: 'auto',
-											fontWeight: 'bold',
+											fontFamily: 'Nunito_800ExtraBold',
 											fontSize: 16,
 										}}
 									>
@@ -86,7 +86,11 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 										<Icon
 											name={'ios-heart-sharp'}
 											size={15}
-											style={{ color: theme.primary }}
+											style={{
+												color: theme.primary,
+												fontFamily:
+													'Nunito_800ExtraBold',
+											}}
 										/>
 										{quiz.likes}
 									</Text>
@@ -94,7 +98,11 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 										<Icon2
 											name={'clock'}
 											size={15}
-											style={{ color: theme.primary }}
+											style={{
+												color: theme.primary,
+												fontFamily:
+													'Nunito_800ExtraBold',
+											}}
 										/>
 										{quiz.time}
 									</Text>
@@ -131,7 +139,7 @@ const IntroContainer = styled.View`
 
 const IntroTitle = styled.Text`
 	font-size: 24px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	color: ${(props) => props.theme.primary};
 	padding: 0px 10px;
@@ -165,12 +173,14 @@ const Title = styled.Text`
 	font-size: 20px;
 	margin: 5px auto;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 const Description = styled.Text`
 	margin: auto;
 	text-align: center;
 	font-size: 14px;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_400Regular';
 `;
 const Category = styled.View`
 	position: absolute;
@@ -197,7 +207,7 @@ const Btn = styled.TouchableOpacity`
 
 const BtnText = styled.Text`
 	color: ${(props) => props.theme.white};
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	margin: auto;
 `;

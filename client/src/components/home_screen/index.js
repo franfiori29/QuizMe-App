@@ -164,6 +164,7 @@ const Screen = styled.ScrollView`
 
 const StyledText = styled.Text`
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const IntroContainer = styled.View`
@@ -183,7 +184,7 @@ const IntroImg = styled.Image`
 
 const IntroTitle = styled.Text`
 	font-size: 24px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	color: ${(props) => props.theme.primary};
 	margin-bottom: 10px;
@@ -195,6 +196,7 @@ const IntroText = styled.Text`
 	max-width: 95%;
 	align-self: center;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const SelectorContainer = styled.View`
@@ -220,6 +222,7 @@ const SelectorText = styled.Text`
 	text-align: center;
 	text-transform: uppercase;
 	color: ${(props) => props.theme.primary};
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const CategoryContainer = styled.View`
@@ -239,7 +242,7 @@ const CategoryImg = styled.Image`
 
 const CategoryTitle = styled.Text`
 	font-size: 20px;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	text-align: center;
 	color: ${(props) => props.theme.text};
 `;

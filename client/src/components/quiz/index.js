@@ -71,15 +71,15 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id
+				(quiz) => quiz._id === params.id,
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints })
+					updateHighscore({ quizId: params.id, score: newPoints }),
 				);
 			}
 			navigation.replace('QuizResults', {
@@ -94,7 +94,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS
+						prevPoints + (timer.time / totalTime) * MAX_POINTS,
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -113,7 +113,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000
+				totalTime * 1000,
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -248,7 +248,12 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 						}}
 					>
 						<Icon name='ios-close' color={theme.text} size={28} />
-						<Text style={{ color: theme.text }}>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_600SemiBold',
+							}}
+						>
 							{language === 'es' ? 'Abandonar' : 'Leave'}
 						</Text>
 					</Exit>
@@ -257,6 +262,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							width: '33%',
 							textAlign: 'center',
 							color: theme.text,
+							fontFamily: 'Nunito_600SemiBold',
 						}}
 					>
 						{points}
@@ -266,6 +272,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							width: '33%',
 							textAlign: 'center',
 							color: theme.text,
+							fontFamily: 'Nunito_600SemiBold',
 						}}
 					>
 						{current + 1}/{questions.length}
@@ -283,7 +290,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 						<Text
 							style={{
 								color: theme.text,
-								fontWeight: 'bold',
+								fontFamily: 'Nunito_800ExtraBold',
 								fontSize: 20,
 								paddingLeft: 10,
 							}}
@@ -348,7 +355,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 									alignSelf: 'center',
 									color: theme.text,
 									textAlign: 'center',
-									fontWeight: 'bold',
+									fontFamily: 'Nunito_800ExtraBold',
 								}}
 							>
 								{option.title}
@@ -426,7 +433,7 @@ const Header = styled.View`
 
 const QuestionTitle = styled.Text`
 	margin-top: 30px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	font-size: 20px;
 	color: ${({ theme }) => theme.text};
 	max-width: 95%;
