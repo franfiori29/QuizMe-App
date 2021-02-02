@@ -32,7 +32,7 @@ const MailUpdate = ({ navigation }) => {
 					changeEmail({
 						newMail: input.newMail,
 						currPass: input.pass,
-					})
+					}),
 				);
 
 				if (response.error?.message.includes('Auth Failed'))
@@ -44,7 +44,7 @@ const MailUpdate = ({ navigation }) => {
 						'Error',
 						s.err1,
 						[{ text: 'OK', onPress: () => {} }],
-						{ cancelable: false }
+						{ cancelable: false },
 					);
 				} else {
 					alert(s.err1);
@@ -56,7 +56,7 @@ const MailUpdate = ({ navigation }) => {
 					'Error',
 					s.err2,
 					[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false }
+					{ cancelable: false },
 				);
 			} else {
 				alert(s.err2);
@@ -141,6 +141,7 @@ const MailInput = styled.TextInput`
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
 	padding: 10px;
+	font-family: 'Nunito_600SemiBold';
 `;
 const ButtonContainer = styled.View`
 	width: 100%;
@@ -158,7 +159,7 @@ const BadgeStyled = styled.View`
 
 const BadgeText = styled.Text`
 	font-size: 14px;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	text-align: center;
 	color: ${({ theme }) => theme.white};
 `;

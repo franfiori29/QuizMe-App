@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, Text, Alert, Platform } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { destroyQuiz } from '@redux/reducers/quizzes';
+import { getUserQuizzes } from '@redux/reducers/user';
+import { getQuizzes } from '@redux/reducers/quizzes';
 
 /* --- Styles --- */
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -13,9 +16,39 @@ import NavBar from '@components/utils/NavBar';
 //==>Utils
 import strings from './strings';
 
-const MyQuizzes = ({ navigation, route: { params } }) => {
+const MyQuizzes = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
+	const { userQuizzes, info } = useSelector((state) => state.user);
+
 	const s = strings[language];
+	const dispatch = useDispatch();
+
+	const removeAccepted = (id) => {
+		dispatch(destroyQuiz({ quizId: id })).then(() => {
+			dispatch(getUserQuizzes(info._id));
+			dispatch(getQuizzes());
+		});
+	};
+
+	const handleRemove = (id) => {
+		if (Platform.OS === 'web') {
+			if (confirm('ESTAS SEGURO?????')) {
+				removeAccepted(id);
+			}
+		} else {
+			Alert.alert('!!!!', 'Estas seguro?', [
+				{
+					text: 'Cancel',
+					style: 'cancel',
+				},
+				{
+					text: 'OK',
+					onPress: () => removeAccepted(id),
+				},
+			]);
+		}
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen
@@ -33,7 +66,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 					<IntroTitle>{s.title}</IntroTitle>
 				</IntroContainer>
 				<View style={{ flex: 1 }}>
-					{params.quizzes.map((quiz) => (
+					{userQuizzes.map((quiz) => (
 						<QuizContainer key={quiz._id}>
 							<QuizImage
 								source={{
@@ -66,7 +99,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 											color: theme.primary,
 											textAlign: 'center',
 											margin: 'auto',
-											fontWeight: 'bold',
+											fontFamily: 'Nunito_800ExtraBold',
 											fontSize: 16,
 										}}
 									>
@@ -86,7 +119,11 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 										<Icon
 											name={'ios-heart-sharp'}
 											size={15}
-											style={{ color: theme.primary }}
+											style={{
+												color: theme.primary,
+												fontFamily:
+													'Nunito_800ExtraBold',
+											}}
 										/>
 										{quiz.likes}
 									</Text>
@@ -94,7 +131,11 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 										<Icon2
 											name={'clock'}
 											size={15}
-											style={{ color: theme.primary }}
+											style={{
+												color: theme.primary,
+												fontFamily:
+													'Nunito_800ExtraBold',
+											}}
 										/>
 										{quiz.time}
 									</Text>
@@ -103,7 +144,7 @@ const MyQuizzes = ({ navigation, route: { params } }) => {
 									<Btn>
 										<BtnText>{s.btn1}</BtnText>
 									</Btn>
-									<Btn>
+									<Btn onPress={() => handleRemove(quiz._id)}>
 										<BtnText>{s.btn2}</BtnText>
 									</Btn>
 								</BtnContainer>
@@ -131,7 +172,7 @@ const IntroContainer = styled.View`
 
 const IntroTitle = styled.Text`
 	font-size: 24px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	color: ${(props) => props.theme.primary};
 	padding: 0px 10px;
@@ -141,7 +182,8 @@ const QuizContainer = styled.View`
 	flex: 1;
 	width: 95%;
 	align-self: center;
-	height: 250px;
+	min-height: 250px;
+	max-height: 250px;
 	margin: 10px auto;
 	border: 3px solid ${(props) => props.theme.primary};
 	border-radius: 10px;
@@ -165,12 +207,14 @@ const Title = styled.Text`
 	font-size: 20px;
 	margin: 5px auto;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_600SemiBold';
 `;
 const Description = styled.Text`
 	margin: auto;
 	text-align: center;
 	font-size: 14px;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_400Regular';
 `;
 const Category = styled.View`
 	position: absolute;
@@ -197,7 +241,7 @@ const Btn = styled.TouchableOpacity`
 
 const BtnText = styled.Text`
 	color: ${(props) => props.theme.white};
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	margin: auto;
 `;

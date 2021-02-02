@@ -31,12 +31,6 @@ export default function Profile({ navigation }) {
 	const dispatch = useDispatch();
 	const s = strings[language];
 
-	// const stylesSpinner = StyleSheet.create({
-	// 	spinnerTextStyle: {
-	// 		color: theme.text,
-	// 	},
-	// });
-
 	const openImagePickerAsync = async () => {
 		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
 
@@ -142,13 +136,43 @@ export default function Profile({ navigation }) {
 					</TouchableOpacity>
 					<UserInfo>
 						<View>
-							<UserName>
-								{user.firstName} {user.lastName}
-							</UserName>
+							<View
+								style={{
+									flexDirection: 'row',
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<UserName>
+									{user.firstName} {user.lastName}
+								</UserName>
+								{user.validated && (
+									<Icon
+										name='checkmark-circle-outline'
+										size={20}
+										style={{
+											color: theme.primary,
+											zIndex: 20,
+											marginLeft: 5,
+										}}
+									/>
+								)}
+								{user.premium && (
+									<Icon
+										color={'rgb(250,210,1)'}
+										name='ios-star'
+										size={20}
+										style={{
+											zIndex: 20,
+											marginLeft: 5,
+										}}
+									/>
+								)}
+							</View>
 							<Text
 								style={{
-									fontStyle: 'italic',
 									color: theme.text,
+									fontFamily: 'Nunito_400Regular_Italic',
 								}}
 							>
 								Argentina
@@ -160,16 +184,33 @@ export default function Profile({ navigation }) {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
-						<AccTypeButton>
+						{user.validated ? (
 							<Text
 								style={{
 									color: theme.primary,
 									textTransform: 'uppercase',
+									fontFamily: 'Nunito_600SemiBold',
 								}}
 							>
-								{s.validate}
+								{s.validate2}
 							</Text>
-						</AccTypeButton>
+						) : (
+							<AccTypeButton
+								onPress={() =>
+									navigation.navigate('ValidateScreen')
+								}
+							>
+								<Text
+									style={{
+										color: theme.primary,
+										textTransform: 'uppercase',
+										fontFamily: 'Nunito_600SemiBold',
+									}}
+								>
+									{s.validate}
+								</Text>
+							</AccTypeButton>
+						)}
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>
@@ -179,16 +220,42 @@ export default function Profile({ navigation }) {
 							borderRightWidth: 1,
 						}}
 					>
-						<Text style={{ color: theme.primary, marginBottom: 5 }}>
+						<Text
+							style={{
+								color: theme.primary,
+								marginBottom: 5,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
 							9
 						</Text>
-						<Text style={{ color: theme.text }}>{s.life}</Text>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
+							{s.life}
+						</Text>
 					</InfoBox>
 					<InfoBox>
-						<Text style={{ color: theme.primary, marginBottom: 5 }}>
+						<Text
+							style={{
+								color: theme.primary,
+								marginBottom: 5,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
 							12
 						</Text>
-						<Text style={{ color: theme.text }}>{s.games}</Text>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
+							{s.games}
+						</Text>
 					</InfoBox>
 				</InfoBoxWrapper>
 				<StatsScreen>
@@ -280,13 +347,14 @@ const Pencil = styled(Icon)`
 
 const UserName = styled.Text`
 	font-size: 22px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.primary};
 	margin-bottom: 5px;
 `;
 
 const UserText = styled.Text`
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_400Regular';
 `;
 
 const InfoBoxWrapper = styled.View`
@@ -309,7 +377,7 @@ const StatsScreen = styled.View`
 const StatsTitle = styled.Text`
 	color: ${(props) => props.theme.text};
 	font-size: 22px;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	text-align: center;
 `;
 const StatCard = styled.TouchableOpacity`
@@ -334,6 +402,7 @@ const StatInfo = styled.View`
 const StatText = styled.Text`
 	color: ${(props) => props.theme.text};
 	text-align: center;
+	font-family: 'Nunito_600SemiBold';
 `;
 const AccTypeButton = styled.TouchableOpacity`
 	width: 100%;

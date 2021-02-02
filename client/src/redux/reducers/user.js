@@ -10,6 +10,8 @@ import {
 	mutationActivateUser,
 	queryGetUserQuizzes,
 	queryGetUsers,
+	mutationValidateUser,
+	mutationPremiumUser,
 } from './querys/user';
 import fb from '../../firebase';
 import { REACT_APP_API } from '@root/env';
@@ -39,7 +41,7 @@ export const getUsers = createAsyncThunk(
 			payload,
 		});
 		return clientRequest.getUsers;
-	}
+	},
 );
 
 export const activateUser = createAsyncThunk(
@@ -51,7 +53,7 @@ export const activateUser = createAsyncThunk(
 			isActive,
 		});
 		return clientRequest.activateUser;
-	}
+	},
 );
 
 export const completeQuiz = createAsyncThunk(
@@ -62,7 +64,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 export const getCompletedQuizzes = createAsyncThunk(
@@ -71,7 +73,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	}
+	},
 );
 
 export const updateUser = createAsyncThunk(
@@ -87,7 +89,7 @@ export const updateUser = createAsyncThunk(
 			fb.storage().refFromURL(previousUserProfilePic).delete();
 		}
 		return clientRequest;
-	}
+	},
 );
 
 export const changePassword = createAsyncThunk(
@@ -99,7 +101,7 @@ export const changePassword = createAsyncThunk(
 			newPass,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 export const changeEmail = createAsyncThunk(
@@ -111,18 +113,37 @@ export const changeEmail = createAsyncThunk(
 			newMail,
 		});
 		return clientRequest;
-	}
+	},
 );
 
 export const getUserQuizzes = createAsyncThunk(
-	'quiz/getUserQuizzes',
+	'user/getUserQuizzes',
 	async (payload, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetUserQuizzes, {
 			payload,
 		});
 		return clientRequest;
-	}
+	},
+);
+
+export const validateUser = createAsyncThunk(
+	'user/validateUser',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationValidateUser, {
+			payload,
+		});
+		return clientRequest;
+	},
+);
+export const premiumUser = createAsyncThunk(
+	'user/premiumUser',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationPremiumUser);
+		return clientRequest;
+	},
 );
 
 /* --- Slice --- */
@@ -154,7 +175,7 @@ const userSlice = createSlice({
 				state.likedQuiz.push(payload.quizId);
 			} else {
 				state.likedQuiz = state.likedQuiz.filter(
-					(q) => q !== payload.quizId
+					(q) => q !== payload.quizId,
 				);
 			}
 		},
@@ -182,6 +203,11 @@ const userSlice = createSlice({
 			state.token = payload.jwt;
 			delete payload.jwt;
 			state.info = payload;
+		[validateUser.fulfilled]: (state) => {
+			state.info.validated = true;
+		},
+		[premiumUser.fulfilled]: (state) => {
+			state.info.premium = true;
 		},
 	},
 });

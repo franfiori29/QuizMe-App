@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { premiumUser } from '@redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -9,11 +9,11 @@ import NavBar from '@components/utils/NavBar';
 import styled, { ThemeProvider } from 'styled-components/native';
 import logo from '@assets/logo.png';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 //==>Assets
 import premiumS from './strings/premiumS';
 
 const PremiumScreen = ({ navigation }) => {
+	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const s = premiumS[language];
 	return (
@@ -49,15 +49,7 @@ const PremiumScreen = ({ navigation }) => {
 						/>
 						<InfoText>{s.cont2}</InfoText>
 					</Info>
-					<Info>
-						<Icon
-							color='pink'
-							name='ios-book'
-							size={40}
-							style={{ justifyContent: 'center' }}
-						/>
-						<InfoText>{s.cont3}</InfoText>
-					</Info>
+
 					<Info>
 						<Icon
 							color='yellow'
@@ -68,7 +60,13 @@ const PremiumScreen = ({ navigation }) => {
 						<InfoText>{s.cont4}</InfoText>
 					</Info>
 					<BtnContainer>
-						<Btn>
+						<Btn
+							onPress={() =>
+								dispatch(premiumUser()).then(
+									alert('sos premium'),
+								)
+							}
+						>
 							<BtnText>{s.btn}</BtnText>
 						</Btn>
 					</BtnContainer>
@@ -101,7 +99,7 @@ const IntroImg = styled.Image`
 
 const IntroTitle = styled.Text`
 	font-size: 24px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	color: ${(props) => props.theme.primary};
 	margin-bottom: 10px;
@@ -113,6 +111,7 @@ const IntroText = styled.Text`
 	max-width: 95%;
 	align-self: center;
 	color: ${(props) => props.theme.text};
+	font-family: 'Nunito_400Regular';
 `;
 
 const PremiumInfo = styled.View`
@@ -134,8 +133,8 @@ const Info = styled.View`
 `;
 
 const InfoText = styled.Text`
+	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.text};
-	font-weight: bold;
 `;
 
 const BtnContainer = styled.View`
@@ -153,7 +152,7 @@ const Btn = styled.TouchableOpacity`
 
 const BtnText = styled.Text`
 	color: ${(props) => props.theme.white};
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
 	font-size: 18px;
 	margin: auto;

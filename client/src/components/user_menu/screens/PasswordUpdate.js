@@ -30,7 +30,7 @@ const PasswordUpdate = ({ navigation }) => {
 				changePassword({
 					newPass: input.newPass,
 					currPass: input.currentPass,
-				})
+				}),
 			);
 			if (response.error?.message.includes('Auth Failed'))
 				setError(s.err1);
@@ -41,7 +41,7 @@ const PasswordUpdate = ({ navigation }) => {
 					'Error',
 					s.err2,
 					[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false }
+					{ cancelable: false },
 				);
 			} else {
 				alert(s.err2);
@@ -126,6 +126,7 @@ const PassInput = styled.TextInput`
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
 	padding: 10px;
+	font-family: 'Nunito_600SemiBold';
 `;
 const ButtonContainer = styled.View`
 	width: 100%;
@@ -144,7 +145,7 @@ const BadgeStyled = styled.View`
 
 const BadgeText = styled.Text`
 	font-size: 14px;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	text-align: center;
 	color: ${({ theme }) => theme.white};
 `;

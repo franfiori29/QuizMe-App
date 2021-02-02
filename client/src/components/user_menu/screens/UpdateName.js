@@ -25,7 +25,7 @@ const UpdateName = ({ navigation }) => {
 	const handleSubmit = () => {
 		if (name.name.length > 0 && name.lastName.length > 0) {
 			dispatch(
-				updateUser({ firstName: name.name, lastName: name.lastName })
+				updateUser({ firstName: name.name, lastName: name.lastName }),
 			);
 			navigation.navigate('UserMenu');
 		} else {
@@ -33,7 +33,7 @@ const UpdateName = ({ navigation }) => {
 				Alert.alert(
 					'Error',
 					s.err1[{ text: 'OK', onPress: () => {} }],
-					{ cancelable: false }
+					{ cancelable: false },
 				);
 			} else {
 				alert(s.err1);
@@ -101,6 +101,7 @@ const NameInput = styled.TextInput`
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
 	padding: 10px;
+	font-family: 'Nunito_600SemiBold';
 `;
 const ButtonContainer = styled.View`
 	width: 100%;
