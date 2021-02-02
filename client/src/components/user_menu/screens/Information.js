@@ -164,7 +164,7 @@ const Intro = styled.Text`
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
 	font-family: 'Nunito_400Regular';
-	line-height: 22;
+	line-height: 22px;
 `;
 
 const About = styled.View`
