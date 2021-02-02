@@ -104,9 +104,9 @@ const Information = ({ navigation }) => {
 						<Coder key={prog.lastname}>
 							<View
 								style={{
-									width: '100px',
-									height: '100px',
-									borderRadius: '50%',
+									width: 100,
+									height: 100,
+									borderRadius: 50,
 									overflow: 'hidden',
 									marginRight: 20,
 								}}
