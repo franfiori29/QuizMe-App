@@ -22,7 +22,6 @@ export default function Login({ navigation }) {
 				androidClientId: CLIENT_ID,
 				scopes: ['profile', 'email'],
 			});
-
 			if (result.type === 'success') {
 				axios
 					.post(`${REACT_APP_API}/auth/register`, {
@@ -42,7 +41,7 @@ export default function Login({ navigation }) {
 						setLoading(false);
 						navigation.replace('Home');
 					})
-					.catch(() => {
+					.catch((err) => {
 						setLoading(false);
 						setError('register', {
 							type: 'manual',
@@ -86,9 +85,8 @@ export default function Login({ navigation }) {
 						profilePic: response.data.picture.data.url,
 						countryCode: 'AR',
 					})
-					.then((token) => {
+					.then((user) => {
 						dispatch(setUserInfo(user.data));
-						dispatch(setToken(token.data));
 						reset({
 							emai: '',
 							password: '',

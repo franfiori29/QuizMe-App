@@ -58,7 +58,7 @@ server.post('/register', async function (req, res, next) {
 			req.body,
 			(err, user, created) => {
 				if (err) throw new Error(err);
-				if (!created)
+				if (!req.body.accountId && !created)
 					return res
 						.status(400)
 						.json({ message: 'Username already exist' });
