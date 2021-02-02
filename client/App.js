@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import HomeRoutes from './routes/home_routes';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
@@ -23,7 +23,7 @@ import {
 	Nunito_900Black,
 	Nunito_900Black_Italic,
 } from '@expo-google-fonts/nunito';
-// import AppLoading from 'expo-app-loading';
+import AppLoading from 'expo-app-loading';
 import { PersistGate } from 'redux-persist/integration/react';
 
 export default function App() {
@@ -44,29 +44,7 @@ export default function App() {
 		Nunito_900Black_Italic,
 	});
 
-	useEffect(() => {
-		registerForPushNotification()
-			.then((token) => console.log(token))
-			.catch((err) => console.log(err));
-	}, []);
-
-	const registerForPushNotification = async () => {
-		const { status } = await Permissions.getAsync(
-			Permissions.NOTIFICATIONS,
-		);
-		if (status != 'granted') {
-			const { status } = await Permissions.askAsync(
-				Permissions.NOTIFICATIONS,
-			);
-		}
-		if (status != 'granted') {
-			alert('fail to get the push token');
-			return;
-		}
-
-		token = (await Notifications.getExpoPushTokenAsync()).data;
-		return token;
-	};
+	if (!fontsLoaded) return <AppLoading />;
 
 	return (
 		<Provider store={store}>

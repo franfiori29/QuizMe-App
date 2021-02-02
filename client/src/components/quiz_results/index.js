@@ -14,8 +14,12 @@ import strings from './strings';
 import { updateLike, getRandomQuiz, getQuizzes } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
 
+//==>Notifications
+import { sendPushNotification } from '@constants/notifications';
+
 const QuizResults = ({ route: { params }, navigation }) => {
 	const { theme, language } = useSelector((state) => state.global);
+	const { info: user } = useSelector((state) => state.user);
 	const s = strings[language];
 	const dispatch = useDispatch();
 	const likes = useSelector((state) => state.user.likedQuiz);
@@ -37,6 +41,12 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}, []);
 
 	const handleOnFavorite = (giveLike) => {
+		sendPushNotification(
+			user.notificationToken,
+			'Gracias por darle un like a este pobre infeliz',
+			'Aprietame maldito',
+			{ path: 'Profile' }
+		);
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
 			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);

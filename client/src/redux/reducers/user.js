@@ -191,6 +191,9 @@ const userSlice = createSlice({
 				);
 			}
 		},
+		setNotificationTokenUser: (state, { payload }) => {
+			state.info.notificationToken = payload;
+		},
 	},
 	extraReducers: {
 		[updateUser.fulfilled]: (state, { payload }) => {
@@ -230,6 +233,7 @@ export const {
 	setToken,
 	logout,
 	updateLikedQuizzes,
+	setNotificationTokenUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

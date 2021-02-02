@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, RefreshControl, ActivityIndicator } from 'react-native';
 import {
@@ -12,10 +12,9 @@ import { getCategories, sortCategories } from '../../redux/reducers/categories';
 import {
 	getCompletedQuizzes,
 	setNotificationToken,
+	setNotificationTokenUser,
 } from '../../redux/reducers/user';
 import * as Notifications from 'expo-notifications';
-import Constants from 'expo-constants';
-
 //==> Components
 import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
@@ -30,6 +29,9 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 
 //==>Assets
 import strings from './strings';
+
+//==>Notifications
+import { registerForPushNotificationsAsync } from '@constants/notifications';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -47,6 +49,8 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const dispatch = useDispatch();
 	const s = strings[language];
 	const [categoryLoading, setCategoryLoading] = useState(false);
+	const [notification, setNotification] = useState(false);
+	const responseListener = useRef();
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
@@ -60,48 +64,31 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	};
 
 	useEffect(() => {
-		registerForPushNotificationsAsync().then((token) =>
-			dispatch(setNotificationToken(token))
-		);
+		if (notification) {
+			const notifPush = notification.notification.request.content.data;
+			setNotification(null);
+			navigation.navigate(notifPush.path, notifPush.payload);
+		}
+	}, [notification]);
+
+	useEffect(() => {
+		registerForPushNotificationsAsync().then((token) => {
+			dispatch(setNotificationToken(token));
+			dispatch(setNotificationTokenUser(token));
+		});
 		dispatch(getQuizzes());
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
 		sound && playTheme();
+		responseListener.current = Notifications.addNotificationResponseReceivedListener(
+			(response) => {
+				setNotification(response);
+			}
+		);
+		return () => {
+			Notifications.removeNotificationSubscription(responseListener);
+		};
 	}, []);
-
-	async function registerForPushNotificationsAsync() {
-		let token;
-		if (Constants.isDevice) {
-			const {
-				status: existingStatus,
-			} = await Notifications.getPermissionsAsync();
-			let finalStatus = existingStatus;
-			if (existingStatus !== 'granted') {
-				const {
-					status,
-				} = await Notifications.requestPermissionsAsync();
-				finalStatus = status;
-			}
-			if (finalStatus !== 'granted') {
-				alert('Failed to get push token for push notification!');
-				return;
-			}
-			token = (await Notifications.getExpoPushTokenAsync()).data;
-		} else {
-			alert('Must use physical device for Push Notifications');
-		}
-
-		if (Platform.OS === 'android') {
-			Notifications.setNotificationChannelAsync('default', {
-				name: 'default',
-				importance: Notifications.AndroidImportance.MAX,
-				vibrationPattern: [0, 250, 250, 250],
-				lightColor: '#FF231F7C',
-			});
-		}
-
-		return token;
-	}
 
 	useEffect(() => {
 		dispatch(sortCategories(language));

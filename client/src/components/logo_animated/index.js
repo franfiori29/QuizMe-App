@@ -92,8 +92,7 @@ const Container = styled.View`
 const LogoText = styled(Animated.Text)`
 	font-size: 35px;
 	color: ${(props) => props.theme.text};
-	font-weight: 700;
-	font-family: 'Nunito';
+	font-family: 'Nunito_600SemiBold';
 `;
 const ContentContainer = styled.View`
 	top: 30%;
