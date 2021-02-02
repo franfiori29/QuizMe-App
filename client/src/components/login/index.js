@@ -10,7 +10,7 @@ import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logo from '@assets/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setToken } from '@redux/reducers/user';
+import { setToken, setUserInfo } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
@@ -33,23 +33,14 @@ export default function Login({ navigation }) {
 						profilePic: result.user.photoUrl,
 						countryCode: 'AR',
 					})
-					.then((token) => {
-						axios
-							.get(`${REACT_APP_API}/auth/me`, {
-								headers: {
-									Authorization: `Bearer ${token.data}`,
-								},
-							})
-							.then((user) => {
-								dispatch(getUser(user.data));
-								dispatch(setToken(token.data));
-								reset({
-									emai: '',
-									password: '',
-								});
-								setLoading(false);
-								navigation.replace('Home');
-							});
+					.then((user) => {
+						dispatch(setUserInfo(user.data));
+						reset({
+							emai: '',
+							password: '',
+						});
+						setLoading(false);
+						navigation.replace('Home');
 					})
 					.catch(() => {
 						setLoading(false);
@@ -96,22 +87,14 @@ export default function Login({ navigation }) {
 						countryCode: 'AR',
 					})
 					.then((token) => {
-						axios
-							.get(`${REACT_APP_API}/auth/me`, {
-								headers: {
-									Authorization: `Bearer ${token.data}`,
-								},
-							})
-							.then((user) => {
-								dispatch(getUser(user.data));
-								dispatch(setToken(token.data));
-								reset({
-									emai: '',
-									password: '',
-								});
-								setLoading(false);
-								navigation.replace('Home');
-							});
+						dispatch(setUserInfo(user.data));
+						dispatch(setToken(token.data));
+						reset({
+							emai: '',
+							password: '',
+						});
+						setLoading(false);
+						navigation.replace('Home');
 					})
 					.catch(() => {
 						setLoading(false);
@@ -179,23 +162,14 @@ export default function Login({ navigation }) {
 		setLoading(true);
 		axios
 			.post(`${REACT_APP_API}/auth/login`, input)
-			.then((token) => {
-				axios
-					.get(`${REACT_APP_API}/auth/me`, {
-						headers: {
-							Authorization: `Bearer ${token.data}`,
-						},
-					})
-					.then((user) => {
-						dispatch(getUser(user.data));
-						dispatch(setToken(token.data));
-						reset({
-							emai: '',
-							password: '',
-						});
-						setLoading(false);
-						navigation.navigate('Home');
-					});
+			.then((user) => {
+				dispatch(setUserInfo(user.data));
+				reset({
+					emai: '',
+					password: '',
+				});
+				setLoading(false);
+				navigation.navigate('Home');
 			})
 			.catch(() => {
 				setLoading(false);

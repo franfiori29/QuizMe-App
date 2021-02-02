@@ -51,40 +51,30 @@ server.post('/register', async function (req, res, next) {
 		await User.findOrCreate(
 			{
 				$or: [
-					{ accountId: req.body.accountId },
+					{ accountId: req.body.accountId || 'false' },
 					{ email: req.body.email },
 				],
 			},
 			req.body,
 			(err, user, created) => {
 				if (err) throw new Error(err);
-				const {
-					_id,
-					firstName,
-					lastName,
-					email: userEmail,
-					profilePic,
-					countryCode,
-					role,
-					updatedAt,
-					premium,
-				} = user;
-				return res.send(
-					jwt.sign(
-						{
-							_id,
-							firstName,
-							lastName,
-							email: userEmail,
-							profilePic,
-							countryCode,
-							role,
-							updatedAt,
-							premium,
-						},
-						SECRET
-					)
-				);
+				if (!created)
+					return res
+						.status(400)
+						.json({ message: 'Username already exist' });
+
+				const newUser = {
+					_id: user.id,
+					firstName: user.firstName,
+					email: user.email,
+					profilePic: user.profilePic,
+					countryCode: user.countryCode,
+					role: user.role,
+					updatedAt: user.updatedAt,
+					premium: user.premium,
+				};
+				newUser.jwt = jwt.sign({ ...newUser }, SECRET);
+				return res.json(newUser);
 			}
 		);
 	} catch (error) {
@@ -106,7 +96,11 @@ server.post('/login', function (req, res, next) {
 	passport.authenticate('local', function (err, user) {
 		if (err) return next(err);
 		else if (!user) return res.sendStatus(401);
-		else return res.send(jwt.sign(user, SECRET));
+		else {
+			let loginUser = { ...user };
+			loginUser.jwt = jwt.sign(user, SECRET);
+			return res.json(loginUser);
+		}
 	})(req, res, next);
 });
 

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { getClient } from '@constants/api';
 import {
 	queryGetCompletedQuizzes,
@@ -11,8 +12,25 @@ import {
 	queryGetUsers,
 } from './querys/user';
 import fb from '../../firebase';
+import { REACT_APP_API } from '@root/env';
 
 /* --- Async Thunk Actions --- */
+
+export const getUser = createAsyncThunk(
+	'user/getUser',
+	async (_, { getState }) => {
+		axios
+			.get(`${REACT_APP_API}/auth/me`, {
+				headers: {
+					Authorization: `Bearer ${getState().user.token}`,
+				},
+			})
+			.then((user) => {
+				return user.data;
+			});
+	}
+);
+
 export const getUsers = createAsyncThunk(
 	'user/getUsers',
 	async (payload, { getState }) => {
@@ -119,7 +137,9 @@ const userSlice = createSlice({
 		users: [],
 	},
 	reducers: {
-		getUser: (state, { payload }) => {
+		setUserInfo: (state, { payload }) => {
+			state.token = payload.jwt;
+			delete payload.jwt;
 			state.info = payload;
 		},
 		setToken: (state, { payload }) => {
@@ -158,11 +178,16 @@ const userSlice = createSlice({
 		[getUsers.fulfilled]: (state, { payload }) => {
 			state.users = payload;
 		},
+		[getUser.fulfilled]: (state, { payload }) => {
+			state.token = payload.jwt;
+			delete payload.jwt;
+			state.info = payload;
+		},
 	},
 });
 
 export const {
-	getUser,
+	setUserInfo,
 	setToken,
 	logout,
 	updateLikedQuizzes,
