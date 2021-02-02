@@ -10,7 +10,6 @@ export default function LikeButton({ handleOnFavorite, isLiked }) {
 	return (
 		<ThemeProvider theme={theme}>
 			<TouchableOpacity
-				style={{ marginRight: 20 }}
 				onPress={() => {
 					handleOnFavorite(!isLikedLocal);
 					setIsLikedLocal((prevState) => !prevState);

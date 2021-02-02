@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import strings from './strings';
 
@@ -9,6 +9,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
+import ImageRankingFirst from '@assets/img/firstranking.jpg';
+import ImageRankingSecond from '@assets/img/secondranking.jpg';
+import ImageRankingThird from '@assets/img/thirdranking.jpg';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -23,79 +26,169 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<ContainerPpal>
-				<ContainerTop>
-					<Banner source={{ uri: quiz.image }} />
-					<BackButtonContainer onPress={() => navigation.goBack()}>
-						<Icon
-							name='ios-arrow-back'
-							color={theme.text}
-							size={28}
-						/>
-					</BackButtonContainer>
-					<Title>{quiz.title}</Title>
-					<QuantityContainer>
-						<TouchableOpacity>
-							<Text
-								style={{
-									color: theme.primary,
-									fontFamily: 'Nunito_600SemiBold',
-								}}
-							>
-								{quiz.questions.length} {s.quest}
-							</Text>
-						</TouchableOpacity>
-						<TouchableOpacity>
-							<Text style={{ color: theme.primary }}>
-								{quiz.likes} Likes
-							</Text>
-						</TouchableOpacity>
-					</QuantityContainer>
-				</ContainerTop>
-				<ContainerBottom>
-					<Description>{quiz.description}</Description>
-
-					<View
-						style={{
-							flexDirection: 'row',
-							paddingLeft: 45,
-							alignItems: 'center',
-						}}
-					>
-						<StartButton
-							onPress={() =>
-								navigation.navigate('Quiz', {
-									questions: quiz.questions,
-									imageQuiz: quiz.image,
-									time: quiz.time,
-									id: quiz._id,
-									language: quiz.language,
-								})
-							}
+			<ScrollView
+				contentContainerStyle={{ flexGrow: 1 }}
+				style={{ flex: 1, backgroundColor: theme.bg }}
+			>
+				<ContainerPpal>
+					<ContainerTop>
+						<Banner source={{ uri: quiz.image }} />
+						<BackButtonContainer
+							onPress={() => navigation.goBack()}
 						>
-							<Text
-								adjustsFontSizeToFit={true}
-								style={{
-									color: theme.primary,
-									fontFamily: 'Nunito_800ExtraBold',
-								}}
-							>
-								{s.startBtn}
-							</Text>
-						</StartButton>
-						<SocialMedia
-							size={35}
-							styles={{ marginLeft: 15 }}
-							shareOptions={{
-								title: s.title,
-								message: `${
-									s.message
-								} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
+							<Icon
+								name='ios-arrow-back'
+								color={theme.text}
+								size={28}
+							/>
+						</BackButtonContainer>
+						<Title>{quiz.title}</Title>
+						<QuantityContainer>
+							<TouchableOpacity>
+								<Text
+									style={{
+										color: theme.primary,
+										fontFamily: 'Nunito_600SemiBold',
+										fontSize: 16,
+									}}
+								>
+									{quiz.questions.length} {s.quest}
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity>
+								<Text
+									style={{
+										color: theme.primary,
+										fontSize: 16,
+									}}
+								>
+									{quiz.likes} Likes
+								</Text>
+							</TouchableOpacity>
+						</QuantityContainer>
+					</ContainerTop>
+					<ContainerBottom>
+						<Description>{quiz.description}</Description>
+						<View
+							style={{
+								flexDirection: 'column',
+								alignItems: 'center',
 							}}
-						/>
-					</View>
-				</ContainerBottom>
-			</ContainerPpal>
+						>
+							<StartButton
+								onPress={() =>
+									navigation.navigate('Quiz', {
+										questions: quiz.questions,
+										imageQuiz: quiz.image,
+										time: quiz.time,
+										id: quiz._id,
+										language: quiz.language,
+									})
+								}
+							>
+								<Text
+									adjustsFontSizeToFit={true}
+									style={{
+										color: theme.primary,
+										fontFamily: 'Nunito_800ExtraBold',
+										textTransform: 'uppercase',
+									}}
+								>
+									{s.startBtn}
+								</Text>
+							</StartButton>
+							<ShareButton
+								shareOptions={{
+									title: s.title,
+									message: `${
+										s.message
+									} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
+								}}
+							/>
+						</View>
+					</ContainerBottom>
+					<RankingScreen>
+						<RankingTitle>Ranking</RankingTitle>
+						<View style={{ width: '100%' }}>
+							<RankingCard>
+								<View style={{ width: '50%' }}>
+									<Image
+										source={ImageRankingFirst}
+										style={{
+											justifyContent: 'center',
+											height: 70,
+											width: 70,
+										}}
+									/>
+								</View>
+								<RankingInfo>
+									<RankingText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										nombre
+									</RankingText>
+									<RankingText style={{ fontSize: 20 }}>
+										999
+									</RankingText>
+								</RankingInfo>
+							</RankingCard>
+							<RankingCard>
+								<View style={{ width: '50%' }}>
+									<Image
+										source={ImageRankingSecond}
+										style={{
+											justifyContent: 'center',
+											height: 70,
+											width: 70,
+										}}
+									/>
+								</View>
+								<RankingInfo>
+									<RankingText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										nombre
+									</RankingText>
+									<RankingText style={{ fontSize: 20 }}>
+										99
+									</RankingText>
+								</RankingInfo>
+							</RankingCard>
+						</View>
+						<RankingCard>
+							<View style={{ width: '50%' }}>
+								<Image
+									source={ImageRankingThird}
+									style={{
+										justifyContent: 'center',
+										height: 70,
+										width: 70,
+									}}
+								/>
+							</View>
+							<RankingInfo>
+								<RankingText
+									style={{
+										textTransform: 'uppercase',
+										fontWeight: 'bold',
+									}}
+								>
+									nombre
+								</RankingText>
+								<RankingText style={{ fontSize: 20 }}>
+									9
+								</RankingText>
+							</RankingInfo>
+						</RankingCard>
+					</RankingScreen>
+				</ContainerPpal>
+			</ScrollView>
 		</ThemeProvider>
 	);
 };
@@ -103,19 +196,18 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 const ContainerPpal = styled.View`
 	flex: 1;
 	align-items: center;
-	justify-content: space-between;
 	background-color: ${(props) => props.theme.bg};
 `;
 
 const ContainerTop = styled.View`
-	height: 50%;
+	height: 300px;
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
 `;
 
 const ContainerBottom = styled.View`
-	height: 50%;
+	height: 300px;
 	width: 100%;
 	justify-content: space-around;
 	align-items: center;
@@ -137,37 +229,82 @@ const BackButtonContainer = styled.TouchableOpacity`
 `;
 
 const Title = styled.Text`
-	font-size: 35px;
+	font-size: 30px;
 	text-align: center;
 	text-transform: uppercase;
-	margin-top: 30px;
 	color: ${(props) => props.theme.primary};
 	font-family: 'Nunito_800ExtraBold';
 `;
 
 const QuantityContainer = styled.View`
-	width: 90%;
-	height: 20%;
+	width: 40%;
+	height: 80px;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: space-between;
 `;
 
 const Description = styled.Text`
-	padding: 20px;
-	margin: 20px 0;
 	text-align: center;
+	font-size: 20px;
 	color: ${(props) => props.theme.text};
 	font-family: 'Nunito_600SemiBold';
+	padding: 0 3px;
+	margin-top: 60px;
 `;
 
 const StartButton = styled.TouchableOpacity`
 	border: 2px solid ${(props) => props.theme.primary};
 	padding: 10px;
-	width: 200px;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;
+	margin-bottom: 15px;
+`;
+const ShareButton = styled(SocialMedia)`
+	border: 2px solid ${(props) => props.theme.primary};
+	padding: 10px;
+	width: 95%;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+`;
+
+const RankingScreen = styled.View`
+	padding: 15px;
+`;
+const RankingTitle = styled.Text`
+	text-align: center;
+	font-size: 20px;
+	text-align: center;
+	text-transform: uppercase;
+	margin-top: 10px;
+	color: ${(props) => props.theme.primary};
+	font-family: 'Nunito_800ExtraBold';
+`;
+const RankingCard = styled.TouchableOpacity`
+	width: 100%;
+	height: 100px;
+	border: 1px solid ${(props) => props.theme.primary};
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: row;
+	padding: 0 40px;
+	margin: 15px;
+	border-radius: 10px;
+	align-self: center;
+`;
+const RankingInfo = styled.View`
+	height: 100%;
+	padding: 15px;
+	width: 50%;
+	justify-content: space-around;
+`;
+
+const RankingText = styled.Text`
+	color: ${(props) => props.theme.text};
+	text-align: center;
 `;
 
 const Banner = styled.Image`

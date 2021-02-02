@@ -11,7 +11,7 @@ import SocialMedia from '@components/utils/SocialMedia';
 import LikeButton from '@components/utils/LikeButton';
 
 import strings from './strings';
-import { updateLike, getRandomQuiz } from '@redux/reducers/quizzes';
+import { updateLike, getRandomQuiz, getQuizzes } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
 
 const QuizResults = ({ route: { params }, navigation }) => {
@@ -31,6 +31,10 @@ const QuizResults = ({ route: { params }, navigation }) => {
 		if (porcentajeAprobadas >= 30) return '🧐';
 		return '😶';
 	}
+
+	useEffect(() => {
+		dispatch(getQuizzes());
+	}, []);
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
@@ -104,13 +108,20 @@ const QuizResults = ({ route: { params }, navigation }) => {
 				</AnswersNumberContainer>
 				<FavoriteContainer>
 					<FavoriteText>{s.like}</FavoriteText>
-					<ViewSocialMedia>
+					{/* <Btn>
+					<BtnText>❤ Darle like</BtnText>
+				</Btn> */}
+					<ViewSocialMedia
+						style={{
+							flexDirection: 'row',
+							alignItems: 'center',
+						}}
+					>
 						<LikeButton
 							handleOnFavorite={handleOnFavorite}
 							isLiked={isLiked}
 						/>
 						<SocialMedia
-							size={50}
 							shareOptions={{
 								title: s.title,
 								message: `${s.message} ${params.points} ${
@@ -299,9 +310,6 @@ const BtnSecText = styled.Text`
 	align-self: center;
 `;
 const ViewSocialMedia = styled.View`
-	flex-grow: 1;
 	justify-content: space-evenly;
-	flex-direction: row;
-	align-items: center;
 `;
 export default QuizResults;
