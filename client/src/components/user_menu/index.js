@@ -112,38 +112,40 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 								'https://picsum.photos/100/100',
 						}}
 					/>
-					<View
-						style={{
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-					>
-						<UserName>
-							{user.firstName} {user.lastName}
-							{user.validated && (
-								<Icon
-									name='checkmark-circle'
-									size={20}
-									style={{
-										color: '#1271e2',
-										zIndex: 20,
-										marginLeft: 5,
-									}}
-								/>
-							)}
-							{user.premium && (
-								<Icon
-									color={'rgb(250,210,1)'}
-									name='ios-star'
-									size={20}
-									style={{
-										marginLeft: 5,
-										zIndex: 20,
-									}}
-								/>
-							)}
-						</UserName>
+					<View>
+						<View
+							style={{
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<UserName>
+								{user.firstName} {user.lastName}
+								{user.validated && (
+									<Icon
+										name='checkmark-circle'
+										size={20}
+										style={{
+											color: '#1271e2',
+											zIndex: 20,
+											marginLeft: 5,
+										}}
+									/>
+								)}
+								{user.premium && (
+									<Icon
+										color={'rgb(250,210,1)'}
+										name='ios-star'
+										size={20}
+										style={{
+											marginLeft: 5,
+											zIndex: 20,
+										}}
+									/>
+								)}
+							</UserName>
+						</View>
 					</View>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Profile')}
@@ -436,6 +438,7 @@ const UserName = styled.Text`
 	font-size: 20px;
 	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
+	align-items: center;
 	color: ${(props) => props.theme.text};
 `;
 

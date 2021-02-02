@@ -30,7 +30,7 @@ const CategoryCards = () => {
 									bgColor={theme.wrong}
 									onPress={async () => {
 										await dispatch(
-											destroyCategory(category._id)
+											destroyCategory(category._id),
 										);
 										dispatch(getCategories(language));
 									}}
@@ -44,10 +44,6 @@ const CategoryCards = () => {
 		</CategoryCardsContainer>
 	);
 };
-
-const StyledText = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
 
 const CategoryCardsContainer = styled.View`
 	width: 95%;

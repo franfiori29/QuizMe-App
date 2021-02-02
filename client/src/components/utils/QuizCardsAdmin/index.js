@@ -47,10 +47,10 @@ const QuizCardsAdmin = () => {
 									bgColor={theme.wrong}
 									onPress={async () => {
 										await dispatch(
-											destroyQuiz({ quizId: quiz._id })
+											destroyQuiz({ quizId: quiz._id }),
 										);
 										dispatch(
-											getQuizzes({ notShuffle: true })
+											getQuizzes({ notShuffle: true }),
 										);
 									}}
 								>
@@ -101,14 +101,6 @@ const QuizTitle = styled.Text`
 	font-weight: bold;
 	color: ${(props) => props.theme.text};
 	margin-top: 3px;
-`;
-
-const QuizCheck = styled.View`
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	flex-direction: row-reverse;
-	align-items: center;
 `;
 
 const Buttons = styled.TouchableOpacity`
