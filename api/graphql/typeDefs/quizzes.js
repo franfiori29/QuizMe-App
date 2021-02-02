@@ -12,6 +12,19 @@ module.exports = gql`
 		questions: [Question!]!
 		time: Int!
 		creatorId: ID!
+		highScores: [Highscore]
+	}
+
+	type UserScore {
+		_id: ID
+		firstName: String
+		lastName: String
+	}
+	
+	type Highscore {
+		_id: ID
+		user: UserScore
+		score: Int
 	}
 
 	type Question {

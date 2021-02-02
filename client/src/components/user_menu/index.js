@@ -338,7 +338,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.help}
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
+				<MenuTouchOption onPress={() => navigation.navigate('RateUs')}>
 					<Text
 						style={{
 							color: theme.text,
@@ -381,7 +381,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						0.2.0 (Demo 2)
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption
+				<AccType
 					style={{
 						marginTop: 20,
 						marginBottom: 20,
@@ -399,7 +399,12 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						{s.logout}
 					</Text>
-				</MenuTouchOption>
+					<Icon
+						color={theme.primary}
+						name='arrow-forward-circle-sharp'
+						size={25}
+					/>
+				</AccType>
 			</Screen>
 		</ThemeProvider>
 	);
