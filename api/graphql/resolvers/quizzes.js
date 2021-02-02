@@ -9,7 +9,7 @@ module.exports = {
 			const foundQuiz = await Quiz.findById(id)
 				.populate('categoryId')
 				.populate('questions')
-				.populate('user');
+				.populate('highScores.user');
 			if (!foundQuiz) throw new Error('Could not find quiz');
 			return foundQuiz;
 		},
@@ -17,7 +17,7 @@ module.exports = {
 			const quizzes = await Quiz.find()
 				.populate('categoryId')
 				.populate('questions')
-				.populate('user');
+				.populate('highScores.user');
 			return quizzes;
 		},
 		getCategories: async () => {
@@ -29,8 +29,8 @@ module.exports = {
 				categoryId: catId,
 			})
 				.populate('questions')
-				.populate('user')
-				.populate('categoryId');
+				.populate('categoryId')
+				.populate('highScores.user');
 			return foundQuizzes;
 		},
 		getQuizzesByInputSearch: async (_, { input, cat, page }) => {
@@ -62,15 +62,15 @@ module.exports = {
 			})
 				.populate('categoryId')
 				.populate('questions')
-				.populate('user')
+				.populate('highScores.user')
 				.skip(random);
 			return quiz;
 		},
 		getUserQuizzes: async (_, { userId }) => {
 			const foundQuizzes = await Quiz.find({ creatorId: userId })
 				.populate('questions')
-				.populate('user')
-				.populate('categoryId');
+				.populate('categoryId')
+				.populate('highScores.user');
 			return foundQuizzes;
 		},
 		getNQuizzesPerPage: async (_, { pageNumber, nPerPage }) => {
@@ -86,7 +86,7 @@ module.exports = {
 			})
 				.populate('categoryId')
 				.populate('questions')
-				.populate('user');
+				.populate('highScores.user');
 			return quizzesByPopularity;
 		},
 	},
@@ -99,8 +99,8 @@ module.exports = {
 				await Quiz.create({ ...quiz, creatorId: user._id })
 			)
 				.populate('questions')
-				.populate('user')
 				.populate('categoryId')
+				.populate('highScores.user')
 				.execPopulate();
 			return newQuiz;
 		},

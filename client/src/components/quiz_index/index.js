@@ -23,7 +23,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 	} else {
 		quiz = randomQuiz;
 	}
-
+	const [place1, place2, place3] = quiz.highScores;
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView
@@ -128,10 +128,12 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 											fontWeight: 'bold',
 										}}
 									>
-										nombre
+										{place1
+											? `${place1.user.firstName} ${place1.user.lastName}`
+											: s.nobody}
 									</RankingText>
 									<RankingText style={{ fontSize: 20 }}>
-										999
+										{place1 ? place1.score : '0'}
 									</RankingText>
 								</RankingInfo>
 							</RankingCard>
@@ -153,10 +155,12 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 											fontWeight: 'bold',
 										}}
 									>
-										nombre
+										{place2
+											? `${place2.user.firstName} ${place2.user.lastName}`
+											: s.nobody}
 									</RankingText>
 									<RankingText style={{ fontSize: 20 }}>
-										99
+										{place2 ? place2.score : '0'}
 									</RankingText>
 								</RankingInfo>
 							</RankingCard>
@@ -179,10 +183,12 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 										fontWeight: 'bold',
 									}}
 								>
-									nombre
+									{place3
+										? `${place3.user.firstName} ${place3.user.lastName}`
+										: s.nobody}
 								</RankingText>
 								<RankingText style={{ fontSize: 20 }}>
-									9
+									{place3 ? place3.score : '0'}
 								</RankingText>
 							</RankingInfo>
 						</RankingCard>
