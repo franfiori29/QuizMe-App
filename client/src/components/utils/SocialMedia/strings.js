@@ -1,9 +1,9 @@
 const strings = {
 	en: {
-		button: 'Compartir',
+		button: 'Share',
 	},
 	es: {
-		button: 'Share',
+		button: 'Compartir',
 	},
 };
 export default strings;
