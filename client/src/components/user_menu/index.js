@@ -86,7 +86,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 
 	const handleMyQuizzes = () => {
 		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes')
+			navigation.navigate('MyQuizzes'),
 		);
 	};
 
@@ -121,29 +121,29 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						<UserName>
 							{user.firstName} {user.lastName}
+							{user.validated && (
+								<Icon
+									name='checkmark-circle'
+									size={20}
+									style={{
+										color: '#1271e2',
+										zIndex: 20,
+										marginLeft: 5,
+									}}
+								/>
+							)}
+							{user.premium && (
+								<Icon
+									color={'rgb(250,210,1)'}
+									name='ios-star'
+									size={20}
+									style={{
+										marginLeft: 5,
+										zIndex: 20,
+									}}
+								/>
+							)}
 						</UserName>
-						{user.validated && (
-							<Icon
-								name='checkmark-circle-outline'
-								size={20}
-								style={{
-									color: theme.primary,
-									zIndex: 20,
-									marginLeft: 5,
-								}}
-							/>
-						)}
-						{user.premium && (
-							<Icon
-								color={'rgb(250,210,1)'}
-								name='ios-star'
-								size={20}
-								style={{
-									zIndex: 20,
-									marginLeft: 5,
-								}}
-							/>
-						)}
 					</View>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Profile')}
@@ -167,7 +167,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 								fontFamily: 'Nunito_800ExtraBold',
 							}}
 						>
-							{s.poor}
+							{user.premium ? s.premium : s.free}
 						</Text>
 					</Text>
 					<AccTypeButton
@@ -184,6 +184,18 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						</Text>
 					</AccTypeButton>
 				</AccType>
+				{user.role !== 'ADMIN' && (
+					<MenuTouchOption onPress={handleAdminPanel}>
+						<Text
+							style={{
+								color: theme.text,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
+							{s.adminPanel}
+						</Text>
+					</MenuTouchOption>
+				)}
 				<MenuTouchOption>
 					<Text
 						style={{
@@ -204,24 +216,11 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.myQuiz}
 					</Text>
 				</MenuTouchOption>
-				{user.role === 'ADMIN' && (
-					<MenuTouchOption onPress={handleAdminPanel}>
-						<Text
-							style={{
-								color: theme.text,
-								fontFamily: 'Nunito_400Regular',
-							}}
-						>
-							{s.adminPanel}
-						</Text>
-					</MenuTouchOption>
-				)}
 				<MenuTouchOption onPress={handleMail}>
 					<Text
 						style={{
 							color: theme.text,
 							width: '95%',
-							height: 30,
 							fontFamily: 'Nunito_400Regular',
 						}}
 					>
@@ -339,7 +338,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.help}
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
+				<MenuTouchOption onPress={() => navigation.navigate('RateUs')}>
 					<Text
 						style={{
 							color: theme.text,
@@ -382,7 +381,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						0.2.0 (Demo 2)
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption
+				<AccType
 					style={{
 						marginTop: 20,
 						marginBottom: 20,
@@ -400,7 +399,12 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						{s.logout}
 					</Text>
-				</MenuTouchOption>
+					<Icon
+						color={theme.primary}
+						name='arrow-forward-circle-sharp'
+						size={25}
+					/>
+				</AccType>
 			</Screen>
 		</ThemeProvider>
 	);
@@ -453,7 +457,8 @@ const AccType = styled.TouchableOpacity`
 	border-bottom-color: #ccc;
 `;
 const AccTypeButton = styled.TouchableOpacity`
-	width: 50%;
+	width: 40%;
+	max-width: 130px;
 	height: 30px;
 	align-items: center;
 	justify-content: center;

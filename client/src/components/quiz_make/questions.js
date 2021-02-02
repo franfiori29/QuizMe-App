@@ -104,7 +104,6 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		});
 		navigation.navigate('QuizMakeDetails', { quiz });
 	};
-	console.log('checked', checked);
 	useFocusEffect(
 		useCallback(() => {
 			if (params.edit !== undefined) {
@@ -195,6 +194,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							borderRadius: 10,
 							padding: 10,
 							borderColor: theme.primary,
+							fontFamily: 'Nunito_400Regular',
 						}}
 						onValueChange={(value) => {
 							setType(value);

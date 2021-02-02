@@ -5,10 +5,11 @@ import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setToken } from '@redux/reducers/user';
+import { getUser, setUserInfo } from '@redux/reducers/user';
 import axios from 'axios';
 import strings from './strings';
 import logo from '@assets/logo.png';
+import { registerUser } from '../../redux/reducers/user';
 
 export default function SignUp({ navigation }) {
 	const dispatch = useDispatch();
@@ -38,7 +39,6 @@ export default function SignUp({ navigation }) {
 			[inputName]: inputValue, // <-- Put square brackets
 		}));
 	};
-
 	useEffect(() => {
 		axios
 			.get('https://ipapi.co/json/')
@@ -83,19 +83,15 @@ export default function SignUp({ navigation }) {
 			setErrortext('El campo Apellido es requerido');
 			return;
 		} else {
-			axios.post(`${REACT_APP_API}/auth/register`, user).then((token) => {
-				axios
-					.get(`${REACT_APP_API}/auth/me`, {
-						headers: {
-							Authorization: `Bearer ${token.data}`,
-						},
-					})
-					.then((user) => {
-						dispatch(getUser(user.data));
-						dispatch(setToken(token.data));
-						navigation.navigate('Home');
-					});
-			});
+			axios
+				.post(`${REACT_APP_API}/auth/register`, user)
+				.then((newUser) => {
+					dispatch(setUserInfo(newUser.data));
+					navigation.navigate('Home');
+				})
+				.catch((err) => {
+					setErrortext(err.response.data.message);
+				});
 		}
 	};
 

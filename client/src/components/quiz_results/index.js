@@ -11,7 +11,7 @@ import SocialMedia from '@components/utils/SocialMedia';
 import LikeButton from '@components/utils/LikeButton';
 
 import strings from './strings';
-import { updateLike, getRandomQuiz } from '@redux/reducers/quizzes';
+import { updateLike, getRandomQuiz, getQuizzes } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
 
 const QuizResults = ({ route: { params }, navigation }) => {
@@ -32,9 +32,13 @@ const QuizResults = ({ route: { params }, navigation }) => {
 		return '😶';
 	}
 
+	useEffect(() => {
+		dispatch(getQuizzes());
+	}, []);
+
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);
 	};
 
@@ -107,13 +111,17 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					{/* <Btn>
 					<BtnText>❤ Darle like</BtnText>
 				</Btn> */}
-					<ViewSocialMedia>
+					<ViewSocialMedia
+						style={{
+							flexDirection: 'row',
+							alignItems: 'center',
+						}}
+					>
 						<LikeButton
 							handleOnFavorite={handleOnFavorite}
 							isLiked={isLiked}
 						/>
 						<SocialMedia
-							size={50}
 							shareOptions={{
 								title: s.title,
 								message: `${s.message} ${params.points} ${
@@ -205,7 +213,7 @@ const ProgressBarText = styled.Text`
 	left: 15px;
 	z-index: 2;
 	transform: translateY(-7px);
-	font-family: 'Nunito_800ExtraBold';
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const AnswersNumberContainer = styled.View`
@@ -302,9 +310,6 @@ const BtnSecText = styled.Text`
 	align-self: center;
 `;
 const ViewSocialMedia = styled.View`
-	flex-grow: 1;
 	justify-content: space-evenly;
-	flex-direction: row;
-	align-items: center;
 `;
 export default QuizResults;

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
-import { Text, Share, Platform, Vibration } from 'react-native';
+import { Text, Share, Platform, Vibration, View } from 'react-native';
 import socialStrings from '@components/quiz_index/strings';
 
 const QuizCards = ({ quizzes, completedQuiz }) => {
@@ -60,37 +60,54 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 							<StyledText numberOfLines={2} ellipsizeMode='tail'>
 								{quiz.description}
 							</StyledText>
-							<StyledText>
-								<Icon
-									name={
-										checkLike(quiz._id)
-											? 'ios-heart-sharp'
-											: 'ios-heart-outline'
-									}
-									size={15}
-									style={{ color: theme.primary }}
-								/>
-								{quiz.likes}
-							</StyledText>
-						</QuizInfo>
-						{completedQuiz &&
-							completedQuiz.some((e) => e._id === quiz._id) && (
-								<QuizCheck>
-									<Text
+							<View
+								style={{
+									marginTop: 'auto',
+									justifyContent: 'space-between',
+									flexDirection: 'row',
+								}}
+							>
+								<StyledText>
+									<Icon
+										name={
+											checkLike(quiz._id)
+												? 'ios-heart-sharp'
+												: 'ios-heart-outline'
+										}
+										size={15}
 										style={{
 											color: theme.primary,
-											fontFamily: 'Nunito_800ExtraBold',
+											marginRight: 3,
 										}}
-									>
-										{s.completed}
-									</Text>
-									<Icon
-										name='checkmark-circle-outline'
-										size={20}
-										style={{ color: theme.primary }}
 									/>
-								</QuizCheck>
-							)}
+									{quiz.likes}
+								</StyledText>
+
+								{completedQuiz &&
+									completedQuiz.some(
+										(e) => e._id === quiz._id
+									) && (
+										<QuizCheck>
+											<Icon
+												name='checkmark-circle-outline'
+												size={20}
+												style={{
+													color: theme.primary,
+												}}
+											/>
+											<Text
+												style={{
+													color: theme.primary,
+													fontFamily:
+														'Nunito_800ExtraBold',
+												}}
+											>
+												{s.completed}
+											</Text>
+										</QuizCheck>
+									)}
+							</View>
+						</QuizInfo>
 					</QuizCard>
 				))}
 		</QuizCardsContainer>
@@ -127,7 +144,7 @@ const QuizInfo = styled.View`
 	height: 100%;
 	width: 85%;
 	padding: 0 15px;
-	justify-content: space-around;
+	justify-content: flex-start;
 `;
 
 const QuizTitle = styled.Text`
@@ -138,10 +155,7 @@ const QuizTitle = styled.Text`
 `;
 
 const QuizCheck = styled.View`
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	flex-direction: row-reverse;
+	flex-direction: row;
 	align-items: center;
 `;
 

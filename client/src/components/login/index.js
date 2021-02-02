@@ -10,7 +10,7 @@ import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logo from '@assets/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setToken } from '@redux/reducers/user';
+import { setToken, setUserInfo } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
@@ -22,7 +22,6 @@ export default function Login({ navigation }) {
 				androidClientId: CLIENT_ID,
 				scopes: ['profile', 'email'],
 			});
-
 			if (result.type === 'success') {
 				axios
 					.post(`${REACT_APP_API}/auth/register`, {
@@ -33,25 +32,16 @@ export default function Login({ navigation }) {
 						profilePic: result.user.photoUrl,
 						countryCode: 'AR',
 					})
-					.then((token) => {
-						axios
-							.get(`${REACT_APP_API}/auth/me`, {
-								headers: {
-									Authorization: `Bearer ${token.data}`,
-								},
-							})
-							.then((user) => {
-								dispatch(getUser(user.data));
-								dispatch(setToken(token.data));
-								reset({
-									emai: '',
-									password: '',
-								});
-								setLoading(false);
-								navigation.replace('Home');
-							});
+					.then((user) => {
+						dispatch(setUserInfo(user.data));
+						reset({
+							emai: '',
+							password: '',
+						});
+						setLoading(false);
+						navigation.replace('Home');
 					})
-					.catch(() => {
+					.catch((err) => {
 						setLoading(false);
 						setError('register', {
 							type: 'manual',
@@ -95,23 +85,14 @@ export default function Login({ navigation }) {
 						profilePic: response.data.picture.data.url,
 						countryCode: 'AR',
 					})
-					.then((token) => {
-						axios
-							.get(`${REACT_APP_API}/auth/me`, {
-								headers: {
-									Authorization: `Bearer ${token.data}`,
-								},
-							})
-							.then((user) => {
-								dispatch(getUser(user.data));
-								dispatch(setToken(token.data));
-								reset({
-									emai: '',
-									password: '',
-								});
-								setLoading(false);
-								navigation.replace('Home');
-							});
+					.then((user) => {
+						dispatch(setUserInfo(user.data));
+						reset({
+							emai: '',
+							password: '',
+						});
+						setLoading(false);
+						navigation.replace('Home');
 					})
 					.catch(() => {
 						setLoading(false);
@@ -179,23 +160,14 @@ export default function Login({ navigation }) {
 		setLoading(true);
 		axios
 			.post(`${REACT_APP_API}/auth/login`, input)
-			.then((token) => {
-				axios
-					.get(`${REACT_APP_API}/auth/me`, {
-						headers: {
-							Authorization: `Bearer ${token.data}`,
-						},
-					})
-					.then((user) => {
-						dispatch(getUser(user.data));
-						dispatch(setToken(token.data));
-						reset({
-							emai: '',
-							password: '',
-						});
-						setLoading(false);
-						navigation.navigate('Home');
-					});
+			.then((user) => {
+				dispatch(setUserInfo(user.data));
+				reset({
+					emai: '',
+					password: '',
+				});
+				setLoading(false);
+				navigation.navigate('Home');
 			})
 			.catch(() => {
 				setLoading(false);
@@ -351,10 +323,20 @@ export default function Login({ navigation }) {
 					</>
 				)}
 				<TextView>
-					<Text style={{ color: theme.text }}>
+					<Text
+						style={{
+							fontWeight: '500',
+							color: theme.text,
+							fontFamily: 'Nunito',
+						}}
+					>
 						{s.acc}
 						<Text
-							style={{ fontWeight: '500', color: theme.primary }}
+							style={{
+								fontWeight: '700',
+								color: theme.primary,
+								fontFamily: 'Nunito',
+							}}
 							onPress={() => navigation.navigate('SignUp')}
 						>
 							{' '}
@@ -384,10 +366,11 @@ const Logo = styled.Image`
 const LogoText = styled.Text`
 	color: ${(props) => props.theme.primary};
 	font-size: 30px;
-	font-weight: 500;
+	font-weight: 700;
 	margin-top: 10px;
 	margin-bottom: 20px;
 	opacity: 0.5;
+	font-family: 'Nunito';
 `;
 const InputContainer = styled.View`
 	margin-top: 10px;
@@ -404,6 +387,7 @@ const InputLogin = styled.TextInput`
 	background-color: rgba(0, 0, 0, 0.35);
 	color: rgba(255, 255, 255, 0.7);
 	margin: 0 25px;
+	font-family: 'Nunito';
 `;
 const IconImage = styled(Icon)`
 	position: absolute;
@@ -426,6 +410,7 @@ const ButtonLogin = styled.TouchableOpacity`
 	margin-bottom: 10px;
 	padding: 16px 70px;
 	border-radius: 5px;
+	font-family: 'Nunito';
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
@@ -460,6 +445,7 @@ const ErrorIcon = styled.View`
 `;
 
 const ErrorBubble = styled.Text`
+	font-family: 'Nunito';
 	color: #d53051;
 	padding: 10px 20px;
 	border-color: #d53051;

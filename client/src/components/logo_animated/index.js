@@ -68,7 +68,13 @@ export default function LogoAnimated({ navigation }) {
 						/>
 						<LogoContainer style={{ marginLeft: moveAnim }}>
 							<LogoText>QuizMe</LogoText>
-							<LogoText style={{ opacity: fadeAnim }}>
+							<LogoText
+								style={{
+									opacity: fadeAnim,
+									color: theme.primary,
+									fontWeight: '700',
+								}}
+							>
 								App
 							</LogoText>
 						</LogoContainer>
@@ -87,6 +93,7 @@ const LogoText = styled(Animated.Text)`
 	font-size: 35px;
 	color: ${(props) => props.theme.text};
 	font-weight: 700;
+	font-family: 'Nunito';
 `;
 const ContentContainer = styled.View`
 	top: 30%;

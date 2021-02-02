@@ -31,6 +31,7 @@ import AdminPanel from '@components/admin_panel';
 import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
 import AdminCategories from '@components/admin_panel/screens/categories';
+import RateUs from '@components/rate_us';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
@@ -71,7 +72,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'LogoAnimated'}
+				initialRouteName={'Home'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
@@ -121,6 +122,7 @@ const HomeRoutes = () => {
 				<Screen name='AdminUsers' component={AdminUsers} />
 				<Screen name='AdminQuizzes' component={AdminQuizzes} />
 				<Screen name='AdminCategories' component={AdminCategories} />
+				<Screen name='RateUs' component={RateUs} />
 			</Navigator>
 		</NavigationContainer>
 	);
