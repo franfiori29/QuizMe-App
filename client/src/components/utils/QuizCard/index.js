@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
-import { Text, Share, Platform, Vibration } from 'react-native';
+import { Text, Share, Platform, Vibration, View } from 'react-native';
 import socialStrings from '@components/quiz_index/strings';
 
 const QuizCardComponent = ({ quiz }) => {
@@ -57,36 +57,51 @@ const QuizCardComponent = ({ quiz }) => {
 				<StyledText numberOfLines={2} ellipsizeMode='tail'>
 					{quiz.description}
 				</StyledText>
-				<StyledText>
-					<Icon
-						name={
-							checkLike(quiz._id)
-								? 'ios-heart-sharp'
-								: 'ios-heart-outline'
-						}
-						size={15}
-						style={{ color: theme.primary }}
-					/>
-					{quiz.likes}
-				</StyledText>
+				<View
+					style={{
+						marginTop: 'auto',
+						justifyContent: 'space-between',
+						flexDirection: 'row',
+					}}
+				>
+					<StyledText>
+						<Icon
+							name={
+								checkLike(quiz._id)
+									? 'ios-heart-sharp'
+									: 'ios-heart-outline'
+							}
+							size={15}
+							style={{
+								color: theme.primary,
+								marginRight: 3,
+							}}
+						/>
+						{quiz.likes}
+					</StyledText>
+
+					{completedQuiz &&
+						completedQuiz.some((e) => e._id === quiz._id) && (
+							<QuizCheck>
+								<Icon
+									name='checkmark-circle-outline'
+									size={20}
+									style={{
+										color: theme.primary,
+									}}
+								/>
+								<Text
+									style={{
+										color: theme.primary,
+										fontFamily: 'Nunito_800ExtraBold',
+									}}
+								>
+									{s.completed}
+								</Text>
+							</QuizCheck>
+						)}
+				</View>
 			</QuizInfo>
-			{completedQuiz && completedQuiz.some((e) => e._id === quiz._id) && (
-				<QuizCheck>
-					<Text
-						style={{
-							color: theme.primar,
-							fontFamily: 'Nunito_600SemiBold',
-						}}
-					>
-						{s.completed}
-					</Text>
-					<Icon
-						name='checkmark-circle-outline'
-						size={20}
-						style={{ color: theme.primary }}
-					/>
-				</QuizCheck>
-			)}
 		</QuizCard>
 	);
 };
@@ -97,13 +112,14 @@ const StyledText = styled.Text`
 `;
 
 const QuizCard = styled.TouchableOpacity`
-	width: 100%;
+	width: 95%;
 	height: 120px;
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	align-items: center;
 	flex-direction: row;
 	padding: 15px 10px 10px 0px;
+	align-self: center;
 `;
 
 const QuizImg = styled.Image`
@@ -128,10 +144,7 @@ const QuizTitle = styled.Text`
 `;
 
 const QuizCheck = styled.View`
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	flex-direction: row-reverse;
+	flex-direction: row;
 	align-items: center;
 `;
 

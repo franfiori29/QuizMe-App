@@ -37,7 +37,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			}),
+			})
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
@@ -85,10 +85,16 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						}}
 					/>
 				</InputContainer>
-				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+				<View
+					style={{
+						flexDirection: 'row',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
 					<Text
 						style={{
-							marginLeft: 10,
+							marginRight: 10,
 							fontSize: 16,
 							color: theme.text,
 							fontFamily: 'Nunito_400Regular',
@@ -99,10 +105,13 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 					<Picker
 						selectedValue={categoryFilter}
 						style={{
-							height: 50,
-							width: '80%',
-							alignSelf: 'center',
+							height: 40,
+							width: '65%',
 							color: theme.text,
+							backgroundColor: theme.bg,
+							borderRadius: 10,
+							padding: 10,
+							borderColor: theme.primary,
 							fontFamily: 'Nunito_400Regular',
 						}}
 						onValueChange={(value) => {

@@ -2,7 +2,7 @@ const strings = {
 	en: {
 		title: 'Welcome,',
 		introTitle:
-			'Here we show you some suggestions for you to start	vitiate and buy us the membership',
+			'Some suggestions are shown below. Go and start having fun!',
 		selector1: 'Followed',
 		popular: 'Popular',
 		completed: 'Completed',
@@ -13,9 +13,9 @@ const strings = {
 	},
 
 	es: {
-		title: 'Bienvenido,',
+		title: '¡Bienvenido,',
 		introTitle:
-			'Aca te mostramos unas sugerencias para que te pongas a	viciar y nos compres la membresia',
+			'¡Aquí debajo te mostramos algunas sugerencias para que puedas comenzar a divertirte hoy!',
 		selector1: 'Seguidos',
 		popular: 'Populares',
 		completed: 'Completado',

@@ -351,10 +351,20 @@ export default function Login({ navigation }) {
 					</>
 				)}
 				<TextView>
-					<Text style={{ color: theme.text }}>
+					<Text
+						style={{
+							fontWeight: '500',
+							color: theme.text,
+							fontFamily: 'Nunito',
+						}}
+					>
 						{s.acc}
 						<Text
-							style={{ fontWeight: '500', color: theme.primary }}
+							style={{
+								fontWeight: '700',
+								color: theme.primary,
+								fontFamily: 'Nunito',
+							}}
 							onPress={() => navigation.navigate('SignUp')}
 						>
 							{' '}
@@ -384,10 +394,11 @@ const Logo = styled.Image`
 const LogoText = styled.Text`
 	color: ${(props) => props.theme.primary};
 	font-size: 30px;
-	font-weight: 500;
+	font-weight: 700;
 	margin-top: 10px;
 	margin-bottom: 20px;
 	opacity: 0.5;
+	font-family: 'Nunito';
 `;
 const InputContainer = styled.View`
 	margin-top: 10px;
@@ -404,6 +415,7 @@ const InputLogin = styled.TextInput`
 	background-color: rgba(0, 0, 0, 0.35);
 	color: rgba(255, 255, 255, 0.7);
 	margin: 0 25px;
+	font-family: 'Nunito';
 `;
 const IconImage = styled(Icon)`
 	position: absolute;
@@ -426,6 +438,7 @@ const ButtonLogin = styled.TouchableOpacity`
 	margin-bottom: 10px;
 	padding: 16px 70px;
 	border-radius: 5px;
+	font-family: 'Nunito';
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);
@@ -460,6 +473,7 @@ const ErrorIcon = styled.View`
 `;
 
 const ErrorBubble = styled.Text`
+	font-family: 'Nunito';
 	color: #d53051;
 	padding: 10px 20px;
 	border-color: #d53051;

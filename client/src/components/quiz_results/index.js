@@ -34,7 +34,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);
 	};
 
@@ -104,9 +104,6 @@ const QuizResults = ({ route: { params }, navigation }) => {
 				</AnswersNumberContainer>
 				<FavoriteContainer>
 					<FavoriteText>{s.like}</FavoriteText>
-					{/* <Btn>
-					<BtnText>❤ Darle like</BtnText>
-				</Btn> */}
 					<ViewSocialMedia>
 						<LikeButton
 							handleOnFavorite={handleOnFavorite}
@@ -205,7 +202,7 @@ const ProgressBarText = styled.Text`
 	left: 15px;
 	z-index: 2;
 	transform: translateY(-7px);
-	font-family: 'Nunito_800ExtraBold';
+	font-family: 'Nunito_600SemiBold';
 `;
 
 const AnswersNumberContainer = styled.View`
