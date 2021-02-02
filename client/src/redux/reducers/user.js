@@ -41,7 +41,7 @@ export const getUsers = createAsyncThunk(
 			payload,
 		});
 		return clientRequest.getUsers;
-	},
+	}
 );
 
 export const activateUser = createAsyncThunk(
@@ -53,7 +53,7 @@ export const activateUser = createAsyncThunk(
 			isActive,
 		});
 		return clientRequest.activateUser;
-	},
+	}
 );
 
 export const completeQuiz = createAsyncThunk(
@@ -64,7 +64,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const getCompletedQuizzes = createAsyncThunk(
@@ -73,7 +73,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	},
+	}
 );
 
 export const updateUser = createAsyncThunk(
@@ -89,7 +89,7 @@ export const updateUser = createAsyncThunk(
 			fb.storage().refFromURL(previousUserProfilePic).delete();
 		}
 		return clientRequest;
-	},
+	}
 );
 
 export const changePassword = createAsyncThunk(
@@ -101,7 +101,7 @@ export const changePassword = createAsyncThunk(
 			newPass,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const changeEmail = createAsyncThunk(
@@ -113,7 +113,7 @@ export const changeEmail = createAsyncThunk(
 			newMail,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const getUserQuizzes = createAsyncThunk(
@@ -124,7 +124,7 @@ export const getUserQuizzes = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const validateUser = createAsyncThunk(
@@ -135,7 +135,7 @@ export const validateUser = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 export const premiumUser = createAsyncThunk(
 	'user/premiumUser',
@@ -143,7 +143,7 @@ export const premiumUser = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(mutationPremiumUser);
 		return clientRequest;
-	},
+	}
 );
 
 /* --- Slice --- */
@@ -175,7 +175,7 @@ const userSlice = createSlice({
 				state.likedQuiz.push(payload.quizId);
 			} else {
 				state.likedQuiz = state.likedQuiz.filter(
-					(q) => q !== payload.quizId,
+					(q) => q !== payload.quizId
 				);
 			}
 		},
@@ -203,6 +203,7 @@ const userSlice = createSlice({
 			state.token = payload.jwt;
 			delete payload.jwt;
 			state.info = payload;
+		},
 		[validateUser.fulfilled]: (state) => {
 			state.info.validated = true;
 		},
