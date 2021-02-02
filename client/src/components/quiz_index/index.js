@@ -1,17 +1,18 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, Image, ScrollView } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import strings from './strings';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
-import ImageRankingFirst from '@assets/img/firstranking.jpg';
-import ImageRankingSecond from '@assets/img/secondranking.jpg';
-import ImageRankingThird from '@assets/img/thirdranking.jpg';
+// import ImageRankingFirst from '@assets/img/firstranking.jpg';
+// import ImageRankingSecond from '@assets/img/secondranking.jpg';
+// import ImageRankingThird from '@assets/img/thirdranking.jpg';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -24,6 +25,10 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 		quiz = randomQuiz;
 	}
 	const [place1, place2, place3] = quiz.highScores;
+	const Bronze = 'rgb(176,141,87)';
+	const Silver = 'rgb(190,194,203)';
+	const Gold = 'rgb(212,175,55)';
+
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView
@@ -112,13 +117,13 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 						<View style={{ width: '100%' }}>
 							<RankingCard>
 								<View style={{ width: '50%' }}>
-									<Image
-										source={ImageRankingFirst}
+									<Icon2
 										style={{
 											justifyContent: 'center',
-											height: 70,
-											width: 70,
 										}}
+										name='medal'
+										color={Gold}
+										size={70}
 									/>
 								</View>
 								<RankingInfo>
@@ -139,13 +144,13 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 							</RankingCard>
 							<RankingCard>
 								<View style={{ width: '50%' }}>
-									<Image
-										source={ImageRankingSecond}
+									<Icon2
 										style={{
 											justifyContent: 'center',
-											height: 70,
-											width: 70,
 										}}
+										name='medal'
+										color={Silver}
+										size={70}
 									/>
 								</View>
 								<RankingInfo>
@@ -167,13 +172,13 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 						</View>
 						<RankingCard>
 							<View style={{ width: '50%' }}>
-								<Image
-									source={ImageRankingThird}
+								<Icon2
 									style={{
 										justifyContent: 'center',
-										height: 70,
-										width: 70,
 									}}
+									name='medal'
+									color={Bronze}
+									size={70}
 								/>
 							</View>
 							<RankingInfo>

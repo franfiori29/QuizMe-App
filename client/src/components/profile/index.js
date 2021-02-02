@@ -146,29 +146,29 @@ export default function Profile({ navigation }) {
 							>
 								<UserName>
 									{user.firstName} {user.lastName}
+									{user.validated && (
+										<Icon
+											name='checkmark-circle'
+											size={20}
+											style={{
+												color: '#1271e2',
+												zIndex: 20,
+												marginLeft: 5,
+											}}
+										/>
+									)}
+									{user.premium && (
+										<Icon
+											color={'rgb(250,210,1)'}
+											name='ios-star'
+											size={20}
+											style={{
+												zIndex: 20,
+												marginLeft: 5,
+											}}
+										/>
+									)}
 								</UserName>
-								{user.validated && (
-									<Icon
-										name='checkmark-circle'
-										size={20}
-										style={{
-											color: '#1271e2',
-											zIndex: 20,
-											marginLeft: 5,
-										}}
-									/>
-								)}
-								{user.premium && (
-									<Icon
-										color={'rgb(250,210,1)'}
-										name='ios-star'
-										size={20}
-										style={{
-											zIndex: 20,
-											marginLeft: 5,
-										}}
-									/>
-								)}
 							</View>
 							<Text
 								style={{
@@ -341,7 +341,7 @@ const Pencil = styled(Icon)`
 	position: absolute;
 	top: 0;
 	right: 0;
-	padding: 8px;
+	padding: 5px;
 	z-index: 10;
 	background-color: ${(props) => props.theme.bg};
 	border: 2px solid ${(props) => props.theme.text};
