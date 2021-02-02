@@ -97,28 +97,44 @@ const Information = ({ navigation }) => {
 					but also the leap into electronic typesetting, remaining
 					essentially unchanged.
 				</Intro>
-				<Separator />
-				<Title>{s.about}</Title>
+
+				<Title style={{ marginBottom: 10 }}>{s.about}</Title>
 				<About>
 					{coders.map((prog) => (
 						<Coder key={prog.lastname}>
-							<Name>{prog.name} </Name>
-							<LastName>{prog.lastname}</LastName>
-							<Picture source={prog.image} />
-							<SocialContainer>
-								<Icon
-									color={theme.text}
-									name='ios-logo-linkedin'
-									size={40}
-									style={{ justifyContent: 'center' }}
-								/>
-								<Icon
-									color={theme.text}
-									name='ios-logo-github'
-									size={40}
-									style={{ justifyContent: 'center' }}
-								/>
-							</SocialContainer>
+							<View
+								style={{
+									width: 100,
+									height: 100,
+									borderRadius: 50,
+									overflow: 'hidden',
+									marginRight: 20,
+								}}
+							>
+								<Picture source={prog.image} />
+							</View>
+							<View>
+								<Name>
+									{prog.name} {prog.lastname}
+								</Name>
+								<SocialContainer>
+									<Icon
+										color={theme.text}
+										name='ios-logo-linkedin'
+										size={40}
+										style={{
+											justifyContent: 'center',
+											marginRight: 10,
+										}}
+									/>
+									<Icon
+										color={theme.text}
+										name='ios-logo-github'
+										size={40}
+										style={{ justifyContent: 'center' }}
+									/>
+								</SocialContainer>
+							</View>
 						</Coder>
 					))}
 				</About>
@@ -137,62 +153,47 @@ const Screen = styled.ScrollView`
 const Title = styled.Text`
 	font-size: 28px;
 	color: ${(props) => props.theme.text};
-	margin: 20px auto;
+	margin: 20px auto 5px;
 	font-family: 'Nunito_600SemiBold';
 `;
 const Intro = styled.Text`
 	width: 95%;
 	align-self: center;
 	text-align: center;
-	font-size: 18px;
+	font-size: 15px;
 	color: ${(props) => props.theme.text};
 	margin-bottom: 20px;
 	font-family: 'Nunito_400Regular';
+	line-height: 22;
 `;
 
 const About = styled.View`
 	width: 95%;
 	align-self: center;
-	justify-content: space-between;
-	flex-direction: row;
-	flex-wrap: wrap;
+	flex-direction: column;
 `;
 const Coder = styled.View`
-	width: 48%;
-	height: 242px;
-	align-self: center;
-	border: 3px solid ${(props) => props.theme.primary};
-	border-radius: 5px;
-	margin-bottom: 20px;
-	padding: 10px;
+	margin-bottom: 30px;
+	overflow: hidden;
+	flex-direction: row;
+	align-items: center;
 `;
 
 const Name = styled.Text`
-	font-size: 20px;
+	font-size: 18px;
 	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.text};
-	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 10px;
 `;
-const LastName = styled.Text`
-	font-size: 20px;
-	font-family: 'Nunito_600SemiBold';
-	color: ${(props) => props.theme.text};
-	margin: 0 auto;
-`;
+
 const Picture = styled.Image`
-	align-self: center;
-	border-radius: 5px;
-	width: 100px;
-	height: 100px;
-	margin-top: 10px;
+	width: 100%;
+	height: 100%;
 `;
 
 const SocialContainer = styled.View`
-	width: 100%;
-	align-self: center;
-	justify-content: space-around;
 	flex-direction: row;
-	padding: 10px 5px;
 `;
 
 export default Information;

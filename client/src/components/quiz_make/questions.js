@@ -195,6 +195,7 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							borderRadius: 10,
 							padding: 10,
 							borderColor: theme.primary,
+							fontFamily: 'Nunito_400Regular',
 						}}
 						onValueChange={(value) => {
 							setType(value);

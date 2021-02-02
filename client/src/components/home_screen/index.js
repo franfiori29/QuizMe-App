@@ -84,7 +84,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 				<IntroContainer>
 					<IntroImg source={logo} />
 					<IntroTitle>
-						¡{s.title} {user.firstName} {user.lastName} !
+						{s.title} {user.firstName} {user.lastName}!
 					</IntroTitle>
 					<IntroText>{s.introTitle}</IntroText>
 				</IntroContainer>
@@ -218,7 +218,7 @@ const SelectorButton = styled.TouchableOpacity`
 `;
 
 const SelectorText = styled.Text`
-	font-size: 20px;
+	font-size: 15px;
 	text-align: center;
 	text-transform: uppercase;
 	color: ${(props) => props.theme.primary};
@@ -230,7 +230,7 @@ const CategoryContainer = styled.View`
 	width: 100%;
 	align-items: center;
 	justify-content: space-around;
-	margin: 20px 0;
+	margin: 40px 0 0;
 `;
 
 const CategoryImg = styled.Image`
