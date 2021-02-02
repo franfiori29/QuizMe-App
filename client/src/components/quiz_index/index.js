@@ -256,7 +256,7 @@ const Description = styled.Text`
 const StartButton = styled.TouchableOpacity`
 	border: 2px solid ${(props) => props.theme.primary};
 	padding: 10px;
-	width: 100%;
+	width: 300px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;
@@ -265,7 +265,7 @@ const StartButton = styled.TouchableOpacity`
 const ShareButton = styled(SocialMedia)`
 	border: 2px solid ${(props) => props.theme.primary};
 	padding: 10px;
-	width: 95%;
+	width: 300px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;
