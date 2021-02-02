@@ -338,7 +338,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.help}
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
+				<MenuTouchOption onPress={() => navigation.navigate('RateUs')}>
 					<Text
 						style={{
 							color: theme.text,
