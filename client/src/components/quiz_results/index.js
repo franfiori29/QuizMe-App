@@ -19,6 +19,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	const s = strings[language];
 	const dispatch = useDispatch();
 	const likes = useSelector((state) => state.user.likedQuiz);
+	const { newHighscore } = useSelector((state) => state.quiz.quiz);
 
 	const isLiked = likes && likes.some((like) => like === params.quizId);
 
@@ -33,7 +34,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}
 
 	useEffect(() => {
-		dispatch(getQuizzes());
+		return () => dispatch(getQuizzes());
 	}, []);
 
 	const handleOnFavorite = (giveLike) => {
@@ -50,8 +51,8 @@ const QuizResults = ({ route: { params }, navigation }) => {
 			>
 				<NavBar
 					string=''
-					nav1={() => navigation.navigate('Home')}
-					nav2={() => navigation.navigate('Home')}
+					nav1={() => navigation.replace('Home')}
+					nav2={() => navigation.replace('Home')}
 					icon1='ios-arrow-back'
 				/>
 
@@ -69,19 +70,21 @@ const QuizResults = ({ route: { params }, navigation }) => {
 						>
 							{s.msj1} {params.points} {s.msj2}
 						</Text>
-						<HighScoreBadge>
-							<Text
-								style={{
-									fontSize: 14,
-									color: theme.white,
-									fontFamily: 'Nunito_800ExtraBold',
-								}}
-							>
-								{language === 'es'
-									? 'Nuevo Puntaje Alto!🎉'
-									: 'New High Score!🎉'}
-							</Text>
-						</HighScoreBadge>
+						{newHighscore && (
+							<HighScoreBadge>
+								<Text
+									style={{
+										fontSize: 14,
+										color: theme.white,
+										fontFamily: 'Nunito_800ExtraBold',
+									}}
+								>
+									{language === 'es'
+										? 'Nuevo Puntaje Alto!🎉'
+										: 'New High Score!🎉'}
+								</Text>
+							</HighScoreBadge>
+						)}
 					</AmountPoints>
 					<ProgressBar>
 						<ProgressBarText>
@@ -135,7 +138,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					<Btn
 						onPress={() =>
 							dispatch(getRandomQuiz()).then(() => {
-								navigation.navigate('QuizIndex', {
+								navigation.replace('QuizIndex', {
 									quiz: null,
 								});
 							})
@@ -143,7 +146,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 					>
 						<BtnText>{s.btn1}</BtnText>
 					</Btn>
-					<BtnSec onPress={() => navigation.navigate('Home')}>
+					<BtnSec onPress={() => navigation.replace('Home')}>
 						<BtnSecText>{s.btn2}</BtnSecText>
 					</BtnSec>
 				</ButtonsContainer>

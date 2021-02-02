@@ -27,6 +27,7 @@ import successSound from '@assets/audio/success.wav';
 import wrongSound from '@assets/audio/wrong.wav';
 import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
+import { clearHighscoreBadge } from '../../redux/reducers/quizzes';
 
 const TIME = 10;
 const SFX_VOL = 0.03;
@@ -76,16 +77,17 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
-				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
-				);
+				newPoints &&
+					dispatch(
+						updateHighscore({ quizId: params.id, score: newPoints })
+					);
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
@@ -99,7 +101,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS,
+						prevPoints + (timer.time / totalTime) * MAX_POINTS
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -118,7 +120,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -183,7 +185,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 
 	useEffect(() => {
 		stopTheme();
-
+		dispatch(clearHighscoreBadge());
 		let s1;
 		let s2;
 		let s3;
