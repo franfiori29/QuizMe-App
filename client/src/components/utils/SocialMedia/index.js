@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Share, Text, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Share } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
+import strings from './strings';
 
 export default function SocialMedia({ shareOptions, styles = {} }) {
-	const { theme } = useSelector((state) => state.global);
+	const { language, theme } = useSelector((state) => state.global);
+	const s = strings[language];
 	const shareSocialMedia = async () => {
 		try {
 			await Share.share(shareOptions);
@@ -22,7 +23,7 @@ export default function SocialMedia({ shareOptions, styles = {} }) {
 						color: theme.primary,
 					}}
 				>
-					Compartir
+					{s.button}
 				</ButtonText>
 			</ShareButton>
 		</ThemeProvider>
