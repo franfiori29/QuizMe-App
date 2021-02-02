@@ -11,6 +11,7 @@ import { updateUser } from '@redux/reducers/user';
 
 //Components
 import NavBar from '@components/utils/NavBar';
+import Achivements from './Achivements';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -148,10 +149,10 @@ export default function Profile({ navigation }) {
 								</UserName>
 								{user.validated && (
 									<Icon
-										name='checkmark-circle-outline'
+										name='checkmark-circle'
 										size={20}
 										style={{
-											color: theme.primary,
+											color: '#1271e2',
 											zIndex: 20,
 											marginLeft: 5,
 										}}
@@ -303,6 +304,8 @@ export default function Profile({ navigation }) {
 							</StatInfo>
 						</StatCard>
 					</View>
+					<StatsTitle>{s.achv}</StatsTitle>
+					<Achivements />
 				</StatsScreen>
 			</ScrollView>
 		</ThemeProvider>
@@ -380,7 +383,7 @@ const StatsTitle = styled.Text`
 	font-family: 'Nunito_600SemiBold';
 	text-align: center;
 `;
-const StatCard = styled.TouchableOpacity`
+const StatCard = styled.View`
 	width: 100%;
 	height: 100px;
 	border: 1px solid ${(props) => props.theme.primary};
@@ -404,6 +407,7 @@ const StatText = styled.Text`
 	text-align: center;
 	font-family: 'Nunito_600SemiBold';
 `;
+
 const AccTypeButton = styled.TouchableOpacity`
 	width: 100%;
 	height: 35px;
