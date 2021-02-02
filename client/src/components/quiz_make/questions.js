@@ -104,7 +104,6 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 		});
 		navigation.navigate('QuizMakeDetails', { quiz });
 	};
-	console.log('checked', checked);
 	useFocusEffect(
 		useCallback(() => {
 			if (params.edit !== undefined) {
