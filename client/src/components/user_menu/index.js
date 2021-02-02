@@ -86,7 +86,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 
 	const handleMyQuizzes = () => {
 		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes')
+			navigation.navigate('MyQuizzes'),
 		);
 	};
 
@@ -167,7 +167,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 								fontFamily: 'Nunito_800ExtraBold',
 							}}
 						>
-							{s.free}
+							{user.premium ? s.premium : s.free}
 						</Text>
 					</Text>
 					<AccTypeButton
