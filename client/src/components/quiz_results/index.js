@@ -13,6 +13,7 @@ import LikeButton from '@components/utils/LikeButton';
 import strings from './strings';
 import { updateLike, getRandomQuiz, getQuizzes } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
+import { getSuggestedQuizzes } from '../../redux/reducers/quizzes';
 
 const QuizResults = ({ route: { params }, navigation }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -34,12 +35,12 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}
 
 	useEffect(() => {
-		return () => dispatch(getQuizzes());
+		return () => dispatch(getSuggestedQuizzes());
 	}, []);
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);
 	};
 
