@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import strings from '@components/admin_panel/strings';
 import {
@@ -12,6 +13,7 @@ const CategoryCards = () => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
 	const s = strings[language];
+	const navigation = useNavigation();
 	return (
 		<CategoryCardsContainer>
 			{categories &&
@@ -30,12 +32,22 @@ const CategoryCards = () => {
 									bgColor={theme.wrong}
 									onPress={async () => {
 										await dispatch(
-											destroyCategory(category._id),
+											destroyCategory(category._id)
 										);
 										dispatch(getCategories(language));
 									}}
 								>
-									<ButtonText>Eliminar Categoria</ButtonText>
+									<ButtonText>{s.deleteCategory}</ButtonText>
+								</Button>
+								<Button
+									bgColor='#dedc31'
+									onPress={() => {
+										navigation.navigate('EditCategory', {
+											category,
+										});
+									}}
+								>
+									<ButtonText>{s.editCategory}</ButtonText>
 								</Button>
 							</Buttons>
 						</CategoryInfo>
@@ -82,17 +94,14 @@ const CategoryInfoTitle = styled.Text`
 
 const Buttons = styled.TouchableOpacity`
 	flex: 1;
-	flex-wrap: wrap;
 	flex-direction: row;
 `;
 
 const Button = styled.TouchableOpacity`
-	width: 95%;
 	align-self: center;
 	background-color: ${({ bgColor }) => bgColor};
-	align-items: center;
-	justify-content: center;
 	padding: 10px;
+	margin: 0 2px;
 	border-radius: 5px;
 `;
 const ButtonText = styled.Text`

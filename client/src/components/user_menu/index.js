@@ -190,7 +190,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						</Text>
 					</AccTypeButton>
 				</AccType>
-				{user.role !== 'ADMIN' && (
+				{user.role === 'ADMIN' && (
 					<MenuTouchOption onPress={handleAdminPanel}>
 						<Text
 							style={{

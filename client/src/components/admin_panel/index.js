@@ -7,7 +7,7 @@ import { getUsers } from '../../redux/reducers/user';
 import { getQuizzes } from '../../redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 
-const AdminPanel = ({ navigation }) => {
+const AdminPanel = () => {
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	useEffect(() => {
