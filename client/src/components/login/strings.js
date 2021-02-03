@@ -12,6 +12,7 @@ const strings = {
 		invalidMail: 'Invalid email',
 		invalidPassword: 'Invalid password',
 		registerError: 'Registration error. Try again later.',
+		loading: 'Loading...',
 	},
 
 	es: {
@@ -27,6 +28,7 @@ const strings = {
 		invalidMail: 'Correo inválido',
 		invalidPassword: 'Contraseña inválida',
 		registerError: 'Error al registrarse. Intentalo más tarde.',
+		loading: 'Cargando...',
 	},
 };
 

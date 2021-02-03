@@ -14,8 +14,10 @@ import { setToken, setUserInfo } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function Login({ navigation }) {
+	const [loadingSocial, setLoadingSocial] = useState(false);
 	async function signInWithGoogleAsync() {
 		try {
 			const result = await Google.logInAsync({
@@ -49,10 +51,10 @@ export default function Login({ navigation }) {
 						});
 					});
 			} else {
-				console.log('cancelled');
+				setLoadingSocial(false);
 			}
 		} catch (e) {
-			console.log('canceled', e);
+			setLoadingSocial(false);
 			return { error: true };
 		}
 	}
@@ -97,15 +99,14 @@ export default function Login({ navigation }) {
 						setLoading(false);
 						setError('register', {
 							type: 'manual',
-							message:
-								'ERROR AL REGISTRARSE. INTENTELO MAS TARDE',
+							message: s.registerError,
 						});
 					});
 			} else {
-				// type === 'cancel'
-				console.log('cancelled');
+				setLoadingSocial(false);
 			}
 		} catch ({ message }) {
+			setLoadingSocial(false);
 			alert(`Facebook Login Error: ${message}`);
 		}
 	}
@@ -179,6 +180,14 @@ export default function Login({ navigation }) {
 	};
 	return (
 		<ThemeProvider theme={theme}>
+			<Spinner
+				visible={loadingSocial}
+				textContent={s.loading}
+				color={theme.white}
+				textStyle={{
+					color: theme.white,
+				}}
+			/>
 			<Container source={backgroundImage}>
 				<LogoView>
 					<Logo source={logo} />
@@ -333,13 +342,19 @@ export default function Login({ navigation }) {
 							title={s.google}
 							button
 							type='google'
-							onPress={() => signInWithGoogleAsync()}
+							onPress={() => {
+								setLoadingSocial(true);
+								signInWithGoogleAsync();
+							}}
 						/>
 						<SocialIconFacebook
 							title={s.facebook}
 							button
 							type='facebook'
-							onPress={() => logInFacebook()}
+							onPress={() => {
+								setLoadingSocial(true);
+								logInFacebook();
+							}}
 						/>
 					</>
 				)}
