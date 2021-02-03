@@ -36,7 +36,7 @@ const ShareButton = styled.TouchableOpacity`
 	justify-content: center;
 	padding: 10px;
 	border-radius: 5px;
-	width: 50%;
+	width: 100%;
 	background-color: ${(props) => props.theme.bg};
 	border: 2px solid ${(props) => props.theme.primary};
 `;
