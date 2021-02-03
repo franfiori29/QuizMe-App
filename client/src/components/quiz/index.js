@@ -6,6 +6,7 @@ import {
 	TouchableWithoutFeedback,
 	Vibration,
 	Platform,
+	TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Speech from 'expo-speech';
@@ -59,11 +60,12 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const [points, setPoints] = useState(0);
 	const iconRef = useRef();
 	const barRef = useRef();
-	const button0 = useRef();
-	const button1 = useRef();
-	const button2 = useRef();
-	const button3 = useRef();
-	const buttonRefArray = [button0, button1, button2, button3];
+	const buttonRefArray = [
+		{ b: useRef(), t: useRef() },
+		{ b: useRef(), t: useRef() },
+		{ b: useRef(), t: useRef() },
+		{ b: useRef(), t: useRef() },
+	];
 	const dispatch = useDispatch();
 
 	const [selected, setSelected] = useState({ id: -1, correct: false });
@@ -114,6 +116,22 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	useEffect(() => {
 		let i;
 		if (current < questions.length && timer.on) {
+			buttonRefArray.forEach(
+				(e, i) =>
+					i < shuffledOptions.length &&
+					e.b.current.animate(
+						{
+							from: {
+								translateX: -WIDTH,
+							},
+							to: {
+								translateX: 0,
+							},
+							easing: 'ease-out',
+						},
+						600 + i * 100
+					)
+			);
 			barRef.current.animate(
 				{
 					0: { width: WIDTH, backgroundColor: theme.primary },
@@ -140,7 +158,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			buttonRefArray.forEach(
 				(e, i) =>
 					i < shuffledOptions.length &&
-					e.current.animate(shaking, 3000)
+					e.t.current.animate(shaking, 3000)
 			);
 			sounds.timer?.playFromPositionAsync(3500);
 		}
@@ -157,6 +175,22 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			startTimeout(result);
 			Vibration.cancel();
 			iconRef.current.animate(bounceInDisappear, 1000);
+			buttonRefArray.forEach(
+				(e, i) =>
+					i < shuffledOptions.length &&
+					e.b.current.animate(
+						{
+							from: {
+								translateX: 0,
+							},
+							to: {
+								translateX: WIDTH,
+							},
+							easing: 'ease-in',
+						},
+						600 + i * 100
+					)
+			);
 		}
 		setTts(false);
 		Speech.stop();
@@ -172,7 +206,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			: sounds.wrong?.playFromPositionAsync(0);
 		barRef.current.stopAnimation();
 		buttonRefArray.forEach(
-			(e, i) => i < shuffledOptions.length && e.current.stopAnimation()
+			(e, i) => i < shuffledOptions.length && e.t.current.stopAnimation()
 		);
 		setTts(false);
 		Speech.stop();
@@ -244,7 +278,6 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			navigation.navigate('Ricky');
 		}
 	};
-	const handleTts = () => setTts(false);
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -354,10 +387,12 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							theme={theme}
 							key={i}
 							onPress={() => handleOptionPress(option.result, i)}
+							ref={buttonRefArray[i].b}
+							useNativeDriver={true}
 						>
 							<Animatable.Text
 								direction={i % 2 === 0 ? 'normal' : 'reverse'}
-								ref={buttonRefArray[i]}
+								ref={buttonRefArray[i].t}
 								style={{
 									width: '85%',
 									alignSelf: 'center',
@@ -365,6 +400,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 									textAlign: 'center',
 									fontFamily: 'Nunito_800ExtraBold',
 								}}
+								useNativeDriver={true}
 							>
 								{option.title}
 							</Animatable.Text>
@@ -450,7 +486,10 @@ const QuestionTitle = styled.Text`
 	text-align: center;
 `;
 
-const Option = styled.TouchableOpacity`
+const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(
+	TouchableOpacity
+);
+const Option = styled(AnimatableTouchableOpacity)`
 	width: 95%;
 	align-self: center;
 	margin: 6px 0px;
