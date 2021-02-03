@@ -141,9 +141,9 @@ const MyQuizzes = ({ navigation }) => {
 									</Text>
 								</View>
 								<BtnContainer>
-									<Btn>
+									{/* <Btn>
 										<BtnText>{s.btn1}</BtnText>
-									</Btn>
+									</Btn> */}
 									<Btn onPress={() => handleRemove(quiz._id)}>
 										<BtnText>{s.btn2}</BtnText>
 									</Btn>
@@ -233,7 +233,8 @@ const BtnContainer = styled.View`
 `;
 const Btn = styled.TouchableOpacity`
 	height: 35px;
-	width: 49%;
+	/* width: 49%; */
+	width: 100%;
 	margin: 0 auto;
 	background-color: ${(props) => props.theme.primary};
 	border-radius: 5px;
