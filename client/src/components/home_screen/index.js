@@ -16,6 +16,7 @@ import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -34,6 +35,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const dispatch = useDispatch();
 	const s = strings[language];
 	const [categoryLoading, setCategoryLoading] = useState(false);
+	const [quizzesLoading, setQuizzesLoading] = useState(false);
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
@@ -47,12 +49,16 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	};
 
 	useEffect(() => {
-		dispatch(getQuizzes());
+		setQuizzesLoading(true);
+		dispatch(getQuizzes()).then(() => {
+			setQuizzesLoading(false);
+		});
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
 		sound && playTheme();
 	}, []);
 
+	console.log(quizzesLoading);
 	useEffect(() => {
 		dispatch(sortCategories(language));
 	}, [language]);
@@ -101,16 +107,30 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						</SelectorButton>
 						<SelectorButton
 							onPress={() => {
-								dispatch(getQuizzesByPopularity());
+								setQuizzesLoading(true);
+								dispatch(getQuizzesByPopularity()).then(() => {
+									setQuizzesLoading(false);
+								});
 							}}
 						>
 							<SelectorText>{s.popular}</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards
-						quizzes={quizzes}
-						completedQuiz={completedQuiz}
-					/>
+					{quizzesLoading ? (
+						<Spinner
+							visible={quizzesLoading}
+							textContent={s.loading}
+							color={theme.white}
+							textStyle={{
+								color: theme.white,
+							}}
+						/>
+					) : (
+						<QuizCards
+							quizzes={quizzes}
+							completedQuiz={completedQuiz}
+						/>
+					)}
 				</View>
 				<CategoryContainer>
 					<Icon

@@ -8,6 +8,9 @@ const strings = {
 		login: 'Log In',
 		name: 'Name',
 		lastName: 'Last Name',
+		req: 'Required',
+		invalidMail: 'Invalid email',
+		invalidPassword: 'Invalid password',
 	},
 
 	es: {
@@ -19,6 +22,9 @@ const strings = {
 		login: 'Iniciar sesión',
 		name: 'Nombre',
 		lastName: 'Apellido',
+		req: 'Requerido',
+		invalidMail: 'Correo inválido',
+		invalidPassword: 'Contraseña inválida',
 	},
 };
 

@@ -36,10 +36,11 @@ const ShareButton = styled.TouchableOpacity`
 	justify-content: center;
 	padding: 10px;
 	border-radius: 5px;
-	width: 300px;
+	width: 100%;
 	background-color: ${(props) => props.theme.bg};
 	border: 2px solid ${(props) => props.theme.primary};
 `;
+
 const ButtonText = styled.Text`
 	text-transform: uppercase;
 	font-family: 'Nunito_800ExtraBold';

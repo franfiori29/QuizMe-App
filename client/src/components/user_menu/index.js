@@ -6,6 +6,7 @@ import {
 	Vibration,
 	Switch,
 	View,
+	ActivityIndicator,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,6 +32,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound } = useSelector((state) => state.global);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
+	const [myQuizzesLoading, setmyQuizzesLoading] = useState(false);
 	const dispatch = useDispatch();
 	const s = strings[language];
 
@@ -85,9 +87,11 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	};
 
 	const handleMyQuizzes = () => {
-		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes'),
-		);
+		setmyQuizzesLoading(true);
+		dispatch(getUserQuizzes(user._id)).then(() => {
+			setmyQuizzesLoading(false);
+			navigation.navigate('MyQuizzes');
+		});
 	};
 
 	const handleAdminPanel = () => {
@@ -208,7 +212,10 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.subs}
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption onPress={handleMyQuizzes}>
+				<MenuTouchOption
+					style={{ justifyContent: 'space-between' }}
+					onPress={handleMyQuizzes}
+				>
 					<Text
 						style={{
 							color: theme.text,
@@ -217,6 +224,9 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						{s.myQuiz}
 					</Text>
+					{myQuizzesLoading && (
+						<ActivityIndicator size='small' color={theme.primary} />
+					)}
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMail}>
 					<Text

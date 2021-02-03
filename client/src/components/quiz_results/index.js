@@ -111,9 +111,6 @@ const QuizResults = ({ route: { params }, navigation }) => {
 				</AnswersNumberContainer>
 				<FavoriteContainer>
 					<FavoriteText>{s.like}</FavoriteText>
-					{/* <Btn>
-					<BtnText>❤ Darle like</BtnText>
-				</Btn> */}
 					<ViewSocialMedia
 						style={{
 							flexDirection: 'row',
