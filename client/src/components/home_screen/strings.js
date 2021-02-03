@@ -3,7 +3,7 @@ const strings = {
 		title: 'Welcome,',
 		introTitle:
 			'Some suggestions are shown below. Go and start having fun!',
-		selector1: 'Followed',
+		selector1: 'Suggested',
 		popular: 'Popular',
 		completed: 'Completed',
 		search: 'Search by categories!',
@@ -17,7 +17,7 @@ const strings = {
 		title: '¡Bienvenido,',
 		introTitle:
 			'¡Aquí debajo te mostramos algunas sugerencias para que puedas comenzar a divertirte hoy!',
-		selector1: 'Seguidos',
+		selector1: 'Sugeridos',
 		popular: 'Populares',
 		completed: 'Completado',
 		search: '¡Busca por categorías!',

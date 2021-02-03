@@ -37,6 +37,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const s = strings[language];
 	const [categoryLoading, setCategoryLoading] = useState(false);
 	const [quizzesLoading, setQuizzesLoading] = useState(false);
+	const [selector, setSelector] = useState('suggested');
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
@@ -103,18 +104,45 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 				/>
 				<View>
 					<SelectorContainer>
-						<SelectorButton>
-							<SelectorText>{s.selector1}</SelectorText>
+						<SelectorButton
+							onPress={() => {
+								setQuizzesLoading(true);
+								setSelector('suggested');
+								dispatch(getSuggestedQuizzes()).then(() => {
+									setQuizzesLoading(false);
+								});
+							}}
+						>
+							<SelectorText
+								style={{
+									paddingBottom: 5,
+									borderBottomWidth:
+										selector === 'suggested' ? 3 : 0,
+									borderBottomColor: theme.primary,
+								}}
+							>
+								{s.selector1}
+							</SelectorText>
 						</SelectorButton>
 						<SelectorButton
 							onPress={() => {
 								setQuizzesLoading(true);
+								setSelector('popular');
 								dispatch(getQuizzesByPopularity()).then(() => {
 									setQuizzesLoading(false);
 								});
 							}}
 						>
-							<SelectorText>{s.popular}</SelectorText>
+							<SelectorText
+								style={{
+									paddingBottom: 5,
+									borderBottomWidth:
+										selector === 'popular' ? 3 : 0,
+									borderBottomColor: theme.primary,
+								}}
+							>
+								{s.popular}
+							</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
 					{quizzesLoading ? (
@@ -128,12 +156,11 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						/>
 					) : (
 						<QuizCards
-						//quizzes={quizzes}
-						quizzes={suggestedQuizzes}
-						completedQuiz={completedQuiz}
-					/>
+							quizzes={quizzes}
+							// quizzes={suggestedQuizzes}
+							completedQuiz={completedQuiz}
+						/>
 					)}
-
 				</View>
 				<CategoryContainer>
 					<Icon
