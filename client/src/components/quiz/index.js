@@ -12,7 +12,7 @@ import * as Speech from 'expo-speech';
 import * as Animatable from 'react-native-animatable';
 import { Audio } from 'expo-av';
 import { completeQuiz } from '@redux/reducers/user.js';
-import { updateHighscore } from '@redux/reducers/quizzes';
+import { updateHighscore, getSuggestedQuizzes } from '@redux/reducers/quizzes';
 
 //==>Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -76,16 +76,17 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
 				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
+					updateHighscore({ quizId: params.id, score: newPoints })
 				);
+				dispatch(getSuggestedQuizzes());
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
@@ -99,7 +100,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS,
+						prevPoints + (timer.time / totalTime) * MAX_POINTS
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -118,7 +119,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));

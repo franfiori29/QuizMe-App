@@ -94,6 +94,17 @@ export const queryGtQuizzesByPopularity = gql`
 	${EntireQuizInfo}
 `;
 
+/*Get quizzes suggested*/
+
+export const queryGtQuizzesSuggested = gql`
+	{
+		getSuggestedQuizzes {
+			...EntireQuizInfo
+		}
+	}
+	${EntireQuizInfo}
+`;
+
 /* --- Mutations --- */
 export const mutationUpdateHighscore = gql`
 	mutation updateHighscore($quizId: ID!, $score: Int!) {

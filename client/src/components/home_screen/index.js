@@ -7,6 +7,7 @@ import {
 	clearfilteredQuizzes,
 	getRandomQuiz,
 	getQuizzesByPopularity,
+	getSuggestedQuizzes,
 } from '@redux/reducers/quizzes';
 import { getCategories, sortCategories } from '../../redux/reducers/categories';
 import { getCompletedQuizzes } from '../../redux/reducers/user';
@@ -29,7 +30,7 @@ import strings from './strings';
 const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language, sound } = useSelector((state) => state.global);
-	const { quizzes } = useSelector((state) => state.quiz);
+	const { quizzes, suggestedQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -50,6 +51,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		dispatch(getQuizzes());
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
+		dispatch(getSuggestedQuizzes());
 		sound && playTheme();
 	}, []);
 
@@ -108,7 +110,8 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						</SelectorButton>
 					</SelectorContainer>
 					<QuizCards
-						quizzes={quizzes}
+						//quizzes={quizzes}
+						quizzes={suggestedQuizzes}
 						completedQuiz={completedQuiz}
 					/>
 				</View>

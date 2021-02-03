@@ -20,7 +20,7 @@ module.exports = gql`
 		firstName: String
 		lastName: String
 	}
-	
+
 	type Highscore {
 		_id: ID
 		user: UserScore
@@ -93,6 +93,7 @@ module.exports = gql`
 			page: Int
 		): QueryInfo
 		searchByPopularity: [Quiz!]!
+		getSuggestedQuizzes: [Quiz!]!
 	}
 
 	extend type Mutation {
