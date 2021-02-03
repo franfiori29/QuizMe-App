@@ -66,6 +66,7 @@ server.post('/register', async function (req, res, next) {
 				const newUser = {
 					_id: user.id,
 					firstName: user.firstName,
+					lastName: user.lastName,
 					email: user.email,
 					profilePic: user.profilePic,
 					countryCode: user.countryCode,

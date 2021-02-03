@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Linking } from 'react-native';
 import { useSelector } from 'react-redux';
 
 //==> Components
@@ -30,35 +30,35 @@ const Information = ({ navigation }) => {
 			lastname: 'contreras',
 			image: { uri: 'https://picsum.photos/100/100' },
 			linked: 'https://www.linkedin.com/in/ignacio-contreras/',
-			git: 'https://github.com/Pakvothe',
+			git: 'https://github.com/nc-devw',
 		},
 		{
 			name: 'Martin',
 			lastname: 'Spagnoulo',
 			image: { uri: 'https://picsum.photos/100/100' },
-			linked: 'https://www.linkedin.com/in/franco-david-ortiz/',
-			git: 'https://github.com/Pakvothe',
+			linked: 'https://www.linkedin.com/in/martin-sanchez-6973121b7/',
+			git: 'https://github.com/tinsanchez00',
 		},
 		{
 			name: 'Franco',
 			lastname: 'Fiori',
 			image: { uri: 'https://picsum.photos/100/100' },
 			linked: 'https://www.linkedin.com/in/franco-fiori-fullstack/',
-			git: 'https://github.com/Pakvothe',
+			git: 'https://github.com/franfiori29',
 		},
 		{
 			name: 'Emiliano',
 			lastname: 'Alfonso',
 			image: { uri: 'https://picsum.photos/100/100' },
 			linked: 'https://www.linkedin.com/in/emiliano-alfonso/',
-			git: 'https://github.com/Pakvothe',
+			git: 'https://github.com/Aglowkeys',
 		},
 		{
 			name: 'Ailin',
 			lastname: 'Nakaganeku',
 			image: { uri: 'https://picsum.photos/100/100' },
-			linked: 'https://www.linkedin.com/in/franco-david-ortiz/',
-			git: 'https://github.com/Pakvothe',
+			linked: 'https://www.linkedin.com/in/ailinak/',
+			git: 'https://github.com/ailinnakaganeku',
 		},
 		{
 			name: 'Santiago',
@@ -100,42 +100,51 @@ const Information = ({ navigation }) => {
 
 				<Title style={{ marginBottom: 10 }}>{s.about}</Title>
 				<About>
-					{coders.map((prog) => (
-						<Coder key={prog.lastname}>
-							<View
-								style={{
-									width: 100,
-									height: 100,
-									borderRadius: 50,
-									overflow: 'hidden',
-									marginRight: 20,
-								}}
-							>
-								<Picture source={prog.image} />
-							</View>
-							<View>
-								<Name>
-									{prog.name} {prog.lastname}
-								</Name>
-								<SocialContainer>
-									<Icon
-										color={theme.text}
-										name='ios-logo-linkedin'
-										size={40}
-										style={{
-											justifyContent: 'center',
-											marginRight: 10,
-										}}
-									/>
-									<Icon
-										color={theme.text}
-										name='ios-logo-github'
-										size={40}
-										style={{ justifyContent: 'center' }}
-									/>
-								</SocialContainer>
-							</View>
-						</Coder>
+					{coders.map((prog, i) => (
+						<View key={i}>
+							<Separator />
+							<Coder key={prog.lastname}>
+								<View
+									style={{
+										width: 100,
+										height: 100,
+										borderRadius: 50,
+										overflow: 'hidden',
+										marginRight: 20,
+									}}
+								>
+									<Picture source={prog.image} />
+								</View>
+								<View style={{ flex: 1 }}>
+									<Name>
+										{prog.name} {prog.lastname}
+									</Name>
+									<SocialContainer>
+										<Icon
+											color={theme.text}
+											name='ios-logo-linkedin'
+											size={40}
+											style={{
+												justifyContent: 'center',
+												marginRight: 10,
+											}}
+											onPress={() =>
+												Linking.openURL(prog.linked)
+											}
+										/>
+										<Icon
+											color={theme.text}
+											name='ios-logo-github'
+											size={40}
+											style={{ justifyContent: 'center' }}
+											onPress={() =>
+												Linking.openURL(prog.git)
+											}
+										/>
+									</SocialContainer>
+								</View>
+							</Coder>
+						</View>
 					))}
 				</About>
 			</Screen>
@@ -173,10 +182,12 @@ const About = styled.View`
 	flex-direction: column;
 `;
 const Coder = styled.View`
-	margin-bottom: 30px;
+	width: 95%;
+	margin: 10px auto;
 	overflow: hidden;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 `;
 
 const Name = styled.Text`
@@ -193,6 +204,7 @@ const Picture = styled.Image`
 `;
 
 const SocialContainer = styled.View`
+	align-self: center;
 	flex-direction: row;
 `;
 

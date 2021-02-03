@@ -10,6 +10,7 @@ const strings = {
 		find: "Didn't find one you like?",
 		randomButton: 'Give me a random quiz',
 		createQuiz: 'Make your own quiz',
+		loading: 'Loading...',
 	},
 
 	es: {
@@ -23,6 +24,7 @@ const strings = {
 		find: '¿No encontraste uno que te guste?',
 		randomButton: 'Dame un quiz random',
 		createQuiz: 'Crea tu propio quiz',
+		loading: 'Cargando...',
 	},
 };
 

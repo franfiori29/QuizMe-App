@@ -27,6 +27,7 @@ import successSound from '@assets/audio/success.wav';
 import wrongSound from '@assets/audio/wrong.wav';
 import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
+import { clearHighscoreBadge } from '../../redux/reducers/quizzes';
 
 const TIME = 10;
 const SFX_VOL = 0.03;
@@ -83,10 +84,11 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
-				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints })
-				);
-				dispatch(getSuggestedQuizzes());
+				newPoints &&
+					dispatch(
+						updateHighscore({ quizId: params.id, score: newPoints })
+					);
+        dispatch(getSuggestedQuizzes());
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
@@ -184,7 +186,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 
 	useEffect(() => {
 		stopTheme();
-
+		dispatch(clearHighscoreBadge());
 		let s1;
 		let s2;
 		let s3;

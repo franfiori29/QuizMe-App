@@ -1,17 +1,18 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, Image, ScrollView } from 'react-native';
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import strings from './strings';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
-import ImageRankingFirst from '@assets/img/firstranking.jpg';
-import ImageRankingSecond from '@assets/img/secondranking.jpg';
-import ImageRankingThird from '@assets/img/thirdranking.jpg';
+// import ImageRankingFirst from '@assets/img/firstranking.jpg';
+// import ImageRankingSecond from '@assets/img/secondranking.jpg';
+// import ImageRankingThird from '@assets/img/thirdranking.jpg';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -23,6 +24,10 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 	} else {
 		quiz = randomQuiz;
 	}
+	const [place1, place2, place3] = quiz.highScores;
+	const Bronze = 'rgb(176,141,87)';
+	const Silver = 'rgb(190,194,203)';
+	const Gold = 'rgb(212,175,55)';
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -98,6 +103,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 								</Text>
 							</StartButton>
 							<ShareButton
+								style={{ width: 300 }}
 								shareOptions={{
 									title: s.title,
 									message: `${
@@ -112,13 +118,13 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 						<View style={{ width: '100%' }}>
 							<RankingCard>
 								<View style={{ width: '50%' }}>
-									<Image
-										source={ImageRankingFirst}
+									<Icon2
 										style={{
 											justifyContent: 'center',
-											height: 70,
-											width: 70,
 										}}
+										name='medal'
+										color={Gold}
+										size={70}
 									/>
 								</View>
 								<RankingInfo>
@@ -128,22 +134,24 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 											fontWeight: 'bold',
 										}}
 									>
-										nombre
+										{place1
+											? `${place1.user.firstName} ${place1.user.lastName}`
+											: s.nobody}
 									</RankingText>
 									<RankingText style={{ fontSize: 20 }}>
-										999
+										{place1 ? place1.score : '0'}
 									</RankingText>
 								</RankingInfo>
 							</RankingCard>
 							<RankingCard>
 								<View style={{ width: '50%' }}>
-									<Image
-										source={ImageRankingSecond}
+									<Icon2
 										style={{
 											justifyContent: 'center',
-											height: 70,
-											width: 70,
 										}}
+										name='medal'
+										color={Silver}
+										size={70}
 									/>
 								</View>
 								<RankingInfo>
@@ -153,23 +161,25 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 											fontWeight: 'bold',
 										}}
 									>
-										nombre
+										{place2
+											? `${place2.user.firstName} ${place2.user.lastName}`
+											: s.nobody}
 									</RankingText>
 									<RankingText style={{ fontSize: 20 }}>
-										99
+										{place2 ? place2.score : '0'}
 									</RankingText>
 								</RankingInfo>
 							</RankingCard>
 						</View>
 						<RankingCard>
 							<View style={{ width: '50%' }}>
-								<Image
-									source={ImageRankingThird}
+								<Icon2
 									style={{
 										justifyContent: 'center',
-										height: 70,
-										width: 70,
 									}}
+									name='medal'
+									color={Bronze}
+									size={70}
 								/>
 							</View>
 							<RankingInfo>
@@ -179,10 +189,12 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 										fontWeight: 'bold',
 									}}
 								>
-									nombre
+									{place3
+										? `${place3.user.firstName} ${place3.user.lastName}`
+										: s.nobody}
 								</RankingText>
 								<RankingText style={{ fontSize: 20 }}>
-									9
+									{place3 ? place3.score : '0'}
 								</RankingText>
 							</RankingInfo>
 						</RankingCard>
@@ -256,7 +268,7 @@ const Description = styled.Text`
 const StartButton = styled.TouchableOpacity`
 	border: 2px solid ${(props) => props.theme.primary};
 	padding: 10px;
-	width: 100%;
+	width: 300px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;
@@ -265,7 +277,7 @@ const StartButton = styled.TouchableOpacity`
 const ShareButton = styled(SocialMedia)`
 	border: 2px solid ${(props) => props.theme.primary};
 	padding: 10px;
-	width: 95%;
+	width: 300px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;

@@ -32,6 +32,8 @@ import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
 import AdminCategories from '@components/admin_panel/screens/categories';
 import RateUs from '@components/rate_us';
+import AddCategory from '@components/admin_panel/screens/addCategory';
+import EditCategory from '@components/admin_panel/screens/editCategory';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
@@ -72,7 +74,7 @@ const HomeRoutes = () => {
 		<NavigationContainer>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'Home'}
+				initialRouteName={'LogoAnimated'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
@@ -122,6 +124,8 @@ const HomeRoutes = () => {
 				<Screen name='AdminUsers' component={AdminUsers} />
 				<Screen name='AdminQuizzes' component={AdminQuizzes} />
 				<Screen name='AdminCategories' component={AdminCategories} />
+				<Screen name='AddCategory' component={AddCategory} />
+				<Screen name='EditCategory' component={EditCategory} />
 				<Screen name='RateUs' component={RateUs} />
 			</Navigator>
 		</NavigationContainer>

@@ -129,11 +129,11 @@ const QuizMakeQuestions = ({ navigation, route: { params } }) => {
 							params.quiz.questions[
 								params.edit
 							].options.findIndex((option) => option.result) + 1
-						).toString()
+						).toString(),
 					);
 				}
 			}
-		}, [params.edit])
+		}, [params.edit]),
 	);
 
 	return (
@@ -474,15 +474,6 @@ const ErrorIcon = styled.View`
 	right: 35px;
 	flex-direction: row;
 	align-items: center;
-`;
-
-const ErrorBubble = styled.Text`
-	color: #d53051;
-	padding: 10px 20px;
-	border-color: #d53051;
-	border-width: 1px;
-	border-radius: 5px;
-	margin: 10px 0;
 `;
 
 export default QuizMakeQuestions;

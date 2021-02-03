@@ -18,7 +18,7 @@ passport.use(
 	new LocalStrategy(
 		{ usernameField: 'email', passwordField: 'password', session: false },
 		async (email, password, done) => {
-			const user = await User.findOne({ email });
+			const user = await User.findOne({ email, isActive: true });
 			if (!user) return done(null, false);
 			if (!user.compare(password)) return done(null, false);
 			const {

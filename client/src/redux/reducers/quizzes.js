@@ -142,6 +142,9 @@ const quizSlice = createSlice({
 		clearfilteredQuizzes: (state) => {
 			state.filteredQuizzes = [];
 		},
+		clearHighscoreBadge: (state) => {
+			state.quiz.newHighscore = false;
+		},
 	},
 	extraReducers: {
 		[getQuizzes.fulfilled]: (state, { payload }) => {
@@ -182,6 +185,6 @@ const quizSlice = createSlice({
 	},
 });
 
-export const { clearfilteredQuizzes } = quizSlice.actions;
+export const { clearfilteredQuizzes, clearHighscoreBadge } = quizSlice.actions;
 
 export default quizSlice.reducer;
