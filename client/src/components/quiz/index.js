@@ -12,7 +12,7 @@ import * as Speech from 'expo-speech';
 import * as Animatable from 'react-native-animatable';
 import { Audio } from 'expo-av';
 import { completeQuiz } from '@redux/reducers/user.js';
-import { updateHighscore } from '@redux/reducers/quizzes';
+import { updateHighscore, getSuggestedQuizzes } from '@redux/reducers/quizzes';
 
 //==>Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -88,6 +88,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					dispatch(
 						updateHighscore({ quizId: params.id, score: newPoints })
 					);
+        dispatch(getSuggestedQuizzes());
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,

@@ -89,6 +89,30 @@ module.exports = {
 				.populate('highScores.user');
 			return quizzesByPopularity;
 		},
+		getSuggestedQuizzes: async (_, __, { user }) => {
+			const completed = (await User.findById(user._id)).completedQuiz;
+			const categorys = [];
+
+			const quizzesComp = await Quiz.find({
+				_id: { $in: completed },
+			});
+			quizzesComp.map((q) => {
+				categorys.push(q.categoryId);
+			});
+			const foundQuizzes = await Quiz.find({
+				_id: { $nin: completed },
+				categoryId: { $in: categorys },
+			})
+				.populate('questions')
+				.populate('user')
+				.populate('categoryId');
+
+			return foundQuizzes
+				.sort(function () {
+					return Math.random() - 0.5;
+				})
+				.slice(0, 5);
+		},
 	},
 	Mutation: {
 		createQuiz: async (_, { quiz }, { user }) => {

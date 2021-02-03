@@ -93,6 +93,7 @@ module.exports = gql`
 			page: Int
 		): QueryInfo
 		searchByPopularity: [Quiz!]!
+		getSuggestedQuizzes: [Quiz!]!
 	}
 
 	extend type Mutation {
