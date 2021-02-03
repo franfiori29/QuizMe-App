@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import strings from '@components/admin_panel/strings';
-import {
-	destroyCategory,
-	getCategories,
-} from '../../../redux/reducers/categories';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { destroyCategory } from '../../../redux/reducers/categories';
 
 const CategoryCards = () => {
 	const dispatch = useDispatch();
@@ -28,7 +26,7 @@ const CategoryCards = () => {
 								{category[`description_${language}`]}
 							</CategoryInfoTitle>
 							<Buttons>
-								<Button
+								{/* <Button
 									bgColor={theme.wrong}
 									onPress={async () => {
 										await dispatch(
@@ -38,15 +36,20 @@ const CategoryCards = () => {
 									}}
 								>
 									<ButtonText>{s.deleteCategory}</ButtonText>
-								</Button>
+								</Button> */}
 								<Button
-									bgColor='#dedc31'
 									onPress={() => {
 										navigation.navigate('EditCategory', {
 											category,
 										});
 									}}
 								>
+									<FontAwesome5
+										name={'edit'}
+										color={'rgb(250,210,1)'}
+										size={25}
+										style={{ marginRight: 5 }}
+									/>
 									<ButtonText>{s.editCategory}</ButtonText>
 								</Button>
 							</Buttons>
@@ -63,7 +66,6 @@ const CategoryCardsContainer = styled.View`
 `;
 const CategoryCard = styled.View`
 	width: 100%;
-	height: 120px;
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
 	align-items: center;
@@ -71,18 +73,12 @@ const CategoryCard = styled.View`
 	padding: 15px 10px 10px 0px;
 `;
 
-const CategoryImg = styled.Image`
-	z-index: 3;
-	height: 80px;
-	width: 80px;
-	border-radius: 10px;
-`;
-
 const CategoryInfo = styled.View`
+	flex: 1;
+	flex-direction: row;
 	height: 100%;
-	width: 85%;
-	padding: 0 15px;
-	justify-content: space-around;
+	padding: 5px 15px;
+	justify-content: space-between;
 `;
 
 const CategoryInfoTitle = styled.Text`
@@ -93,21 +89,17 @@ const CategoryInfoTitle = styled.Text`
 `;
 
 const Buttons = styled.TouchableOpacity`
-	flex: 1;
 	flex-direction: row;
 `;
 
 const Button = styled.TouchableOpacity`
-	align-self: center;
-	background-color: ${({ bgColor }) => bgColor};
-	padding: 10px;
-	margin: 0 2px;
-	border-radius: 5px;
+	flex-direction: row;
+	align-items: center;
 `;
 const ButtonText = styled.Text`
 	text-transform: uppercase;
 	font-weight: bold;
-	color: ${(props) => props.theme.white};
+	color: ${(props) => props.theme.text};
 `;
 
 export default CategoryCards;

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/admin_panel/strings';
 import { activateUser, getUsers } from '../../../redux/reducers/user';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 const UserCards = () => {
 	const dispatch = useDispatch();
@@ -23,22 +25,22 @@ const UserCards = () => {
 							}}
 						/>
 						<UserInfo>
-							<UserInfoTitle
-								numberOfLines={1}
-								ellipsizeMode='tail'
-							>
-								{user.email}
-							</UserInfoTitle>
-							<StyledText numberOfLines={2} ellipsizeMode='tail'>
-								{`${user.firstName} ${user.lastName}`}
-							</StyledText>
+							<View>
+								<UserInfoTitle
+									numberOfLines={1}
+									ellipsizeMode='tail'
+								>
+									{user.email}
+								</UserInfoTitle>
+								<StyledText
+									numberOfLines={2}
+									ellipsizeMode='tail'
+								>
+									{`${user.firstName} ${user.lastName}`}
+								</StyledText>
+							</View>
 							<Buttons>
 								<Button
-									bgColor={
-										user.isActive
-											? theme.wrong
-											: theme.success
-									}
 									onPress={async () => {
 										await dispatch(
 											activateUser({
@@ -49,7 +51,23 @@ const UserCards = () => {
 										dispatch(getUsers());
 									}}
 								>
-									<ButtonText>
+									<FontAwesome5
+										name={
+											user.isActive ? 'ban' : 'user-check'
+										}
+										color={
+											user.isActive
+												? theme.wrong
+												: theme.success
+										}
+										size={25}
+									/>
+									<ButtonText
+										style={{
+											color: theme.text,
+											marginLeft: 5,
+										}}
+									>
 										{user.isActive
 											? s.deleteUser
 											: s.activateUser}
@@ -64,6 +82,7 @@ const UserCards = () => {
 };
 
 const StyledText = styled.Text`
+	font-family: 'Nunito_400Regular';
 	color: ${(props) => props.theme.text};
 `;
 
@@ -89,37 +108,30 @@ const UserImg = styled.Image`
 `;
 
 const UserInfo = styled.View`
+	flex: 1;
 	height: 100%;
-	width: 85%;
-	padding: 0 15px;
-	justify-content: space-around;
+	padding: 5px 15px;
+	justify-content: space-between;
 `;
 
 const UserInfoTitle = styled.Text`
 	font-size: 16px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.text};
-	margin-top: 3px;
 `;
 
 const Buttons = styled.TouchableOpacity`
-	flex: 1;
-	flex-wrap: wrap;
 	flex-direction: row;
 `;
 
 const Button = styled.TouchableOpacity`
-	width: 95%;
-	align-self: center;
-	background-color: ${({ bgColor }) => bgColor};
+	flex-direction: row;
 	align-items: center;
-	justify-content: center;
-	padding: 10px;
-	border-radius: 5px;
 `;
+
 const ButtonText = styled.Text`
 	text-transform: uppercase;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.white};
 `;
 

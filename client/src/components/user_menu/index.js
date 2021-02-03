@@ -181,6 +181,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						<Text
 							style={{
+								fontSize: 12,
 								color: theme.primary,
 								textTransform: 'uppercase',
 								fontFamily: 'Nunito_600SemiBold',

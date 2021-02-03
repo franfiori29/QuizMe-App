@@ -29,7 +29,7 @@ const AdminCategories = ({ navigation }) => {
 					icon1='ios-arrow-back'
 				/>
 				<Button
-					bgColor={theme.success}
+					bgColor={theme.primary}
 					onPress={() => {
 						navigation.navigate('AddCategory');
 					}}
@@ -59,7 +59,7 @@ const Button = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
 	text-transform: uppercase;
-	font-weight: bold;
+	font-family: 'Nunito_600SemiBold';
 	color: ${(props) => props.theme.white};
 `;
 
