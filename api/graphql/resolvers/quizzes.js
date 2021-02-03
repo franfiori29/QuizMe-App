@@ -135,6 +135,10 @@ module.exports = {
 			const newCategory = await Category.create(category);
 			return newCategory;
 		},
+		updateCategory: async (_, { catId, category }) => {
+			await Category.findOneAndUpdate({ _id: catId }, category);
+			return 'Updated Succesfully';
+		},
 		updateHighscore: async (_, { quizId, score }, { user }) => {
 			const foundQuiz = await Quiz.findById(quizId);
 			let highScores = foundQuiz.highScores || [];

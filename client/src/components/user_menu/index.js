@@ -181,6 +181,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						<Text
 							style={{
+								fontSize: 12,
 								color: theme.primary,
 								textTransform: 'uppercase',
 								fontFamily: 'Nunito_600SemiBold',
@@ -190,7 +191,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						</Text>
 					</AccTypeButton>
 				</AccType>
-				{user.role !== 'ADMIN' && (
+				{user.role === 'ADMIN' && (
 					<MenuTouchOption onPress={handleAdminPanel}>
 						<Text
 							style={{

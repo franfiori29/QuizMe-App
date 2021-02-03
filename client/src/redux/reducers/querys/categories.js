@@ -20,3 +20,17 @@ export const mutationDestroyCategory = gql`
 		destroyCategory(catId: $catId)
 	}
 `;
+
+export const mutationCreateCategory = gql`
+	mutation createCategory($category: InputCategory) {
+		createCategory(category: $category) {
+			description_en
+			description_es
+		}
+	}
+`;
+export const mutationUpdateCategory = gql`
+	mutation updateCategory($catId: ID!, $category: InputCategory) {
+		updateCategory(catId: $catId, category: $category)
+	}
+`;

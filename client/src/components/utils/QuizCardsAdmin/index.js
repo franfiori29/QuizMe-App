@@ -3,8 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/admin_panel/strings';
-import { Platform, Vibration } from 'react-native';
+import { Platform, Vibration, View } from 'react-native';
 import { destroyQuiz, getQuizzes } from '../../../redux/reducers/quizzes';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const QuizCardsAdmin = () => {
 	const navigation = useNavigation();
@@ -36,24 +37,36 @@ const QuizCardsAdmin = () => {
 							}}
 						/>
 						<QuizInfo>
-							<QuizTitle numberOfLines={1} ellipsizeMode='tail'>
-								{quiz.title}
-							</QuizTitle>
-							<StyledText numberOfLines={2} ellipsizeMode='tail'>
-								{quiz.description}
-							</StyledText>
+							<View>
+								<QuizTitle
+									numberOfLines={1}
+									ellipsizeMode='tail'
+								>
+									{quiz.title}
+								</QuizTitle>
+								<StyledText
+									numberOfLines={1}
+									ellipsizeMode='tail'
+								>
+									{quiz.description}
+								</StyledText>
+							</View>
 							<Buttons>
 								<Button
-									bgColor={theme.wrong}
 									onPress={async () => {
 										await dispatch(
-											destroyQuiz({ quizId: quiz._id }),
+											destroyQuiz({ quizId: quiz._id })
 										);
 										dispatch(
-											getQuizzes({ notShuffle: true }),
+											getQuizzes({ notShuffle: true })
 										);
 									}}
 								>
+									<Icon
+										name={'ios-trash'}
+										size={28}
+										color={theme.wrong}
+									/>
 									<ButtonText>{s.deleteQuiz}</ButtonText>
 								</Button>
 							</Buttons>
@@ -65,6 +78,7 @@ const QuizCardsAdmin = () => {
 };
 
 const StyledText = styled.Text`
+	font-family: 'Nunito_400Regular';
 	color: ${(props) => props.theme.text};
 `;
 
@@ -90,38 +104,31 @@ const QuizImg = styled.Image`
 `;
 
 const QuizInfo = styled.View`
+	flex: 1;
 	height: 100%;
-	width: 85%;
-	padding: 0 15px;
-	justify-content: space-around;
+	padding: 5px 15px;
+	justify-content: space-between;
 `;
 
 const QuizTitle = styled.Text`
 	font-size: 16px;
-	font-weight: bold;
+	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.text};
 	margin-top: 3px;
 `;
 
 const Buttons = styled.TouchableOpacity`
-	flex: 1;
-	flex-wrap: wrap;
 	flex-direction: row;
 `;
 
 const Button = styled.TouchableOpacity`
-	width: 95%;
-	align-self: center;
-	background-color: ${({ bgColor }) => bgColor};
+	flex-direction: row;
 	align-items: center;
-	justify-content: center;
-	padding: 10px;
-	border-radius: 5px;
 `;
 const ButtonText = styled.Text`
 	text-transform: uppercase;
-	font-weight: bold;
-	color: ${(props) => props.theme.white};
+	font-family: 'Nunito_600SemiBold';
+	color: ${(props) => props.theme.text};
 `;
 
 export default QuizCardsAdmin;

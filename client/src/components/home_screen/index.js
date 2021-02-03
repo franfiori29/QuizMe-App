@@ -58,7 +58,6 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		sound && playTheme();
 	}, []);
 
-	console.log(quizzesLoading);
 	useEffect(() => {
 		dispatch(sortCategories(language));
 	}, [language]);

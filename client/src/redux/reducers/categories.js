@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getClient } from '@constants/api';
-import { getAllCategories, mutationDestroyCategory } from './querys/categories';
+import {
+	getAllCategories,
+	mutationCreateCategory,
+	mutationDestroyCategory,
+	mutationUpdateCategory,
+} from './querys/categories';
 
 export const getCategories = createAsyncThunk(
 	'category/getAll',
@@ -22,6 +27,28 @@ export const destroyCategory = createAsyncThunk(
 	}
 );
 
+export const createCategory = createAsyncThunk(
+	'category/createOne',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationCreateCategory, {
+			category: payload,
+		});
+		return clientRequest;
+	}
+);
+export const updateCategory = createAsyncThunk(
+	'category/updateOne',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationUpdateCategory, {
+			category: payload.category,
+			catId: payload.catId,
+		});
+		return clientRequest;
+	}
+);
+
 const categorySlice = createSlice({
 	name: 'quiz',
 	initialState: {
@@ -37,6 +64,9 @@ const categorySlice = createSlice({
 		},
 	},
 	extraReducers: {
+		[getCategories.pending]: (state) => {
+			state.loading = true;
+		},
 		[getCategories.fulfilled]: (
 			state,
 			{ payload: { clientRequest, lang } }
@@ -44,6 +74,7 @@ const categorySlice = createSlice({
 			state.categories = clientRequest.getCategories.sort((a, b) =>
 				a[`description_${lang}`] > b[`description_${lang}`] ? 1 : -1
 			);
+			state.loading = false;
 		},
 	},
 });

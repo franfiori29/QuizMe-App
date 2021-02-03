@@ -20,7 +20,7 @@ module.exports = gql`
 		firstName: String
 		lastName: String
 	}
-	
+
 	type Highscore {
 		_id: ID
 		user: UserScore
@@ -100,6 +100,7 @@ module.exports = gql`
 		destroyQuiz(quizId: ID!): Boolean!
 		updateLike(quizId: ID!, giveLike: Boolean): Quiz
 		createCategory(category: InputCategory): Category
+		updateCategory(catId: ID!, category: InputCategory): String!
 		destroyCategory(catId: ID!): Boolean!
 		updateHighscore(quizId: ID!, score: Int!): Boolean
 	}

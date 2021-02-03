@@ -58,27 +58,15 @@ export default function SignUp({ navigation }) {
 	}, []);
 
 	const handleSubmitPress = (data) => {
-		console.log(data);
-		const emailRegex = /\S+@\S+/;
-		if (user.email && !emailRegex.test(user.email)) {
-			setErrortext('Ingrese un Email válido');
-			return;
-		}
-		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
-		if (user.password && !passwordRegex.test(user.password)) {
-			setErrortext('Caracteres inválidos en contraseña');
-			return;
-		} else {
-			axios
-				.post(`${REACT_APP_API}/auth/register`, user)
-				.then((newUser) => {
-					dispatch(setUserInfo(newUser.data));
-					navigation.navigate('Home');
-				})
-				.catch((err) => {
-					setErrortext(err.response.data.message);
-				});
-		}
+		axios
+			.post(`${REACT_APP_API}/auth/register`, user)
+			.then((newUser) => {
+				dispatch(setUserInfo(newUser.data));
+				navigation.navigate('Home');
+			})
+			.catch((err) => {
+				setErrortext(err.response.data.message);
+			});
 	};
 
 	return (
