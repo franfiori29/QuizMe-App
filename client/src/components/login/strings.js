@@ -11,6 +11,7 @@ const strings = {
 		req: 'Required',
 		invalidMail: 'Invalid email',
 		invalidPassword: 'Invalid password',
+		registerError: 'Registration error. Try again later.',
 	},
 
 	es: {
@@ -25,6 +26,7 @@ const strings = {
 		req: 'Requerido',
 		invalidMail: 'Correo inválido',
 		invalidPassword: 'Contraseña inválida',
+		registerError: 'Error al registrarse. Intentalo más tarde.',
 	},
 };
 

@@ -45,8 +45,7 @@ export default function Login({ navigation }) {
 						setLoading(false);
 						setError('register', {
 							type: 'manual',
-							message:
-								'ERROR AL REGISTRARSE. INTENTELO MAS TARDE',
+							message: s.registerError,
 						});
 					});
 			} else {
