@@ -100,8 +100,8 @@ const Information = ({ navigation }) => {
 
 				<Title style={{ marginBottom: 10 }}>{s.about}</Title>
 				<About>
-					{coders.map((prog) => (
-						<>
+					{coders.map((prog, i) => (
+						<View key={i}>
 							<Separator />
 							<Coder key={prog.lastname}>
 								<View
@@ -144,7 +144,7 @@ const Information = ({ navigation }) => {
 									</SocialContainer>
 								</View>
 							</Coder>
-						</>
+						</View>
 					))}
 				</About>
 			</Screen>

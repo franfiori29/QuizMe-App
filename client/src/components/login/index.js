@@ -219,13 +219,24 @@ export default function Login({ navigation }) {
 							required: true,
 							pattern: {
 								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-								message: 'Not a valid email',
+								message: s.invalidMail,
 							},
 						}}
 						defaultValue=''
 					/>
 					{errors.email && (
 						<ErrorIcon>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.email.message || s.req}
+							</Text>
 							<Icon
 								name={'ios-alert-circle'}
 								size={25}
@@ -262,15 +273,26 @@ export default function Login({ navigation }) {
 						name='password'
 						rules={{
 							required: true,
-							// pattern: {
-							// 	value: /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ!\s]+$/g,
-							// 	message: 'Not a valid email',
-							// },
+							pattern: {
+								value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+								message: s.invalidPassword,
+							},
 						}}
 						defaultValue=''
 					/>
 					{errors.password && (
 						<ErrorIcon right='55px'>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.password.message || s.req}
+							</Text>
 							<Icon
 								name={'ios-alert-circle'}
 								size={25}

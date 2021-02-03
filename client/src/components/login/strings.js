@@ -8,6 +8,9 @@ const strings = {
 		acc: 'You do not have an account?',
 		signup: 'Sign up',
 		loginError: 'Invalid credentials',
+		req: 'Required',
+		invalidMail: 'Invalid email',
+		invalidPassword: 'Invalid password',
 	},
 
 	es: {
@@ -19,6 +22,9 @@ const strings = {
 		acc: '¿No tienes una cuenta?',
 		signup: 'Regístrate',
 		loginError: 'Datos ingresados incorrectos',
+		req: 'Requerido',
+		invalidMail: 'Correo inválido',
+		invalidPassword: 'Contraseña inválida',
 	},
 };
 

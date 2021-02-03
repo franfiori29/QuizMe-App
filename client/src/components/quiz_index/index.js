@@ -103,6 +103,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 								</Text>
 							</StartButton>
 							<ShareButton
+								style={{ width: 300 }}
 								shareOptions={{
 									title: s.title,
 									message: `${

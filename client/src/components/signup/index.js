@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Text } from 'react-native';
+import { Text } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setUserInfo } from '@redux/reducers/user';
+import { setUserInfo } from '@redux/reducers/user';
 import axios from 'axios';
 import strings from './strings';
 import logo from '@assets/logo.png';
-import { registerUser } from '../../redux/reducers/user';
+import { useForm, Controller } from 'react-hook-form';
 
 export default function SignUp({ navigation }) {
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
+	const { control, handleSubmit, errors } = useForm();
 
 	const [hidePass, setHidePass] = useState(true);
 	const [errortext, setErrortext] = useState('');
@@ -56,31 +57,16 @@ export default function SignUp({ navigation }) {
 			});
 	}, []);
 
-	const handleSubmitPress = () => {
+	const handleSubmitPress = (data) => {
+		console.log(data);
 		const emailRegex = /\S+@\S+/;
 		if (user.email && !emailRegex.test(user.email)) {
 			setErrortext('Ingrese un Email válido');
 			return;
 		}
-		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/;
+		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
 		if (user.password && !passwordRegex.test(user.password)) {
 			setErrortext('Caracteres inválidos en contraseña');
-			return;
-		}
-		if (!user.email) {
-			setErrortext('El campo Contraseña es requerido');
-			return;
-		}
-		if (!user.password) {
-			setErrortext('El campo Contraseña es requerido');
-			return;
-		}
-		if (!user.firstName) {
-			setErrortext('El campo Nombre es requerido');
-			return;
-		}
-		if (!user.lastName) {
-			setErrortext('El campo Apellido es requerido');
 			return;
 		} else {
 			axios
@@ -103,76 +89,228 @@ export default function SignUp({ navigation }) {
 					<LogoText>QuizMeApp</LogoText>
 				</LogoView>
 				<InputContainer>
-					<IconImage
-						name={'ios-person-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<>
+									<IconImage
+										name={'ios-person-outline'}
+										size={28}
+										color={'rgba(255,255,255,0.7)'}
+									/>
+									<InputSignUp
+										onBlur={onBlur}
+										placeholder={s.name}
+										value={value}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										placeholderTextColor={
+											'rgba(255,255,255,0.7)'
+										}
+										underlineColorAndroid='transparent'
+									/>
+								</>
+							);
+						}}
+						name='name'
+						rules={{ required: true }}
+						defaultValue=''
 					/>
-					<InputSignUp
-						placeholder={s.name}
-						value={user.firstName}
-						onChangeText={(value) =>
-							handleInputChange('firstName', value)
-						}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
+					{errors.name && (
+						<ErrorIcon>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{s.req}
+							</Text>
+							<Icon
+								name={'ios-alert-circle'}
+								size={15}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
 				</InputContainer>
 				<InputContainer>
-					<IconImage
-						name={'ios-person-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<>
+									<IconImage
+										name={'ios-person-outline'}
+										size={28}
+										color={'rgba(255,255,255,0.7)'}
+									/>
+									<InputSignUp
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										placeholder={s.lastName}
+										placeholderTextColor={
+											'rgba(255,255,255,0.7)'
+										}
+										underlineColorAndroid='transparent'
+									/>
+								</>
+							);
+						}}
+						name='lastName'
+						rules={{ required: true }}
+						defaultValue=''
 					/>
-					<InputSignUp
-						placeholder={s.lastName}
-						value={user.lastName}
-						onChangeText={(value) =>
-							handleInputChange('lastName', value)
-						}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
+					{errors.lastName && (
+						<ErrorIcon>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{s.req}
+							</Text>
+							<Icon
+								name={'ios-alert-circle'}
+								size={15}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
 				</InputContainer>
 				<InputContainer>
-					<IconImage
-						name={'mail-open-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<>
+									<IconImage
+										name={'mail-open-outline'}
+										size={28}
+										color={'rgba(255,255,255,0.7)'}
+									/>
+									<InputSignUp
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										placeholder={s.email}
+										placeholderTextColor={
+											'rgba(255,255,255,0.7)'
+										}
+										underlineColorAndroid='transparent'
+									/>
+								</>
+							);
+						}}
+						name='email'
+						rules={{
+							required: true,
+							pattern: {
+								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
+								message: s.invalidMail,
+							},
+						}}
+						defaultValue=''
 					/>
-					<InputSignUp
-						placeholder={s.email}
-						value={user.email}
-						onChangeText={(value) =>
-							handleInputChange('email', value)
-						}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
+					{errors.email && (
+						<ErrorIcon>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.email.message || s.req}
+							</Text>
+							<Icon
+								name={'ios-alert-circle'}
+								size={15}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
 				</InputContainer>
 				<InputContainer>
-					<IconImage
-						name={'ios-lock-closed-outline'}
-						size={28}
-						color={'rgba(255,255,255,0.7)'}
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<>
+									<IconImage
+										name={'ios-lock-closed-outline'}
+										size={28}
+										color={'rgba(255,255,255,0.7)'}
+									/>
+									<InputSignUp
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										placeholder={s.pass}
+										secureTextEntry={hidePass}
+										placeholderTextColor={
+											'rgba(255,255,255,0.7)'
+										}
+										underlineColorAndroid='transparent'
+									/>
+									<Button onPress={onPress}>
+										<Icon
+											name={'ios-eye-outline'}
+											size={26}
+											color={'rgba(255,255,255,0.7)'}
+										/>
+									</Button>
+								</>
+							);
+						}}
+						name='password'
+						rules={{
+							required: true,
+							pattern: {
+								value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+								message: s.invalidPassword,
+							},
+						}}
+						defaultValue=''
 					/>
-					<InputSignUp
-						placeholder={s.pass}
-						value={user.password}
-						onChangeText={(value) =>
-							handleInputChange('password', value)
-						}
-						secureTextEntry={hidePass}
-						placeholderTextColor={'rgba(255,255,255,0.7)'}
-						underlineColorAndroid='transparent'
-					/>
-					<Button onPress={onPress}>
-						<Icon
-							name={'ios-eye-outline'}
-							size={26}
-							color={'rgba(255,255,255,0.7)'}
-						/>
-					</Button>
+					{errors.password && (
+						<ErrorIcon style={{ right: 55 }}>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.password.message || s.req}
+							</Text>
+							<Icon
+								name={'ios-alert-circle'}
+								size={15}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
 				</InputContainer>
 
 				<TextView>
@@ -186,7 +324,7 @@ export default function SignUp({ navigation }) {
 					</Text>
 				</TextView>
 
-				<ButtonSignUp onPress={handleSubmitPress}>
+				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
 					<Description>{s.signup}</Description>
 				</ButtonSignUp>
 				<TextView>
@@ -223,10 +361,10 @@ const Logo = styled.Image`
 const LogoText = styled.Text`
 	color: ${(props) => props.theme.primary};
 	font-size: 30px;
-	font-weight: 500;
 	margin-top: 5px;
 	margin-bottom: 20px;
 	opacity: 0.5;
+	font-family: 'Nunito_600SemiBold';
 `;
 const InputContainer = styled.View`
 	margin-top: 10px;
@@ -273,4 +411,12 @@ const Description = styled.Text`
 const TextView = styled.View`
 	align-items: center;
 	margin-top: 20px;
+`;
+
+const ErrorIcon = styled.View`
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	flex-direction: row;
+	align-items: center;
 `;
