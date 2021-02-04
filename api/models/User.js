@@ -28,6 +28,7 @@ const userSchema = new Schema(
 		completedQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
 		isActive: { type: Boolean, default: true },
 		notificationToken: { type: String },
+		following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	},
 	{ timestamps: true }
 );
