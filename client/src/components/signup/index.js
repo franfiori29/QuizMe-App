@@ -58,14 +58,22 @@ export default function SignUp({ navigation }) {
 	}, []);
 
 	const handleSubmitPress = (data) => {
+		let newUserRegister = {
+			email: data.email,
+			firstName: data.name,
+			lastName: data.lastName,
+			password: data.password,
+			countryCode: 'AR',
+		};
 		axios
-			.post(`${REACT_APP_API}/auth/register`, user)
+			.post(`${REACT_APP_API}/auth/register`, newUserRegister)
 			.then((newUser) => {
 				dispatch(setUserInfo(newUser.data));
 				navigation.navigate('Home');
 			})
 			.catch((err) => {
-				setErrortext(err.response.data.message);
+				console.log('err', err);
+				// setErrortext(err.response.data.message);
 			});
 	};
 
