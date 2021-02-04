@@ -189,6 +189,8 @@ const QuizImage = styled.Image`
 	height: 40%;
 	width: 100%;
 	border-radius: 7px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 `;
 const InfoContainer = styled.View`
 	width: 100%;
