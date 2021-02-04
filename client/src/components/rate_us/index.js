@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import ButtonPpal from '../utils/ButtonPpal';
 import styled, { ThemeProvider } from 'styled-components/native';
 import strings from './strings';
+import NavBar from '@components/utils/NavBar';
 import StarCorner from '@assets/img/star_corner.png';
 import StarFilled from '@assets/img/star_filled.png';
 
-const RateUs = () => {
+const RateUs = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
 	const [defaultRating, setDefaultRating] = useState(3);
@@ -40,12 +41,20 @@ const RateUs = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Container>
-				<Title>{s.title}</Title>
-				<Description>{s.description}</Description>
-				<CustomRatingBar />
-				<Title>
-					{defaultRating} / {Math.max.apply(null, maxRating)}
-				</Title>
+				<NavBar
+					string={s.nav}
+					nav1={() => navigation.goBack()}
+					icon1='ios-arrow-back'
+					icon2=''
+				/>
+				<View>
+					<Title>{s.title}</Title>
+					<Description>{s.description}</Description>
+					<CustomRatingBar />
+					<Title>
+						{defaultRating} / {Math.max.apply(null, maxRating)}
+					</Title>
+				</View>
 				<ButtonStyle
 					string={s.button}
 					onPress={() => alert(defaultRating)}
@@ -57,12 +66,12 @@ const RateUs = () => {
 
 export default RateUs;
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
 	flex: 1;
 	background-color: ${(props) => props.theme.bg};
 	padding: 10px;
-	justify-content: center;
 	text-align: center;
+	justify-content: space-between;
 `;
 const Title = styled.Text`
 	text-align: center;

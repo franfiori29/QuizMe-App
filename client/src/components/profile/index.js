@@ -170,16 +170,17 @@ export default function Profile({ navigation }) {
 									)}
 								</UserName>
 							</View>
+						</View>
+						<View>
 							<Text
 								style={{
 									color: theme.text,
 									fontFamily: 'Nunito_400Regular_Italic',
+									marginBottom: 5,
 								}}
 							>
 								Argentina
 							</Text>
-						</View>
-						<View>
 							<UserText style={{ marginBottom: 5 }}>
 								{s.follow} 250
 							</UserText>
@@ -326,8 +327,9 @@ const UserContainer = styled.View`
 `;
 
 const UserInfo = styled.View`
-	padding: 10px 0;
 	height: 100%;
+	align-items: flex-start;
+	width: 60%;
 	justify-content: space-around;
 `;
 
@@ -352,7 +354,6 @@ const UserName = styled.Text`
 	font-size: 22px;
 	font-family: 'Nunito_800ExtraBold';
 	color: ${(props) => props.theme.primary};
-	margin-bottom: 5px;
 `;
 
 const UserText = styled.Text`
