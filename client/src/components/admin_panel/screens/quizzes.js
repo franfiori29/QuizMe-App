@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 import NavBar from '../../utils/NavBar';
@@ -14,7 +13,7 @@ const AdminQuizzes = ({ navigation }) => {
 			<Screen>
 				<NavBar
 					string={s.adminPanel}
-					nav1={() => navigation.goBack()}
+					nav1={() => navigation.navigate('UserMenu')}
 					icon1='ios-arrow-back'
 				/>
 				<QuizCardsAdmin />

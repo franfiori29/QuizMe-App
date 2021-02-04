@@ -10,6 +10,7 @@ import {
 	queryGetQuizzesBySearchInput,
 	queryRandomQuiz,
 	queryGtQuizzesByPopularity,
+	queryGtQuizzesSuggested,
 } from './querys/quizzes';
 import { shuffle } from '@utils/shuffle';
 
@@ -117,6 +118,15 @@ export const getQuizzesByPopularity = createAsyncThunk(
 	}
 );
 
+export const getSuggestedQuizzes = createAsyncThunk(
+	'quiz/getSuggestedQuizzes',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGtQuizzesSuggested);
+		return clientRequest;
+	}
+);
+
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {
@@ -130,6 +140,9 @@ const quizSlice = createSlice({
 	reducers: {
 		clearfilteredQuizzes: (state) => {
 			state.filteredQuizzes = [];
+		},
+		clearHighscoreBadge: (state) => {
+			state.quiz.newHighscore = false;
 		},
 	},
 	extraReducers: {
@@ -165,9 +178,12 @@ const quizSlice = createSlice({
 		[getQuizzesByPopularity.fulfilled]: (state, { payload }) => {
 			state.quizzes = payload.searchByPopularity;
 		},
+		[getSuggestedQuizzes.fulfilled]: (state, { payload }) => {
+			state.quizzes = payload.getSuggestedQuizzes;
+		},
 	},
 });
 
-export const { clearfilteredQuizzes } = quizSlice.actions;
+export const { clearfilteredQuizzes, clearHighscoreBadge } = quizSlice.actions;
 
 export default quizSlice.reducer;

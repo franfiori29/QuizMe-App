@@ -95,5 +95,4 @@ const Rating = styled.View`
 const Star = styled.Image`
 	width: 50px;
 	height: 50px;
-	object-fit: cover;
 `;

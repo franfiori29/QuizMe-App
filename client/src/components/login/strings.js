@@ -8,6 +8,11 @@ const strings = {
 		acc: 'You do not have an account?',
 		signup: 'Sign up',
 		loginError: 'Invalid credentials',
+		req: 'Required',
+		invalidMail: 'Invalid email',
+		invalidPassword: 'Invalid password',
+		registerError: 'Registration error. Try again later.',
+		loading: 'Loading...',
 	},
 
 	es: {
@@ -19,6 +24,11 @@ const strings = {
 		acc: '¿No tienes una cuenta?',
 		signup: 'Regístrate',
 		loginError: 'Datos ingresados incorrectos',
+		req: 'Requerido',
+		invalidMail: 'Correo inválido',
+		invalidPassword: 'Contraseña inválida',
+		registerError: 'Error al registrarse. Intentalo más tarde.',
+		loading: 'Cargando...',
 	},
 };
 

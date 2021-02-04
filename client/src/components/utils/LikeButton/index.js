@@ -20,7 +20,7 @@ export default function LikeButton({ handleOnFavorite, isLiked }) {
 						isLikedLocal ? 'heart-circle' : 'heart-circle-outline'
 					}
 					size={50}
-					color={theme.primary}
+					color={isLikedLocal ? 'rgb(231, 24, 63)' : theme.primary}
 				/>
 			</TouchableOpacity>
 		</ThemeProvider>

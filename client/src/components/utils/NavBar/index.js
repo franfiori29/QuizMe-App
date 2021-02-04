@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Text } from 'react-native';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 

@@ -7,6 +7,7 @@ import {
 	clearfilteredQuizzes,
 	getRandomQuiz,
 	getQuizzesByPopularity,
+	getSuggestedQuizzes,
 } from '@redux/reducers/quizzes';
 import { getCategories, sortCategories } from '../../redux/reducers/categories';
 import {
@@ -20,6 +21,7 @@ import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -44,13 +46,15 @@ Notifications.setNotificationHandler({
 const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language, sound } = useSelector((state) => state.global);
-	const { quizzes } = useSelector((state) => state.quiz);
+	const { quizzes, suggestedQuizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
 	const [categoryLoading, setCategoryLoading] = useState(false);
 	const [notification, setNotification] = useState(false);
 	const responseListener = useRef();
+	const [quizzesLoading, setQuizzesLoading] = useState(false);
+	const [selector, setSelector] = useState('suggested');
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
@@ -64,21 +68,17 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	};
 
 	useEffect(() => {
-		if (notification) {
-			const notifPush = notification.notification.request.content.data;
-			setNotification(null);
-			navigation.navigate(notifPush.path, notifPush.payload);
-		}
-	}, [notification]);
-
-	useEffect(() => {
 		registerForPushNotificationsAsync().then((token) => {
 			dispatch(setNotificationToken(token));
 			dispatch(setNotificationTokenUser(token));
 		});
-		dispatch(getQuizzes());
+		setQuizzesLoading(true);
+		dispatch(getQuizzes()).then(() => {
+			setQuizzesLoading(false);
+		});
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
+		dispatch(getSuggestedQuizzes());
 		sound && playTheme();
 		responseListener.current = Notifications.addNotificationResponseReceivedListener(
 			(response) => {
@@ -89,6 +89,13 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 			Notifications.removeNotificationSubscription(responseListener);
 		};
 	}, []);
+	useEffect(() => {
+		if (notification) {
+			const notifPush = notification.notification.request.content.data;
+			setNotification(null);
+			navigation.navigate(notifPush.path, notifPush.payload);
+		}
+	}, [notification]);
 
 	useEffect(() => {
 		dispatch(sortCategories(language));
@@ -133,21 +140,63 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 				/>
 				<View>
 					<SelectorContainer>
-						<SelectorButton>
-							<SelectorText>{s.selector1}</SelectorText>
+						<SelectorButton
+							onPress={() => {
+								setQuizzesLoading(true);
+								setSelector('suggested');
+								dispatch(getSuggestedQuizzes()).then(() => {
+									setQuizzesLoading(false);
+								});
+							}}
+						>
+							<SelectorText
+								style={{
+									paddingBottom: 5,
+									borderBottomWidth:
+										selector === 'suggested' ? 3 : 0,
+									borderBottomColor: theme.primary,
+								}}
+							>
+								{s.selector1}
+							</SelectorText>
 						</SelectorButton>
 						<SelectorButton
 							onPress={() => {
-								dispatch(getQuizzesByPopularity());
+								setQuizzesLoading(true);
+								setSelector('popular');
+								dispatch(getQuizzesByPopularity()).then(() => {
+									setQuizzesLoading(false);
+								});
 							}}
 						>
-							<SelectorText>{s.popular}</SelectorText>
+							<SelectorText
+								style={{
+									paddingBottom: 5,
+									borderBottomWidth:
+										selector === 'popular' ? 3 : 0,
+									borderBottomColor: theme.primary,
+								}}
+							>
+								{s.popular}
+							</SelectorText>
 						</SelectorButton>
 					</SelectorContainer>
-					<QuizCards
-						quizzes={quizzes}
-						completedQuiz={completedQuiz}
-					/>
+					{quizzesLoading ? (
+						<Spinner
+							visible={quizzesLoading}
+							textContent={s.loading}
+							color={theme.white}
+							textStyle={{
+								color: theme.white,
+							}}
+						/>
+					) : (
+						<QuizCards
+							quizzes={quizzes}
+							// quizzes={suggestedQuizzes}
+							completedQuiz={completedQuiz}
+						/>
+					)}
 				</View>
 				<CategoryContainer>
 					<Icon

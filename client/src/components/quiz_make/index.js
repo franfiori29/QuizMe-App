@@ -4,6 +4,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components/native';
 import { useForm, Controller } from 'react-hook-form';
+import { getCategories } from '@redux/reducers/categories';
+import { Picker } from '@react-native-picker/picker';
 
 //==>Assets
 import strings from './strings';
@@ -12,11 +14,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 //==> Components
 import ButtonPpal from '@components/utils/ButtonPpal';
 import NavBar from '@components/utils/NavBar';
-
-/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
-import { getCategories } from '@redux/reducers/categories';
-import { Picker } from '@react-native-picker/picker';
-/* ----- SACAR ESTA LINEA LUEGO DE TERMINAR --- */
 
 const QuizMake = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -287,7 +284,10 @@ const QuizMake = ({ navigation, route: { params } }) => {
 											keyboardType='numeric'
 											onChangeText={(value) =>
 												onChange(
-													value.replace(/[^0-9]+/, '')
+													value.replace(
+														/[^0-9]+/,
+														'',
+													),
 												)
 											}
 											value={value}

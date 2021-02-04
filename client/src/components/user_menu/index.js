@@ -6,6 +6,7 @@ import {
 	Vibration,
 	Switch,
 	View,
+	ActivityIndicator,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,6 +32,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound } = useSelector((state) => state.global);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
+	const [myQuizzesLoading, setmyQuizzesLoading] = useState(false);
 	const dispatch = useDispatch();
 	const s = strings[language];
 
@@ -85,9 +87,11 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	};
 
 	const handleMyQuizzes = () => {
-		dispatch(getUserQuizzes(user._id)).then(() =>
-			navigation.navigate('MyQuizzes'),
-		);
+		setmyQuizzesLoading(true);
+		dispatch(getUserQuizzes(user._id)).then(() => {
+			setmyQuizzesLoading(false);
+			navigation.navigate('MyQuizzes');
+		});
 	};
 
 	const handleAdminPanel = () => {
@@ -112,38 +116,40 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 								'https://picsum.photos/100/100',
 						}}
 					/>
-					<View
-						style={{
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-					>
-						<UserName>
-							{user.firstName} {user.lastName}
-							{user.validated && (
-								<Icon
-									name='checkmark-circle'
-									size={20}
-									style={{
-										color: '#1271e2',
-										zIndex: 20,
-										marginLeft: 5,
-									}}
-								/>
-							)}
-							{user.premium && (
-								<Icon
-									color={'rgb(250,210,1)'}
-									name='ios-star'
-									size={20}
-									style={{
-										marginLeft: 5,
-										zIndex: 20,
-									}}
-								/>
-							)}
-						</UserName>
+					<View>
+						<View
+							style={{
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<UserName>
+								{user.firstName} {user.lastName}
+								{user.validated && (
+									<Icon
+										name='checkmark-circle'
+										size={20}
+										style={{
+											color: '#1271e2',
+											zIndex: 20,
+											marginLeft: 5,
+										}}
+									/>
+								)}
+								{user.premium && (
+									<Icon
+										color={'rgb(250,210,1)'}
+										name='ios-star'
+										size={20}
+										style={{
+											marginLeft: 5,
+											zIndex: 20,
+										}}
+									/>
+								)}
+							</UserName>
+						</View>
 					</View>
 					<TouchableOpacity
 						onPress={() => navigation.navigate('Profile')}
@@ -175,6 +181,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						<Text
 							style={{
+								fontSize: 12,
 								color: theme.primary,
 								textTransform: 'uppercase',
 								fontFamily: 'Nunito_600SemiBold',
@@ -184,7 +191,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						</Text>
 					</AccTypeButton>
 				</AccType>
-				{user.role !== 'ADMIN' && (
+				{user.role === 'ADMIN' && (
 					<MenuTouchOption onPress={handleAdminPanel}>
 						<Text
 							style={{
@@ -206,7 +213,10 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.subs}
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption onPress={handleMyQuizzes}>
+				<MenuTouchOption
+					style={{ justifyContent: 'space-between' }}
+					onPress={handleMyQuizzes}
+				>
 					<Text
 						style={{
 							color: theme.text,
@@ -215,6 +225,9 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					>
 						{s.myQuiz}
 					</Text>
+					{myQuizzesLoading && (
+						<ActivityIndicator size='small' color={theme.primary} />
+					)}
 				</MenuTouchOption>
 				<MenuTouchOption onPress={handleMail}>
 					<Text
@@ -436,6 +449,7 @@ const UserName = styled.Text`
 	font-size: 20px;
 	font-family: 'Nunito_800ExtraBold';
 	text-align: center;
+	align-items: center;
 	color: ${(props) => props.theme.text};
 `;
 

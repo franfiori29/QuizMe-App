@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import styled, { ThemeProvider } from 'styled-components/native';
 import NavbarAdmin from '../utils/NavbarAdmin';
-import Navbar from '../utils/NavBar';
 import strings from './strings';
 import { getUsers } from '../../redux/reducers/user';
 import { getQuizzes } from '../../redux/reducers/quizzes';
 import { getCategories } from '../../redux/reducers/categories';
 
-const AdminPanel = ({ navigation }) => {
+const AdminPanel = () => {
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	useEffect(() => {
@@ -39,7 +36,3 @@ const Body = styled.View`
 `;
 
 export default AdminPanel;
-
-// <Text>Grafico de total de Quizzes</Text>
-// <Text>Grafico de total de categorias por quizzes</Text>
-// <Text>Cantidad de usuarios premium y free</Text>

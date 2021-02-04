@@ -14,8 +14,10 @@ import { setToken, setUserInfo } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function Login({ navigation }) {
+	const [loadingSocial, setLoadingSocial] = useState(false);
 	async function signInWithGoogleAsync() {
 		try {
 			const result = await Google.logInAsync({
@@ -46,15 +48,14 @@ export default function Login({ navigation }) {
 						setLoading(false);
 						setError('register', {
 							type: 'manual',
-							message:
-								'ERROR AL REGISTRARSE. INTENTELO MAS TARDE',
+							message: s.registerError,
 						});
 					});
 			} else {
-				console.log('cancelled');
+				setLoadingSocial(false);
 			}
 		} catch (e) {
-			console.log('canceled', e);
+			setLoadingSocial(false);
 			return { error: true };
 		}
 	}
@@ -99,15 +100,14 @@ export default function Login({ navigation }) {
 						setLoading(false);
 						setError('register', {
 							type: 'manual',
-							message:
-								'ERROR AL REGISTRARSE. INTENTELO MAS TARDE',
+							message: s.registerError,
 						});
 					});
 			} else {
-				// type === 'cancel'
-				console.log('cancelled');
+				setLoadingSocial(false);
 			}
 		} catch ({ message }) {
+			setLoadingSocial(false);
 			alert(`Facebook Login Error: ${message}`);
 		}
 	}
@@ -181,6 +181,14 @@ export default function Login({ navigation }) {
 	};
 	return (
 		<ThemeProvider theme={theme}>
+			<Spinner
+				visible={loadingSocial}
+				textContent={s.loading}
+				color={theme.white}
+				textStyle={{
+					color: theme.white,
+				}}
+			/>
 			<Container source={backgroundImage}>
 				<LogoView>
 					<Logo source={logo} />
@@ -220,13 +228,24 @@ export default function Login({ navigation }) {
 							required: true,
 							pattern: {
 								value: /^[a-z0-9_.-]+@[a-z0-9-]+\.[a-z]{2,}$/i,
-								message: 'Not a valid email',
+								message: s.invalidMail,
 							},
 						}}
 						defaultValue=''
 					/>
 					{errors.email && (
 						<ErrorIcon>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.email.message || s.req}
+							</Text>
 							<Icon
 								name={'ios-alert-circle'}
 								size={25}
@@ -263,15 +282,26 @@ export default function Login({ navigation }) {
 						name='password'
 						rules={{
 							required: true,
-							// pattern: {
-							// 	value: /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ!\s]+$/g,
-							// 	message: 'Not a valid email',
-							// },
+							pattern: {
+								value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+								message: s.invalidPassword,
+							},
 						}}
 						defaultValue=''
 					/>
 					{errors.password && (
 						<ErrorIcon right='55px'>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.password.message || s.req}
+							</Text>
 							<Icon
 								name={'ios-alert-circle'}
 								size={25}
@@ -313,13 +343,19 @@ export default function Login({ navigation }) {
 							title={s.google}
 							button
 							type='google'
-							onPress={() => signInWithGoogleAsync()}
+							onPress={() => {
+								setLoadingSocial(true);
+								signInWithGoogleAsync();
+							}}
 						/>
 						<SocialIconFacebook
 							title={s.facebook}
 							button
 							type='facebook'
-							onPress={() => logInFacebook()}
+							onPress={() => {
+								setLoadingSocial(true);
+								logInFacebook();
+							}}
 						/>
 					</>
 				)}

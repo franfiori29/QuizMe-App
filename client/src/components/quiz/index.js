@@ -6,13 +6,14 @@ import {
 	TouchableWithoutFeedback,
 	Vibration,
 	Platform,
+	TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Speech from 'expo-speech';
 import * as Animatable from 'react-native-animatable';
 import { Audio } from 'expo-av';
 import { completeQuiz } from '@redux/reducers/user.js';
-import { updateHighscore } from '@redux/reducers/quizzes';
+import { updateHighscore, getSuggestedQuizzes } from '@redux/reducers/quizzes';
 
 //==>Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -27,6 +28,7 @@ import successSound from '@assets/audio/success.wav';
 import wrongSound from '@assets/audio/wrong.wav';
 import timerSound from '@assets/audio/timer.m4a';
 import themeSound from '@assets/audio/samba-theme-loop.wav';
+import { clearHighscoreBadge } from '../../redux/reducers/quizzes';
 
 const TIME = 10;
 const SFX_VOL = 0.03;
@@ -58,11 +60,12 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const [points, setPoints] = useState(0);
 	const iconRef = useRef();
 	const barRef = useRef();
-	const button0 = useRef();
-	const button1 = useRef();
-	const button2 = useRef();
-	const button3 = useRef();
-	const buttonRefArray = [button0, button1, button2, button3];
+	const buttonRefArray = [
+		{ b: useRef(), t: useRef() },
+		{ b: useRef(), t: useRef() },
+		{ b: useRef(), t: useRef() },
+		{ b: useRef(), t: useRef() },
+	];
 	const dispatch = useDispatch();
 
 	const [selected, setSelected] = useState({ id: -1, correct: false });
@@ -76,16 +79,18 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
-				dispatch(
-					updateHighscore({ quizId: params.id, score: newPoints }),
-				);
+				newPoints &&
+					dispatch(
+						updateHighscore({ quizId: params.id, score: newPoints })
+					);
+        dispatch(getSuggestedQuizzes());
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
@@ -99,7 +104,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS,
+						prevPoints + (timer.time / totalTime) * MAX_POINTS
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -111,6 +116,22 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	useEffect(() => {
 		let i;
 		if (current < questions.length && timer.on) {
+			buttonRefArray.forEach(
+				(e, i) =>
+					i < shuffledOptions.length &&
+					e.b.current.animate(
+						{
+							from: {
+								translateX: -WIDTH,
+							},
+							to: {
+								translateX: 0,
+							},
+							easing: 'ease-out',
+						},
+						600 + i * 100
+					)
+			);
 			barRef.current.animate(
 				{
 					0: { width: WIDTH, backgroundColor: theme.primary },
@@ -118,7 +139,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -137,7 +158,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			buttonRefArray.forEach(
 				(e, i) =>
 					i < shuffledOptions.length &&
-					e.current.animate(shaking, 3000)
+					e.t.current.animate(shaking, 3000)
 			);
 			sounds.timer?.playFromPositionAsync(3500);
 		}
@@ -154,6 +175,22 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			startTimeout(result);
 			Vibration.cancel();
 			iconRef.current.animate(bounceInDisappear, 1000);
+			buttonRefArray.forEach(
+				(e, i) =>
+					i < shuffledOptions.length &&
+					e.b.current.animate(
+						{
+							from: {
+								translateX: 0,
+							},
+							to: {
+								translateX: WIDTH,
+							},
+							easing: 'ease-in',
+						},
+						600 + i * 100
+					)
+			);
 		}
 		setTts(false);
 		Speech.stop();
@@ -169,7 +206,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			: sounds.wrong?.playFromPositionAsync(0);
 		barRef.current.stopAnimation();
 		buttonRefArray.forEach(
-			(e, i) => i < shuffledOptions.length && e.current.stopAnimation()
+			(e, i) => i < shuffledOptions.length && e.t.current.stopAnimation()
 		);
 		setTts(false);
 		Speech.stop();
@@ -183,7 +220,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 
 	useEffect(() => {
 		stopTheme();
-
+		dispatch(clearHighscoreBadge());
 		let s1;
 		let s2;
 		let s3;
@@ -241,7 +278,6 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			navigation.navigate('Ricky');
 		}
 	};
-	const handleTts = () => setTts(false);
 	return (
 		<ThemeProvider theme={theme}>
 			<Screen>
@@ -351,10 +387,12 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							theme={theme}
 							key={i}
 							onPress={() => handleOptionPress(option.result, i)}
+							ref={buttonRefArray[i].b}
+							useNativeDriver={true}
 						>
 							<Animatable.Text
 								direction={i % 2 === 0 ? 'normal' : 'reverse'}
-								ref={buttonRefArray[i]}
+								ref={buttonRefArray[i].t}
 								style={{
 									width: '85%',
 									alignSelf: 'center',
@@ -362,6 +400,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 									textAlign: 'center',
 									fontFamily: 'Nunito_800ExtraBold',
 								}}
+								useNativeDriver={true}
 							>
 								{option.title}
 							</Animatable.Text>
@@ -447,7 +486,10 @@ const QuestionTitle = styled.Text`
 	text-align: center;
 `;
 
-const Option = styled.TouchableOpacity`
+const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(
+	TouchableOpacity
+);
+const Option = styled(AnimatableTouchableOpacity)`
 	width: 95%;
 	align-self: center;
 	margin: 6px 0px;

@@ -168,6 +168,7 @@ const userSlice = createSlice({
 		likedQuiz: [],
 		userQuizzes: [],
 		users: [],
+		loadingUsers: false,
 	},
 	reducers: {
 		setUserInfo: (state, { payload }) => {
@@ -211,7 +212,11 @@ const userSlice = createSlice({
 		[getUserQuizzes.fulfilled]: (state, { payload }) => {
 			state.userQuizzes = payload.getUserQuizzes;
 		},
+		[getUsers.pending]: (state) => {
+			state.loadingUsers = true;
+		},
 		[getUsers.fulfilled]: (state, { payload }) => {
+			state.loadingUsers = false;
 			state.users = payload;
 		},
 		[getUser.fulfilled]: (state, { payload }) => {
