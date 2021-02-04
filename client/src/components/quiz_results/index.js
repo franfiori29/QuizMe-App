@@ -40,7 +40,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
 		);
 	};
 
@@ -122,7 +122,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 							handleOnFavorite={handleOnFavorite}
 							isLiked={isLiked}
 						/>
-						<View style={{ width: 100 }}>
+						<View style={{ width: 120 }}>
 							<SocialMedia
 								shareOptions={{
 									title: s.title,
@@ -313,6 +313,8 @@ const BtnSecText = styled.Text`
 	align-self: center;
 `;
 const ViewSocialMedia = styled.View`
-	justify-content: space-evenly;
+	justify-content: center;
+	width: 100%;
+	align-self: center;
 `;
 export default QuizResults;
