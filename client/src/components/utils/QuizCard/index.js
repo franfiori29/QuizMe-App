@@ -4,12 +4,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import strings from '@components/home_screen/strings';
-import { Text, Share, Platform, Vibration, View } from 'react-native';
+import { Text, Share, View } from 'react-native';
 import socialStrings from '@components/quiz_index/strings';
+import { Vibrate } from '@utils/vibration';
 
 const QuizCardComponent = ({ quiz }) => {
 	const navigation = useNavigation();
-	const { theme, language } = useSelector((state) => state.global);
+	const { theme, language, vibration } = useSelector((state) => state.global);
 	const s = strings[language];
 	const likes = useSelector((state) => state.user.likedQuiz);
 	const completedQuiz = useSelector((state) => state.user.completedQuiz);
@@ -36,9 +37,7 @@ const QuizCardComponent = ({ quiz }) => {
 			onLongPress={shareSocialMedia}
 			key={quiz._id}
 			onPress={() => {
-				if (Platform.OS === 'android') {
-					Vibration.vibrate(100);
-				}
+				Vibrate(100, vibration);
 
 				navigation.navigate('QuizIndex', {
 					quiz,

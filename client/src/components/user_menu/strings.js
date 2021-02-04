@@ -11,6 +11,7 @@ const strings = {
 		user: 'Change username',
 		pass: 'Change password',
 		notif: 'Notification settings',
+		vibration: 'Vibration',
 		sound: 'Sound',
 		dark: 'Dark mode',
 		dark1: 'Activated',
@@ -21,6 +22,7 @@ const strings = {
 		info: 'Information',
 		version: 'Version',
 		logout: 'Log Out',
+		sure: 'Are you sure?',
 		adminPanel: 'Admin Panel',
 	},
 
@@ -36,6 +38,7 @@ const strings = {
 		user: 'Cambiar nombre de usuario',
 		pass: 'Cambiar contraseña',
 		notif: 'Configuración de notificaciones',
+		vibration: 'Vibración',
 		sound: 'Sonido',
 		dark: 'Modo oscuro',
 		dark1: 'Activado',
@@ -46,6 +49,7 @@ const strings = {
 		info: 'Información',
 		version: 'Versión',
 		logout: 'Cerrar sesión',
+		sure: '¿Estás seguro?',
 		adminPanel: 'Panel de Admin',
 	},
 };
