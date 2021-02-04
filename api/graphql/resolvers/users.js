@@ -75,7 +75,7 @@ module.exports = {
 			await User.updateOne({ _id: user._id }, { premium: true });
 			return 'User premiumnificated (? succesfully';
 		},
-		sendNotification: async (_, { message }, { user }) => {
+		sendNotification: async (_, { message, title, data }, { user }) => {
 			let expo = new Expo();
 			let messages = [];
 			const newUser = await User.findById(user._id);
@@ -90,24 +90,15 @@ module.exports = {
 			messages.push({
 				to: pushToken,
 				sound: 'default',
-				body: 'Tenemos una nueva quiz para vos',
-				data: { quizId: 1 },
+				title: title,
+				body: message,
+				data: data || {},
 			});
+
 			let chunks = expo.chunkPushNotifications(messages);
-			let tickets = [];
-			(async () => {
-				for (let chunk of chunks) {
-					try {
-						let ticketChunk = await expo.sendPushNotificationsAsync(
-							chunk
-						);
-						console.log(ticketChunk);
-						tickets.push(...ticketChunk);
-					} catch (error) {
-						console.error(error);
-					}
-				}
-			})();
+			for (let chunk of chunks) {
+				await expo.sendPushNotificationsAsync(chunk);
+			}
 			return 'Notification send succesfully';
 		},
 	},

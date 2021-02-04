@@ -39,16 +39,16 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}
 
 	useEffect(() => {
+		sendPushNotification(
+			user.notificationToken,
+			s.notificationTitle,
+			`${s.notificationMessage} 💪`,
+			{ path: 'Home' }
+		);
 		return () => dispatch(getSuggestedQuizzes());
 	}, []);
 
 	const handleOnFavorite = (giveLike) => {
-		sendPushNotification(
-			user.notificationToken,
-			'Gracias por darle un like a este pobre infeliz',
-			'Aprietame maldito',
-			{ path: 'Profile' }
-		);
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
 			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);

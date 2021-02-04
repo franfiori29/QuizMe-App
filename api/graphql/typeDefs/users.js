@@ -51,6 +51,6 @@ module.exports = gql`
 		validateUser(userId: ID!): String!
 		premiumUser: String!
 		setNotificationToken(token: String!): String!
-		sendNotification(message: String!): String!
+		sendNotification(message: String!, title: String!): String!
 	}
 `;

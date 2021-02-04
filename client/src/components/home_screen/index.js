@@ -193,7 +193,6 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					) : (
 						<QuizCards
 							quizzes={quizzes}
-							// quizzes={suggestedQuizzes}
 							completedQuiz={completedQuiz}
 						/>
 					)}
