@@ -35,7 +35,8 @@ import strings from './strings';
 
 //==>Notifications
 import { registerForPushNotificationsAsync } from '@constants/notifications';
-import { deepLinking } from '../../constants/deeplinking';
+
+import { deepLinking } from '@constants/deeplinking';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
