@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, RefreshControl, ActivityIndicator } from 'react-native';
+import * as Linking from 'expo-linking';
 import {
 	getQuizzes,
 	getQuizByCategory,
@@ -35,6 +36,8 @@ import strings from './strings';
 //==>Notifications
 import { registerForPushNotificationsAsync } from '@constants/notifications';
 
+import { deepLinking } from '@constants/deeplinking';
+
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
 		shouldShowAlert: true,
@@ -55,6 +58,26 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const responseListener = useRef();
 	const [quizzesLoading, setQuizzesLoading] = useState(false);
 	const [selector, setSelector] = useState('suggested');
+	const [route, setRoute] = useState('');
+	const [param, setParam] = useState('');
+
+	const extractToken = (url) => {
+		let { path } = Linking.parse(url);
+
+		if (path) {
+			const rou = path.split('=')[0];
+			setRoute(rou);
+			const paramUrl = path.split('=')[1];
+			setParam(paramUrl);
+		}
+	};
+
+	Linking.getInitialURL().then((url) => extractToken(url));
+	Linking.addEventListener('url', (url) => extractToken(url));
+
+	useEffect(() => {
+		deepLinking(route, param, navigation);
+	}, [route]);
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());

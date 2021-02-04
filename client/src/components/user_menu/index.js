@@ -31,7 +31,7 @@ import strings from './strings';
 
 const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound, vibration } = useSelector(
-		(state) => state.global,
+		(state) => state.global
 	);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
@@ -69,7 +69,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						style: 'cancel',
 					},
 				],
-				{ cancelable: false },
+				{ cancelable: false }
 			);
 		} else {
 			alert(s.err2);

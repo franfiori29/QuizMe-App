@@ -38,6 +38,12 @@ import EditCategory from '@components/admin_panel/screens/editCategory';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
+import * as Linking from 'expo-linking';
+
+/* === Prefix === */
+const prefixHome = Linking.createURL('/achievements');
+const prefixUserMenu = Linking.createURL('/user/:id', { id: 'id' });
+/* === Prefix === */
 
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
@@ -70,10 +76,14 @@ const HomeRoutes = () => {
 		mainTheme?.stopAsync();
 	};
 
+	const linkingConfig = {
+		prefixes: [prefixHome, prefixUserMenu],
+	};
+
 	const { Navigator, Screen } = createStackNavigator();
 	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)
 	return (
-		<NavigationContainer>
+		<NavigationContainer linking={linkingConfig}>
 			<Navigator
 				screenOptions={{ headerShown: false }}
 				initialRouteName={'LogoAnimated'}

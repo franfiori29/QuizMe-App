@@ -24,7 +24,6 @@ const EditCategory = ({
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
-	console.log('category', category);
 	const onSubmit = async (data) => {
 		await dispatch(updateCategory({ catId: category._id, category: data }));
 		dispatch(getCategories(language));
