@@ -28,7 +28,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 //Assets
 import strings from './strings';
 
-const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
+const UserMenu = ({ navigation, route: { stopTheme, playTheme, params } }) => {
 	const { language, theme, sound } = useSelector((state) => state.global);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
