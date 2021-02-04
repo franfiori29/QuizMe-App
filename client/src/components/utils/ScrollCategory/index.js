@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Platform, Vibration } from 'react-native';
+import { useSelector } from 'react-redux';
+import { Vibrate } from '@utils/vibration';
 import styled from 'styled-components/native';
 
 const ScrollCategory = ({ categories, handleSelect }) => {
-	const { language } = useSelector((state) => state.global);
+	const { language, vibration } = useSelector((state) => state.global);
 	const [selected, setSelected] = useState(-1);
 
 	return (
@@ -29,7 +29,7 @@ const ScrollCategory = ({ categories, handleSelect }) => {
 							selected === category._id ? '' : category._id,
 						);
 
-						Platform.OS === 'android' && Vibration.vibrate(100);
+						Vibrate(100, vibration);
 					}}
 				>
 					<CategoryName>

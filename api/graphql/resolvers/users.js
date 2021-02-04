@@ -12,6 +12,13 @@ module.exports = {
 			const userfind = await User.findById(user._id);
 			return userfind.completedQuiz;
 		},
+		getUser: async (_, { userId }) => {
+			const foundUser = await User.findById(
+				userId,
+				'_id firstName lastName countryCode profilePic premium validated isActive'
+			);
+			return foundUser?.isActive ? foundUser : null;
+		},
 	},
 
 	Mutation: {
@@ -100,6 +107,15 @@ module.exports = {
 				await expo.sendPushNotificationsAsync(chunk);
 			}
 			return 'Notification send succesfully';
+		},
+		followUser: async (_, { userId }, { user }) => {
+			const updatedUser = await User.findOneAndUpdate(
+				{ _id: user._id },
+				{ $addToSet: { following: userId } },
+				{ new: true }
+			);
+			if (updatedUser.following.includes(userId)) return true;
+			return false;
 		},
 	},
 };
