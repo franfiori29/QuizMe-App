@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Platform } from 'react-native';
 
 //~~~Components~~~
@@ -40,6 +41,7 @@ import { Audio } from 'expo-av';
 
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
+
 	const [mainTheme, setMainTheme] = React.useState();
 	useEffect(() => {
 		if (Platform.OS === 'web') {

@@ -15,8 +15,12 @@ import { updateLike, getRandomQuiz, getQuizzes } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
 import { getSuggestedQuizzes } from '../../redux/reducers/quizzes';
 
+//==>Notifications
+import { sendPushNotification } from '@constants/notifications';
+
 const QuizResults = ({ route: { params }, navigation }) => {
 	const { theme, language } = useSelector((state) => state.global);
+	const { info: user } = useSelector((state) => state.user);
 	const s = strings[language];
 	const dispatch = useDispatch();
 	const likes = useSelector((state) => state.user.likedQuiz);
@@ -35,6 +39,12 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}
 
 	useEffect(() => {
+		sendPushNotification(
+			user.notificationToken,
+			s.notificationTitle,
+			`${s.notificationMessage} 💪`,
+			{ path: 'Home' }
+		);
 		return () => dispatch(getSuggestedQuizzes());
 	}, []);
 

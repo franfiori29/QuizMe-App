@@ -10,6 +10,7 @@ const users = [
 		countryCode: 'AR',
 		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
+		notificationToken: 'ExponentPushToken[QobVLNO-iGjoP2_3Ey-Alx]',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),

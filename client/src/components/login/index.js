@@ -35,6 +35,7 @@ export default function Login({ navigation }) {
 						countryCode: 'AR',
 					})
 					.then((user) => {
+						console.log('user', user);
 						dispatch(setUserInfo(user.data));
 						reset({
 							emai: '',
