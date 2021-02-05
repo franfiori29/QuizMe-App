@@ -11,8 +11,15 @@ module.exports = gql`
 		categoryId: Category!
 		questions: [Question!]!
 		time: Int!
-		creatorId: ID!
+		creatorId: UserSnippet
 		highScores: [Highscore]
+	}
+
+	type UserSnippet {
+		_id: ID!
+		firstName: String
+		lastName: String
+		profilePic: String
 	}
 
 	type UserScore {

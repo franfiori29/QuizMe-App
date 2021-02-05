@@ -1,140 +1,57 @@
-import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useEffect } from 'react';
+import { View, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
-import fb from '@root/src/firebase';
-import { v4 as uuidv4 } from 'uuid';
-
-//Redux
-import { updateUser } from '@redux/reducers/user';
+import { getUserById } from '@redux/reducers/user';
 
 //Components
 import NavBar from '@components/utils/NavBar';
-import Achivements from './Achivements';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
-import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Assets
 import strings from './strings';
 
-const Profile = ({ navigation }) => {
+const PublicProfile = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
-	const { info } = useSelector((state) => state.user);
-	const { info: user } = useSelector((state) => state.user);
-	const [picture, setPicture] = useState(null);
-	const [loading, setLoading] = useState(false);
-
+	const { otherUser } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getUserById(params.userId));
+	}, []);
+
 	const s = strings[language];
-
-	const openImagePickerAsync = async () => {
-		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
-
-		if (permissionResult.granted === false) {
-			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`,
-			);
-			return;
-		}
-
-		const pickerResult = await ImagePicker.launchImageLibraryAsync();
-		if (pickerResult.cancelled === true) {
-			return;
-		} else {
-			/* --- SUBE IMAGEN A FIREBASE --- */
-			setLoading(true);
-			let url;
-			let randomID = uuidv4();
-			try {
-				const blob = await new Promise((resolve, reject) => {
-					const xhr = new XMLHttpRequest();
-					xhr.onload = function () {
-						resolve(xhr.response);
-					};
-					xhr.onerror = function (e) {
-						reject(new TypeError('Network request failed'));
-					};
-					xhr.responseType = 'blob';
-					xhr.open('GET', pickerResult.uri, true);
-					xhr.send(null);
-				});
-				const ref = fb.storage().ref(`profilePic/${randomID}`);
-				const snapshot = await ref.put(blob);
-				url = await snapshot.ref.getDownloadURL();
-
-				if (Platform.OS !== 'web') {
-					blob.close();
-				}
-				setPicture({ localUri: url });
-				dispatch(updateUser({ profilePic: url }));
-				setLoading(false);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-	};
 
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
 				<NavBar
-					string={s.title}
+					string={
+						otherUser.firstName +
+						' ' +
+						otherUser.lastName +
+						' ' +
+						s.title
+					}
 					nav1={() => navigation.goBack()}
 					nav2={() => navigation.navigate('Home')}
 					icon1='ios-arrow-back'
 					icon2='ios-home-outline'
 				/>
 				<UserContainer>
-					<TouchableOpacity onPress={openImagePickerAsync}>
+					<View>
 						<UserImg
 							source={{
-								uri: info.profilePic
-									? info.profilePic
+								uri: otherUser.profilePic
+									? otherUser.profilePic
 									: 'https://picsum.photos/150/150',
 							}}
 						/>
-						{loading && (
-							<View
-								style={{
-									position: 'absolute',
-									top: -1,
-									left: -1,
-									zIndex: 5,
-									height: 122,
-									width: 122,
-									borderRadius: 100,
-									alignItems: 'center',
-									backgroundColor: 'rgba(0,0,0,0.7)',
-								}}
-							>
-								<View
-									style={{
-										alignSelf: 'center',
-										margin: 'auto',
-									}}
-								>
-									<Spinner
-										visible={loading}
-										textContent={'Loading'}
-										color={theme.white}
-										textStyle={{
-											color: theme.white,
-										}}
-									/>
-								</View>
-							</View>
-						)}
-						<Pencil
-							color={theme.primary}
-							name='ios-pencil'
-							size={24}
-						/>
-					</TouchableOpacity>
+					</View>
 					<UserInfo>
 						<View>
 							<View
@@ -145,8 +62,8 @@ const Profile = ({ navigation }) => {
 								}}
 							>
 								<UserName>
-									{user.firstName} {user.lastName}
-									{user.validated && (
+									{otherUser.firstName} {otherUser.lastName}
+									{otherUser.validated && (
 										<Icon
 											name='checkmark-circle'
 											size={20}
@@ -157,7 +74,7 @@ const Profile = ({ navigation }) => {
 											}}
 										/>
 									)}
-									{user.premium && (
+									{otherUser.premium && (
 										<Icon
 											color={'rgb(250,210,1)'}
 											name='ios-star'
@@ -186,33 +103,6 @@ const Profile = ({ navigation }) => {
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>
-						{user.validated ? (
-							<Text
-								style={{
-									color: theme.primary,
-									textTransform: 'uppercase',
-									fontFamily: 'Nunito_600SemiBold',
-								}}
-							>
-								{s.validate2}
-							</Text>
-						) : (
-							<AccTypeButton
-								onPress={() =>
-									navigation.navigate('ValidateScreen')
-								}
-							>
-								<Text
-									style={{
-										color: theme.primary,
-										textTransform: 'uppercase',
-										fontFamily: 'Nunito_600SemiBold',
-									}}
-								>
-									{s.validate}
-								</Text>
-							</AccTypeButton>
-						)}
 					</UserInfo>
 				</UserContainer>
 				<InfoBoxWrapper>
@@ -306,14 +196,14 @@ const Profile = ({ navigation }) => {
 						</StatCard>
 					</View>
 					<StatsTitle>{s.achv}</StatsTitle>
-					<Achivements />
+					<Text>Aca van los logros</Text>
 				</StatsScreen>
 			</ScrollView>
 		</ThemeProvider>
 	);
 };
 
-export default Profile;
+export default PublicProfile;
 
 const UserContainer = styled.View`
 	height: 200px;
@@ -328,28 +218,18 @@ const UserContainer = styled.View`
 	align-self: center;
 `;
 
-const UserInfo = styled.View`
-	height: 100%;
-	align-items: flex-start;
-	width: 60%;
-	justify-content: space-around;
-`;
-
 const UserImg = styled.Image`
 	z-index: 3;
 	height: 120px;
 	width: 120px;
 	border-radius: 100px;
 `;
-const Pencil = styled(Icon)`
-	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 5px;
-	z-index: 10;
-	background-color: ${(props) => props.theme.bg};
-	border: 2px solid ${(props) => props.theme.text};
-	border-radius: 100px;
+
+const UserInfo = styled.View`
+	height: 100%;
+	align-items: flex-start;
+	width: 60%;
+	justify-content: space-around;
 `;
 
 const UserName = styled.Text`

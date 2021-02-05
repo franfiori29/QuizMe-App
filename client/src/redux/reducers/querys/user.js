@@ -2,6 +2,18 @@ import { gql } from 'graphql-request';
 import { EntireQuizInfo } from './quizzes';
 
 /* --- Querys --- */
+export const queryGetUser = gql`
+	query($payload: ID!) {
+		getUser(userId: $payload) {
+			firstName
+			lastName
+			profilePic
+			premium
+			validated
+		}
+	}
+`;
+
 export const queryGetCompletedQuizzes = gql`
 	{
 		getCompletedQuizzes {
