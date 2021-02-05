@@ -40,7 +40,7 @@ const QuizCardComponent = ({ quiz }) => {
 				Vibrate(100, vibration);
 
 				navigation.navigate('QuizIndex', {
-					quiz,
+					quizId: quiz._id,
 				});
 			}}
 		>

@@ -45,12 +45,11 @@ const QuizResults = ({ route: { params }, navigation }) => {
 			`${s.notificationMessage} 💪`,
 			{ path: 'Home' }
 		);
-		return () => dispatch(getSuggestedQuizzes());
 	}, []);
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
 		);
 	};
 
@@ -149,7 +148,7 @@ const QuizResults = ({ route: { params }, navigation }) => {
 						onPress={() =>
 							dispatch(getRandomQuiz()).then(() => {
 								navigation.replace('QuizIndex', {
-									quiz: null,
+									quizId: null,
 								});
 							})
 						}

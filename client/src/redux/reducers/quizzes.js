@@ -11,6 +11,7 @@ import {
 	queryRandomQuiz,
 	queryGtQuizzesByPopularity,
 	queryGtQuizzesSuggested,
+	queryGetQuiz,
 } from './querys/quizzes';
 import { shuffle } from '@utils/shuffle';
 
@@ -56,6 +57,14 @@ export const createQuiz = createAsyncThunk(
 	async (payload, { getState }) => {
 		const client = getClient(getState());
 		const clientRequest = await client.request(quizCreateOne, { payload });
+		return clientRequest;
+	}
+);
+export const getQuiz = createAsyncThunk(
+	'quiz/getById',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetQuiz, { payload });
 		return clientRequest;
 	}
 );
@@ -144,11 +153,23 @@ const quizSlice = createSlice({
 		clearHighscoreBadge: (state) => {
 			state.quiz.newHighscore = false;
 		},
+		clearCurrentQuiz: (state) => {
+			state.quiz = {};
+		},
 	},
 	extraReducers: {
 		[getQuizzes.fulfilled]: (state, { payload }) => {
 			state.quizzes = payload.getQuizzes;
 			state.categories = payload.getCategories;
+		},
+		[getQuiz.fulfilled]: (state, { payload }) => {
+			state.quiz = payload.getQuiz;
+		},
+		[getQuiz.pending]: (state) => {
+			state.quiz = {};
+		},
+		[getQuiz.rejected]: (state) => {
+			state.quiz = { error: true };
 		},
 		[createQuiz.fulfilled]: (state, { payload }) => {
 			state.quizzes.push(payload.createQuiz);
@@ -184,6 +205,10 @@ const quizSlice = createSlice({
 	},
 });
 
-export const { clearfilteredQuizzes, clearHighscoreBadge } = quizSlice.actions;
+export const {
+	clearfilteredQuizzes,
+	clearHighscoreBadge,
+	clearCurrentQuiz,
+} = quizSlice.actions;
 
 export default quizSlice.reducer;
