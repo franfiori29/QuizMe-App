@@ -3,6 +3,10 @@ const User = require('../models/User');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { SECRET, FRONT } = process.env;
+var nodemailer = require('nodemailer');
+const pug = require('pug');
+const { MAIL, MAILPASS } = process.env;
+const { generateCode } = require('../utils/utils');
 
 server.get('/me', async (req, res, next) => {
 	try {
@@ -103,6 +107,72 @@ server.post('/login', function (req, res, next) {
 			return res.json(loginUser);
 		}
 	})(req, res, next);
+});
+
+// Ruta para enviar notificacion por mail
+server.post('/email', (req, res) => {
+	//const { name, email, template, subject } = req.body;
+	const params = req.body;
+
+	const transporter = nodemailer.createTransport({
+		host: 'smtp.gmail.com',
+		port: 465,
+		secure: true,
+		auth: {
+			user: MAIL,
+			pass: MAILPASS,
+		},
+	});
+
+	transporter
+		.sendMail({
+			from: '"QuizMeApp" <c.ttiago7@gmail.com>',
+			to: params.email,
+			subject: params.subject,
+
+			html: pug.renderFile(
+				__dirname + '/templates/' + params.template,
+				params
+			),
+		})
+		.then((mail) => {
+			res.status(200).json({
+				message: 'Mail enviado correctamente',
+				info: mail,
+			});
+		})
+		.catch((error) => {
+			res.status(404).json({
+				message: 'Mail no enviado ' + error,
+			});
+		});
+});
+
+//
+server.put('/forgot', async (req, res) => {
+	try {
+		const { userEmail } = req.body;
+
+		const userfind = await User.findOneAndUpdate(
+			{ email: userEmail },
+			{ resetCode: generateCode(6) },
+			{ new: true }
+		);
+		if (userfind) {
+			res.status(200).json({
+				message: 'Code generated correctly',
+				user: userfind,
+			});
+		} else {
+			res.status(400).json({
+				message: 'User not found',
+			});
+		}
+	} catch (error) {
+		res.status(400).json({
+			message: 'Error: ' + error,
+		});
+	}
 });
 
 server.get(

@@ -13,6 +13,8 @@ const strings = {
 		invalidPassword: 'Invalid password',
 		registerError: 'Registration error. Try again later.',
 		loading: 'Loading...',
+		forgot: 'forgot your password?',
+		reset: 'Recover',
 	},
 
 	es: {
@@ -29,6 +31,8 @@ const strings = {
 		invalidPassword: 'Contraseña inválida',
 		registerError: 'Error al registrarse. Intentalo más tarde.',
 		loading: 'Cargando...',
+		forgot: 'Olvidaste tu contraseña?',
+		reset: 'Recuperar',
 	},
 };
 

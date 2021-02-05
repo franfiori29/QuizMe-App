@@ -178,6 +178,7 @@ export default function Login({ navigation }) {
 			});
 		// }
 	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<Spinner
@@ -375,6 +376,27 @@ export default function Login({ navigation }) {
 						>
 							{' '}
 							{s.signup}
+						</Text>
+					</Text>
+				</TextView>
+
+				<TextView>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.forgot}
+						<Text
+							style={{
+								color: theme.primary,
+								fontFamily: 'Nunito_600SemiBold',
+							}}
+							onPress={() => navigation.navigate('ResetPassword')}
+						>
+							{' '}
+							{s.reset}
 						</Text>
 					</Text>
 				</TextView>

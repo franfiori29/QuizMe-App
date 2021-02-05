@@ -19,7 +19,7 @@ module.exports = {
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
 				{ $push: { completedQuiz: quizId } },
-				{ new: true },
+				{ new: true }
 			);
 			return userfind;
 		},
@@ -28,7 +28,7 @@ module.exports = {
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
 				userBody,
-				{ new: true },
+				{ new: true }
 			);
 			return userfind;
 		},
