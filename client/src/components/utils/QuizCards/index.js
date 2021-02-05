@@ -43,7 +43,7 @@ const QuizCards = ({ quizzes, completedQuiz }) => {
 							Vibrate(100, vibration);
 
 							navigation.navigate('QuizIndex', {
-								quiz,
+								quizId: quiz._id,
 							});
 						}}
 					>

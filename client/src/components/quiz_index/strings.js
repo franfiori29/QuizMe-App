@@ -5,6 +5,7 @@ const strings = {
 		title: 'Look at this cool quiz',
 		message: "What a cool quiz I've just found",
 		nobody: 'nobody',
+		loading: 'loading',
 	},
 
 	es: {
@@ -13,6 +14,7 @@ const strings = {
 		title: 'Mirá este quiz',
 		message: 'Este quiz está re fachero rey',
 		nobody: 'nadie',
+		loading: 'cargando',
 	},
 };
 

@@ -9,6 +9,7 @@ import {
 	getRandomQuiz,
 	getQuizzesByPopularity,
 	getSuggestedQuizzes,
+	clearCurrentQuiz,
 } from '@redux/reducers/quizzes';
 import { getCategories, sortCategories } from '../../redux/reducers/categories';
 import {
@@ -35,6 +36,7 @@ import strings from './strings';
 
 //==>Notifications
 import { registerForPushNotificationsAsync } from '@constants/notifications';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { deepLinking } from '@constants/deeplinking';
 
@@ -119,6 +121,13 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 			Notifications.removeNotificationSubscription(responseListener);
 		};
 	}, []);
+
+	useFocusEffect(
+		React.useCallback(() => {
+			dispatch(clearCurrentQuiz());
+		}, [])
+	);
+
 	useEffect(() => {
 		if (notification) {
 			const notifPush = notification.notification.request.content.data;
@@ -258,7 +267,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					string={s.randomButton}
 					onSubmit={() => {
 						dispatch(getRandomQuiz()).then(() => {
-							navigation.navigate('QuizIndex', {});
+							navigation.navigate('QuizIndex', { quizId: null });
 						});
 					}}
 				/>

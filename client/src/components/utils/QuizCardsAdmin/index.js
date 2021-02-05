@@ -27,7 +27,7 @@ const QuizCardsAdmin = () => {
 							}
 
 							navigation.navigate('QuizIndex', {
-								quiz,
+								quizId: quiz._id,
 							});
 						}}
 					>
