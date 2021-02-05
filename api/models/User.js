@@ -11,7 +11,7 @@ const userSchema = new Schema(
 		profilePic: { type: String },
 		accountId: { type: String, default: null },
 		socialAccount: { type: String, default: null },
-		countryCode: { type: String, required: true },
+		countryCode: { type: String, required: false },
 		email: {
 			type: String,
 			unique: true,
@@ -27,6 +27,7 @@ const userSchema = new Schema(
 		validated: { type: Boolean, default: false },
 		completedQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
 		isActive: { type: Boolean, default: true },
+		resetCode: { type: String, default: null },
 		notificationToken: { type: String },
 		following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	},

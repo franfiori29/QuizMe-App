@@ -75,7 +75,7 @@ const users = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0006'),
-		email: 'santi@mail.com',
+		email: 'c.ttiago7@gmail.com',
 		password: '!Qwerty123',
 		firstName: 'Santi',
 		lastName: 'Calisaya',
@@ -84,7 +84,7 @@ const users = [
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0007'),
-		email: 'ailu@mail.com',
+		email: 'ailin.nakaganeku@gmail.com',
 		password: '!Qwerty123',
 		firstName: 'Ailin',
 		lastName: 'Nakaganeku',

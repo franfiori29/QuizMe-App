@@ -64,8 +64,8 @@ const Information = ({ navigation }) => {
 			name: 'Santiago',
 			lastname: 'Calisaya',
 			image: { uri: 'https://picsum.photos/100/100' },
-			linked: 'https://www.linkedin.com/in/franco-david-ortiz/',
-			git: 'https://github.com/Pakvothe',
+			linked: 'https://www.linkedin.com/in/ttiago7/',
+			git: 'https://github.com/ttiago7',
 		},
 		{
 			name: 'Bruno',

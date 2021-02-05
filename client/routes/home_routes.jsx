@@ -33,6 +33,7 @@ import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
 import AdminCategories from '@components/admin_panel/screens/categories';
 import RateUs from '@components/rate_us';
+import ResetPassword from '@components/reset_password';
 import AddCategory from '@components/admin_panel/screens/addCategory';
 import EditCategory from '@components/admin_panel/screens/editCategory';
 
@@ -139,6 +140,7 @@ const HomeRoutes = () => {
 				<Screen name='AddCategory' component={AddCategory} />
 				<Screen name='EditCategory' component={EditCategory} />
 				<Screen name='RateUs' component={RateUs} />
+				<Screen name='ResetPassword' component={ResetPassword} />
 			</Navigator>
 		</NavigationContainer>
 	);
