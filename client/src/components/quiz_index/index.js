@@ -16,6 +16,7 @@ import SocialMedia from '@components/utils/SocialMedia';
 // import ImageRankingThird from '@assets/img/thirdranking.jpg';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useFocusEffect } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
@@ -49,7 +50,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 					}}
 				/>
 				{!!quiz && Object.keys(quiz).length && !quiz.error ? (
-					<ContainerPpal>
+					<ContainerPpal animation='fadeIn'>
 						<ContainerTop>
 							<Banner source={{ uri: quiz.image }} />
 							<BackButtonContainer
@@ -231,7 +232,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 	);
 };
 
-const ContainerPpal = styled.View`
+const ContainerPpal = styled(Animatable.View)`
 	flex: 1;
 	align-items: center;
 	background-color: ${(props) => props.theme.bg};
