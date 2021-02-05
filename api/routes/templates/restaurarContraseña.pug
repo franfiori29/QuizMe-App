@@ -1,8 +1,8 @@
-
+doctype transitional
 head
   meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
   meta(name='viewport', content='width=device-width, initial-scale=1')
-  title Bienvenido a QuizMeApp 
+  title Cambio de contraseña
   style(type='text/css').
 
     img { max-width: 600px; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;}
@@ -17,12 +17,13 @@ head
   style(type='text/css', media='screen').
     @media screen {
     @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
     * {
     font-family: 'PT Sans', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
     }
     }
   style(type='text/css', media='only screen and (max-width: 599px)').
-
+    /* Mobile styles */
     @media only screen and (max-width: 599px) {
     table[class*="w320"] {
     width: 320px !important;
@@ -84,46 +85,39 @@ table(align='center', cellpadding='0', cellspacing='0', width='100%', height='10
                   td.computer-image(style='font-family: Arial, sans-serif;color: #5e5e5e;font-size: 16px;text-align: left;border-collapse: collapse;padding-left: 30px;')
                     br
                     br.mobile-hide
-                    img(style='display: block;max-width: 600px;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;', width='224', height='213', src='https://i.imgur.com/RqxDGKg.png', alt='hello')
+                    img(style='display: block;max-width: 600px;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;', width='224', height='213', src='logo.png', alt='hello')
                   td.header-text(style='color: #ffffff;font-family: Arial, sans-serif;font-size: 16px;text-align: left;border-collapse: collapse;padding-right: 30px;padding-left: 20px;')
                     br
                     br
-                    span(style='font-size: 24px;') Gracias por registrarte!
+                    span(style='font-size: 24px;') ¡Actualizamos tu cuenta!
                     br
                     br
-                    |                     Tu cuenta de QuizzMeApp ya esta disponible. Por favor verifica tu email haciendo clic en el siguente boton.
+                    |                     Los ajustes de tus cuenta han sido actualizados.
                     br
                     br
                     div
                       //if mso
-                        v:rect(xmlns:v='urn:schemas-microsoft-com:vml', xmlns:w='urn:schemas-microsoft-com:office:word', href='http://', style='height:40px;v-text-anchor:middle;width:150px;', stroke='f', fillcolor='#2b934f')
+                        v:rect(xmlns:v='urn:schemas-microsoft-com:vml', xmlns:w='urn:schemas-microsoft-com:office:word', href='http://', style='height:40px;v-text-anchor:middle;width:200px;', stroke='f', fillcolor='#2b934f')
                           w:anchorlock
                             center
-                      a(href='http://', style='background-color:#2b934f;color:#ffffff;display:inline-block;font-family:Helvetcia, sans-serif;font-size:16px;font-weight:light;line-height:40px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;') Activar Cuenta
+                      a(href='http://', style='background-color:#2b934f;color:#ffffff;display:inline-block;font-family:Helvetcia, sans-serif;font-size:16px;font-weight:light;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;') Configuración de cuenta
                       //if mso
+                    br
               table.force-full-width(cellspacing='0', cellpadding='30', bgcolor='#ebebeb', style='border-collapse: collapse !important;width: 100% !important;')
                 tr
                   td(style='font-family: Arial, sans-serif;color: #5e5e5e;font-size: 16px;text-align: left;border-collapse: collapse;')
                     table.force-full-width(cellspacing='0', cellpadding='0', style='border-collapse: collapse !important;width: 100% !important;')
                       tr
                         td(style='font-family: Arial, sans-serif;color: #5e5e5e;font-size: 16px;text-align: left;border-collapse: collapse;')
-                          span.header(style='color: #232925;font-size: 24px;') Información de cuenta:
-                          br
-                          |                           Nombre de usuario: 
-                          a(href='#', style='color: #2b934f;text-decoration: none;') #{name}
-                          br
-                          |                           Email: 
-                          a(href='#', style='color: #2b934f;text-decoration: none;') #{email}
+                          | Hola #{name},
                           br
                           br
-                          span.header(style='color: #232925;font-size: 24px;') ¿Necesitas ayuda?
-                          br
-                          |                           Contactate con nuestro equipo 
-                          a(href='#', style='color: #2b934f;text-decoration: none;') acá
-                          |  
+                          |                           Actualizamos los datos de tu cuenta. Si no has actualizado tus datos, contáctate con nuesto
+                          a(href='#', style='color: #2b934f;text-decoration: none;') equipo de soporte.
                           br
                           br
                           |                           Saludos,
+                          br
                           br
                           |                           Equipo QuizMeApp
               table.force-full-width(cellspacing='0', cellpadding='20', bgcolor='#2b934f', style='border-collapse: collapse !important;width: 100% !important;')

@@ -37,7 +37,7 @@ export default function SignUp({ navigation }) {
 							user.data.user.firstName +
 							' ' +
 							user.data.user.lastName,
-						subject: 'Welcome to quizmeapp',
+						subject: 'Recover your QuizMeApp account',
 						date: new Intl.DateTimeFormat(language, {
 							year: 'numeric',
 							month: 'long',
