@@ -101,12 +101,14 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 			dispatch(setNotificationTokenUser(token));
 		});
 		setQuizzesLoading(true);
-		dispatch(getQuizzes()).then(() => {
-			setQuizzesLoading(false);
-		});
+		// dispatch(getQuizzes()).then(() => {
+		// 	setQuizzesLoading(false);
+		// });
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
-		dispatch(getSuggestedQuizzes());
+		dispatch(getSuggestedQuizzes()).then(() => {
+			setQuizzesLoading(false);
+		});
 		sound && playTheme();
 		responseListener.current = Notifications.addNotificationResponseReceivedListener(
 			(response) => {

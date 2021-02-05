@@ -26,30 +26,26 @@ export default function SignUp({ navigation }) {
 		navigation.navigate('Login');
 	};
 
+	const [countryCode, setCountryCode] = useState('AR');
+
 	useEffect(() => {
 		axios
 			.get('https://ipapi.co/json/')
 			.then((response) => {
-				setUser((user) => ({
-					...user,
-					countryCode: response.data.country_code,
-				}));
+				setCountryCode(response.data.country_code);
 			})
 			.catch(() => {
-				setUser((user) => ({
-					...user,
-					countryCode: 'AR',
-				}));
+				setCountryCode('AR');
 			});
 	}, []);
 
 	const handleSubmitPress = (data) => {
 		let newUserRegister = {
 			email: data.email,
-			firstName: data.name,
+			firstName: data.firstName,
 			lastName: data.lastName,
 			password: data.password,
-			countryCode: 'AR',
+			countryCode: countryCode,
 		};
 		axios
 			.post(`${REACT_APP_API}/auth/register`, newUserRegister)
