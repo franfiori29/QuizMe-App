@@ -82,12 +82,11 @@ const HomeRoutes = () => {
 	};
 
 	const { Navigator, Screen } = createStackNavigator();
-	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)
 	return (
 		<NavigationContainer linking={linkingConfig}>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'PublicProfile'}
+				initialRouteName={'Home'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />

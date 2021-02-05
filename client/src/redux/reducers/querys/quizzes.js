@@ -11,6 +11,12 @@ export const EntireQuizInfo = gql`
 		language
 		likes
 		time
+		creatorId {
+			_id
+			firstName
+			lastName
+			profilePic
+		}
 		highScores {
 			_id
 			user {

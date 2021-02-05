@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserById } from '@redux/reducers/user';
 
 //Components
 import NavBar from '@components/utils/NavBar';
-import Achivements from '../profile/Achivements';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
-import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Assets
 import strings from './strings';
 
-const PublicProfile = ({ navigation }) => {
+const PublicProfile = ({ navigation, route: { params } }) => {
 	const { theme, language } = useSelector((state) => state.global);
-	const { info } = useSelector((state) => state.user);
+	const { otherUser } = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
-	const { info: user } = useSelector((state) => state.user);
+	useEffect(() => {
+		dispatch(getUserById(params.userId));
+	}, []);
 
 	const s = strings[language];
 
@@ -28,7 +30,13 @@ const PublicProfile = ({ navigation }) => {
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
 				<NavBar
-					string={user.firstName + user.lastName + s.title}
+					string={
+						otherUser.firstName +
+						' ' +
+						otherUser.lastName +
+						' ' +
+						s.title
+					}
 					nav1={() => navigation.goBack()}
 					nav2={() => navigation.navigate('Home')}
 					icon1='ios-arrow-back'
@@ -38,8 +46,8 @@ const PublicProfile = ({ navigation }) => {
 					<View>
 						<UserImg
 							source={{
-								uri: info.profilePic
-									? info.profilePic
+								uri: otherUser.profilePic
+									? otherUser.profilePic
 									: 'https://picsum.photos/150/150',
 							}}
 						/>
@@ -54,8 +62,8 @@ const PublicProfile = ({ navigation }) => {
 								}}
 							>
 								<UserName>
-									{user.firstName} {user.lastName}
-									{user.validated && (
+									{otherUser.firstName} {otherUser.lastName}
+									{otherUser.validated && (
 										<Icon
 											name='checkmark-circle'
 											size={20}
@@ -66,7 +74,7 @@ const PublicProfile = ({ navigation }) => {
 											}}
 										/>
 									)}
-									{user.premium && (
+									{otherUser.premium && (
 										<Icon
 											color={'rgb(250,210,1)'}
 											name='ios-star'
@@ -188,7 +196,7 @@ const PublicProfile = ({ navigation }) => {
 						</StatCard>
 					</View>
 					<StatsTitle>{s.achv}</StatsTitle>
-					<Achivements />
+					<Text>Aca van los logros</Text>
 				</StatsScreen>
 			</ScrollView>
 		</ThemeProvider>
