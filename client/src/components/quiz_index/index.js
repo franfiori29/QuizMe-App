@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import strings from './strings';
 import { Vibrate } from '@utils/vibration';
+import { getQuiz } from '@redux/reducers/quizzes';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -11,33 +12,50 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { useFocusEffect } from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
+
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language, vibration } = useSelector((state) => state.global);
 	const s = strings[language];
 	const { randomQuiz } = useSelector((state) => state.quiz);
-	let quiz;
-	if (params.quiz) {
-		quiz = params.quiz;
-	} else {
-		quiz = randomQuiz;
-	}
-	const [place1, place2, place3] = quiz?.highScores;
+
+	let { quiz } = useSelector((state) => state.quiz);
+	const dispatch = useDispatch();
+	useFocusEffect(
+		React.useCallback(() => {
+			params.quizId && dispatch(getQuiz(params.quizId));
+		}, [])
+	);
+	if (!params.quizId) quiz = randomQuiz;
+
+	const [place1, place2, place3] = quiz?.highScores || [];
 	const Bronze = 'rgb(176,141,87)';
 	const Silver = 'rgb(190,194,203)';
 	const Gold = 'rgb(212,175,55)';
-
+  
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView
 				contentContainerStyle={{ flexGrow: 1 }}
 				style={{ flex: 1, backgroundColor: theme.bg }}
 			>
-				<ContainerPpal>
-					<ContainerTop>
-						<Banner source={{ uri: quiz.image }} />
-						<BackButtonContainer
-							onPress={() => navigation.goBack()}
+        <Spinner
+					visible={!quiz || Object.keys(quiz).length === 0}
+					textContent={s.loading}
+					color={theme.white}
+					textStyle={{
+						color: theme.text,
+					}}
+				/>
+				{!!quiz && Object.keys(quiz).length && !quiz.error ? (
+					<ContainerPpal animation='fadeIn'>
+						<ContainerTop>
+							<Banner source={{ uri: quiz.image }} />
+							<BackButtonContainer
+								onPress={() => navigation.replace('Home')}
 						>
 							<Icon
 								name='ios-arrow-back'
@@ -137,32 +155,137 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 									})
 								}
 							>
-								<Text
-									adjustsFontSizeToFit={true}
-									style={{
-										color: theme.primary,
-										fontFamily: 'Nunito_800ExtraBold',
-										textTransform: 'uppercase',
-									}}
-								>
-									{s.startBtn}
-								</Text>
-							</StartButton>
-							<View style={{ width: 300 }}>
-								<SocialMedia
-									shareOptions={{
-										title: s.title,
-										message: `${
-											s.message
-										} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
-									}}
+								<Icon
+									name='ios-arrow-back'
+									color={theme.text}
+									size={28}
 								/>
+							</BackButtonContainer>
+							<Title>{quiz.title}</Title>
+							<QuantityContainer>
+								<TouchableOpacity>
+									<Text
+										style={{
+											color: theme.primary,
+											fontFamily: 'Nunito_600SemiBold',
+											fontSize: 16,
+										}}
+									>
+										{quiz.questions.length} {s.quest}
+									</Text>
+								</TouchableOpacity>
+								<TouchableOpacity>
+									<Text
+										style={{
+											color: theme.primary,
+											fontSize: 16,
+										}}
+									>
+										{quiz.likes} Likes
+									</Text>
+								</TouchableOpacity>
+							</QuantityContainer>
+						</ContainerTop>
+						<ContainerBottom>
+							<Description>{quiz.description}</Description>
+							<View
+								style={{
+									flexDirection: 'column',
+									alignItems: 'center',
+								}}
+							>
+								<StartButton
+									onPress={() =>
+										navigation.navigate('Quiz', {
+											questions: quiz.questions,
+											imageQuiz: quiz.image,
+											time: quiz.time,
+											id: quiz._id,
+											language: quiz.language,
+										})
+									}
+								>
+									<Text
+										adjustsFontSizeToFit={true}
+										style={{
+											color: theme.primary,
+											fontFamily: 'Nunito_800ExtraBold',
+											textTransform: 'uppercase',
+										}}
+									>
+										{s.startBtn}
+									</Text>
+								</StartButton>
+								<View style={{ width: 300 }}>
+									<SocialMedia
+										shareOptions={{
+											title: s.title,
+											message: `${
+												s.message
+											} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
+										}}
+									/>
+								</View>
 							</View>
-						</View>
-					</ContainerBottom>
-					<RankingScreen>
-						<RankingTitle>Ranking</RankingTitle>
-						<View style={{ width: '100%' }}>
+						</ContainerBottom>
+						<RankingScreen>
+							<RankingTitle>Ranking</RankingTitle>
+							<View style={{ width: '100%' }}>
+								<RankingCard>
+									<View style={{ width: '50%' }}>
+										<Icon2
+											style={{
+												justifyContent: 'center',
+											}}
+											name='medal'
+											color={Gold}
+											size={70}
+										/>
+									</View>
+									<RankingInfo>
+										<RankingText
+											style={{
+												textTransform: 'uppercase',
+												fontWeight: 'bold',
+											}}
+										>
+											{place1
+												? `${place1.user.firstName} ${place1.user.lastName}`
+												: s.nobody}
+										</RankingText>
+										<RankingText style={{ fontSize: 20 }}>
+											{place1 ? place1.score : '0'}
+										</RankingText>
+									</RankingInfo>
+								</RankingCard>
+								<RankingCard>
+									<View style={{ width: '50%' }}>
+										<Icon2
+											style={{
+												justifyContent: 'center',
+											}}
+											name='medal'
+											color={Silver}
+											size={70}
+										/>
+									</View>
+									<RankingInfo>
+										<RankingText
+											style={{
+												textTransform: 'uppercase',
+												fontWeight: 'bold',
+											}}
+										>
+											{place2
+												? `${place2.user.firstName} ${place2.user.lastName}`
+												: s.nobody}
+										</RankingText>
+										<RankingText style={{ fontSize: 20 }}>
+											{place2 ? place2.score : '0'}
+										</RankingText>
+									</RankingInfo>
+								</RankingCard>
+							</View>
 							<RankingCard>
 								<View style={{ width: '50%' }}>
 									<Icon2
@@ -170,7 +293,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 											justifyContent: 'center',
 										}}
 										name='medal'
-										color={Gold}
+										color={Bronze}
 										size={70}
 									/>
 								</View>
@@ -181,78 +304,34 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 											fontWeight: 'bold',
 										}}
 									>
-										{place1
-											? `${place1.user.firstName} ${place1.user.lastName}`
+										{place3
+											? `${place3.user.firstName} ${place3.user.lastName}`
 											: s.nobody}
 									</RankingText>
 									<RankingText style={{ fontSize: 20 }}>
-										{place1 ? place1.score : '0'}
+										{place3 ? place3.score : '0'}
 									</RankingText>
 								</RankingInfo>
 							</RankingCard>
-							<RankingCard>
-								<View style={{ width: '50%' }}>
-									<Icon2
-										style={{
-											justifyContent: 'center',
-										}}
-										name='medal'
-										color={Silver}
-										size={70}
-									/>
-								</View>
-								<RankingInfo>
-									<RankingText
-										style={{
-											textTransform: 'uppercase',
-											fontWeight: 'bold',
-										}}
-									>
-										{place2
-											? `${place2.user.firstName} ${place2.user.lastName}`
-											: s.nobody}
-									</RankingText>
-									<RankingText style={{ fontSize: 20 }}>
-										{place2 ? place2.score : '0'}
-									</RankingText>
-								</RankingInfo>
-							</RankingCard>
-						</View>
-						<RankingCard>
-							<View style={{ width: '50%' }}>
-								<Icon2
-									style={{
-										justifyContent: 'center',
-									}}
-									name='medal'
-									color={Bronze}
-									size={70}
-								/>
-							</View>
-							<RankingInfo>
-								<RankingText
-									style={{
-										textTransform: 'uppercase',
-										fontWeight: 'bold',
-									}}
-								>
-									{place3
-										? `${place3.user.firstName} ${place3.user.lastName}`
-										: s.nobody}
-								</RankingText>
-								<RankingText style={{ fontSize: 20 }}>
-									{place3 ? place3.score : '0'}
-								</RankingText>
-							</RankingInfo>
-						</RankingCard>
-					</RankingScreen>
-				</ContainerPpal>
+						</RankingScreen>
+					</ContainerPpal>
+				) : (
+					<BackButtonContainer
+						onPress={() => navigation.replace('Home')}
+					>
+						<Icon
+							name='ios-arrow-back'
+							color={theme.text}
+							size={28}
+						/>
+					</BackButtonContainer>
+				)}
 			</ScrollView>
 		</ThemeProvider>
 	);
 };
 
-const ContainerPpal = styled.View`
+const ContainerPpal = styled(Animatable.View)`
 	flex: 1;
 	align-items: center;
 	background-color: ${(props) => props.theme.bg};

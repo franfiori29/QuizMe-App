@@ -22,6 +22,7 @@ module.exports = gql`
 		isActive: Boolean
 		premium: Boolean
 		validated: Boolean
+		resetCode: String
 	}
 
 	input UserInput {
@@ -35,6 +36,7 @@ module.exports = gql`
 		socialAccount: String
 		countryCode: String
 		role: Role
+		resetCode: String
 	}
 
 	type Query {

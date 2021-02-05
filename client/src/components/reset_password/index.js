@@ -5,7 +5,6 @@ import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo } from '@redux/reducers/user';
 import axios from 'axios';
 import strings from './strings';
 import logo from '@assets/logo.png';
@@ -15,6 +14,7 @@ export default function SignUp({ navigation }) {
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
+
 	const { control, handleSubmit, errors } = useForm();
 
 	const [hidePass, setHidePass] = useState(true);
@@ -22,59 +22,41 @@ export default function SignUp({ navigation }) {
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
-	const handleLoginPress = () => {
-		navigation.navigate('Login');
-	};
-
-	const [countryCode, setCountryCode] = useState('AR');
-
-	useEffect(() => {
-		axios
-			.get('https://ipapi.co/json/')
-			.then((response) => {
-				setCountryCode(response.data.country_code);
-			})
-			.catch(() => {
-				setCountryCode('AR');
-			});
-	}, []);
-
 	const handleSubmitPress = (data) => {
-		let newUserRegister = {
-			email: data.email,
-			firstName: data.firstName,
-			lastName: data.lastName,
-			password: data.password,
-			countryCode: countryCode,
-		};
 		axios
-			.post(`${REACT_APP_API}/auth/register`, newUserRegister)
-			.then((newUser) => {
-				dispatch(setUserInfo(newUser.data));
-				console.log(newUser.data.firstName);
+			.put(`${REACT_APP_API}/auth/forgot`, { userEmail: data.userEmail })
+			.then((user) => {
+				//console.log(user.data);
 				let template =
-					language === 'en' ? 'welcome.pug' : 'bienvenido.pug';
+					language === 'en'
+						? 'recoverAccount.pug'
+						: 'recuperarCuenta.pug';
 				axios
 					.post(`${REACT_APP_API}/auth/email`, {
 						name:
-							newUser.data.firstName +
+							user.data.user.firstName +
 							' ' +
-							newUser.data.lastName,
-						subject: 'Welcome to quizmeapp',
-						email: newUser.data.email,
+							user.data.user.lastName,
+						subject: 'Recover your QuizMeApp account',
+						date: new Intl.DateTimeFormat(language, {
+							year: 'numeric',
+							month: 'long',
+							day: '2-digit',
+						}).format(new Date()),
+						code: user.data.user.resetCode,
+						email: data.userEmail,
 						template: template,
 					})
 					.then((mail) => {
+						//redirigir al componente newPassword
 						console.log(mail.data.message);
 					})
 					.catch((error) => {
 						setErrortext(error);
 					});
-				navigation.navigate('Home');
 			})
 			.catch((err) => {
-				console.log('err', err);
-				// setErrortext(err.response.data.message);
+				setErrortext(err.response.data.message);
 			});
 	};
 
@@ -85,108 +67,6 @@ export default function SignUp({ navigation }) {
 					<Logo source={logo} />
 					<LogoText>QuizMeApp</LogoText>
 				</LogoView>
-				<InputContainer>
-					<Controller
-						control={control}
-						render={({ onChange, onBlur, value }) => {
-							return (
-								<>
-									<IconImage
-										name={'ios-person-outline'}
-										size={28}
-										color={'rgba(255,255,255,0.7)'}
-									/>
-									<InputSignUp
-										onBlur={onBlur}
-										placeholder={s.name}
-										value={value}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										placeholderTextColor={
-											'rgba(255,255,255,0.7)'
-										}
-										underlineColorAndroid='transparent'
-									/>
-								</>
-							);
-						}}
-						name='firstName'
-						rules={{ required: true }}
-						defaultValue=''
-					/>
-					{errors.firstName && (
-						<ErrorIcon>
-							<Text
-								style={{
-									color: '#D53051',
-									fontSize: 13,
-									textTransform: 'uppercase',
-									marginRight: 5,
-									fontFamily: 'Nunito_800ExtraBold',
-								}}
-							>
-								{s.req}
-							</Text>
-							<Icon
-								name={'ios-alert-circle'}
-								size={15}
-								color={'#D53051'}
-							/>
-						</ErrorIcon>
-					)}
-				</InputContainer>
-				<InputContainer>
-					<Controller
-						control={control}
-						render={({ onChange, onBlur, value }) => {
-							return (
-								<>
-									<IconImage
-										name={'ios-person-outline'}
-										size={28}
-										color={'rgba(255,255,255,0.7)'}
-									/>
-									<InputSignUp
-										onBlur={onBlur}
-										value={value}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										placeholder={s.lastName}
-										placeholderTextColor={
-											'rgba(255,255,255,0.7)'
-										}
-										underlineColorAndroid='transparent'
-									/>
-								</>
-							);
-						}}
-						name='lastName'
-						rules={{ required: true }}
-						defaultValue=''
-					/>
-					{errors.lastName && (
-						<ErrorIcon>
-							<Text
-								style={{
-									color: '#D53051',
-									fontSize: 13,
-									textTransform: 'uppercase',
-									marginRight: 5,
-									fontFamily: 'Nunito_800ExtraBold',
-								}}
-							>
-								{s.req}
-							</Text>
-							<Icon
-								name={'ios-alert-circle'}
-								size={15}
-								color={'#D53051'}
-							/>
-						</ErrorIcon>
-					)}
-				</InputContainer>
 				<InputContainer>
 					<Controller
 						control={control}
@@ -213,7 +93,7 @@ export default function SignUp({ navigation }) {
 								</>
 							);
 						}}
-						name='email'
+						name='userEmail'
 						rules={{
 							required: true,
 							pattern: {
@@ -223,7 +103,7 @@ export default function SignUp({ navigation }) {
 						}}
 						defaultValue=''
 					/>
-					{errors.email && (
+					{errors.userEmail && (
 						<ErrorIcon>
 							<Text
 								style={{
@@ -234,7 +114,7 @@ export default function SignUp({ navigation }) {
 									fontFamily: 'Nunito_800ExtraBold',
 								}}
 							>
-								{errors.email.message || s.req}
+								{errors.userEmail.message || s.req}
 							</Text>
 							<Icon
 								name={'ios-alert-circle'}
@@ -244,7 +124,21 @@ export default function SignUp({ navigation }) {
 						</ErrorIcon>
 					)}
 				</InputContainer>
-				<InputContainer>
+				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
+					<Description>{s.sendCode}</Description>
+				</ButtonSignUp>
+				<TextView>
+					<Text>
+						<Text
+							style={{ fontWeight: '500', color: 'blue' }}
+							onPress={() => navigation.navigate('Login')}
+						>
+							{errortext}
+						</Text>
+					</Text>
+				</TextView>
+
+				{/* <InputContainer>
 					<Controller
 						control={control}
 						render={({ onChange, onBlur, value }) => {
@@ -261,7 +155,7 @@ export default function SignUp({ navigation }) {
 										onChangeText={(value) =>
 											onChange(value)
 										}
-										placeholder={s.pass}
+										placeholder={s.newPass}
 										secureTextEntry={hidePass}
 										placeholderTextColor={
 											'rgba(255,255,255,0.7)'
@@ -278,7 +172,7 @@ export default function SignUp({ navigation }) {
 								</>
 							);
 						}}
-						name='password'
+						name='newPassword'
 						rules={{
 							required: true,
 							pattern: {
@@ -288,7 +182,7 @@ export default function SignUp({ navigation }) {
 						}}
 						defaultValue=''
 					/>
-					{errors.password && (
+					{errors.newPassword && (
 						<ErrorIcon style={{ right: 55 }}>
 							<Text
 								style={{
@@ -308,28 +202,17 @@ export default function SignUp({ navigation }) {
 							/>
 						</ErrorIcon>
 					)}
-				</InputContainer>
-
-				<TextView>
-					<Text>
-						<Text
-							style={{ fontWeight: '500', color: 'blue' }}
-							onPress={handleLoginPress}
-						>
-							{errortext}
-						</Text>
-					</Text>
-				</TextView>
+				</InputContainer> */}
 
 				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
-					<Description>{s.signup}</Description>
+					<Description>{s.reset}</Description>
 				</ButtonSignUp>
 				<TextView>
 					<Text style={{ color: theme.text }}>
 						{s.acc}
 						<Text
 							style={{ fontWeight: '500', color: theme.primary }}
-							onPress={handleLoginPress}
+							onPress={() => navigation.navigate('Login')}
 						>
 							{' '}
 							{s.login}

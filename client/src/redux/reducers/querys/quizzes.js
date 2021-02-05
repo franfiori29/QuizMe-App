@@ -64,6 +64,15 @@ export const queryGetQuizByCategory = gql`
 	${EntireQuizInfo}
 `;
 
+export const queryGetQuiz = gql`
+	query($payload: ID!) {
+		getQuiz(id: $payload) {
+			...EntireQuizInfo
+		}
+	}
+	${EntireQuizInfo}
+`;
+
 export const queryGetQuizzesBySearchInput = gql`
 	query($searchInput: String!, $categoryFilter: String, $page: Int) {
 		getQuizzesByInputSearch(
