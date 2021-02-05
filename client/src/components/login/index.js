@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Animated, Easing, Platform, Alert } from 'react-native';
+import { Text, Animated, Easing, Platform } from 'react-native';
 import { REACT_APP_API, CLIENT_ID, FACEBOOK_APP_ID } from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -41,6 +41,8 @@ export default function Login({ navigation }) {
 							password: '',
 						});
 						setLoading(false);
+						if (user.data.role === 'ADMIN' && Platform.OS === 'web')
+							return navigation.replace('AdminPanel');
 						navigation.replace('Home');
 					})
 					.catch((err) => {

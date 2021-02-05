@@ -1,8 +1,10 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
 
 export async function registerForPushNotificationsAsync() {
 	let token;
+	if (Platform.OS === 'web') return null;
 	if (Constants.isDevice) {
 		const {
 			status: existingStatus,

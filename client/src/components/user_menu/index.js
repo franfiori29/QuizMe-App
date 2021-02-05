@@ -6,6 +6,7 @@ import {
 	View,
 	ActivityIndicator,
 	Alert,
+	Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -72,7 +73,10 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 				{ cancelable: false }
 			);
 		} else {
-			alert(s.err2);
+			alert(s.logout);
+			dispatch(logout());
+			stopTheme();
+			navigation.navigate('Login');
 		}
 	};
 	const handleMail = () => {
