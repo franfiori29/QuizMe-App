@@ -21,6 +21,7 @@ import Information from '@components/user_menu/screens/Information';
 import PremiumScreen from '@components/user_menu/screens/PremiumScreen';
 import ValidateScreen from '@components/user_menu/screens/ValidateScreen';
 import Profile from '@components/profile';
+import PublicProfile from '@components/public_profile';
 import MyQuizzes from '@components/my_quizzes';
 import QuizMake from '@components/quiz_make';
 import QuizResults from '@components/quiz_results';
@@ -86,7 +87,7 @@ const HomeRoutes = () => {
 		<NavigationContainer linking={linkingConfig}>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'LogoAnimated'}
+				initialRouteName={'PublicProfile'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
@@ -130,6 +131,7 @@ const HomeRoutes = () => {
 					}}
 				/>
 				<Screen name='Profile' component={Profile} />
+				<Screen name='PublicProfile' component={PublicProfile} />
 				<Screen name='LogoAnimated' component={LogoAnimated} />
 				<Screen name='Ricky' component={Ricky} />
 				<Screen name='AdminPanel' component={AdminPanel} />
