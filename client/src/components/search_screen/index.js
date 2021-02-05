@@ -6,6 +6,7 @@ import {
 	clearfilteredQuizzes,
 } from '@redux/reducers/quizzes';
 import { Picker } from '@react-native-picker/picker';
+import DelayInput from 'react-native-debounce-input';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -37,13 +38,20 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			})
+			}),
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
 			setLoadingMore(false);
 		});
 	};
+
+	useEffect(() => {
+		setPage(1);
+		setLoading(true);
+		dispatch(clearfilteredQuizzes());
+		handleSearch(categoryFilter, 1);
+	}, [searchInput]);
 
 	useEffect(() => {
 		if (params?.catHomeScreenFilter) {
@@ -72,7 +80,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						color={'rgba(255,255,255,0.7)'}
 						onPress={handleSearch}
 					/>
-					<InputLogin
+					<SearchInput
 						placeholder={s.ph1}
 						placeholderTextColor={theme.text}
 						underlineColorAndroid='transparent'
@@ -83,6 +91,8 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							dispatch(clearfilteredQuizzes());
 							handleSearch(categoryFilter, 1);
 						}}
+						minLength={3}
+						delayTimeout={500}
 					/>
 				</InputContainer>
 				<View
@@ -193,7 +203,7 @@ const Title = styled.Text`
 const InputContainer = styled.View`
 	margin-top: 10px;
 `;
-const InputLogin = styled.TextInput`
+const SearchInput = styled(DelayInput)`
 	width: 95%;
 	align-self: center;
 	height: 45px;

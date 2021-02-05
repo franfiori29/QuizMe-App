@@ -93,57 +93,53 @@ const MyQuizzes = ({ navigation }) => {
 										{quiz.description}
 									</Description>
 								</View>
-								<Category>
-									<Text
-										style={{
-											color: theme.primary,
-											textAlign: 'center',
-											margin: 'auto',
-											fontFamily: 'Nunito_800ExtraBold',
-											fontSize: 16,
-										}}
-									>
+								<View
+									style={{
+										width: '100%',
+										position: 'absolute',
+										bottom: 60,
+										flexDirection: 'row',
+										justifyContent: 'space-between',
+										alignItems: 'center',
+									}}
+								>
+									<Category>
 										{language === 'es'
 											? quiz.categoryId.description_es
 											: quiz.categoryId.description_en}
-									</Text>
-								</Category>
-								<View
-									style={{
-										position: 'absolute',
-										right: 10,
-										bottom: 60,
-									}}
-								>
-									<Text style={{ color: theme.text }}>
-										<Icon
-											name={'ios-heart-sharp'}
-											size={15}
+									</Category>
+									<View>
+										<Text style={{ color: theme.text }}>
+											<Icon
+												name={'ios-heart-sharp'}
+												size={15}
+												style={{
+													color: theme.primary,
+													fontFamily:
+														'Nunito_800ExtraBold',
+												}}
+											/>
+											{quiz.likes}
+										</Text>
+										<Text
 											style={{
-												color: theme.primary,
-												fontFamily:
-													'Nunito_800ExtraBold',
+												color: theme.text,
 											}}
-										/>
-										{quiz.likes}
-									</Text>
-									<Text style={{ color: theme.text }}>
-										<Icon2
-											name={'clock'}
-											size={15}
-											style={{
-												color: theme.primary,
-												fontFamily:
-													'Nunito_800ExtraBold',
-											}}
-										/>
-										{quiz.time}
-									</Text>
+										>
+											<Icon2
+												name={'clock'}
+												size={15}
+												style={{
+													color: theme.primary,
+													fontFamily:
+														'Nunito_800ExtraBold',
+												}}
+											/>
+											{quiz.time}
+										</Text>
+									</View>
 								</View>
 								<BtnContainer>
-									<Btn>
-										<BtnText>{s.btn1}</BtnText>
-									</Btn>
 									<Btn onPress={() => handleRemove(quiz._id)}>
 										<BtnText>{s.btn2}</BtnText>
 									</Btn>
@@ -182,22 +178,23 @@ const QuizContainer = styled.View`
 	flex: 1;
 	width: 95%;
 	align-self: center;
-	min-height: 250px;
-	max-height: 250px;
+	min-height: 400px;
+	max-height: 400px;
 	margin: 10px auto;
 	border: 3px solid ${(props) => props.theme.primary};
 	border-radius: 10px;
-	flex-direction: row;
 `;
 
 const QuizImage = styled.Image`
-	height: 100%;
-	width: 40%;
-	border-top-left-radius: 7px;
-	border-bottom-left-radius: 7px;
+	height: 40%;
+	width: 100%;
+	border-radius: 7px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 `;
 const InfoContainer = styled.View`
-	width: 60%;
+	width: 100%;
+	height: 60%;
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px;
@@ -216,15 +213,11 @@ const Description = styled.Text`
 	color: ${(props) => props.theme.text};
 	font-family: 'Nunito_400Regular';
 `;
-const Category = styled.View`
-	position: absolute;
-	bottom: 60px;
-	left: 10px;
-	height: 35px;
-	width: 150px;
-	border: 3px solid ${(props) => props.theme.primary};
-	border-radius: 5px;
-	justify-content: center;
+const Category = styled.Text`
+	color: ${(props) => props.theme.primary};
+	font-family: 'Nunito_800ExtraBold';
+	font-size: 16px;
+	text-transform: uppercase;
 `;
 const BtnContainer = styled.View`
 	flex-direction: row;
@@ -233,7 +226,8 @@ const BtnContainer = styled.View`
 `;
 const Btn = styled.TouchableOpacity`
 	height: 35px;
-	width: 49%;
+	/* width: 49%; */
+	width: 100%;
 	margin: 0 auto;
 	background-color: ${(props) => props.theme.primary};
 	border-radius: 5px;

@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
 const User = require('./../../models/User.js');
-
+const { Expo } = require('expo-server-sdk');
 module.exports = {
 	Query: {
 		getUsers: async (_, __, { user }) => {
@@ -11,6 +11,13 @@ module.exports = {
 		getCompletedQuizzes: async (__, _, { user }) => {
 			const userfind = await User.findById(user._id);
 			return userfind.completedQuiz;
+		},
+		getUser: async (_, { userId }) => {
+			const foundUser = await User.findById(
+				userId,
+				'_id firstName lastName countryCode profilePic premium validated isActive'
+			);
+			return foundUser?.isActive ? foundUser : null;
 		},
 	},
 
@@ -53,6 +60,14 @@ module.exports = {
 			}
 			throw new Error('Auth Failed');
 		},
+		setNotificationToken: async (_, { token }, { user }) => {
+			await User.updateOne(
+				{ _id: user._id },
+				{ notificationToken: token }
+			);
+			return 'Token Added Succesfully';
+		},
+
 		activateUser: async (_, { userId, isActive }, { user }) => {
 			if (user.role !== 'ADMIN') throw new Error('Not authorized');
 			await User.updateOne({ _id: userId }, { isActive });
@@ -66,6 +81,41 @@ module.exports = {
 		premiumUser: async (_, __, { user }) => {
 			await User.updateOne({ _id: user._id }, { premium: true });
 			return 'User premiumnificated (? succesfully';
+		},
+		sendNotification: async (_, { message, title, data }, { user }) => {
+			let expo = new Expo();
+			let messages = [];
+			const newUser = await User.findById(user._id);
+			let pushToken = newUser.notificationToken;
+
+			if (!Expo.isExpoPushToken(pushToken)) {
+				throw new Error(
+					`Push token ${pushToken} is not a valid Expo push token`
+				);
+			}
+
+			messages.push({
+				to: pushToken,
+				sound: 'default',
+				title: title,
+				body: message,
+				data: data || {},
+			});
+
+			let chunks = expo.chunkPushNotifications(messages);
+			for (let chunk of chunks) {
+				await expo.sendPushNotificationsAsync(chunk);
+			}
+			return 'Notification send succesfully';
+		},
+		followUser: async (_, { userId }, { user }) => {
+			const updatedUser = await User.findOneAndUpdate(
+				{ _id: user._id },
+				{ $addToSet: { following: userId } },
+				{ new: true }
+			);
+			if (updatedUser.following.includes(userId)) return true;
+			return false;
 		},
 	},
 };

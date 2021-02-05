@@ -5,6 +5,7 @@
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
+		"scheme": "quizmeapp",
 		"splash": {
 			"image": "./assets/splash.png",
 			"resizeMode": "contain",
@@ -18,6 +19,7 @@
 			"supportsTablet": true
 		},
 		"android": {
+			"useNextNotificationsApi": true,
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"

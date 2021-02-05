@@ -1,7 +1,7 @@
 const strings = {
 	en: {
 		profile: 'View profile',
-		acc: 'Account Type:',
+		acc: 'Account: ',
 		free: 'Free',
 		premium: 'Premium',
 		premiumBtn: 'Go Premium',
@@ -11,6 +11,7 @@ const strings = {
 		user: 'Change username',
 		pass: 'Change password',
 		notif: 'Notification settings',
+		vibration: 'Vibration',
 		sound: 'Sound',
 		dark: 'Dark mode',
 		dark1: 'Activated',
@@ -21,12 +22,13 @@ const strings = {
 		info: 'Information',
 		version: 'Version',
 		logout: 'Log Out',
+		sure: 'Are you sure?',
 		adminPanel: 'Admin Panel',
 	},
 
 	es: {
 		profile: 'Ver perfil',
-		acc: 'Tipo de cuenta:',
+		acc: 'Cuenta: ',
 		free: 'Gratis',
 		premium: 'Premium',
 		premiumBtn: 'Hacete Premium',
@@ -36,6 +38,7 @@ const strings = {
 		user: 'Cambiar nombre de usuario',
 		pass: 'Cambiar contraseña',
 		notif: 'Configuración de notificaciones',
+		vibration: 'Vibración',
 		sound: 'Sonido',
 		dark: 'Modo oscuro',
 		dark1: 'Activado',
@@ -46,6 +49,7 @@ const strings = {
 		info: 'Información',
 		version: 'Versión',
 		logout: 'Cerrar sesión',
+		sure: '¿Estás seguro?',
 		adminPanel: 'Panel de Admin',
 	},
 };

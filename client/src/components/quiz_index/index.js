@@ -102,15 +102,16 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 									{s.startBtn}
 								</Text>
 							</StartButton>
-							<ShareButton
-								style={{ width: 300 }}
-								shareOptions={{
-									title: s.title,
-									message: `${
-										s.message
-									} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
-								}}
-							/>
+							<View style={{ width: 300 }}>
+								<SocialMedia
+									shareOptions={{
+										title: s.title,
+										message: `${
+											s.message
+										} ${'\n'}https://tenor.com/view/cats-animals-reaction-wow-surprised-gif-4076137`,
+									}}
+								/>
+							</View>
 						</View>
 					</ContainerBottom>
 					<RankingScreen>

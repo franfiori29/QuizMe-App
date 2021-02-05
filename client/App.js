@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import HomeRoutes from './routes/home_routes';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { store, persistor } from '@redux/store';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 import {
 	useFonts,
 	Nunito_200ExtraLight,
@@ -56,4 +58,3 @@ export default function App() {
 		</Provider>
 	);
 }
-// }

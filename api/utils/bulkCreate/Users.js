@@ -10,6 +10,12 @@ const users = [
 		countryCode: 'AR',
 		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
+		notificationToken: 'ExponentPushToken[QobVLNO-iGjoP2_3Ey-Alx]',
+		following: [
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0004'),
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
+		],
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
@@ -19,6 +25,11 @@ const users = [
 		lastName: 'Alfonso',
 		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0001')],
+		following: [
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0007'),
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
+		],
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
@@ -28,6 +39,11 @@ const users = [
 		lastName: 'Fiori',
 		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		following: [
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
+			mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
+		],
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),

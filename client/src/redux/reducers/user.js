@@ -12,6 +12,7 @@ import {
 	queryGetUsers,
 	mutationValidateUser,
 	mutationPremiumUser,
+	mutationSetNotificationToken,
 } from './querys/user';
 import fb from '../../firebase';
 import { REACT_APP_API } from '@root/env';
@@ -30,6 +31,17 @@ export const getUser = createAsyncThunk(
 			.then((user) => {
 				return user.data;
 			});
+	}
+);
+export const setNotificationToken = createAsyncThunk(
+	'user/setNotificationToken',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(
+			mutationSetNotificationToken,
+			{ token: payload }
+		);
+		return clientRequest.setNotificationToken;
 	}
 );
 
@@ -180,6 +192,9 @@ const userSlice = createSlice({
 				);
 			}
 		},
+		setNotificationTokenUser: (state, { payload }) => {
+			state.info.notificationToken = payload;
+		},
 	},
 	extraReducers: {
 		[updateUser.fulfilled]: (state, { payload }) => {
@@ -223,6 +238,7 @@ export const {
 	setToken,
 	logout,
 	updateLikedQuizzes,
+	setNotificationTokenUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

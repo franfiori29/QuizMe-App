@@ -58,6 +58,12 @@ export const mutationCompletedQuiz = gql`
 	}
 `;
 
+export const mutationSetNotificationToken = gql`
+	mutation setNotificationToken($token: String!) {
+		setNotificationToken(token: $token)
+	}
+`;
+
 export const mutationChangePassword = gql`
 	mutation changePassword($currPass: String!, $newPass: String!) {
 		changePassword(currPass: $currPass, newPass: $newPass)

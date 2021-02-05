@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, RefreshControl, ActivityIndicator } from 'react-native';
+import * as Linking from 'expo-linking';
 import {
 	getQuizzes,
 	getQuizByCategory,
@@ -10,8 +11,12 @@ import {
 	getSuggestedQuizzes,
 } from '@redux/reducers/quizzes';
 import { getCategories, sortCategories } from '../../redux/reducers/categories';
-import { getCompletedQuizzes } from '../../redux/reducers/user';
-
+import {
+	getCompletedQuizzes,
+	setNotificationToken,
+	setNotificationTokenUser,
+} from '../../redux/reducers/user';
+import * as Notifications from 'expo-notifications';
 //==> Components
 import QuizCards from '@components/utils/QuizCards';
 import ScrollCategory from '@components/utils/ScrollCategory';
@@ -28,6 +33,19 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 //==>Assets
 import strings from './strings';
 
+//==>Notifications
+import { registerForPushNotificationsAsync } from '@constants/notifications';
+
+import { deepLinking } from '@constants/deeplinking';
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: true,
+		shouldSetBadge: false,
+	}),
+});
+
 const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language, sound } = useSelector((state) => state.global);
@@ -36,8 +54,35 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const dispatch = useDispatch();
 	const s = strings[language];
 	const [categoryLoading, setCategoryLoading] = useState(false);
+	const [notification, setNotification] = useState(false);
+	const responseListener = useRef();
 	const [quizzesLoading, setQuizzesLoading] = useState(false);
 	const [selector, setSelector] = useState('suggested');
+	const [route, setRoute] = useState('');
+	const [param, setParam] = useState('');
+
+	const extractToken = (url) => {
+		if (typeof url === 'string') return null;
+		let { path } = Linking.parse(url);
+
+		if (path) {
+			const rou = path.split('=')[0];
+			setRoute(rou);
+			const paramUrl = path.split('=')[1];
+			setParam(paramUrl);
+		}
+	};
+
+	Linking.getInitialURL().then((url) => {
+		if (typeof url === 'string') extractToken(url);
+	});
+	Linking.addEventListener('url', (url) => {
+		if (typeof url === 'string') extractToken(url);
+	});
+
+	useEffect(() => {
+		deepLinking(route, param, navigation);
+	}, [route]);
 
 	const handleSelect = (categoryId) => {
 		if (categoryId === '') return dispatch(clearfilteredQuizzes());
@@ -51,6 +96,10 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	};
 
 	useEffect(() => {
+		registerForPushNotificationsAsync().then((token) => {
+			dispatch(setNotificationToken(token));
+			dispatch(setNotificationTokenUser(token));
+		});
 		setQuizzesLoading(true);
 		dispatch(getQuizzes()).then(() => {
 			setQuizzesLoading(false);
@@ -59,7 +108,22 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		dispatch(getCompletedQuizzes());
 		dispatch(getSuggestedQuizzes());
 		sound && playTheme();
+		responseListener.current = Notifications.addNotificationResponseReceivedListener(
+			(response) => {
+				setNotification(response);
+			}
+		);
+		return () => {
+			Notifications.removeNotificationSubscription(responseListener);
+		};
 	}, []);
+	useEffect(() => {
+		if (notification) {
+			const notifPush = notification.notification.request.content.data;
+			setNotification(null);
+			navigation.navigate(notifPush.path, notifPush.payload);
+		}
+	}, [notification]);
 
 	useEffect(() => {
 		dispatch(sortCategories(language));
@@ -157,7 +221,6 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					) : (
 						<QuizCards
 							quizzes={quizzes}
-							// quizzes={suggestedQuizzes}
 							completedQuiz={completedQuiz}
 						/>
 					)}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 //==> Styles
@@ -13,9 +13,14 @@ import LikeButton from '@components/utils/LikeButton';
 import strings from './strings';
 import { updateLike, getRandomQuiz, getQuizzes } from '@redux/reducers/quizzes';
 import { updateLikedQuizzes } from '@redux/reducers/user';
+import { getSuggestedQuizzes } from '../../redux/reducers/quizzes';
+
+//==>Notifications
+import { sendPushNotification } from '@constants/notifications';
 
 const QuizResults = ({ route: { params }, navigation }) => {
 	const { theme, language } = useSelector((state) => state.global);
+	const { info: user } = useSelector((state) => state.user);
 	const s = strings[language];
 	const dispatch = useDispatch();
 	const likes = useSelector((state) => state.user.likedQuiz);
@@ -34,12 +39,18 @@ const QuizResults = ({ route: { params }, navigation }) => {
 	}
 
 	useEffect(() => {
-		return () => dispatch(getQuizzes());
+		sendPushNotification(
+			user.notificationToken,
+			s.notificationTitle,
+			`${s.notificationMessage} 💪`,
+			{ path: 'Home' }
+		);
+		return () => dispatch(getSuggestedQuizzes());
 	}, []);
 
 	const handleOnFavorite = (giveLike) => {
 		dispatch(updateLike({ quizId: params.quizId, giveLike })).then(() =>
-			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike }))
+			dispatch(updateLikedQuizzes({ quizId: params.quizId, giveLike })),
 		);
 	};
 
@@ -121,14 +132,16 @@ const QuizResults = ({ route: { params }, navigation }) => {
 							handleOnFavorite={handleOnFavorite}
 							isLiked={isLiked}
 						/>
-						<SocialMedia
-							shareOptions={{
-								title: s.title,
-								message: `${s.message} ${params.points} ${
-									s.messagepoints
-								} ${'\n'}https://tenor.com/view/what-confused-persian-room-cat-guardian-gif-11044457`,
-							}}
-						/>
+						<View style={{ width: 120 }}>
+							<SocialMedia
+								shareOptions={{
+									title: s.title,
+									message: `${s.message} ${params.points} ${
+										s.messagepoints
+									} ${'\n'}https://tenor.com/view/what-confused-persian-room-cat-guardian-gif-11044457`,
+								}}
+							/>
+						</View>
 					</ViewSocialMedia>
 				</FavoriteContainer>
 				<ButtonsContainer>
@@ -310,6 +323,8 @@ const BtnSecText = styled.Text`
 	align-self: center;
 `;
 const ViewSocialMedia = styled.View`
-	justify-content: space-evenly;
+	justify-content: center;
+	width: 100%;
+	align-self: center;
 `;
 export default QuizResults;

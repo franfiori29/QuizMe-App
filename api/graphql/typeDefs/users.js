@@ -42,6 +42,7 @@ module.exports = gql`
 	type Query {
 		getUsers: [User]!
 		getCompletedQuizzes: [Quiz]
+		getUser(userId: ID!): User
 	}
 
 	type Mutation {
@@ -52,5 +53,8 @@ module.exports = gql`
 		activateUser(userId: ID!, isActive: Boolean!): String
 		validateUser(userId: ID!): String!
 		premiumUser: String!
+		setNotificationToken(token: String!): String!
+		sendNotification(message: String!, title: String!): String!
+		followUser(userId: ID!): Boolean!
 	}
 `;

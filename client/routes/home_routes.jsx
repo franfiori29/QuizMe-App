@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Platform } from 'react-native';
 
 //~~~Components~~~
@@ -38,9 +39,16 @@ import EditCategory from '@components/admin_panel/screens/editCategory';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
+import * as Linking from 'expo-linking';
+
+/* === Prefix === */
+const prefixHome = Linking.createURL('/achievements');
+const prefixUserMenu = Linking.createURL('/user/:id', { id: 'id' });
+/* === Prefix === */
 
 const HomeRoutes = () => {
 	const dispatch = useDispatch();
+
 	const [mainTheme, setMainTheme] = React.useState();
 	useEffect(() => {
 		if (Platform.OS === 'web') {
@@ -69,10 +77,14 @@ const HomeRoutes = () => {
 		mainTheme?.stopAsync();
 	};
 
+	const linkingConfig = {
+		prefixes: [prefixHome, prefixUserMenu],
+	};
+
 	const { Navigator, Screen } = createStackNavigator();
 	//initialRouteName={!!Object.keys(user).length ? 'Home' : 'Login'} (por si lo borran y se olvidan)
 	return (
-		<NavigationContainer>
+		<NavigationContainer linking={linkingConfig}>
 			<Navigator
 				screenOptions={{ headerShown: false }}
 				initialRouteName={'LogoAnimated'}

@@ -13,6 +13,8 @@ const strings = {
 		like: 'Did you like this quiz? Share it!',
 		btn1: 'Similar Quizzes',
 		btn2: 'Back to home',
+		notificationTitle: 'Congratulations for completing the quiz',
+		notificationMessage: 'Keep pushing yourself more everyday',
 	},
 
 	es: {
@@ -29,6 +31,8 @@ const strings = {
 		like: '¿Te gustó este quiz? Compartilo!',
 		btn1: 'Quizzes similares',
 		btn2: 'Volver al inicio',
+		notificationTitle: 'Felicitaciones por completar el quiz',
+		notificationMessage: 'Sigue esforzandote cada dia más',
 	},
 };
 

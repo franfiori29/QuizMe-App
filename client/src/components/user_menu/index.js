@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import {
 	Text,
 	TouchableOpacity,
-	Platform,
-	Vibration,
 	Switch,
 	View,
 	ActivityIndicator,
+	Alert,
+	Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,11 +15,13 @@ import {
 	changeLanguage,
 	switchTheme,
 	switchSound,
+	switchVibration,
 } from '@redux/reducers/global';
 import { logout, getUserQuizzes } from '@redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
+import { Vibrate } from '@utils/vibration';
 
 //==> Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -29,7 +31,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import strings from './strings';
 
 const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
-	const { language, theme, sound } = useSelector((state) => state.global);
+	const { language, theme, sound, vibration } = useSelector(
+		(state) => state.global
+	);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
 	const [myQuizzesLoading, setmyQuizzesLoading] = useState(false);
@@ -45,18 +49,42 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	}, [sound]);
 
 	const handleLogout = () => {
-		dispatch(logout());
-		stopTheme();
-		navigation.navigate('Login');
+		Vibrate(100, vibration);
+		if (Platform.OS !== 'web') {
+			Alert.alert(
+				s.logout,
+				s.sure,
+				[
+					{
+						text: 'OK',
+						onPress: () => {
+							dispatch(logout());
+							stopTheme();
+							navigation.navigate('Login');
+						},
+					},
+
+					{
+						text: 'Cancel',
+						onPress: () => console.log('Cancel Pressed'),
+						style: 'cancel',
+					},
+				],
+				{ cancelable: false }
+			);
+		} else {
+			alert(s.logout);
+			dispatch(logout());
+			stopTheme();
+			navigation.navigate('Login');
+		}
 	};
 	const handleMail = () => {
 		navigation.navigate('MailUpdate');
 	};
 
 	const handleRicky = () => {
-		if (Platform.OS === 'android') {
-			Vibration.vibrate(100);
-		}
+		Vibrate(100, vibration);
 		setRicky(ricky + 1);
 		setTimeout(() => {
 			setRicky(0);
@@ -67,22 +95,20 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	};
 
 	const handleTheme = () => {
-		if (Platform.OS === 'android') {
-			Vibration.vibrate(100);
-		}
+		Vibrate(100, vibration);
 		dispatch(switchTheme());
 	};
+	const handleVibration = () => {
+		Vibrate(100, vibration);
+		dispatch(switchVibration());
+	};
 	const handleSound = () => {
-		if (Platform.OS === 'android') {
-			Vibration.vibrate(100);
-		}
+		Vibrate(100, vibration);
 		dispatch(switchSound());
 	};
 
 	const handleLang = () => {
-		if (Platform.OS === 'android') {
-			Vibration.vibrate(100);
-		}
+		Vibrate(100, vibration);
 		dispatch(changeLanguage());
 	};
 
@@ -292,6 +318,20 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 					<Switch
 						onValueChange={handleSound}
 						value={sound ? true : false}
+					/>
+				</MenuSolidOption>
+				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
+					<Text
+						style={{
+							color: theme.text,
+							fontFamily: 'Nunito_400Regular',
+						}}
+					>
+						{s.vibration}
+					</Text>
+					<Switch
+						onValueChange={handleVibration}
+						value={vibration ? true : false}
 					/>
 				</MenuSolidOption>
 				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
