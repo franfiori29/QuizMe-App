@@ -11,11 +11,15 @@ import NavBar from '@components/utils/NavBar';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/SimpleLineIcons';
 
 //Assets
 import strings from './strings';
 
 const PublicProfile = ({ navigation, route: { params } }) => {
+	const Bronze = 'rgb(176,141,87)';
+	const Silver = 'rgb(190,194,203)';
+	const Gold = 'rgb(212,175,55)';
 	const { theme, language } = useSelector((state) => state.global);
 	const { otherUser } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
@@ -24,8 +28,20 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 		dispatch(getUserById(params.userId));
 	}, []);
 
+	const selectDivision = () => {
+		if (otherUser.totalScore < 10000) {
+			return 'Bronze';
+		} else if (otherUser.totalScore < 25000) {
+			return 'Silver';
+		} else if (otherUser.totalScore < 50000) {
+			return 'Gold';
+		} else {
+			return 'QuizMaster';
+		}
+	};
 	const s = strings[language];
-
+	if (!otherUser || !Object.keys(otherUser).length)
+		return <Text>Loading...</Text>;
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -119,7 +135,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							9
+							{otherUser.createdQuizzes.length}
 						</Text>
 						<Text
 							style={{
@@ -127,7 +143,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							{s.life}
+							{s.createdQuizzes}
 						</Text>
 					</InfoBox>
 					<InfoBox>
@@ -138,7 +154,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							12
+							{otherUser.completedQuiz.length}
 						</Text>
 						<Text
 							style={{
@@ -171,13 +187,26 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 								>
 									{s.points.toUpperCase()}
 								</StatText>
-								<StatText>875412</StatText>
+								<StatText>{otherUser.totalScore}</StatText>
 							</StatInfo>
 						</StatCard>
 						<StatCard>
 							<View style={{ width: '50%' }}>
 								<Icon2
-									color={theme.text}
+									color={(() => {
+										switch (selectDivision()) {
+											case 'Bronze':
+												return Bronze;
+											case 'Silver':
+												return Silver;
+											case 'Gold':
+												return Gold;
+											case 'QuizMaster':
+												return theme.primary;
+											default:
+												return theme.text;
+										}
+									})()}
 									name='crown'
 									size={50}
 								/>
@@ -191,12 +220,325 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 								>
 									Division
 								</StatText>
-								<StatText>Bronze</StatText>
+								<StatText>{selectDivision()}</StatText>
 							</StatInfo>
 						</StatCard>
 					</View>
 					<StatsTitle>{s.achv}</StatsTitle>
-					<Text>Aca van los logros</Text>
+					<View style={{ width: '100%' }}>
+						{/* --------Perfil de Usuario-------- */}
+						{otherUser.validated && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={theme.primary}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv9Title}
+									</AchivText>
+									<AchivText>{s.achiv9Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.premium && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={theme.primary}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv10Title}
+									</AchivText>
+									<AchivText>{s.achiv10Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{/* --------Creacion de Quizzes-------- */}
+						{otherUser.createdQuizzes.length >= 1 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Bronze}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv1Title}
+									</AchivText>
+									<AchivText>{s.achiv1Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.createdQuizzes.length >= 5 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Silver}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv2Title}
+									</AchivText>
+									<AchivText>{s.achiv2Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.createdQuizzes.length >= 10 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Gold}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv3Title}
+									</AchivText>
+									<AchivText>{s.achiv3Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.createdQuizzes.length >= 25 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={theme.primary}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv4Title}
+									</AchivText>
+									<AchivText>{s.achiv4Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{/* --------Quizzes jugadas-------- */}
+						{otherUser.completedQuiz.length >= 1 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Bronze}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv5Title}
+									</AchivText>
+									<AchivText>{s.achiv5Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.completedQuiz.length >= 5 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Silver}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv6Title}
+									</AchivText>
+									<AchivText>{s.achiv6Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.completedQuiz.length >= 20 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Gold}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv7Title}
+									</AchivText>
+									<AchivText>{s.achiv7Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.completedQuiz.length >= 50 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={theme.primary}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv8Title}
+									</AchivText>
+									<AchivText>{s.achiv8Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{/* ---------LikedQuiz-------- */}
+						{otherUser.likedQuiz.length >= 1 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Bronze}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv11Title}
+									</AchivText>
+									<AchivText>{s.achiv11Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.likedQuiz.length >= 5 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Silver}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv12Title}
+									</AchivText>
+									<AchivText>{s.achiv12Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.likedQuiz.length >= 20 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={Gold}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv13Title}
+									</AchivText>
+									<AchivText>{s.achiv13Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+						{otherUser.completedQuiz.length >= 50 && (
+							<AchivCard>
+								<View style={{ width: '50%' }}>
+									<Icon3
+										color={theme.primary}
+										name='badge'
+										size={50}
+									/>
+								</View>
+								<AchivInfo>
+									<AchivText
+										style={{
+											textTransform: 'uppercase',
+											fontWeight: 'bold',
+										}}
+									>
+										{s.achiv14Title}
+									</AchivText>
+									<AchivText>{s.achiv14Text}</AchivText>
+								</AchivInfo>
+							</AchivCard>
+						)}
+					</View>
 				</StatsScreen>
 			</ScrollView>
 		</ThemeProvider>
@@ -299,4 +641,29 @@ const AccTypeButton = styled.TouchableOpacity`
 	justify-content: center;
 	border: 2px solid ${(props) => props.theme.primary};
 	border-radius: 5px;
+`;
+
+const AchivCard = styled.View`
+	width: 100%;
+	height: 100px;
+	border: 1px solid ${(props) => props.theme.primary};
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: row;
+	padding: 0 40px;
+	margin: 15px;
+	border-radius: 10px;
+	align-self: center;
+`;
+const AchivInfo = styled.View`
+	height: 100%;
+	padding: 15px;
+	width: 50%;
+	justify-content: space-around;
+`;
+
+const AchivText = styled.Text`
+	color: ${(props) => props.theme.text};
+	text-align: center;
+	font-family: 'Nunito_600SemiBold';
 `;
