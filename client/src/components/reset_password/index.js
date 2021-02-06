@@ -37,7 +37,7 @@ export default function SendCode({ navigation }) {
 							user.data.user.firstName +
 							' ' +
 							user.data.user.lastName,
-						subject: 'Recover your QuizMeApp account',
+						subject: s.subjectRecover,
 						date: new Intl.DateTimeFormat(language, {
 							year: 'numeric',
 							month: 'long',

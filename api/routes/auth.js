@@ -188,21 +188,6 @@ server.put('/resetPass', async (req, res) => {
 				message: 'Password Update correctly',
 				user: user,
 			});
-			// const userfind = await User.findOneAndUpdate(
-			// 	{ email: userEmail },
-			// 	{ password: newPass, resetCode: null },
-			// 	{ new: true }
-			// );
-			// if (userfind) {
-			// 	res.status(200).json({
-			// 		message: 'Code generated correctly',
-			// 		user: userfind,
-			// 	});
-			// } else {
-			// 	res.status(400).json({
-			// 		message: 'User not found',
-			// 	});
-			// }
 		} else {
 			res.status(400).json({
 				message: 'User not found or reset code do not match',
