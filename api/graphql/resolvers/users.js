@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 const User = require('./../../models/User.js');
+const Quiz = require('./../../models/Quiz.js');
 const { Expo } = require('expo-server-sdk');
 module.exports = {
 	Query: {
@@ -13,11 +14,13 @@ module.exports = {
 			return userfind.completedQuiz;
 		},
 		getUser: async (_, { userId }) => {
-			const foundUser = await User.findById(
-				userId,
-				'_id firstName lastName countryCode profilePic premium validated isActive'
-			);
-			return foundUser?.isActive ? foundUser : null;
+			const foundUser = await User.findById(userId)
+				.populate('completedQuiz')
+				.populate('likedQuiz');
+			const foundQuizzes = await Quiz.find({ creatorId: userId }, '_id');
+			let user = { ...foundUser._doc };
+			user.createdQuizzes = foundQuizzes;
+			return user?.isActive ? user : null;
 		},
 	},
 

@@ -7,6 +7,10 @@ module.exports = gql`
 		ADMIN
 	}
 
+	type Ids {
+		_id: ID
+	}
+
 	type User {
 		_id: ID
 		firstName: String
@@ -23,6 +27,8 @@ module.exports = gql`
 		premium: Boolean
 		validated: Boolean
 		resetCode: String
+		createdQuizzes: [Ids]
+		totalScore: Int
 	}
 
 	input UserInput {
