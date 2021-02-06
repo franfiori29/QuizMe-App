@@ -92,7 +92,7 @@ const HomeRoutes = () => {
 		<NavigationContainer linking={linkingConfig}>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'Home'}
+				initialRouteName={'Profile'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />

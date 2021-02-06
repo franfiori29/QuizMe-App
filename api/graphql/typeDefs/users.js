@@ -7,6 +7,10 @@ module.exports = gql`
 		ADMIN
 	}
 
+	type Ids {
+		_id: ID
+	}
+
 	type User {
 		_id: ID
 		firstName: String
@@ -23,6 +27,8 @@ module.exports = gql`
 		premium: Boolean
 		validated: Boolean
 		resetCode: String
+		createdQuizzes: [Ids]
+		totalScore: Int
 	}
 
 	input UserInput {
@@ -50,7 +56,7 @@ module.exports = gql`
 		completeQuiz(quizId: ID!): User!
 		changePassword(newPass: String!, currPass: String!): String
 		changeEmail(newMail: String!, currPass: String!): String
-		activateUser(userId: ID!, isActive: Boolean!): String
+		activateUser(userId: ID!, isActive: Boolean!): [User]!
 		validateUser(userId: ID!): String!
 		premiumUser: String!
 		setNotificationToken(token: String!): String!

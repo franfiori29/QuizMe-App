@@ -10,6 +10,16 @@ export const queryGetUser = gql`
 			profilePic
 			premium
 			validated
+			totalScore
+			completedQuiz {
+				title
+			}
+			likedQuiz {
+				title
+			}
+			createdQuizzes {
+				_id
+			}
 		}
 	}
 `;

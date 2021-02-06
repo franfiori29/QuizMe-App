@@ -185,7 +185,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						</UserText>
 					</TouchableOpacity>
 				</UserContainer>
-				<AccType>
+				{/* <AccType>
 					<Text
 						style={{
 							color: theme.text,
@@ -216,7 +216,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 							{s.premiumBtn}
 						</Text>
 					</AccTypeButton>
-				</AccType>
+				</AccType> */}
 				{user.role === 'ADMIN' && (
 					<MenuTouchOption onPress={handleAdminPanel}>
 						<Text

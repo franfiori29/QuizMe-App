@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Text } from 'react-native-paper';
@@ -21,23 +21,29 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Assets
 import strings from './strings';
+import { getUserById, getUserQuizzes } from '../../redux/reducers/user';
 
 const Profile = ({ navigation }) => {
+	const Bronze = 'rgb(176,141,87)';
+	const Silver = 'rgb(190,194,203)';
+	const Gold = 'rgb(212,175,55)';
+	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
-	const { info } = useSelector((state) => state.user);
-	const { info: user } = useSelector((state) => state.user);
+	const { info: user, otherUser } = useSelector((state) => state.user);
 	const [picture, setPicture] = useState(null);
 	const [loading, setLoading] = useState(false);
-
-	const dispatch = useDispatch();
 	const s = strings[language];
+
+	useEffect(() => {
+		getUserById(user._id);
+	}, []);
 
 	const openImagePickerAsync = async () => {
 		let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync(); //pide permiso al usuario para acceder a la galeria
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`,
+				`The image is available for sharing at: ${picture.remoteUri}`
 			);
 			return;
 		}
@@ -79,6 +85,18 @@ const Profile = ({ navigation }) => {
 		}
 	};
 
+	const selectDivision = () => {
+		if (otherUser.totalScore < 10000) {
+			return 'Bronze';
+		} else if (otherUser.totalScore < 25000) {
+			return 'Silver';
+		} else if (otherUser.totalScore < 50000) {
+			return 'Gold';
+		} else {
+			return 'QuizMaster';
+		}
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -93,8 +111,8 @@ const Profile = ({ navigation }) => {
 					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg
 							source={{
-								uri: info.profilePic
-									? info.profilePic
+								uri: user.profilePic
+									? user.profilePic
 									: 'https://picsum.photos/150/150',
 							}}
 						/>
@@ -229,7 +247,7 @@ const Profile = ({ navigation }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							9
+							{otherUser.createdQuizzes.length}
 						</Text>
 						<Text
 							style={{
@@ -237,7 +255,7 @@ const Profile = ({ navigation }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							{s.life}
+							{s.createdQuizzes}
 						</Text>
 					</InfoBox>
 					<InfoBox>
@@ -248,7 +266,7 @@ const Profile = ({ navigation }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							12
+							{otherUser.completedQuiz.length}
 						</Text>
 						<Text
 							style={{
@@ -281,13 +299,26 @@ const Profile = ({ navigation }) => {
 								>
 									{s.points.toUpperCase()}
 								</StatText>
-								<StatText>875412</StatText>
+								<StatText>{otherUser.totalScore}</StatText>
 							</StatInfo>
 						</StatCard>
 						<StatCard>
 							<View style={{ width: '50%' }}>
 								<Icon2
-									color={theme.text}
+									color={(() => {
+										switch (selectDivision()) {
+											case 'Bronze':
+												return Bronze;
+											case 'Silver':
+												return Silver;
+											case 'Gold':
+												return Gold;
+											case 'QuizMaster':
+												return theme.primary;
+											default:
+												return theme.text;
+										}
+									})()}
 									name='crown'
 									size={50}
 								/>
@@ -301,7 +332,7 @@ const Profile = ({ navigation }) => {
 								>
 									Division
 								</StatText>
-								<StatText>Bronze</StatText>
+								<StatText>{selectDivision()}</StatText>
 							</StatInfo>
 						</StatCard>
 					</View>

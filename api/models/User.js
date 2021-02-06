@@ -23,6 +23,10 @@ const userSchema = new Schema(
 			enum: ['USER', 'ORG', 'ADMIN'],
 			default: 'USER',
 		},
+		likedQuiz: [
+			{ type: Schema.Types.ObjectId, ref: 'Quiz', default: null },
+		],
+		totalScore: { type: Number, default: 0 },
 		premium: { type: Boolean, default: false },
 		validated: { type: Boolean, default: false },
 		completedQuiz: [{ type: Schema.Types.ObjectId, ref: 'Quiz' }],
