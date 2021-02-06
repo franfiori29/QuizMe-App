@@ -37,7 +37,7 @@ export default function Login({ navigation }) {
 					.then((user) => {
 						dispatch(setUserInfo(user.data));
 						reset({
-							emai: '',
+							email: '',
 							password: '',
 						});
 						setLoading(false);
@@ -91,7 +91,7 @@ export default function Login({ navigation }) {
 					.then((user) => {
 						dispatch(setUserInfo(user.data));
 						reset({
-							emai: '',
+							email: '',
 							password: '',
 						});
 						setLoading(false);
@@ -165,7 +165,7 @@ export default function Login({ navigation }) {
 			.then((user) => {
 				dispatch(setUserInfo(user.data));
 				reset({
-					emai: '',
+					email: '',
 					password: '',
 				});
 				setLoading(false);

@@ -22,6 +22,7 @@ module.exports = {
 			if (user.role !== 'ADMIN') throw new Error('Not authorized');
 			const quizzes = await Quiz.find().populate('categoryId');
 			const quizzesbycategory = quizzes.reduce((acc, quiz) => {
+				if (!quiz.categoryId) return acc;
 				if (!acc[quiz.categoryId._id])
 					acc[quiz.categoryId._id] = {
 						value: 0,
