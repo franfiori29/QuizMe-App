@@ -11,6 +11,7 @@ const strings = {
 		req: 'Required',
 		invalidMail: 'Invalid email',
 		invalidPassword: 'Invalid password',
+		subjectWelcome: 'Welcome to QuizMeApp',
 	},
 
 	es: {
@@ -25,6 +26,7 @@ const strings = {
 		req: 'Requerido',
 		invalidMail: 'Correo inválido',
 		invalidPassword: 'Contraseña inválida',
+		subjectWelcome: 'Bienvenido a QuizMeApp',
 	},
 };
 

@@ -35,10 +35,10 @@ const userSchema = new Schema(
 );
 
 userSchema.methods.compare = function (password, isReset) {
-	if (this.password || this.reset_code)
+	if (this.password || this.resetCode)
 		return bcrypt.compareSync(
 			password.toString(),
-			isReset ? this.reset_code : this.password
+			isReset ? this.resetCode : this.password
 		);
 	else return false;
 };

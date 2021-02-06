@@ -1,1 +1,5 @@
-function recomendationAlgorithm() {}
+function sendEmail(data) {}
+
+module.exports = {
+	sendEmail,
+};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,10 +11,12 @@ import strings from './strings';
 import logo from '@assets/logo.png';
 import { useForm, Controller } from 'react-hook-form';
 
-export default function SignUp({ navigation }) {
+export default function ResetPassword2({ navigation, route: { params } }) {
+	//alert(params.userEmail);
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
+
 	const { control, handleSubmit, errors } = useForm();
 
 	const [hidePass, setHidePass] = useState(true);
@@ -22,60 +24,57 @@ export default function SignUp({ navigation }) {
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
-	const handleLoginPress = () => {
-		navigation.navigate('Login');
-	};
-
-	const [countryCode, setCountryCode] = useState('AR');
-
-	useEffect(() => {
-		axios
-			.get('https://ipapi.co/json/')
-			.then((response) => {
-				setCountryCode(response.data.country_code);
-			})
-			.catch(() => {
-				setCountryCode('AR');
-			});
-	}, []);
-
 	const handleSubmitPress = (data) => {
-		let newUserRegister = {
-			email: data.email,
-			firstName: data.firstName,
-			lastName: data.lastName,
-			password: data.password,
-			countryCode: countryCode,
-		};
-		axios
-			.post(`${REACT_APP_API}/auth/register`, newUserRegister)
-			.then((newUser) => {
-				dispatch(setUserInfo(newUser.data));
-				console.log(newUser.data.firstName);
-				let template =
-					language === 'en' ? 'welcome.pug' : 'bienvenido.pug';
-				axios
-					.post(`${REACT_APP_API}/auth/email`, {
-						name:
-							newUser.data.firstName +
-							' ' +
-							newUser.data.lastName,
-						subject: s.subjectWelcome,
-						email: newUser.data.email,
-						template: template,
-					})
-					.then((mail) => {
-						console.log(mail.data.message);
-					})
-					.catch((error) => {
-						setErrortext(error);
-					});
-				navigation.navigate('Home');
-			})
-			.catch((err) => {
-				console.log('err', err);
-				// setErrortext(err.response.data.message);
-			});
+		if (data.newPass === data.confirmPass) {
+			axios
+				.put(`${REACT_APP_API}/auth/resetPass`, {
+					resetCode: data.resetCode,
+					userEmail: data.userEmail,
+					newPass: data.newPass,
+				})
+				.then((user) => {
+					//enviar mail update pass
+					let template =
+						language === 'en'
+							? 'updatedPassword.pug'
+							: 'contraseñaActualizada.pug';
+					axios
+						.post(`${REACT_APP_API}/auth/email`, {
+							name:
+								user.data.user.firstName +
+								' ' +
+								user.data.user.lastName,
+							subject: s.subjectUpdate,
+							email: data.userEmail,
+							template: template,
+						})
+						.then((mail) => {
+							let message =
+								language === 'en'
+									? 'Email sent. Check your email'
+									: mail.data.message + ' .Revisa tu email';
+							setErrortext(message);
+						})
+						.catch((error) => {
+							setErrortext(error);
+						});
+					//redireccionar al homsceen logeado
+					axios
+						.post(`${REACT_APP_API}/auth/login`, {
+							email: data.userEmail,
+							password: data.newPass,
+						})
+						.then((user) => {
+							dispatch(setUserInfo(user.data));
+							navigation.navigate('Home');
+						});
+				})
+				.catch((err) => {
+					setErrortext(err.response.data.message);
+				});
+		} else {
+			setErrortext(s.errorPass);
+		}
 	};
 
 	return (
@@ -98,7 +97,7 @@ export default function SignUp({ navigation }) {
 									/>
 									<InputSignUp
 										onBlur={onBlur}
-										placeholder={s.name}
+										placeholder={s.code}
 										value={value}
 										onChangeText={(value) =>
 											onChange(value)
@@ -111,11 +110,11 @@ export default function SignUp({ navigation }) {
 								</>
 							);
 						}}
-						name='firstName'
+						name='resetCode'
 						rules={{ required: true }}
 						defaultValue=''
 					/>
-					{errors.firstName && (
+					{errors.resetCode && (
 						<ErrorIcon>
 							<Text
 								style={{
@@ -136,57 +135,7 @@ export default function SignUp({ navigation }) {
 						</ErrorIcon>
 					)}
 				</InputContainer>
-				<InputContainer>
-					<Controller
-						control={control}
-						render={({ onChange, onBlur, value }) => {
-							return (
-								<>
-									<IconImage
-										name={'ios-person-outline'}
-										size={28}
-										color={'rgba(255,255,255,0.7)'}
-									/>
-									<InputSignUp
-										onBlur={onBlur}
-										value={value}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										placeholder={s.lastName}
-										placeholderTextColor={
-											'rgba(255,255,255,0.7)'
-										}
-										underlineColorAndroid='transparent'
-									/>
-								</>
-							);
-						}}
-						name='lastName'
-						rules={{ required: true }}
-						defaultValue=''
-					/>
-					{errors.lastName && (
-						<ErrorIcon>
-							<Text
-								style={{
-									color: '#D53051',
-									fontSize: 13,
-									textTransform: 'uppercase',
-									marginRight: 5,
-									fontFamily: 'Nunito_800ExtraBold',
-								}}
-							>
-								{s.req}
-							</Text>
-							<Icon
-								name={'ios-alert-circle'}
-								size={15}
-								color={'#D53051'}
-							/>
-						</ErrorIcon>
-					)}
-				</InputContainer>
+
 				<InputContainer>
 					<Controller
 						control={control}
@@ -213,7 +162,7 @@ export default function SignUp({ navigation }) {
 								</>
 							);
 						}}
-						name='email'
+						name='userEmail'
 						rules={{
 							required: true,
 							pattern: {
@@ -223,7 +172,7 @@ export default function SignUp({ navigation }) {
 						}}
 						defaultValue=''
 					/>
-					{errors.email && (
+					{errors.userEmail && (
 						<ErrorIcon>
 							<Text
 								style={{
@@ -234,7 +183,7 @@ export default function SignUp({ navigation }) {
 									fontFamily: 'Nunito_800ExtraBold',
 								}}
 							>
-								{errors.email.message || s.req}
+								{errors.userEmail.message || s.req}
 							</Text>
 							<Icon
 								name={'ios-alert-circle'}
@@ -244,6 +193,7 @@ export default function SignUp({ navigation }) {
 						</ErrorIcon>
 					)}
 				</InputContainer>
+
 				<InputContainer>
 					<Controller
 						control={control}
@@ -261,7 +211,7 @@ export default function SignUp({ navigation }) {
 										onChangeText={(value) =>
 											onChange(value)
 										}
-										placeholder={s.pass}
+										placeholder={s.newPass}
 										secureTextEntry={hidePass}
 										placeholderTextColor={
 											'rgba(255,255,255,0.7)'
@@ -278,7 +228,7 @@ export default function SignUp({ navigation }) {
 								</>
 							);
 						}}
-						name='password'
+						name='newPass'
 						rules={{
 							required: true,
 							pattern: {
@@ -288,7 +238,7 @@ export default function SignUp({ navigation }) {
 						}}
 						defaultValue=''
 					/>
-					{errors.password && (
+					{errors.newPass && (
 						<ErrorIcon style={{ right: 55 }}>
 							<Text
 								style={{
@@ -299,7 +249,73 @@ export default function SignUp({ navigation }) {
 									fontFamily: 'Nunito_800ExtraBold',
 								}}
 							>
-								{errors.password.message || s.req}
+								{errors.newPass.message || s.req}
+							</Text>
+							<Icon
+								name={'ios-alert-circle'}
+								size={15}
+								color={'#D53051'}
+							/>
+						</ErrorIcon>
+					)}
+				</InputContainer>
+
+				<InputContainer>
+					<Controller
+						control={control}
+						render={({ onChange, onBlur, value }) => {
+							return (
+								<>
+									<IconImage
+										name={'ios-lock-closed-outline'}
+										size={28}
+										color={'rgba(255,255,255,0.7)'}
+									/>
+									<InputSignUp
+										onBlur={onBlur}
+										value={value}
+										onChangeText={(value) =>
+											onChange(value)
+										}
+										placeholder={s.confirmPass}
+										secureTextEntry={hidePass}
+										placeholderTextColor={
+											'rgba(255,255,255,0.7)'
+										}
+										underlineColorAndroid='transparent'
+									/>
+									<Button onPress={onPress}>
+										<Icon
+											name={'ios-eye-outline'}
+											size={26}
+											color={'rgba(255,255,255,0.7)'}
+										/>
+									</Button>
+								</>
+							);
+						}}
+						name='confirmPass'
+						rules={{
+							required: true,
+							pattern: {
+								value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
+								message: s.invalidPassword,
+							},
+						}}
+						defaultValue=''
+					/>
+					{errors.confirmPass && (
+						<ErrorIcon style={{ right: 55 }}>
+							<Text
+								style={{
+									color: '#D53051',
+									fontSize: 13,
+									textTransform: 'uppercase',
+									marginRight: 5,
+									fontFamily: 'Nunito_800ExtraBold',
+								}}
+							>
+								{errors.confirmPass.message || s.req}
 							</Text>
 							<Icon
 								name={'ios-alert-circle'}
@@ -314,7 +330,7 @@ export default function SignUp({ navigation }) {
 					<Text>
 						<Text
 							style={{ fontWeight: '500', color: 'blue' }}
-							onPress={handleLoginPress}
+							onPress={() => navigation.navigate('Login')}
 						>
 							{errortext}
 						</Text>
@@ -322,20 +338,8 @@ export default function SignUp({ navigation }) {
 				</TextView>
 
 				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
-					<Description>{s.signup}</Description>
+					<Description>{s.reset}</Description>
 				</ButtonSignUp>
-				<TextView>
-					<Text style={{ color: theme.text }}>
-						{s.acc}
-						<Text
-							style={{ fontWeight: '500', color: theme.primary }}
-							onPress={handleLoginPress}
-						>
-							{' '}
-							{s.login}
-						</Text>
-					</Text>
-				</TextView>
 			</Container>
 		</ThemeProvider>
 	);
