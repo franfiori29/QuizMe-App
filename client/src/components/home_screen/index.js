@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const [param, setParam] = useState('');
 
 	const extractToken = (url) => {
-		if (typeof url === 'string') return null;
+		if (typeof url !== 'string') return null;
 		let { path } = Linking.parse(url);
 
 		if (path) {
@@ -75,12 +75,8 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		}
 	};
 
-	Linking.getInitialURL().then((url) => {
-		if (typeof url === 'string') extractToken(url);
-	});
-	Linking.addEventListener('url', (url) => {
-		if (typeof url === 'string') extractToken(url);
-	});
+	Linking.getInitialURL().then((url) => extractToken(url));
+	Linking.addEventListener('url', (url) => extractToken(url));
 
 	useEffect(() => {
 		deepLinking(route, param, navigation);
