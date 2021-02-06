@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, RefreshControl, ActivityIndicator } from 'react-native';
+import {
+	View,
+	RefreshControl,
+	ActivityIndicator,
+	Platform,
+} from 'react-native';
 import * as Linking from 'expo-linking';
 import {
 	getQuizzes,
@@ -95,8 +100,10 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 
 	useEffect(() => {
 		registerForPushNotificationsAsync().then((token) => {
-			dispatch(setNotificationToken(token));
-			dispatch(setNotificationTokenUser(token));
+			if (Platform.OS !== 'web') {
+				dispatch(setNotificationToken(token));
+				dispatch(setNotificationTokenUser(token));
+			}
 		});
 		setQuizzesLoading(true);
 		// dispatch(getQuizzes()).then(() => {
