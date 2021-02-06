@@ -20,7 +20,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
-	const { theme, language } = useSelector((state) => state.global);
+	const { theme, language, vibration } = useSelector((state) => state.global);
 	const s = strings[language];
 	const { randomQuiz } = useSelector((state) => state.quiz);
 	let { quiz } = useSelector((state) => state.quiz);
