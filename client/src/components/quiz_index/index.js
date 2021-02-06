@@ -12,9 +12,6 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
-// import ImageRankingFirst from '@assets/img/firstranking.jpg';
-// import ImageRankingSecond from '@assets/img/secondranking.jpg';
-// import ImageRankingThird from '@assets/img/thirdranking.jpg';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';

@@ -9,16 +9,13 @@ module.exports = {
 			const foundQuiz = await Quiz.findById(id)
 				.populate('categoryId')
 				.populate('questions')
-				.populate('highScores.user');
+				.populate('highScores.user')
+				.populate('creatorId');
 			if (!foundQuiz) throw new Error('Could not find quiz');
 			return foundQuiz;
 		},
 		getQuizzes: async () => {
-			const quizzes = await Quiz.find()
-				.populate('categoryId')
-				.populate('questions')
-				.populate('highScores.user')
-				.populate('creatorId');
+			const quizzes = await Quiz.find().populate('categoryId');
 			return quizzes;
 		},
 		getCategories: async () => {
@@ -45,7 +42,7 @@ module.exports = {
 					page,
 					limit: 10,
 					populate: ['questions', 'categoryId', 'user'],
-				},
+				}
 			);
 			return {
 				quizzes: foundQuizzes.docs,
@@ -56,7 +53,7 @@ module.exports = {
 			const completed = (await User.findById(user._id)).completedQuiz;
 			const count = await Quiz.countDocuments();
 			let random = Math.abs(
-				Math.floor(Math.random() * count - completed.length),
+				Math.floor(Math.random() * count - completed.length)
 			);
 			const quiz = await Quiz.findOne({
 				_id: { $nin: completed },
@@ -118,7 +115,7 @@ module.exports = {
 	Mutation: {
 		createQuiz: async (_, { quiz }, { user }) => {
 			quiz.questions = (await Question.create(quiz.questions)).map(
-				(q) => q._id,
+				(q) => q._id
 			);
 			const newQuiz = await (
 				await Quiz.create({ ...quiz, creatorId: user._id })
@@ -148,11 +145,11 @@ module.exports = {
 			const quizfind = await Quiz.findOneAndUpdate(
 				{ _id: quizId },
 				{ $inc: { likes: giveLike ? 1 : -1 } },
-				{ new: true },
+				{ new: true }
 			);
 			const userfind = await User.findOneAndUpdate(
 				{ _id: user._id },
-				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } },
+				{ [giveLike ? '$push' : '$pull']: { LikedQuiz: quizId } }
 			);
 			return quizfind;
 		},
@@ -178,7 +175,7 @@ module.exports = {
 			return highScores.some(
 				(each) =>
 					each.score === newScore.score &&
-					each.user.toString() === newScore.user,
+					each.user.toString() === newScore.user
 			);
 		},
 	},
