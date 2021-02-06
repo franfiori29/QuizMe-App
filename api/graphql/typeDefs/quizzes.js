@@ -8,7 +8,7 @@ module.exports = gql`
 		image: String!
 		language: String!
 		likes: Int!
-		categoryId: Category!
+		categoryId: Category
 		questions: [Question!]!
 		time: Int!
 		creatorId: UserSnippet
