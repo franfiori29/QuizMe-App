@@ -15,7 +15,9 @@ module.exports = {
 			return foundQuiz;
 		},
 		getQuizzes: async () => {
-			const quizzes = await Quiz.find().populate('categoryId');
+			const quizzes = await Quiz.find()
+				.populate('categoryId')
+				.populate('questions');
 			return quizzes;
 		},
 		getCategories: async () => {
