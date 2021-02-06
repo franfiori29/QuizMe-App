@@ -71,7 +71,8 @@ module.exports = {
 		activateUser: async (_, { userId, isActive }, { user }) => {
 			if (user.role !== 'ADMIN') throw new Error('Not authorized');
 			await User.updateOne({ _id: userId }, { isActive });
-			return 'Updated Succesfully';
+			const users = await User.find();
+			return users;
 		},
 
 		validateUser: async (_, { userID }) => {
