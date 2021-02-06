@@ -48,8 +48,12 @@ passport.use(
 passport.use(
 	new BearerStrategy((token, done) => {
 		jwt.verify(token, SECRET, async function (err, user) {
-			const response = await User.findById(user._id);
-			return done(null, response ? user : false);
+			try {
+				const response = await User.findById(user._id);
+				return done(null, response ? user : false);
+			} catch (err) {
+				return done(null, false);
+			}
 		});
 	})
 );
