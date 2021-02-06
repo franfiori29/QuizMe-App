@@ -13,7 +13,7 @@ const strings = {
 		invalidPassword: 'Invalid password',
 		registerError: 'Registration error. Try again later.',
 		loading: 'Loading...',
-		forgot: 'forgot your password?',
+		forgot: 'Forgot your password?',
 		reset: 'Recover',
 	},
 

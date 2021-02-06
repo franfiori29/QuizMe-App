@@ -34,7 +34,8 @@ import AdminUsers from '@components/admin_panel/screens/users';
 import AdminQuizzes from '@components/admin_panel/screens/quizzes';
 import AdminCategories from '@components/admin_panel/screens/categories';
 import RateUs from '@components/rate_us';
-import ResetPassword from '@components/reset_password';
+import ResetPassword from '../src/components/reset_password';
+import ResetPassword2 from '../src/components/reset_password/resetPassword2.js';
 import AddCategory from '@components/admin_panel/screens/addCategory';
 import EditCategory from '@components/admin_panel/screens/editCategory';
 
@@ -45,6 +46,10 @@ import * as Linking from 'expo-linking';
 /* === Prefix === */
 const prefixHome = Linking.createURL('/achievements');
 const prefixUserMenu = Linking.createURL('/user/:id', { id: 'id' });
+const prefixResetPass = Linking.createURL(
+	'/resetPassword/:resetCode/:userEmail',
+	{ resetCode: 'resetCode', userEmail: 'userEmail' }
+);
 /* === Prefix === */
 
 const HomeRoutes = () => {
@@ -79,7 +84,7 @@ const HomeRoutes = () => {
 	};
 
 	const linkingConfig = {
-		prefixes: [prefixHome, prefixUserMenu],
+		prefixes: [prefixHome, prefixUserMenu, prefixResetPass],
 	};
 
 	const { Navigator, Screen } = createStackNavigator();
@@ -142,6 +147,7 @@ const HomeRoutes = () => {
 				<Screen name='EditCategory' component={EditCategory} />
 				<Screen name='RateUs' component={RateUs} />
 				<Screen name='ResetPassword' component={ResetPassword} />
+				<Screen name='ResetPassword2' component={ResetPassword2} />
 			</Navigator>
 		</NavigationContainer>
 	);

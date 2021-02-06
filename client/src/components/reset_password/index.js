@@ -10,7 +10,7 @@ import strings from './strings';
 import logo from '@assets/logo.png';
 import { useForm, Controller } from 'react-hook-form';
 
-export default function SignUp({ navigation }) {
+export default function SendCode({ navigation }) {
 	const dispatch = useDispatch();
 	const { language, theme } = useSelector((state) => state.global);
 	const s = strings[language];
@@ -37,7 +37,7 @@ export default function SignUp({ navigation }) {
 							user.data.user.firstName +
 							' ' +
 							user.data.user.lastName,
-						subject: 'Recover your QuizMeApp account',
+						subject: s.subjectRecover,
 						date: new Intl.DateTimeFormat(language, {
 							year: 'numeric',
 							month: 'long',
@@ -48,8 +48,13 @@ export default function SignUp({ navigation }) {
 						template: template,
 					})
 					.then((mail) => {
-						//redirigir al componente newPassword
-						console.log(mail.data.message);
+						let message =
+							language === 'en'
+								? 'Email sent. Check your email'
+								: mail.data.message + ' .Revisa tu email';
+						setErrortext(message);
+						//redirigir al componente resetPassword2
+						navigation.navigate('ResetPassword2');
 					})
 					.catch((error) => {
 						setErrortext(error);
@@ -127,95 +132,18 @@ export default function SignUp({ navigation }) {
 				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
 					<Description>{s.sendCode}</Description>
 				</ButtonSignUp>
-				<TextView>
-					<Text>
-						<Text
-							style={{ fontWeight: '500', color: 'blue' }}
-							onPress={() => navigation.navigate('Login')}
-						>
-							{errortext}
-						</Text>
-					</Text>
-				</TextView>
 
-				{/* <InputContainer>
-					<Controller
-						control={control}
-						render={({ onChange, onBlur, value }) => {
-							return (
-								<>
-									<IconImage
-										name={'ios-lock-closed-outline'}
-										size={28}
-										color={'rgba(255,255,255,0.7)'}
-									/>
-									<InputSignUp
-										onBlur={onBlur}
-										value={value}
-										onChangeText={(value) =>
-											onChange(value)
-										}
-										placeholder={s.newPass}
-										secureTextEntry={hidePass}
-										placeholderTextColor={
-											'rgba(255,255,255,0.7)'
-										}
-										underlineColorAndroid='transparent'
-									/>
-									<Button onPress={onPress}>
-										<Icon
-											name={'ios-eye-outline'}
-											size={26}
-											color={'rgba(255,255,255,0.7)'}
-										/>
-									</Button>
-								</>
-							);
-						}}
-						name='newPassword'
-						rules={{
-							required: true,
-							pattern: {
-								value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
-								message: s.invalidPassword,
-							},
-						}}
-						defaultValue=''
-					/>
-					{errors.newPassword && (
-						<ErrorIcon style={{ right: 55 }}>
-							<Text
-								style={{
-									color: '#D53051',
-									fontSize: 13,
-									textTransform: 'uppercase',
-									marginRight: 5,
-									fontFamily: 'Nunito_800ExtraBold',
-								}}
-							>
-								{errors.password.message || s.req}
-							</Text>
-							<Icon
-								name={'ios-alert-circle'}
-								size={15}
-								color={'#D53051'}
-							/>
-						</ErrorIcon>
-					)}
-				</InputContainer> */}
-
-				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
-					<Description>{s.reset}</Description>
-				</ButtonSignUp>
 				<TextView>
 					<Text style={{ color: theme.text }}>
 						{s.acc}
 						<Text
 							style={{ fontWeight: '500', color: theme.primary }}
-							onPress={() => navigation.navigate('Login')}
+							onPress={() =>
+								navigation.navigate('ResetPassword2')
+							}
 						>
 							{' '}
-							{s.login}
+							{s.continue}
 						</Text>
 					</Text>
 				</TextView>
