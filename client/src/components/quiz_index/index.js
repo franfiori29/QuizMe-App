@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import strings from './strings';
-import { Vibrate } from '@utils/vibration';
 import { getQuiz } from '@redux/reducers/quizzes';
+import { Vibrate } from '@utils/vibration';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -12,16 +12,17 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
+// import ImageRankingFirst from '@assets/img/firstranking.jpg';
+// import ImageRankingSecond from '@assets/img/secondranking.jpg';
+// import ImageRankingThird from '@assets/img/thirdranking.jpg';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 
-
 const QuizIndex = ({ navigation, route: { params } }) => {
-	const { theme, language, vibration } = useSelector((state) => state.global);
+	const { theme, language } = useSelector((state) => state.global);
 	const s = strings[language];
 	const { randomQuiz } = useSelector((state) => state.quiz);
-
 	let { quiz } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
 	useFocusEffect(
@@ -35,14 +36,13 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 	const Bronze = 'rgb(176,141,87)';
 	const Silver = 'rgb(190,194,203)';
 	const Gold = 'rgb(212,175,55)';
-  
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView
 				contentContainerStyle={{ flexGrow: 1 }}
 				style={{ flex: 1, backgroundColor: theme.bg }}
 			>
-        <Spinner
+				<Spinner
 					visible={!quiz || Object.keys(quiz).length === 0}
 					textContent={s.loading}
 					color={theme.white}
@@ -56,104 +56,6 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 							<Banner source={{ uri: quiz.image }} />
 							<BackButtonContainer
 								onPress={() => navigation.replace('Home')}
-						>
-							<Icon
-								name='ios-arrow-back'
-								color={theme.text}
-								size={28}
-							/>
-						</BackButtonContainer>
-						<Title>{quiz.title}</Title>
-						<TouchableOpacity
-							onPress={() => {
-								Vibrate(100, vibration);
-
-								navigation.navigate('PublicProfile', {
-									userId: quiz.creatorId._id,
-								});
-							}}
-							style={{
-								flexDirection: 'row',
-								marginTop: 10,
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-						>
-							<Text
-								style={{
-									color: theme.text,
-									fontFamily: 'Nunito_600SemiBold',
-									fontSize: 16,
-								}}
-							>
-								by{' '}
-							</Text>
-							<Text
-								style={{
-									color: theme.text,
-									fontFamily: 'Nunito_600SemiBold',
-									fontSize: 16,
-								}}
-							>
-								{quiz.creatorId.firstName}{' '}
-								{quiz.creatorId.lastName}
-							</Text>
-							<Image
-								style={{
-									height: 20,
-									width: 20,
-									borderRadius: 100,
-									marginLeft: 5,
-								}}
-								source={{
-									uri: quiz.creatorId.profilePic
-										? quiz.creatorId.profilePic
-										: 'https://picsum.photos/20/20',
-								}}
-							/>
-						</TouchableOpacity>
-						<QuantityContainer>
-							<TouchableOpacity>
-								<Text
-									style={{
-										color: theme.primary,
-										fontFamily: 'Nunito_600SemiBold',
-										fontSize: 16,
-									}}
-								>
-									{quiz.questions.length} {s.quest}
-								</Text>
-							</TouchableOpacity>
-							<TouchableOpacity>
-								<Text
-									style={{
-										color: theme.primary,
-										fontSize: 16,
-									}}
-								>
-									{quiz.likes} Likes
-								</Text>
-							</TouchableOpacity>
-						</QuantityContainer>
-					</ContainerTop>
-					<ContainerBottom>
-						<Description>{quiz.description}</Description>
-						<View
-							style={{
-								flexDirection: 'column',
-								alignItems: 'center',
-							}}
-						>
-							<StartButton
-								onPress={() =>
-									navigation.navigate('Quiz', {
-										questions: quiz.questions,
-										imageQuiz: quiz.image,
-										time: quiz.time,
-										id: quiz._id,
-										language: quiz.language,
-									})
-								}
 							>
 								<Icon
 									name='ios-arrow-back'
@@ -162,6 +64,54 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 								/>
 							</BackButtonContainer>
 							<Title>{quiz.title}</Title>
+							<TouchableOpacity
+								onPress={() => {
+									Vibrate(100, vibration);
+
+									navigation.navigate('PublicProfile', {
+										userId: quiz.creatorId._id,
+									});
+								}}
+								style={{
+									flexDirection: 'row',
+									marginTop: 10,
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<Text
+									style={{
+										color: theme.text,
+										fontFamily: 'Nunito_600SemiBold',
+										fontSize: 16,
+									}}
+								>
+									by{' '}
+								</Text>
+								<Text
+									style={{
+										color: theme.text,
+										fontFamily: 'Nunito_600SemiBold',
+										fontSize: 16,
+									}}
+								>
+									{quiz.creatorId.firstName}{' '}
+									{quiz.creatorId.lastName}
+								</Text>
+								<Image
+									style={{
+										height: 20,
+										width: 20,
+										borderRadius: 100,
+										marginLeft: 5,
+									}}
+									source={{
+										uri: quiz.creatorId.profilePic
+											? quiz.creatorId.profilePic
+											: 'https://picsum.photos/20/20',
+									}}
+								/>
+							</TouchableOpacity>
 							<QuantityContainer>
 								<TouchableOpacity>
 									<Text
