@@ -66,14 +66,13 @@ const ValidateForm = ({ navigation }) => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<NavBar
-				string={s.nav}
-				nav1={() => navigation.goBack()}
-				icon1='ios-arrow-back'
-				icon2=''
-			/>
-
 			<Screen>
+				<NavBar
+					string={s.nav}
+					nav1={() => navigation.goBack()}
+					icon1='ios-arrow-back'
+					icon2=''
+				/>
 				<Title>{s.title}</Title>
 				<InputContainer>
 					<Controller
@@ -181,7 +180,7 @@ export default ValidateForm;
 
 const Screen = styled.View`
 	flex: 1;
-	width: 95%;
+	width: 100%;
 	align-self: center;
 	background-color: ${(props) => props.theme.bg};
 `;
