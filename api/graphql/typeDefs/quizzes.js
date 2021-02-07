@@ -56,6 +56,7 @@ module.exports = gql`
 	type QueryInfo {
 		quizzes: [Quiz]!
 		hasNextPage: Boolean
+		totalPages: Int
 	}
 
 	input InputCategory {
@@ -101,6 +102,7 @@ module.exports = gql`
 		): QueryInfo
 		searchByPopularity: [Quiz!]!
 		getSuggestedQuizzes: [Quiz!]!
+		getCategoriesByInput(input: String): [Category]!
 	}
 
 	extend type Mutation {

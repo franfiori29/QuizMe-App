@@ -49,6 +49,7 @@ module.exports = gql`
 		getUsers: [User]!
 		getCompletedQuizzes: [Quiz]
 		getUser(userId: ID!): User
+		getUsersByInput(input: String): [User]!
 	}
 
 	type Mutation {

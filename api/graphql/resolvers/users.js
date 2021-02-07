@@ -22,6 +22,17 @@ module.exports = {
 			user.createdQuizzes = foundQuizzes;
 			return user?.isActive ? user : null;
 		},
+		getUsersByInput: async (_, { input }) => {
+			const regex = new RegExp(input, 'i');
+			const foundUsers = await User.find({
+				$or: [
+					{ firstName: regex },
+					{ lastName: regex },
+					{ email: regex },
+				],
+			});
+			return foundUsers;
+		},
 	},
 
 	Mutation: {

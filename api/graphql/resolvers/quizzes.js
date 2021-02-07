@@ -49,6 +49,7 @@ module.exports = {
 			return {
 				quizzes: foundQuizzes.docs,
 				hasNextPage: foundQuizzes.hasNextPage,
+				totalPages: foundQuizzes.totalPages,
 			};
 		},
 		getRandomQuiz: async (_, __, { user }) => {
@@ -112,6 +113,13 @@ module.exports = {
 					return Math.random() - 0.5;
 				})
 				.slice(0, 5);
+		},
+		getCategoriesByInput: async (_, { input }) => {
+			const regex = new RegExp(input, 'i');
+			const foundCategories = await Category.find({
+				$or: [{ description_es: regex }, { description_en: regex }],
+			});
+			return foundCategories;
 		},
 	},
 	Mutation: {
