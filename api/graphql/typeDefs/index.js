@@ -1,9 +1,9 @@
 const userTypes = require('./users');
 const quizzesTypes = require('./quizzes');
 const statsTypes = require('./stats');
-const { gql } = require('apollo-server');
+const validationsTypes = require('./validations');
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 
-const types = [userTypes, quizzesTypes, statsTypes];
+const types = [userTypes, quizzesTypes, statsTypes, validationsTypes];
 
 module.exports = mergeTypeDefs(types);
