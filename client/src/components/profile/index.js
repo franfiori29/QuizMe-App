@@ -34,8 +34,9 @@ const Profile = ({ navigation }) => {
 	const [loading, setLoading] = useState(false);
 	const s = strings[language];
 
+	console.log('otherUser', otherUser);
 	useEffect(() => {
-		getUserById(user._id);
+		dispatch(getUserById(user._id));
 	}, []);
 
 	const openImagePickerAsync = async () => {
@@ -43,7 +44,7 @@ const Profile = ({ navigation }) => {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`
+				`The image is available for sharing at: ${picture.remoteUri}`,
 			);
 			return;
 		}
@@ -97,6 +98,8 @@ const Profile = ({ navigation }) => {
 		}
 	};
 
+	if (!otherUser || !Object.keys(otherUser).length)
+		return <Text>Loading...</Text>;
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>

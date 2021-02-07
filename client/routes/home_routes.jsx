@@ -38,6 +38,7 @@ import ResetPassword from '../src/components/reset_password';
 import ResetPassword2 from '../src/components/reset_password/resetPassword2.js';
 import AddCategory from '@components/admin_panel/screens/addCategory';
 import EditCategory from '@components/admin_panel/screens/editCategory';
+import ValidateForm from '@components/validate_form';
 
 import mainThemeFile from '@assets/audio/main-theme.mp3';
 import { Audio } from 'expo-av';
@@ -92,7 +93,7 @@ const HomeRoutes = () => {
 		<NavigationContainer linking={linkingConfig}>
 			<Navigator
 				screenOptions={{ headerShown: false }}
-				initialRouteName={'Profile'}
+				initialRouteName={'LogoAnimated'}
 			>
 				<Screen name='Login' component={Login} />
 				<Screen name='SignUp' component={SignUp} />
@@ -148,6 +149,7 @@ const HomeRoutes = () => {
 				<Screen name='RateUs' component={RateUs} />
 				<Screen name='ResetPassword' component={ResetPassword} />
 				<Screen name='ResetPassword2' component={ResetPassword2} />
+				<Screen name='ValidateForm' component={ValidateForm} />
 			</Navigator>
 		</NavigationContainer>
 	);
