@@ -111,13 +111,13 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		// dispatch(getQuizzes()).then(() => {
 		// 	setQuizzesLoading(false);
 		// });
+		dispatch(getSuggestedQuizzes(language === 'en')).then(() => {
+			setQuizzesLoading(false);
+		});
 		dispatch(getFollowing());
 		dispatch(getFollowers());
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
-		dispatch(getSuggestedQuizzes(language === 'en')).then(() => {
-			setQuizzesLoading(false);
-		});
 		sound && playTheme();
 		responseListener.current = Notifications.addNotificationResponseReceivedListener(
 			(response) => {
@@ -245,14 +245,20 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 						</SelectorButton>
 					</SelectorContainer>
 					{quizzesLoading ? (
-						<Spinner
-							visible={quizzesLoading}
-							textContent={s.loading}
-							color={theme.white}
-							textStyle={{
-								color: theme.white,
-							}}
-						/>
+						// <Spinner
+						// 	visible={quizzesLoading}
+						// 	textContent={s.loading}
+						// 	color={theme.white}
+						// 	textStyle={{
+						// 		color: theme.white,
+						// 	}}
+						// />
+						<View style={{ flex: 1, height: 200, marginTop: 20 }}>
+							<ActivityIndicator
+								size='large'
+								color={theme.primary}
+							/>
+						</View>
 					) : (
 						<QuizCards
 							quizzes={quizzes}
