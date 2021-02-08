@@ -38,7 +38,6 @@ module.exports = {
 				{
 					page,
 					limit: 10,
-					populate: ['questions', 'categoryId', 'user'],
 				}
 			);
 			return {
