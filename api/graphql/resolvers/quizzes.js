@@ -85,6 +85,7 @@ module.exports = {
 			const quizzesByPopularity = await Quiz.find({}, null, {
 				sort: { likes: -1 },
 			})
+				.limit(10)
 				.populate('categoryId')
 				.populate('questions')
 				.populate('highScores.user');
