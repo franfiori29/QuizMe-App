@@ -50,6 +50,7 @@ module.exports = gql`
 		getCompletedQuizzes: [Quiz]
 		getUser(userId: ID!): User
 		getUsersByInput(input: String): [User]!
+		getFollowing: [ID]!
 	}
 
 	type Mutation {
@@ -63,6 +64,6 @@ module.exports = gql`
 		premiumUser: String!
 		setNotificationToken(token: String!): String!
 		sendNotification(message: String!, title: String!): String!
-		followUser(userId: ID!): Boolean!
+		followUser(userId: ID!): [ID]!
 	}
 `;

@@ -34,6 +34,10 @@ module.exports = {
 			});
 			return foundUsers;
 		},
+		getFollowing: async (_, __, { user }) => {
+			const foundFollowing = await User.findById(user._id);
+			return foundFollowing.following;
+		},
 	},
 
 	Mutation: {
@@ -138,8 +142,7 @@ module.exports = {
 				{ $addToSet: { following: userId } },
 				{ new: true }
 			);
-			if (updatedUser.following.includes(userId)) return true;
-			return false;
+			return updatedUser.following;
 		},
 	},
 };
