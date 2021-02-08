@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, FlatList } from 'react-native';
+import {
+	View,
+	Text,
+	ActivityIndicator,
+	FlatList,
+	ScrollView,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getQuizzesBySearchInput,
@@ -42,7 +48,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			})
+			}),
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
@@ -119,7 +125,9 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 					style={{
 						flexDirection: 'row',
 						alignItems: 'center',
-						justifyContent: 'center',
+						justifyContent: 'space-evenly',
+						width: '95%',
+						alignSelf: 'center',
 					}}
 				>
 					<Text
@@ -128,6 +136,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							fontSize: 16,
 							color: theme.text,
 							fontFamily: 'Nunito_400Regular',
+							width: 100,
 						}}
 					>
 						{s.searchBy}
@@ -136,7 +145,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						selectedValue={userFilter ? 'User' : 'Quiz'}
 						style={{
 							height: 40,
-							width: '65%',
+							width: 200,
 							color: theme.text,
 							backgroundColor: theme.bg,
 							borderRadius: 10,
@@ -167,7 +176,9 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						style={{
 							flexDirection: 'row',
 							alignItems: 'center',
-							justifyContent: 'center',
+							justifyContent: 'space-evenly',
+							width: '95%',
+							alignSelf: 'center',
 						}}
 					>
 						<Text
@@ -176,21 +187,23 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 								fontSize: 16,
 								color: theme.text,
 								fontFamily: 'Nunito_400Regular',
+								width: 100,
 							}}
 						>
-							{s.category}
+							{s.category}:
 						</Text>
 						<Picker
 							selectedValue={categoryFilter}
 							style={{
 								height: 40,
-								width: '65%',
+								width: 200,
 								color: theme.text,
 								backgroundColor: theme.bg,
 								borderRadius: 10,
 								padding: 10,
 								borderColor: theme.primary,
 								fontFamily: 'Nunito_400Regular',
+								marginTop: 10,
 							}}
 							onValueChange={(value) => {
 								setPage(1);
@@ -212,21 +225,21 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						</Picker>
 					</View>
 				)}
-
-				{userFilter &&
-					users.map((user) => (
-						<TouchableOpacity
-							key={user._id}
-							onPress={() => {
-								navigation.navigate('PublicProfile', {
-									userId: user._id,
-								});
-							}}
-						>
-							<Text>{`${user.firstName} ${user.lastName}`}</Text>
-						</TouchableOpacity>
-					))}
-
+				<ScrollView style={{ flex: 1 }}>
+					{userFilter &&
+						users.map((user) => (
+							<UserCard
+								key={user._id}
+								onPress={() => {
+									navigation.navigate('PublicProfile', {
+										userId: user._id,
+									});
+								}}
+							>
+								<UserName>{`${user.firstName} ${user.lastName}`}</UserName>
+							</UserCard>
+						))}
+				</ScrollView>
 				{!userFilter &&
 					(loading ? (
 						<ActivityIndicator size='large' color={theme.primary} />
@@ -246,7 +259,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 											if (!loadingMore) {
 												handleSearch(
 													categoryFilter,
-													page
+													page,
 												);
 												setLoadingMore(true);
 											}
@@ -343,9 +356,27 @@ const ButtonLoadMore = styled.TouchableOpacity`
 const Description = styled.Text`
 	color: ${(props) => props.theme.white};
 	font-size: 16px;
-	font-weight: bold;
 	text-align: center;
 	font-family: 'Nunito_800ExtraBold';
+`;
+
+const UserCard = styled.TouchableOpacity`
+	height: 40px;
+	width: 90%;
+	align-self: center;
+	border: 1px solid ${(props) => props.theme.primary};
+	border-radius: 5px;
+	margin: 10px 0;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+`;
+const UserName = styled.Text`
+	color: ${(props) => props.theme.text};
+	font-size: 18px;
+	text-align: center;
+	font-family: 'Nunito_800ExtraBold';
+	text-transform: uppercase;
 `;
 
 export default SearchScreen;

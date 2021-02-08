@@ -25,7 +25,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 	useFocusEffect(
 		React.useCallback(() => {
 			params.quizId && dispatch(getQuiz(params.quizId));
-		}, [])
+		}, []),
 	);
 	if (!params.quizId) quiz = randomQuiz;
 
@@ -110,27 +110,26 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 								/>
 							</TouchableOpacity>
 							<QuantityContainer>
-								<TouchableOpacity>
-									<Text
-										style={{
-											color: theme.primary,
-											fontFamily: 'Nunito_600SemiBold',
-											fontSize: 16,
-										}}
-									>
-										{quiz.questions.length} {s.quest}
-									</Text>
-								</TouchableOpacity>
-								<TouchableOpacity>
-									<Text
-										style={{
-											color: theme.primary,
-											fontSize: 16,
-										}}
-									>
-										{quiz.likes} Likes
-									</Text>
-								</TouchableOpacity>
+								<Text
+									style={{
+										color: theme.primary,
+										fontFamily: 'Nunito_600SemiBold',
+										fontSize: 16,
+										textAlign: 'center',
+									}}
+								>
+									{quiz.questions.length} {s.quest}
+								</Text>
+								<Text
+									style={{
+										color: theme.primary,
+										fontFamily: 'Nunito_600SemiBold',
+										fontSize: 16,
+										textAlign: 'center',
+									}}
+								>
+									{quiz.likes} Likes
+								</Text>
 							</QuantityContainer>
 						</ContainerTop>
 						<ContainerBottom>
@@ -322,11 +321,12 @@ const Title = styled.Text`
 `;
 
 const QuantityContainer = styled.View`
-	width: 40%;
+	width: 60%;
+	align-self: center;
 	height: 80px;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 `;
 
 const Description = styled.Text`
