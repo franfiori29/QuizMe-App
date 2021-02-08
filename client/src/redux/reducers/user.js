@@ -19,6 +19,7 @@ import {
 	queryGetFollowing,
 	mutationFollowUser,
 	mutationUnfollowUser,
+	queryGetFollowers,
 } from './querys/user';
 import fb from '../../firebase';
 import { REACT_APP_API } from '@root/env';
@@ -208,6 +209,15 @@ export const getFollowing = createAsyncThunk(
 	}
 );
 
+export const getFollowers = createAsyncThunk(
+	'user/getFollowers',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetFollowers);
+		return clientRequest.getFollowers;
+	}
+);
+
 export const followUser = createAsyncThunk(
 	'user/followUser',
 	async (payload, { getState }) => {
@@ -243,7 +253,7 @@ const userSlice = createSlice({
 		loadingUsers: false,
 		otherUser: {},
 		validations: [],
-		folowing: [],
+		following: [],
 	},
 	reducers: {
 		setUserInfo: (state, { payload }) => {
@@ -322,6 +332,9 @@ const userSlice = createSlice({
 		},
 		[unfollowUser.fulfilled]: (state, { payload }) => {
 			state.following = payload;
+		},
+		[getFollowers.fulfilled]: (state, { payload }) => {
+			state.followers = payload;
 		},
 	},
 });

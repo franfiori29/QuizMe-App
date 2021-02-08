@@ -38,6 +38,10 @@ module.exports = {
 			const foundFollowing = await User.findById(user._id);
 			return foundFollowing.following;
 		},
+		getFollowers: async (_, __, { user }) => {
+			const foundFollowers = await User.findById(user._id);
+			return foundFollowers.followers;
+		},
 	},
 
 	Mutation: {
@@ -142,6 +146,10 @@ module.exports = {
 				{ $addToSet: { following: userId } },
 				{ new: true }
 			);
+			await User.findOneAndUpdate(
+				{ _id: userId },
+				{ $inc: { followers: 1 } }
+			);
 			return updatedUser.following;
 		},
 		unfollowUser: async (_, { userId }, { user }) => {
@@ -149,6 +157,10 @@ module.exports = {
 				{ _id: user._id },
 				{ $pull: { following: userId } },
 				{ new: true }
+			);
+			await User.findOneAndUpdate(
+				{ _id: userId },
+				{ $inc: { followers: -1 } }
 			);
 			return updatedUser.following;
 		},

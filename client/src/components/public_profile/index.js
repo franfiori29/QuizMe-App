@@ -21,11 +21,13 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 	const Silver = 'rgb(190,194,203)';
 	const Gold = 'rgb(212,175,55)';
 	const { theme, language } = useSelector((state) => state.global);
-	const { otherUser, following } = useSelector((state) => state.user);
+	const { otherUser, following, info: user } = useSelector(
+		(state) => state.user
+	);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getUserById(params.userId));
-	}, []);
+	}, [params.userId]);
 
 	const selectDivision = () => {
 		if (otherUser.totalScore < 10000) {
@@ -38,6 +40,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 			return 'QuizMaster';
 		}
 	};
+
 	const s = strings[language];
 	if (!otherUser || !Object.keys(otherUser).length)
 		return <Text>Loading...</Text>;
@@ -71,57 +74,64 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									: 'https://picsum.photos/150/150',
 							}}
 						/>
-						{following.includes(params.userId) ? (
-							<TouchableOpacity
-								style={{
-									width: '100%',
-									marginTop: 10,
-									borderWidth: 2,
-									borderColor: theme.wrong,
-									borderRadius: 5,
-									padding: 1,
-								}}
-								onPress={() =>
-									dispatch(unfollowUser(params.userId))
-								}
-							>
-								<Text
+						{params.userId !== user._id &&
+							(following.includes(params.userId) ? (
+								<TouchableOpacity
 									style={{
-										textAlign: 'center',
-										textTransform: 'uppercase',
-										fontFamily: 'Nunito_800ExtraBold',
-										color: theme.wrong,
+										width: '100%',
+										marginTop: 10,
+										borderWidth: 2,
+										borderColor: theme.wrong,
+										borderRadius: 5,
+										padding: 1,
+									}}
+									onPress={async () => {
+										await dispatch(
+											unfollowUser(params.userId)
+										);
+										dispatch(getUserById(params.userId));
 									}}
 								>
-									{s.unfollow}
-								</Text>
-							</TouchableOpacity>
-						) : (
-							<TouchableOpacity
-								style={{
-									width: '100%',
-									marginTop: 10,
-									borderWidth: 2,
-									borderColor: theme.primary,
-									borderRadius: 5,
-									padding: 1,
-								}}
-								onPress={() =>
-									dispatch(followUser(params.userId))
-								}
-							>
-								<Text
+									<Text
+										style={{
+											textAlign: 'center',
+											textTransform: 'uppercase',
+											fontFamily: 'Nunito_800ExtraBold',
+											color: theme.wrong,
+										}}
+									>
+										{s.unfollow}
+									</Text>
+								</TouchableOpacity>
+							) : (
+								<TouchableOpacity
 									style={{
-										textAlign: 'center',
-										textTransform: 'uppercase',
-										fontFamily: 'Nunito_800ExtraBold',
-										color: theme.primary,
+										width: '100%',
+										marginTop: 10,
+										borderWidth: 2,
+										borderColor: theme.primary,
+										borderRadius: 5,
+										padding: 1,
+									}}
+									onPress={async () => {
+										await dispatch(
+											followUser(params.userId)
+										);
+										dispatch(getUserById(params.userId));
 									}}
 								>
-									{s.follow}
-								</Text>
-							</TouchableOpacity>
-						)}
+									<Text
+										style={{
+											textAlign: 'center',
+											textTransform: 'uppercase',
+											fontFamily: 'Nunito_800ExtraBold',
+											color: theme.primary,
+										}}
+									>
+										{s.follow}
+									</Text>
+								</TouchableOpacity>
+							))}
 					</View>
 					<UserInfo>
 						<View>
@@ -170,9 +180,11 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 								Argentina
 							</Text>
 							<UserText style={{ marginBottom: 5 }}>
-								{s.follow} 250
+								{s.follows} {otherUser?.following?.length}
 							</UserText>
-							<UserText>{s.followers} 40 </UserText>
+							<UserText>
+								{s.followers} {otherUser.followers}{' '}
+							</UserText>
 						</View>
 					</UserInfo>
 				</UserContainer>
