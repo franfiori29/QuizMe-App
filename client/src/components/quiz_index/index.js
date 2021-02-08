@@ -22,11 +22,11 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 	const { randomQuiz } = useSelector((state) => state.quiz);
 	let { quiz } = useSelector((state) => state.quiz);
 	const dispatch = useDispatch();
-	useFocusEffect(
-		React.useCallback(() => {
-			params.quizId && dispatch(getQuiz(params.quizId));
-		}, []),
-	);
+
+	useEffect(() => {
+		params.quizId && dispatch(getQuiz(params.quizId));
+	}, []);
+
 	if (!params.quizId) quiz = randomQuiz;
 
 	const [place1, place2, place3] = quiz?.highScores || [];
