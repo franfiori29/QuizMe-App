@@ -16,6 +16,8 @@ import {
 	mutationSetNotificationToken,
 	mutationCreateValidation,
 	queryGetUsersByInput,
+	queryGetFollowing,
+	mutationFollowUser,
 } from './querys/user';
 import fb from '../../firebase';
 import { REACT_APP_API } from '@root/env';
@@ -196,6 +198,26 @@ export const getUsersByInput = createAsyncThunk(
 	}
 );
 
+export const getFollowing = createAsyncThunk(
+	'user/getFollowing',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetFollowing);
+		return clientRequest.getFollowing;
+	}
+);
+
+export const followUser = createAsyncThunk(
+	'user/getFollowing',
+	async (_, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationFollowUser, {
+			payload,
+		});
+		return clientRequest.followUser;
+	}
+);
+
 /* --- Slice --- */
 const userSlice = createSlice({
 	name: 'user',
@@ -209,6 +231,7 @@ const userSlice = createSlice({
 		loadingUsers: false,
 		otherUser: {},
 		validations: [],
+		folowing: [],
 	},
 	reducers: {
 		setUserInfo: (state, { payload }) => {
@@ -278,6 +301,12 @@ const userSlice = createSlice({
 		},
 		[getUsersByInput.fulfilled]: (state, { payload }) => {
 			state.users = payload;
+		},
+		[getFollowing.fulfilled]: (state, { payload }) => {
+			state.following = payload;
+		},
+		[followUser.fulfilled]: (state, { payload }) => {
+			state.following = payload;
 		},
 	},
 });

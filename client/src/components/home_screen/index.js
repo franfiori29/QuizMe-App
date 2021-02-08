@@ -19,6 +19,7 @@ import {
 import { getCategories, sortCategories } from '../../redux/reducers/categories';
 import {
 	getCompletedQuizzes,
+	getFollowing,
 	setNotificationToken,
 	setNotificationTokenUser,
 } from '../../redux/reducers/user';
@@ -109,6 +110,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		// dispatch(getQuizzes()).then(() => {
 		// 	setQuizzesLoading(false);
 		// });
+		dispatch(getFollowing());
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
 		dispatch(getSuggestedQuizzes(language === 'en')).then(() => {

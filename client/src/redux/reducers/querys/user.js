@@ -61,6 +61,12 @@ export const queryGetUsersByInput = gql`
 	}
 `;
 
+export const queryGetFollowing = gql`
+	{
+		getFollowing
+	}
+`;
+
 /* --- Mutations --- */
 
 export const mutationActivateUser = gql`
@@ -136,5 +142,11 @@ export const mutationCreateValidation = gql`
 		createValidation(
 			validation: { fullName: $fullName, description: $description }
 		)
+	}
+`;
+
+export const mutationFollowUser = gql`
+	mutation followUser($payload: String) {
+		followUser(userId: $payload)
 	}
 `;
