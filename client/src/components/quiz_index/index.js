@@ -142,7 +142,7 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 							>
 								<StartButton
 									onPress={() =>
-										navigation.navigate('Quiz', {
+										navigation.replace('Quiz', {
 											questions: quiz.questions,
 											imageQuiz: quiz.image,
 											time: quiz.time,

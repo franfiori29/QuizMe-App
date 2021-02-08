@@ -15,6 +15,16 @@ module.exports = gql`
 		highScores: [Highscore]
 	}
 
+	type QuizCard {
+		_id: ID!
+		title: String!
+		description: String!
+		image: String!
+		likes: Int!
+		language: String
+		categoryId: ID
+	}
+
 	type UserSnippet {
 		_id: ID!
 		firstName: String
@@ -54,7 +64,7 @@ module.exports = gql`
 	}
 
 	type QueryInfo {
-		quizzes: [Quiz]!
+		quizzes: [QuizCard]!
 		hasNextPage: Boolean
 		totalPages: Int
 	}
@@ -89,19 +99,19 @@ module.exports = gql`
 
 	extend type Query {
 		getQuiz(id: ID!): Quiz
-		getQuizzes: [Quiz!]!
+		getQuizzes: [QuizCard!]!
 		getCategories: [Category!]!
-		getQuizByCategory(catId: ID!): [Quiz!]!
+		getQuizByCategory(catId: ID!): [QuizCard!]!
 		getRandomQuiz: Quiz!
 		getUserQuizzes(userId: ID!): [Quiz]
-		getNQuizzesPerPage: [Quiz]
+		getNQuizzesPerPage: [QuizCard]
 		getQuizzesByInputSearch(
 			input: String!
 			cat: String
 			page: Int
 		): QueryInfo
-		searchByPopularity: [Quiz!]!
-		getSuggestedQuizzes: [Quiz!]!
+		searchByPopularity(english: Boolean): [QuizCard!]!
+		getSuggestedQuizzes(english: Boolean): [QuizCard!]!
 		getCategoriesByInput(input: String): [Category]!
 	}
 

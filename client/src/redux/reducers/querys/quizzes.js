@@ -43,25 +43,34 @@ export const EntireQuizInfo = gql`
 		}
 	}
 `;
+export const CardQuizInfo = gql`
+	fragment CardQuizInfo on QuizCard {
+		_id
+		title
+		description
+		image
+		likes
+	}
+`;
 
 /* --- Querys --- */
 
 export const queryAllQuizzes = gql`
 	{
 		getQuizzes {
-			...EntireQuizInfo
+			...CardQuizInfo
 		}
 	}
-	${EntireQuizInfo}
+	${CardQuizInfo}
 `;
 
 export const queryGetQuizByCategory = gql`
 	query($payload: ID!) {
 		getQuizByCategory(catId: $payload) {
-			...EntireQuizInfo
+			...CardQuizInfo
 		}
 	}
-	${EntireQuizInfo}
+	${CardQuizInfo}
 `;
 
 export const queryGetQuiz = gql`
@@ -81,12 +90,12 @@ export const queryGetQuizzesBySearchInput = gql`
 			page: $page
 		) {
 			quizzes {
-				...EntireQuizInfo
+				...CardQuizInfo
 			}
 			hasNextPage
 		}
 	}
-	${EntireQuizInfo}
+	${CardQuizInfo}
 `;
 
 export const queryRandomQuiz = gql`
@@ -101,23 +110,23 @@ export const queryRandomQuiz = gql`
 /*Get quizzes by popularity*/
 
 export const queryGtQuizzesByPopularity = gql`
-	{
-		searchByPopularity {
-			...EntireQuizInfo
+	query($english: Boolean) {
+		searchByPopularity(english: $english) {
+			...CardQuizInfo
 		}
 	}
-	${EntireQuizInfo}
+	${CardQuizInfo}
 `;
 
 /*Get quizzes suggested*/
 
 export const queryGtQuizzesSuggested = gql`
-	{
-		getSuggestedQuizzes {
-			...EntireQuizInfo
+	query($english: Boolean) {
+		getSuggestedQuizzes(english: $english) {
+			...CardQuizInfo
 		}
 	}
-	${EntireQuizInfo}
+	${CardQuizInfo}
 `;
 
 /* --- Mutations --- */

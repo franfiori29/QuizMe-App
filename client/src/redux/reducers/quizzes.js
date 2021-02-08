@@ -120,18 +120,22 @@ export const updateHighscore = createAsyncThunk(
 
 export const getQuizzesByPopularity = createAsyncThunk(
 	'quiz/getQuizzesByPopularity',
-	async (_, { getState }) => {
+	async (payload, { getState }) => {
 		const client = getClient(getState());
-		const clientRequest = await client.request(queryGtQuizzesByPopularity);
+		const clientRequest = await client.request(queryGtQuizzesByPopularity, {
+			english: payload,
+		});
 		return clientRequest;
 	}
 );
 
 export const getSuggestedQuizzes = createAsyncThunk(
 	'quiz/getSuggestedQuizzes',
-	async (_, { getState }) => {
+	async (payload, { getState }) => {
 		const client = getClient(getState());
-		const clientRequest = await client.request(queryGtQuizzesSuggested);
+		const clientRequest = await client.request(queryGtQuizzesSuggested, {
+			english: payload,
+		});
 		return clientRequest;
 	}
 );
