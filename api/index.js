@@ -21,6 +21,7 @@ const utilsUsers = require('./utils/bulkCreate/Users');
 const utilsCategories = require('./utils/bulkCreate/Categories');
 const utilsQuizzes = require('./utils/bulkCreate/Quizzes');
 const utilsQuestions = require('./utils/bulkCreate/Questions');
+const utilsQuestionsEN = require('./utils/bulkCreate/EnglishQuestions/index');
 const utilsValidations = require('./utils/bulkCreate/Validations');
 
 const app = express();
@@ -82,7 +83,7 @@ mongoose
 		console.info('MONGODB CONNECTED');
 		try {
 			await Category.create(utilsCategories);
-			await Question.create(utilsQuestions);
+			await Question.create(utilsQuestions.concat(utilsQuestionsEN));
 			await Quiz.create(utilsQuizzes);
 			await User.create(utilsUsers);
 			await Validation.create(utilsValidations);

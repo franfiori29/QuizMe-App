@@ -10,7 +10,7 @@ const questionSchema = new Schema(
 			},
 		],
 		image: String,
-		score: { type: Number, required: true },
+		score: { type: Number, required: false },
 	},
 	{ timestamps: true }
 );

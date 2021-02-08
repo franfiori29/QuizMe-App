@@ -39,7 +39,7 @@ module.exports = gql`
 		title: String!
 		options: [Option!]!
 		image: String
-		score: Int!
+		score: Int
 	}
 
 	type Option {
