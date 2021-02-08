@@ -62,6 +62,7 @@ const users = [
 		firstName: 'Tincho',
 		lastName: 'Sanchez',
 		countryCode: 'AR',
+		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -71,6 +72,7 @@ const users = [
 		firstName: 'Bruno',
 		lastName: 'Gallardo',
 		countryCode: 'AR',
+		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 	{
@@ -90,6 +92,7 @@ const users = [
 		lastName: 'Nakaganeku',
 		countryCode: 'AR',
 		role: 'ADMIN',
+		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 	},
 ];

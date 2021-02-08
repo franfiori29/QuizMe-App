@@ -42,5 +42,16 @@ module.exports = {
 			});
 			return result;
 		},
+		getUserStats: async (_, __, { user }) => {
+			if (user.role !== 'ADMIN') throw new Error('Not authorized');
+			const totalUsers = await User.countDocuments();
+			const validatedUsers = await User.countDocuments({
+				validated: true,
+			});
+			return {
+				validatedUsers,
+				notValidatedUsers: totalUsers - validatedUsers,
+			};
+		},
 	},
 };
