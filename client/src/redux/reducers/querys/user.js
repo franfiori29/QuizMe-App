@@ -150,3 +150,9 @@ export const mutationFollowUser = gql`
 		followUser(userId: $payload)
 	}
 `;
+
+export const mutationUnfollowUser = gql`
+	mutation unfollowUser($payload: ID!) {
+		unfollowUser(userId: $payload)
+	}
+`;

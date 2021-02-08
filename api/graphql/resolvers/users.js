@@ -144,5 +144,13 @@ module.exports = {
 			);
 			return updatedUser.following;
 		},
+		unfollowUser: async (_, { userId }, { user }) => {
+			const updatedUser = await User.findOneAndUpdate(
+				{ _id: user._id },
+				{ $pull: { following: userId } },
+				{ new: true }
+			);
+			return updatedUser.following;
+		},
 	},
 };

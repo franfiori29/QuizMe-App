@@ -65,5 +65,6 @@ module.exports = gql`
 		setNotificationToken(token: String!): String!
 		sendNotification(message: String!, title: String!): String!
 		followUser(userId: ID!): [ID]!
+		unfollowUser(userId: ID!): [ID]!
 	}
 `;

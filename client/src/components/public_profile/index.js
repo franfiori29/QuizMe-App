@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserById, followUser, getFollowing } from '@redux/reducers/user';
+import { getUserById, followUser, unfollowUser } from '@redux/reducers/user';
 
 //Components
 import NavBar from '@components/utils/NavBar';
@@ -15,6 +15,7 @@ import Icon3 from 'react-native-vector-icons/SimpleLineIcons';
 
 //Assets
 import strings from './strings';
+
 const PublicProfile = ({ navigation, route: { params } }) => {
 	const Bronze = 'rgb(176,141,87)';
 	const Silver = 'rgb(190,194,203)';
@@ -80,6 +81,9 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									borderRadius: 5,
 									padding: 1,
 								}}
+								onPress={() =>
+									dispatch(unfollowUser(params.userId))
+								}
 							>
 								<Text
 									style={{

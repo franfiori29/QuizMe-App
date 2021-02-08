@@ -18,6 +18,7 @@ import {
 	queryGetUsersByInput,
 	queryGetFollowing,
 	mutationFollowUser,
+	mutationUnfollowUser,
 } from './querys/user';
 import fb from '../../firebase';
 import { REACT_APP_API } from '@root/env';
@@ -36,7 +37,7 @@ export const getUser = createAsyncThunk(
 			.then((user) => {
 				return user.data;
 			});
-	},
+	}
 );
 
 export const getUserById = createAsyncThunk(
@@ -47,7 +48,7 @@ export const getUserById = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const setNotificationToken = createAsyncThunk(
@@ -56,10 +57,10 @@ export const setNotificationToken = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(
 			mutationSetNotificationToken,
-			{ token: payload },
+			{ token: payload }
 		);
 		return clientRequest.setNotificationToken;
-	},
+	}
 );
 
 export const getUsers = createAsyncThunk(
@@ -70,7 +71,7 @@ export const getUsers = createAsyncThunk(
 			payload,
 		});
 		return clientRequest.getUsers;
-	},
+	}
 );
 
 export const activateUser = createAsyncThunk(
@@ -82,7 +83,7 @@ export const activateUser = createAsyncThunk(
 			isActive,
 		});
 		return clientRequest.activateUser;
-	},
+	}
 );
 
 export const completeQuiz = createAsyncThunk(
@@ -93,7 +94,7 @@ export const completeQuiz = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const getCompletedQuizzes = createAsyncThunk(
@@ -102,7 +103,7 @@ export const getCompletedQuizzes = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetCompletedQuizzes);
 		return clientRequest;
-	},
+	}
 );
 
 export const updateUser = createAsyncThunk(
@@ -118,7 +119,7 @@ export const updateUser = createAsyncThunk(
 			fb.storage().refFromURL(previousUserProfilePic).delete();
 		}
 		return clientRequest;
-	},
+	}
 );
 
 export const changePassword = createAsyncThunk(
@@ -130,7 +131,7 @@ export const changePassword = createAsyncThunk(
 			newPass,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const changeEmail = createAsyncThunk(
@@ -142,7 +143,7 @@ export const changeEmail = createAsyncThunk(
 			newMail,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const getUserQuizzes = createAsyncThunk(
@@ -153,7 +154,7 @@ export const getUserQuizzes = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const validateUser = createAsyncThunk(
@@ -164,7 +165,7 @@ export const validateUser = createAsyncThunk(
 			payload,
 		});
 		return clientRequest;
-	},
+	}
 );
 export const createValidation = createAsyncThunk(
 	'user/createValidation',
@@ -175,7 +176,7 @@ export const createValidation = createAsyncThunk(
 			description,
 		});
 		return clientRequest;
-	},
+	}
 );
 
 export const premiumUser = createAsyncThunk(
@@ -184,7 +185,7 @@ export const premiumUser = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(mutationPremiumUser);
 		return clientRequest;
-	},
+	}
 );
 
 export const getUsersByInput = createAsyncThunk(
@@ -195,7 +196,7 @@ export const getUsersByInput = createAsyncThunk(
 			payload,
 		});
 		return clientRequest.getUsersByInput;
-	},
+	}
 );
 
 export const getFollowing = createAsyncThunk(
@@ -204,19 +205,29 @@ export const getFollowing = createAsyncThunk(
 		const client = getClient(getState());
 		const clientRequest = await client.request(queryGetFollowing);
 		return clientRequest.getFollowing;
-	},
+	}
 );
 
 export const followUser = createAsyncThunk(
 	'user/followUser',
 	async (payload, { getState }) => {
-		console.log('payload', payload);
 		const client = getClient(getState());
 		const clientRequest = await client.request(mutationFollowUser, {
 			payload,
 		});
 		return clientRequest.followUser;
-	},
+	}
+);
+
+export const unfollowUser = createAsyncThunk(
+	'user/followUser',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(mutationUnfollowUser, {
+			payload,
+		});
+		return clientRequest.unfollowUser;
+	}
 );
 
 /* --- Slice --- */
@@ -252,7 +263,7 @@ const userSlice = createSlice({
 				state.likedQuiz.push(payload.quizId);
 			} else {
 				state.likedQuiz = state.likedQuiz.filter(
-					(q) => q !== payload.quizId,
+					(q) => q !== payload.quizId
 				);
 			}
 		},
@@ -307,6 +318,9 @@ const userSlice = createSlice({
 			state.following = payload;
 		},
 		[followUser.fulfilled]: (state, { payload }) => {
+			state.following = payload;
+		},
+		[unfollowUser.fulfilled]: (state, { payload }) => {
 			state.following = payload;
 		},
 	},
