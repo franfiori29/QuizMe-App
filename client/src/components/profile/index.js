@@ -29,7 +29,9 @@ const Profile = ({ navigation }) => {
 	const Gold = 'rgb(212,175,55)';
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
-	const { info: user, otherUser } = useSelector((state) => state.user);
+	const { info: user, otherUser, following } = useSelector(
+		(state) => state.user,
+	);
 	const [picture, setPicture] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const s = strings[language];
@@ -202,7 +204,7 @@ const Profile = ({ navigation }) => {
 								Argentina
 							</Text>
 							<UserText style={{ marginBottom: 5 }}>
-								{s.follow} 250
+								{s.follow} {following.length}
 							</UserText>
 							<UserText>{s.followers} 40 </UserText>
 						</View>

@@ -146,7 +146,7 @@ export const mutationCreateValidation = gql`
 `;
 
 export const mutationFollowUser = gql`
-	mutation followUser($payload: String) {
+	mutation followUser($payload: ID!) {
 		followUser(userId: $payload)
 	}
 `;

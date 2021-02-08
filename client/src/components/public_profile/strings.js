@@ -11,6 +11,8 @@ const strings = {
 		changeName: 'Change name',
 		validate: 'Validate',
 		validate2: 'Validated User',
+		follow: 'Follow',
+		unfollow: 'Unfollow',
 		//Achivements==>
 		achiv1Title: 'Quiz Genius',
 		achiv1Text: 'First quiz created',
@@ -54,6 +56,8 @@ const strings = {
 		changeName: 'Cambiar nombre',
 		validate: 'Validar',
 		validate2: 'Usuario Validado',
+		follow: 'Seguir',
+		unfollow: 'Dejar de Seguir',
 		//Achivements==>
 		achiv1Title: 'Genio del Quiz',
 		achiv1Text: 'Primer quiz creada',

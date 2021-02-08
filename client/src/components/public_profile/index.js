@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserById } from '@redux/reducers/user';
+import { getUserById, followUser, getFollowing } from '@redux/reducers/user';
 
 //Components
 import NavBar from '@components/utils/NavBar';
@@ -15,15 +15,13 @@ import Icon3 from 'react-native-vector-icons/SimpleLineIcons';
 
 //Assets
 import strings from './strings';
-
 const PublicProfile = ({ navigation, route: { params } }) => {
 	const Bronze = 'rgb(176,141,87)';
 	const Silver = 'rgb(190,194,203)';
 	const Gold = 'rgb(212,175,55)';
 	const { theme, language } = useSelector((state) => state.global);
-	const { otherUser } = useSelector((state) => state.user);
+	const { otherUser, following } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		dispatch(getUserById(params.userId));
 	}, []);
@@ -59,7 +57,12 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 					icon2='ios-home-outline'
 				/>
 				<UserContainer>
-					<View>
+					<View
+						style={{
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
 						<UserImg
 							source={{
 								uri: otherUser.profilePic
@@ -67,6 +70,54 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									: 'https://picsum.photos/150/150',
 							}}
 						/>
+						{following.includes(params.userId) ? (
+							<TouchableOpacity
+								style={{
+									width: '100%',
+									marginTop: 10,
+									borderWidth: 2,
+									borderColor: theme.wrong,
+									borderRadius: 5,
+									padding: 1,
+								}}
+							>
+								<Text
+									style={{
+										textAlign: 'center',
+										textTransform: 'uppercase',
+										fontFamily: 'Nunito_800ExtraBold',
+										color: theme.wrong,
+									}}
+								>
+									{s.unfollow}
+								</Text>
+							</TouchableOpacity>
+						) : (
+							<TouchableOpacity
+								style={{
+									width: '100%',
+									marginTop: 10,
+									borderWidth: 2,
+									borderColor: theme.primary,
+									borderRadius: 5,
+									padding: 1,
+								}}
+								onPress={() =>
+									dispatch(followUser(params.userId))
+								}
+							>
+								<Text
+									style={{
+										textAlign: 'center',
+										textTransform: 'uppercase',
+										fontFamily: 'Nunito_800ExtraBold',
+										color: theme.primary,
+									}}
+								>
+									{s.follow}
+								</Text>
+							</TouchableOpacity>
+						)}
 					</View>
 					<UserInfo>
 						<View>
