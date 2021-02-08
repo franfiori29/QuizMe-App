@@ -15,9 +15,7 @@ module.exports = {
 			return foundQuiz;
 		},
 		getQuizzes: async () => {
-			const quizzes = await Quiz.find()
-				.populate('categoryId')
-				.populate('questions');
+			const quizzes = await Quiz.find();
 			return quizzes;
 		},
 		getCategories: async () => {
@@ -27,10 +25,7 @@ module.exports = {
 		getQuizByCategory: async (_, { catId }) => {
 			const foundQuizzes = await Quiz.find({
 				categoryId: catId,
-			})
-				.populate('questions')
-				.populate('categoryId')
-				.populate('highScores.user');
+			});
 			return foundQuizzes;
 		},
 		getQuizzesByInputSearch: async (_, { input, cat, page }) => {
@@ -81,16 +76,17 @@ module.exports = {
 				.limit(nPerPage);
 			return quizzes;
 		},
-		searchByPopularity: async () => {
-			const quizzesByPopularity = await Quiz.find({}, null, {
-				sort: { likes: -1 },
-			})
-				.populate('categoryId')
-				.populate('questions')
-				.populate('highScores.user');
+		searchByPopularity: async (_, { english }) => {
+			const quizzesByPopularity = await Quiz.find(
+				{ language: english ? 'en' : 'es' },
+				null,
+				{
+					sort: { likes: -1 },
+				}
+			);
 			return quizzesByPopularity;
 		},
-		getSuggestedQuizzes: async (_, __, { user }) => {
+		getSuggestedQuizzes: async (_, { english }, { user }) => {
 			const completed = (await User.findById(user._id)).completedQuiz;
 			const categorys = [];
 
@@ -100,14 +96,22 @@ module.exports = {
 			quizzesComp.map((q) => {
 				categorys.push(q.categoryId);
 			});
-			const foundQuizzes = await Quiz.find({
+			let foundQuizzes = await Quiz.find({
+				language: english ? 'en' : 'es',
 				_id: { $nin: completed },
 				categoryId: { $in: categorys },
-			})
-				.populate('questions')
-				.populate('user')
-				.populate('categoryId');
-
+			});
+			if (foundQuizzes.length < 10) {
+				let extraQuizzes = await Quiz.find(
+					{
+						language: english ? 'en' : 'es',
+						_id: { $nin: completed },
+					},
+					null,
+					{ limit: 10 }
+				);
+				foundQuizzes = foundQuizzes.concat(extraQuizzes);
+			}
 			return foundQuizzes
 				.sort(function () {
 					return Math.random() - 0.5;

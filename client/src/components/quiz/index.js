@@ -41,7 +41,7 @@ const AnimatedHourglass = Animatable.createAnimatableComponent(Icon);
 
 const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const { theme, language, sound, vibration } = useSelector(
-		(state) => state.global,
+		(state) => state.global
 	);
 	const { completedQuiz } = useSelector((state) => state.user);
 	const questions = useMemo(() => shuffle(params.questions), [
@@ -81,10 +81,10 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 	const nextQuestion = (result) => {
 		if (current >= questions.length - 1) {
 			const wasCompleted = completedQuiz.some(
-				(quiz) => quiz._id === params.id,
+				(quiz) => quiz._id === params.id
 			);
 			let newPoints = Math.floor(
-				points + (timer.time / totalTime) * MAX_POINTS * Number(result),
+				points + (timer.time / totalTime) * MAX_POINTS * Number(result)
 			);
 			if (!wasCompleted) {
 				dispatch(completeQuiz(params.id));
@@ -93,9 +93,9 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 						updateHighscore({
 							quizId: params.id,
 							score: newPoints,
-						}),
+						})
 					);
-				dispatch(getSuggestedQuizzes());
+				dispatch(getSuggestedQuizzes(language === 'en'));
 			}
 			navigation.replace('QuizResults', {
 				correct: result ? correct + 1 : correct,
@@ -109,7 +109,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			if (result) {
 				setPoints((prevPoints) => {
 					return Math.floor(
-						prevPoints + (timer.time / totalTime) * MAX_POINTS,
+						prevPoints + (timer.time / totalTime) * MAX_POINTS
 					);
 				});
 				setCorrect((c) => c + 1);
@@ -134,8 +134,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							},
 							easing: 'ease-out',
 						},
-						600 + i * 100,
-					),
+						600 + i * 100
+					)
 			);
 			barRef.current.animate(
 				{
@@ -144,7 +144,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 					1: { width: 0, backgroundColor: ERROR_COLOR },
 					easing: 'linear',
 				},
-				totalTime * 1000,
+				totalTime * 1000
 			);
 			i = setInterval(() => {
 				setTimer((t) => ({ ...t, time: t.time - 1 }));
@@ -160,7 +160,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			buttonRefArray.forEach(
 				(e, i) =>
 					i < shuffledOptions.length &&
-					e.t.current.animate(shaking, 3000),
+					e.t.current.animate(shaking, 3000)
 			);
 			sounds.timer?.playFromPositionAsync(3500);
 		}
@@ -190,8 +190,8 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 							},
 							easing: 'ease-in',
 						},
-						600 + i * 100,
-					),
+						600 + i * 100
+					)
 			);
 		}
 		setTts(false);
@@ -208,7 +208,7 @@ const Quiz = ({ navigation, route: { params, playTheme, stopTheme } }) => {
 			: sounds.wrong?.playFromPositionAsync(0);
 		barRef.current.stopAnimation();
 		buttonRefArray.forEach(
-			(e, i) => i < shuffledOptions.length && e.t.current.stopAnimation(),
+			(e, i) => i < shuffledOptions.length && e.t.current.stopAnimation()
 		);
 		setTts(false);
 		Speech.stop();
@@ -489,7 +489,7 @@ const QuestionTitle = styled.Text`
 `;
 
 const AnimatableTouchableOpacity = Animatable.createAnimatableComponent(
-	TouchableOpacity,
+	TouchableOpacity
 );
 const Option = styled(AnimatableTouchableOpacity)`
 	width: 95%;

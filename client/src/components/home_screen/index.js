@@ -111,7 +111,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		// });
 		dispatch(getCategories(language));
 		dispatch(getCompletedQuizzes());
-		dispatch(getSuggestedQuizzes()).then(() => {
+		dispatch(getSuggestedQuizzes(language === 'en')).then(() => {
 			setQuizzesLoading(false);
 		});
 		sound && playTheme();
@@ -151,7 +151,20 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 					<RefreshControl
 						refreshing={false}
 						onRefresh={() => {
-							dispatch(getQuizzes());
+							switch (selector) {
+								case 'suggested':
+									dispatch(
+										getSuggestedQuizzes(language === 'en')
+									);
+									break;
+								case 'popular':
+									dispatch(
+										getQuizzesByPopularity(
+											language === 'en'
+										)
+									);
+									break;
+							}
 							dispatch(getCategories(language));
 						}}
 					/>
@@ -186,7 +199,9 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 							onPress={() => {
 								setQuizzesLoading(true);
 								setSelector('suggested');
-								dispatch(getSuggestedQuizzes()).then(() => {
+								dispatch(
+									getSuggestedQuizzes(language === 'en')
+								).then(() => {
 									setQuizzesLoading(false);
 								});
 							}}
@@ -206,7 +221,9 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 							onPress={() => {
 								setQuizzesLoading(true);
 								setSelector('popular');
-								dispatch(getQuizzesByPopularity()).then(() => {
+								dispatch(
+									getQuizzesByPopularity(language === 'en')
+								).then(() => {
 									setQuizzesLoading(false);
 								});
 							}}
