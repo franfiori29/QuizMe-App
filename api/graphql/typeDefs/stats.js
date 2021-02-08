@@ -8,9 +8,15 @@ module.exports = gql`
 		value: Int
 	}
 
+	type UserStats {
+		validatedUsers: Int
+		notValidatedUsers: Int
+	}
+
 	extend type Query {
 		getTotalQuiz: Int
 		getNewUsers: Int
 		getQuizzesByCategories: [QuizzesByCategory]
+		getUserStats: UserStats
 	}
 `;
