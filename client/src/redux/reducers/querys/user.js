@@ -49,6 +49,18 @@ export const queryGetUsers = gql`
 	}
 `;
 
+export const queryGetUsersByInput = gql`
+	query($payload: String) {
+		getUsersByInput(input: $payload) {
+			_id
+			firstName
+			lastName
+			email
+			profilePic
+		}
+	}
+`;
+
 /* --- Mutations --- */
 
 export const mutationActivateUser = gql`

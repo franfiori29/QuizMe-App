@@ -82,6 +82,7 @@ module.exports = {
 				null,
 				{
 					sort: { likes: -1 },
+					limit: 10,
 				}
 			);
 			return quizzesByPopularity;

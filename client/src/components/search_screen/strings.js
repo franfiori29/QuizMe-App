@@ -6,6 +6,8 @@ const strings = {
 		msg1: 'No quizzes were found... try again!',
 		loading: 'Loading...',
 		loadMore: 'More',
+		searchBy: 'Search by:',
+		category: 'Category',
 	},
 
 	es: {
@@ -15,6 +17,8 @@ const strings = {
 		msg1: 'No se encontró lo que buscaste... ¡Inténtalo de nuevo!',
 		laoding: 'Cargando...',
 		loadMore: 'Más',
+		searchBy: 'Buscar por:',
+		category: 'Categoría',
 	},
 };
 
