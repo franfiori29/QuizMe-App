@@ -34,6 +34,7 @@ const userSchema = new Schema(
 		resetCode: { type: String, default: null },
 		notificationToken: { type: String },
 		following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+		followers: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );

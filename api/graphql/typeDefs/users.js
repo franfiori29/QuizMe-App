@@ -29,6 +29,8 @@ module.exports = gql`
 		resetCode: String
 		createdQuizzes: [Ids]
 		totalScore: Int
+		followers: Int
+		following: [ID]
 	}
 
 	input UserInput {
@@ -51,6 +53,7 @@ module.exports = gql`
 		getUser(userId: ID!): User
 		getUsersByInput(input: String): [User]!
 		getFollowing: [ID]!
+		getFollowers: Int
 	}
 
 	type Mutation {

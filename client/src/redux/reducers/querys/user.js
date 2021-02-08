@@ -11,6 +11,7 @@ export const queryGetUser = gql`
 			premium
 			validated
 			totalScore
+			followers
 			completedQuiz {
 				title
 			}
@@ -20,6 +21,7 @@ export const queryGetUser = gql`
 			createdQuizzes {
 				_id
 			}
+			following
 		}
 	}
 `;
@@ -64,6 +66,12 @@ export const queryGetUsersByInput = gql`
 export const queryGetFollowing = gql`
 	{
 		getFollowing
+	}
+`;
+
+export const queryGetFollowers = gql`
+	{
+		getFollowers
 	}
 `;
 

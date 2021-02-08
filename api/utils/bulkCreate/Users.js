@@ -25,6 +25,7 @@ const users = [
 		lastName: 'Alfonso',
 		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0001')],
+		followers: 1,
 		following: [
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0007'),
@@ -39,6 +40,7 @@ const users = [
 		lastName: 'Fiori',
 		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		followers: 1,
 		following: [
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
@@ -54,6 +56,7 @@ const users = [
 		countryCode: 'AR',
 		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		followers: 3,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0004'),
@@ -64,6 +67,7 @@ const users = [
 		countryCode: 'AR',
 		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		followers: 1,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
@@ -74,6 +78,7 @@ const users = [
 		countryCode: 'AR',
 		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		followers: 2,
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0006'),
@@ -94,6 +99,7 @@ const users = [
 		role: 'ADMIN',
 		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		followers: 1,
 	},
 ];
 

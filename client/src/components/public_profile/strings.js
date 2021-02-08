@@ -1,7 +1,7 @@
 const strings = {
 	en: {
 		title: 'Profile',
-		follow: 'Following',
+		follows: 'Following',
 		followers: 'Followers',
 		createdQuizzes: 'Created Quizzes',
 		games: 'Games played',
@@ -46,7 +46,7 @@ const strings = {
 
 	es: {
 		title: 'Perfil',
-		follow: 'Siguiendo a',
+		follows: 'Siguiendo a',
 		followers: 'Seguidores',
 		createdQuizzes: 'Quizzes Creadas',
 		games: 'Partidas jugadas',
