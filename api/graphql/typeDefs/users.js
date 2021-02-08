@@ -59,6 +59,7 @@ module.exports = gql`
 		changeEmail(newMail: String!, currPass: String!): String
 		activateUser(userId: ID!, isActive: Boolean!): [User]!
 		validateUser(userId: ID!, validationId: ID!): String!
+		promoteUser(userId: ID!, role: String!): String!
 		premiumUser: String!
 		setNotificationToken(token: String!): String!
 		sendNotification(message: String!, title: String!): String!

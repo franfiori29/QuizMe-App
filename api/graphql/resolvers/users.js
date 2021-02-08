@@ -96,6 +96,12 @@ module.exports = {
 			return 'User validated successfully';
 		},
 
+		promoteUser: async (_, { userId, role }, { user }) => {
+			if (user.role !== 'ADMIN') throw new Error('Not authorized');
+			await User.updateOne({ _id: userId }, { role });
+			return 'User promote successfully';
+		},
+
 		premiumUser: async (_, __, { user }) => {
 			await User.updateOne({ _id: user._id }, { premium: true });
 			return 'User premiumnificated (? successfully';
