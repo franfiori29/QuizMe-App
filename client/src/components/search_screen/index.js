@@ -19,11 +19,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 //==> Assets
 import strings from './strings';
 import logo from '@assets/logo.png';
+import { clearUsers, getUsersByInput } from '../../redux/reducers/user';
+import { TouchableOpacity } from 'react-native';
 
 const SearchScreen = ({ navigation, route: { params } }) => {
 	const { language, theme } = useSelector((state) => state.global);
 	const { categories } = useSelector((state) => state.categories);
 	const { filteredQuizzes, hasNextPage } = useSelector((state) => state.quiz);
+	const { users } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const [searchInput, setSearchInput] = useState('');
 	const [categoryFilter, setCategoryFilter] = useState('');
@@ -31,6 +34,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 	const [loading, setLoading] = useState(false);
 	const [page, setPage] = useState(1);
 	const [loadingMore, setLoadingMore] = useState(false);
+	const [userFilter, setUserFilter] = useState(false);
 
 	const handleSearch = (filter, nextPage) => {
 		dispatch(
@@ -38,7 +42,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			}),
+			})
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
@@ -46,11 +50,17 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 		});
 	};
 
+	const handleUserSearch = async () => {
+		await dispatch(getUsersByInput(searchInput));
+		setLoading(false);
+	};
+
 	useEffect(() => {
 		setPage(1);
 		setLoading(true);
 		dispatch(clearfilteredQuizzes());
-		handleSearch(categoryFilter, 1);
+		if (userFilter) handleUserSearch();
+		else handleSearch(categoryFilter, 1);
 	}, [searchInput]);
 
 	useEffect(() => {
@@ -68,6 +78,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 					nav1={() => {
 						navigation.goBack();
 						dispatch(clearfilteredQuizzes());
+						dispatch(clearUsers());
 					}}
 					icon1='ios-arrow-back'
 					icon2=''
@@ -78,7 +89,10 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						name={'ios-search-outline'}
 						size={28}
 						color={'rgba(255,255,255,0.7)'}
-						onPress={handleSearch}
+						onPress={() => {
+							setLoading(true);
+							userFilter ? handleUserSearch() : handleSearch();
+						}}
 					/>
 					<SearchInput
 						placeholder={s.ph1}
@@ -89,12 +103,18 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							setPage(1);
 							setLoading(true);
 							dispatch(clearfilteredQuizzes());
-							handleSearch(categoryFilter, 1);
+							dispatch(clearUsers());
+							if (userFilter) {
+								handleUserSearch();
+							} else {
+								handleSearch(categoryFilter, 1);
+							}
 						}}
 						minLength={3}
 						delayTimeout={500}
 					/>
 				</InputContainer>
+
 				<View
 					style={{
 						flexDirection: 'row',
@@ -110,10 +130,10 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 							fontFamily: 'Nunito_400Regular',
 						}}
 					>
-						Category:
+						{s.searchBy}
 					</Text>
 					<Picker
-						selectedValue={categoryFilter}
+						selectedValue={userFilter ? 'User' : 'Quiz'}
 						style={{
 							height: 40,
 							width: '65%',
@@ -126,62 +146,133 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						}}
 						onValueChange={(value) => {
 							setPage(1);
-							setLoading(true);
+							dispatch(clearUsers());
 							dispatch(clearfilteredQuizzes());
-							handleSearch(value, 1);
-							setCategoryFilter(value);
+							if (value === 'Quiz') {
+								handleSearch(categoryFilter, 1);
+								setUserFilter(false);
+							} else {
+								handleUserSearch();
+								setUserFilter(true);
+							}
 						}}
 					>
-						<Picker.Item label='All' value='' />
-						{categories.map((cat) => (
-							<Picker.Item
-								key={cat._id}
-								value={cat._id}
-								label={cat[`description_${language}`]}
-							/>
-						))}
+						<Picker.Item label='Quiz' value='Quiz' />
+						<Picker.Item label='User' value='User' />
 					</Picker>
 				</View>
-				{loading ? (
-					<ActivityIndicator size='large' color={theme.primary} />
-				) : filteredQuizzes.length ? (
-					<FlatList
-						style={{}}
-						data={filteredQuizzes}
-						renderItem={(item) => <QuizCard quiz={item.item} />}
-						keyExtractor={(item) => item._id}
-						refreshing={loading}
-						onEndReachedThreshold={10}
-						ListFooterComponent={() =>
-							filteredQuizzes.length > 0 &&
-							hasNextPage && (
-								<ButtonLoadMore
-									onPress={() => {
-										if (!loadingMore) {
-											handleSearch(categoryFilter, page);
-											setLoadingMore(true);
-										}
-									}}
-								>
-									<Description>
-										{loadingMore ? s.loading : s.loadMore}
-									</Description>
-								</ButtonLoadMore>
-							)
-						}
-					/>
-				) : (
+
+				{!userFilter && (
 					<View
 						style={{
-							justifyContent: 'space-between',
-							height: '100%',
-							margin: 10,
+							flexDirection: 'row',
+							alignItems: 'center',
+							justifyContent: 'center',
 						}}
 					>
-						<SearchMessage>{s.msg1}</SearchMessage>
-						<Logo source={logo} />
+						<Text
+							style={{
+								marginRight: 10,
+								fontSize: 16,
+								color: theme.text,
+								fontFamily: 'Nunito_400Regular',
+							}}
+						>
+							{s.category}
+						</Text>
+						<Picker
+							selectedValue={categoryFilter}
+							style={{
+								height: 40,
+								width: '65%',
+								color: theme.text,
+								backgroundColor: theme.bg,
+								borderRadius: 10,
+								padding: 10,
+								borderColor: theme.primary,
+								fontFamily: 'Nunito_400Regular',
+							}}
+							onValueChange={(value) => {
+								setPage(1);
+								setLoading(true);
+								dispatch(clearUsers());
+								dispatch(clearfilteredQuizzes());
+								handleSearch(value, 1);
+								setCategoryFilter(value);
+							}}
+						>
+							<Picker.Item label='All' value='' />
+							{categories.map((cat) => (
+								<Picker.Item
+									key={cat._id}
+									value={cat._id}
+									label={cat[`description_${language}`]}
+								/>
+							))}
+						</Picker>
 					</View>
 				)}
+
+				{userFilter &&
+					users.map((user) => (
+						<TouchableOpacity
+							key={user._id}
+							onPress={() => {
+								navigation.navigate('PublicProfile', {
+									userId: user._id,
+								});
+							}}
+						>
+							<Text>{`${user.firstName} ${user.lastName}`}</Text>
+						</TouchableOpacity>
+					))}
+
+				{!userFilter &&
+					(loading ? (
+						<ActivityIndicator size='large' color={theme.primary} />
+					) : filteredQuizzes.length ? (
+						<FlatList
+							style={{}}
+							data={filteredQuizzes}
+							renderItem={(item) => <QuizCard quiz={item.item} />}
+							keyExtractor={(item) => item._id}
+							refreshing={loading}
+							onEndReachedThreshold={10}
+							ListFooterComponent={() =>
+								filteredQuizzes.length > 0 &&
+								hasNextPage && (
+									<ButtonLoadMore
+										onPress={() => {
+											if (!loadingMore) {
+												handleSearch(
+													categoryFilter,
+													page
+												);
+												setLoadingMore(true);
+											}
+										}}
+									>
+										<Description>
+											{loadingMore
+												? s.loading
+												: s.loadMore}
+										</Description>
+									</ButtonLoadMore>
+								)
+							}
+						/>
+					) : (
+						<View
+							style={{
+								justifyContent: 'space-between',
+								height: '100%',
+								margin: 10,
+							}}
+						>
+							<SearchMessage>{s.msg1}</SearchMessage>
+							<Logo source={logo} />
+						</View>
+					))}
 			</Screen>
 		</ThemeProvider>
 	);
