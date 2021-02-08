@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { validateUser } from '@redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -49,11 +48,7 @@ const ValidateScreen = ({ navigation }) => {
 					>
 						<Logo source={logo} />
 						<Btn
-							onPress={() =>
-								dispatch(validateUser(user._id)).then(
-									alert('se valido'),
-								)
-							}
+							onPress={() => navigation.navigate('ValidateForm')}
 						>
 							<BtnText>{s.btn}</BtnText>
 						</Btn>

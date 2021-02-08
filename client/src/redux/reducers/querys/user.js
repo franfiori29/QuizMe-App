@@ -48,6 +48,7 @@ export const queryGetUsers = gql`
 		}
 	}
 `;
+
 /* --- Mutations --- */
 
 export const mutationActivateUser = gql`
@@ -115,5 +116,13 @@ export const mutationValidateUser = gql`
 export const mutationPremiumUser = gql`
 	mutation {
 		premiumUser
+	}
+`;
+
+export const mutationCreateValidation = gql`
+	mutation createValidation($fullName: String, $description: String) {
+		createValidation(
+			validation: { fullName: $fullName, description: $description }
+		)
 	}
 `;

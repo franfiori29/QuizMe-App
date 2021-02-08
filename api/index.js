@@ -14,6 +14,7 @@ const User = require('./models/User');
 const Category = require('./models/Category');
 const Question = require('./models/Question');
 const Quiz = require('./models/Quiz');
+const Validation = require('./models/Validation');
 
 /* --- Utils --- */
 const utilsUsers = require('./utils/bulkCreate/Users');
@@ -21,6 +22,7 @@ const utilsCategories = require('./utils/bulkCreate/Categories');
 const utilsQuizzes = require('./utils/bulkCreate/Quizzes');
 const utilsQuestions = require('./utils/bulkCreate/Questions');
 const utilsQuestionsEN = require('./utils/bulkCreate/EnglishQuestions/index');
+const utilsValidations = require('./utils/bulkCreate/Validations');
 
 const app = express();
 
@@ -84,6 +86,7 @@ mongoose
 			await Question.create(utilsQuestions.concat(utilsQuestionsEN));
 			await Quiz.create(utilsQuizzes);
 			await User.create(utilsUsers);
+			await Validation.create(utilsValidations);
 			console.log('BulkCreate Succesful');
 		} catch (err) {
 			console.log('BulkCreate Error', err);

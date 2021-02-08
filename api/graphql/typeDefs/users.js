@@ -49,6 +49,7 @@ module.exports = gql`
 		getUsers: [User]!
 		getCompletedQuizzes: [Quiz]
 		getUser(userId: ID!): User
+		getUsersByInput(input: String): [User]!
 	}
 
 	type Mutation {
@@ -57,7 +58,7 @@ module.exports = gql`
 		changePassword(newPass: String!, currPass: String!): String
 		changeEmail(newMail: String!, currPass: String!): String
 		activateUser(userId: ID!, isActive: Boolean!): [User]!
-		validateUser(userId: ID!): String!
+		validateUser(userId: ID!, validationId: ID!): String!
 		premiumUser: String!
 		setNotificationToken(token: String!): String!
 		sendNotification(message: String!, title: String!): String!

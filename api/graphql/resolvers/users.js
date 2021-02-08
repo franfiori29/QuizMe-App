@@ -1,6 +1,7 @@
 const { Schema } = require('mongoose');
 const User = require('./../../models/User.js');
 const Quiz = require('./../../models/Quiz.js');
+const Validation = require('./../../models/Validation.js');
 const { Expo } = require('expo-server-sdk');
 module.exports = {
 	Query: {
@@ -21,6 +22,17 @@ module.exports = {
 			let user = { ...foundUser._doc };
 			user.createdQuizzes = foundQuizzes;
 			return user?.isActive ? user : null;
+		},
+		getUsersByInput: async (_, { input }) => {
+			const regex = new RegExp(input, 'i');
+			const foundUsers = await User.find({
+				$or: [
+					{ firstName: regex },
+					{ lastName: regex },
+					{ email: regex },
+				],
+			});
+			return foundUsers;
 		},
 	},
 
@@ -78,13 +90,15 @@ module.exports = {
 			return users;
 		},
 
-		validateUser: async (_, { userID }) => {
-			await User.updateOne({ _id: userID }, { validated: true });
-			return 'Validated succesfully';
+		validateUser: async (_, { userId, validationId }) => {
+			await User.updateOne({ _id: userId }, { validated: true });
+			await Validation.deleteOne({ _id: validationId });
+			return 'User validated successfully';
 		},
+
 		premiumUser: async (_, __, { user }) => {
 			await User.updateOne({ _id: user._id }, { premium: true });
-			return 'User premiumnificated (? succesfully';
+			return 'User premiumnificated (? successfully';
 		},
 		sendNotification: async (_, { message, title, data }, { user }) => {
 			let expo = new Expo();
