@@ -593,7 +593,7 @@ const InfoBoxWrapper = styled.View`
 	height: 100px;
 	flex-direction: row;
 `;
-const InfoBox = styled.TouchableOpacity`
+const InfoBox = styled.View`
 	width: 50%;
 	align-items: center;
 	justify-content: center;
@@ -631,16 +631,6 @@ const StatText = styled.Text`
 	color: ${(props) => props.theme.text};
 	text-align: center;
 	font-family: 'Nunito_600SemiBold';
-`;
-
-const AccTypeButton = styled.TouchableOpacity`
-	width: 100%;
-	height: 35px;
-	margin-top: 5px;
-	align-items: center;
-	justify-content: center;
-	border: 2px solid ${(props) => props.theme.primary};
-	border-radius: 5px;
 `;
 
 const AchivCard = styled.View`

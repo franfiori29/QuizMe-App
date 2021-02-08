@@ -26,7 +26,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import strings from './strings';
 import logo from '@assets/logo.png';
 import { clearUsers, getUsersByInput } from '../../redux/reducers/user';
-import { TouchableOpacity } from 'react-native';
 
 const SearchScreen = ({ navigation, route: { params } }) => {
 	const { language, theme } = useSelector((state) => state.global);
@@ -236,7 +235,18 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 									});
 								}}
 							>
-								<UserName>{`${user.firstName} ${user.lastName}`}</UserName>
+								<UserImage
+									source={{
+										uri: user.profilePic
+											? user.profilePic
+											: 'https://picsum.photos/150/150',
+									}}
+								/>
+								<UserInfo>
+									<UserName>
+										{`${user.firstName} ${user.lastName}`}
+									</UserName>
+								</UserInfo>
 							</UserCard>
 						))}
 				</ScrollView>
@@ -245,7 +255,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						<ActivityIndicator size='large' color={theme.primary} />
 					) : filteredQuizzes.length ? (
 						<FlatList
-							style={{}}
+							style={{ height: '100%' }}
 							data={filteredQuizzes}
 							renderItem={(item) => <QuizCard quiz={item.item} />}
 							keyExtractor={(item) => item._id}
@@ -361,14 +371,15 @@ const Description = styled.Text`
 `;
 
 const UserCard = styled.TouchableOpacity`
-	height: 40px;
+	flex-direction: row;
+	height: 100px;
 	width: 90%;
 	align-self: center;
 	border: 1px solid ${(props) => props.theme.primary};
 	border-radius: 5px;
 	margin: 10px 0;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	padding: 10px;
 `;
 const UserName = styled.Text`
@@ -377,6 +388,16 @@ const UserName = styled.Text`
 	text-align: center;
 	font-family: 'Nunito_800ExtraBold';
 	text-transform: uppercase;
+`;
+
+const UserImage = styled.Image`
+	width: 80px;
+	height: 80px;
+	border-radius: 100px;
+`;
+
+const UserInfo = styled.View`
+	margin: auto;
 `;
 
 export default SearchScreen;

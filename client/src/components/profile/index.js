@@ -34,7 +34,6 @@ const Profile = ({ navigation }) => {
 	const [loading, setLoading] = useState(false);
 	const s = strings[language];
 
-	console.log('otherUser', otherUser);
 	useEffect(() => {
 		dispatch(getUserById(user._id));
 	}, []);
@@ -405,7 +404,7 @@ const InfoBoxWrapper = styled.View`
 	height: 100px;
 	flex-direction: row;
 `;
-const InfoBox = styled.TouchableOpacity`
+const InfoBox = styled.View`
 	width: 50%;
 	align-items: center;
 	justify-content: center;
