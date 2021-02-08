@@ -32,7 +32,7 @@ import strings from './strings';
 
 const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound, vibration } = useSelector(
-		(state) => state.global
+		(state) => state.global,
 	);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
@@ -70,7 +70,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						style: 'cancel',
 					},
 				],
-				{ cancelable: false }
+				{ cancelable: false },
 			);
 		} else {
 			alert(s.logout);
@@ -431,7 +431,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 							fontFamily: 'Nunito_800ExtraBold',
 						}}
 					>
-						0.2.0 (Demo 2)
+						0.3.0 (Demo 3)
 					</Text>
 				</MenuTouchOption>
 				<AccType
