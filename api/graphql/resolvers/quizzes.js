@@ -101,14 +101,15 @@ module.exports = {
 				_id: { $nin: completed },
 				categoryId: { $in: categorys },
 			});
-			if (foundQuizzes.length < 10) {
+			if (foundQuizzes.length < 6) {
 				let extraQuizzes = await Quiz.find(
 					{
 						language: english ? 'en' : 'es',
 						_id: { $nin: completed },
+						categoryId: { $nin: categorys },
 					},
 					null,
-					{ limit: 10 }
+					{ limit: 20 }
 				);
 				foundQuizzes = foundQuizzes.concat(extraQuizzes);
 			}
