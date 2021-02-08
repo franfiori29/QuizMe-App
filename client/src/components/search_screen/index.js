@@ -47,7 +47,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			}),
+			})
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
@@ -140,34 +140,42 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 					>
 						{s.searchBy}
 					</Text>
-					<Picker
-						selectedValue={userFilter ? 'User' : 'Quiz'}
-						style={{
-							height: 40,
-							width: 200,
-							color: theme.text,
-							backgroundColor: theme.bg,
-							borderRadius: 10,
-							padding: 10,
-							borderColor: theme.primary,
-							fontFamily: 'Nunito_400Regular',
-						}}
-						onValueChange={(value) => {
-							setPage(1);
-							dispatch(clearUsers());
-							dispatch(clearfilteredQuizzes());
-							if (value === 'Quiz') {
-								handleSearch(categoryFilter, 1);
-								setUserFilter(false);
-							} else {
-								handleUserSearch();
-								setUserFilter(true);
-							}
-						}}
-					>
-						<Picker.Item label='Quiz' value='Quiz' />
-						<Picker.Item label='User' value='User' />
-					</Picker>
+					<PickerBox>
+						<Picker
+							selectedValue={userFilter ? 'User' : 'Quiz'}
+							style={{
+								height: 40,
+								width: 200,
+								color: theme.text,
+								backgroundColor: theme.bg,
+								borderRadius: 10,
+								padding: 10,
+								borderColor: theme.primary,
+								fontFamily: 'Nunito_400Regular',
+							}}
+							onValueChange={(value) => {
+								setPage(1);
+								dispatch(clearUsers());
+								dispatch(clearfilteredQuizzes());
+								if (value === 'Quiz') {
+									handleSearch(categoryFilter, 1);
+									setUserFilter(false);
+								} else {
+									handleUserSearch();
+									setUserFilter(true);
+								}
+							}}
+						>
+							<Picker.Item label='Quiz' value='Quiz' />
+							<Picker.Item label='User' value='User' />
+						</Picker>
+						<Icon
+							name='ios-caret-down'
+							size={26}
+							style={{ position: 'absolute', right: 5, top: 7 }}
+							color={theme.primary}
+						/>
+					</PickerBox>
 				</View>
 
 				{!userFilter && (
@@ -191,37 +199,48 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 						>
 							{s.category}:
 						</Text>
-						<Picker
-							selectedValue={categoryFilter}
-							style={{
-								height: 40,
-								width: 200,
-								color: theme.text,
-								backgroundColor: theme.bg,
-								borderRadius: 10,
-								padding: 10,
-								borderColor: theme.primary,
-								fontFamily: 'Nunito_400Regular',
-								marginTop: 10,
-							}}
-							onValueChange={(value) => {
-								setPage(1);
-								setLoading(true);
-								dispatch(clearUsers());
-								dispatch(clearfilteredQuizzes());
-								handleSearch(value, 1);
-								setCategoryFilter(value);
-							}}
-						>
-							<Picker.Item label='All' value='' />
-							{categories.map((cat) => (
-								<Picker.Item
-									key={cat._id}
-									value={cat._id}
-									label={cat[`description_${language}`]}
-								/>
-							))}
-						</Picker>
+						<PickerBox style={{ marginTop: 5 }}>
+							<Picker
+								selectedValue={categoryFilter}
+								style={{
+									height: 40,
+									width: 200,
+									color: theme.text,
+									backgroundColor: theme.bg,
+									borderRadius: 10,
+									padding: 10,
+									borderColor: theme.primary,
+									fontFamily: 'Nunito_400Regular',
+								}}
+								onValueChange={(value) => {
+									setPage(1);
+									setLoading(true);
+									dispatch(clearUsers());
+									dispatch(clearfilteredQuizzes());
+									handleSearch(value, 1);
+									setCategoryFilter(value);
+								}}
+							>
+								<Picker.Item label='All' value='' />
+								{categories.map((cat) => (
+									<Picker.Item
+										key={cat._id}
+										value={cat._id}
+										label={cat[`description_${language}`]}
+									/>
+								))}
+							</Picker>
+							<Icon
+								name='ios-caret-down'
+								size={26}
+								style={{
+									position: 'absolute',
+									right: 5,
+									top: 7,
+								}}
+								color={theme.primary}
+							/>
+						</PickerBox>
 					</View>
 				)}
 				<ScrollView style={{ flex: 1 }}>
@@ -269,7 +288,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 											if (!loadingMore) {
 												handleSearch(
 													categoryFilter,
-													page,
+													page
 												);
 												setLoadingMore(true);
 											}
@@ -344,6 +363,12 @@ const SearchMessage = styled.Text`
 	text-align: center;
 	margin: 20px auto;
 	font-family: 'Nunito_600SemiBold_Italic';
+`;
+
+const PickerBox = styled.View`
+	border: 2px solid ${({ theme }) => theme.primary};
+	border-radius: 5px;
+	padding: 1px;
 `;
 
 const Logo = styled.Image`
