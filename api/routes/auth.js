@@ -126,7 +126,7 @@ server.post('/email', (req, res) => {
 
 	transporter
 		.sendMail({
-			from: '"QuizMeApp" <c.ttiago7@gmail.com>',
+			from: '"QuizMeApp" <soyquizme@gmail.com>',
 			to: params.email,
 			subject: params.subject,
 
