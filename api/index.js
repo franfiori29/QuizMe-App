@@ -24,6 +24,8 @@ const utilsQuestions = require('./utils/bulkCreate/Questions');
 const utilsQuestionsEN = require('./utils/bulkCreate/EnglishQuestions/index');
 const utilsValidations = require('./utils/bulkCreate/Validations');
 
+const { MONGO_DATABASE, PORT } = process.env;
+
 const app = express();
 
 app.use((_, res, next) => {
@@ -71,7 +73,7 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 
 mongoose
-	.connect('mongodb://localhost:27017/quiz', {
+	.connect(MONGO_DATABASE, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		autoCreate: true,
@@ -91,7 +93,7 @@ mongoose
 		} catch (err) {
 			console.log('BulkCreate Error', err);
 		}
-		return app.listen({ port: 4000 });
+		return app.listen({ port: PORT });
 	})
 	.then(() => console.log('Express running'))
 	.catch(console.log);
