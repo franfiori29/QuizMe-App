@@ -16,6 +16,8 @@ import Icon3 from 'react-native-vector-icons/SimpleLineIcons';
 //Assets
 import logo from '@assets/logo.png';
 import strings from './strings';
+import { ActivityIndicator } from 'react-native';
+import { useState } from 'react';
 
 const PublicProfile = ({ navigation, route: { params } }) => {
 	const Bronze = 'rgb(176,141,87)';
@@ -23,11 +25,14 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 	const Gold = 'rgb(212,175,55)';
 	const { theme, language } = useSelector((state) => state.global);
 	const { otherUser, following, info: user } = useSelector(
-		(state) => state.user,
+		(state) => state.user
 	);
 	const dispatch = useDispatch();
+	const [loading, setLoading] = useState(true);
+
 	useEffect(() => {
-		dispatch(getUserById(params.userId));
+		setLoading(true);
+		dispatch(getUserById(params.userId)).then((_) => setLoading(false));
 	}, [params.userId]);
 
 	const selectDivision = () => {
@@ -43,8 +48,20 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 	};
 
 	const s = strings[language];
-	if (!otherUser || !Object.keys(otherUser).length)
-		return <Text>Loading...</Text>;
+
+	if (loading || !otherUser || !Object.keys(otherUser).length)
+		return (
+			<View
+				style={{
+					backgroundColor: 'white',
+					flex: 1,
+					justifyContent: 'center',
+				}}
+			>
+				<ActivityIndicator size='large' color={theme.primary} />
+			</View>
+		);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -80,7 +97,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 						{params.userId !== user._id &&
 							(following.some(
 								(followingUser) =>
-									followingUser._id == params.userId,
+									followingUser._id == params.userId
 							) ? (
 								<TouchableOpacity
 									style={{
@@ -93,7 +110,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									}}
 									onPress={async () => {
 										await dispatch(
-											unfollowUser(params.userId),
+											unfollowUser(params.userId)
 										);
 										dispatch(getUserById(params.userId));
 									}}
@@ -121,7 +138,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									}}
 									onPress={async () => {
 										await dispatch(
-											followUser(params.userId),
+											followUser(params.userId)
 										);
 										dispatch(getUserById(params.userId));
 									}}

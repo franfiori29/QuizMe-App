@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { REACT_APP_API } from '@root/env';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -18,7 +18,7 @@ export default function SignUp({ navigation }) {
 	const { control, handleSubmit, errors } = useForm();
 
 	const [hidePass, setHidePass] = useState(true);
-	const [errortext, setErrortext] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
@@ -40,6 +40,7 @@ export default function SignUp({ navigation }) {
 	}, []);
 
 	const handleSubmitPress = (data) => {
+		setLoading(true);
 		let newUserRegister = {
 			email: data.email,
 			firstName: data.firstName,
@@ -66,16 +67,28 @@ export default function SignUp({ navigation }) {
 					.then((mail) => {
 						console.log(mail.data.message);
 					})
-					.catch((error) => {
-						setErrortext(error);
-					});
+					.catch(() => {});
+				setLoading(false);
 				navigation.navigate('Home');
 			})
 			.catch((err) => {
 				console.log('err', err);
-				// setErrortext(err.response.data.message);
+				setLoading(false);
 			});
 	};
+
+	if (loading)
+		return (
+			<View
+				style={{
+					backgroundColor: 'white',
+					flex: 1,
+					justifyContent: 'center',
+				}}
+			>
+				<ActivityIndicator size='large' color={theme.primary} />
+			</View>
+		);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -309,17 +322,6 @@ export default function SignUp({ navigation }) {
 					)}
 				</InputContainer>
 
-				<TextView>
-					<Text>
-						<Text
-							style={{ fontWeight: '500', color: 'blue' }}
-							onPress={handleLoginPress}
-						>
-							{errortext}
-						</Text>
-					</Text>
-				</TextView>
-
 				<ButtonSignUp onPress={handleSubmit(handleSubmitPress)}>
 					<Description>{s.signup}</Description>
 				</ButtonSignUp>
@@ -398,6 +400,7 @@ const ButtonSignUp = styled.TouchableOpacity`
 	margin-bottom: 5px;
 	padding: 16px 70px;
 	border-radius: 5px;
+	margin-top: 20px;
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);

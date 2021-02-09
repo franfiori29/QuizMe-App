@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Text, Animated, Easing, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { Text, Platform } from 'react-native';
 import {
 	REACT_APP_API,
 	CLIENT_ID,
@@ -9,21 +9,21 @@ import {
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import strings from './strings';
 import { SocialIcon } from 'react-native-elements';
 import backgroundImage from '@assets/img/backgroundImage.jpg';
 import logo from '@assets/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken, setUserInfo } from '@redux/reducers/user';
+import { setUserInfo } from '@redux/reducers/user';
 import { useForm, Controller } from 'react-hook-form';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 
 export default function Login({ navigation }) {
-	const [loadingSocial, setLoadingSocial] = useState(false);
 	async function signInWithGoogleAsync() {
+		setLoading(true);
 		try {
 			const result = await Google.logInAsync({
 				androidClientId: CLIENT_ID,
@@ -59,15 +59,16 @@ export default function Login({ navigation }) {
 						});
 					});
 			} else {
-				setLoadingSocial(false);
+				setLoading(false);
 			}
 		} catch (e) {
-			setLoadingSocial(false);
+			setLoading(false);
 			return { error: true };
 		}
 	}
 
 	async function logInFacebook() {
+		setLoading(true);
 		try {
 			await Facebook.initializeAsync({
 				appId: FACEBOOK_APP_ID,
@@ -111,10 +112,10 @@ export default function Login({ navigation }) {
 						});
 					});
 			} else {
-				setLoadingSocial(false);
+				setLoading(false);
 			}
 		} catch ({ message }) {
-			setLoadingSocial(false);
+			setLoading(false);
 			alert(`Facebook Login Error: ${message}`);
 		}
 	}
@@ -132,40 +133,15 @@ export default function Login({ navigation }) {
 	const [loading, setLoading] = useState(false);
 	const [hidePass, setHidePass] = useState(true);
 	const s = strings[language];
-	const [spinAnim, setSpinAnim] = useState(new Animated.Value(0));
-	const spin = spinAnim.interpolate({
-		inputRange: [0, 1],
-		outputRange: ['0deg', '360deg'],
-	});
-
-	useEffect(() => {
-		Animated.loop(
-			Animated.sequence([
-				Animated.timing(spinAnim, {
-					toValue: 1,
-					duration: 1500,
-					easing: Easing.linear,
-					useNativeDriver: true,
-				}),
-				Animated.timing(spinAnim, {
-					toValue: 0,
-					duration: 0,
-					easing: Easing.linear,
-					useNativeDriver: true,
-				}),
-			]),
-			{}
-		).start();
-	}, [spinAnim]);
 
 	const onPress = () => setHidePass((prevState) => !prevState);
 
 	const onSubmit = (data) => {
+		setLoading(true);
 		let input = {
 			email: data.email,
 			password: data.password,
 		};
-		setLoading(true);
 		axios
 			.post(`${REACT_APP_API}/auth/login`, input)
 			.then((user) => {
@@ -187,16 +163,21 @@ export default function Login({ navigation }) {
 		// }
 	};
 
+	if (loading)
+		return (
+			<View
+				style={{
+					backgroundColor: 'white',
+					flex: 1,
+					justifyContent: 'center',
+				}}
+			>
+				<ActivityIndicator size='large' color={theme.primary} />
+			</View>
+		);
+
 	return (
 		<ThemeProvider theme={theme}>
-			<Spinner
-				visible={loadingSocial}
-				textContent={s.loading}
-				color={theme.white}
-				textStyle={{
-					color: theme.white,
-				}}
-			/>
 			<Container source={backgroundImage}>
 				<LogoView>
 					<Logo source={logo} />
@@ -326,24 +307,7 @@ export default function Login({ navigation }) {
 					</Button>
 				</InputContainer>
 				<ButtonLogin onPress={handleSubmit(onSubmit)}>
-					<Description>
-						{loading ? (
-							<Animated.View
-								style={{
-									width: '100%',
-									transform: [{ rotate: spin }],
-								}}
-							>
-								<FontAwesome5
-									name='circle-notch'
-									size={26}
-									color={theme.white}
-								/>
-							</Animated.View>
-						) : (
-							s.login
-						)}
-					</Description>
+					<Description>{s.login}</Description>
 				</ButtonLogin>
 				{Platform.OS === 'android' && (
 					<>
@@ -351,19 +315,13 @@ export default function Login({ navigation }) {
 							title={s.google}
 							button
 							type='google'
-							onPress={() => {
-								setLoadingSocial(true);
-								signInWithGoogleAsync();
-							}}
+							onPress={signInWithGoogleAsync}
 						/>
 						<SocialIconFacebook
 							title={s.facebook}
 							button
 							type='facebook'
-							onPress={() => {
-								setLoadingSocial(true);
-								logInFacebook();
-							}}
+							onPress={logInFacebook}
 						/>
 					</>
 				)}

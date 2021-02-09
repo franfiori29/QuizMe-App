@@ -59,7 +59,7 @@ Notifications.setNotificationHandler({
 const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const { completedQuiz, info: user } = useSelector((state) => state.user);
 	const { theme, language, sound } = useSelector((state) => state.global);
-	const { quizzes, suggestedQuizzes } = useSelector((state) => state.quiz);
+	const { quizzes } = useSelector((state) => state.quiz);
 	const { categories } = useSelector((state) => state.categories);
 	const dispatch = useDispatch();
 	const s = strings[language];
@@ -67,7 +67,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const [notification, setNotification] = useState(false);
 	const responseListener = useRef();
 	const [quizzesLoading, setQuizzesLoading] = useState(false);
-	const [selector, setSelector] = useState('feed');
+	const [selector, setSelector] = useState('suggested');
 	const [route, setRoute] = useState('');
 	const [param, setParam] = useState('');
 
@@ -112,7 +112,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		// dispatch(getQuizzes()).then(() => {
 		// 	setQuizzesLoading(false);
 		// });
-		dispatch(getFollowingQuizzes(language === 'en')).then(() => {
+		dispatch(getSuggestedQuizzes(language === 'en')).then(() => {
 			setQuizzesLoading(false);
 		});
 		dispatch(getFollowing());

@@ -23,6 +23,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from './strings';
 import { getUserById } from '../../redux/reducers/user';
 import logo from '@assets/logo.png';
+import { ActivityIndicator } from 'react-native';
 
 const Profile = ({ navigation }) => {
 	const Bronze = 'rgb(176,141,87)';
@@ -38,7 +39,10 @@ const Profile = ({ navigation }) => {
 	const s = strings[language];
 
 	useEffect(() => {
-		dispatch(getUserById(user._id));
+		setLoading(true);
+		dispatch(getUserById(user._id)).then((other) => setLoading(false));
+
+		return () => {};
 	}, []);
 
 	const openImagePickerAsync = async () => {
@@ -99,8 +103,22 @@ const Profile = ({ navigation }) => {
 			return 'QuizMaster';
 		}
 	};
-
-	if (!otherUser || !Object.keys(otherUser).length) setLoading(true);
+	console.log('otherUser :>> ', otherUser);
+	// if (!otherUser || !Object.keys(otherUser).length) {
+	// 	setLoading(true);
+	// }
+	if (loading || !otherUser || !Object.keys(otherUser).length)
+		return (
+			<View
+				style={{
+					backgroundColor: 'white',
+					flex: 1,
+					justifyContent: 'center',
+				}}
+			>
+				<ActivityIndicator size='large' color={theme.primary} />
+			</View>
+		);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -256,7 +274,7 @@ const Profile = ({ navigation }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							{otherUser.createdQuizzes.length}
+							{otherUser?.createdQuizzes?.length}
 						</Text>
 						<Text
 							style={{
@@ -275,7 +293,7 @@ const Profile = ({ navigation }) => {
 								fontFamily: 'Nunito_400Regular',
 							}}
 						>
-							{otherUser.completedQuiz.length}
+							{otherUser?.completedQuiz.length}
 						</Text>
 						<Text
 							style={{
@@ -308,7 +326,7 @@ const Profile = ({ navigation }) => {
 								>
 									{s.points.toUpperCase()}
 								</StatText>
-								<StatText>{otherUser.totalScore}</StatText>
+								<StatText>{otherUser?.totalScore}</StatText>
 							</StatInfo>
 						</StatCard>
 						<StatCard>
