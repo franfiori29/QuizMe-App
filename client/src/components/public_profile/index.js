@@ -75,7 +75,10 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 							}}
 						/>
 						{params.userId !== user._id &&
-							(following.includes(params.userId) ? (
+							(following.some(
+								(followingUser) =>
+									followingUser._id == params.userId
+							) ? (
 								<TouchableOpacity
 									style={{
 										width: '100%',

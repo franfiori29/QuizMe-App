@@ -32,7 +32,7 @@ import strings from './strings';
 
 const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound, vibration } = useSelector(
-		(state) => state.global,
+		(state) => state.global
 	);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
@@ -70,7 +70,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						style: 'cancel',
 					},
 				],
-				{ cancelable: false },
+				{ cancelable: false }
 			);
 		} else {
 			alert(s.logout);
@@ -229,7 +229,9 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						</Text>
 					</MenuTouchOption>
 				)}
-				<MenuTouchOption>
+				<MenuTouchOption
+					onPress={() => navigation.navigate('Subscriptions')}
+				>
 					<Text
 						style={{
 							color: theme.text,
@@ -296,16 +298,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						{s.pass}
 					</Text>
 				</MenuTouchOption>
-				<MenuTouchOption>
-					<Text
-						style={{
-							color: theme.text,
-							fontFamily: 'Nunito_400Regular',
-						}}
-					>
-						{s.notif}
-					</Text>
-				</MenuTouchOption>
+
 				<MenuSolidOption style={{ justifyContent: 'space-between' }}>
 					<Text
 						style={{
@@ -381,16 +374,6 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						value={language === 'es' ? true : false}
 					/>
 				</MenuSolidOption>
-				<MenuTouchOption>
-					<Text
-						style={{
-							color: theme.text,
-							fontFamily: 'Nunito_400Regular',
-						}}
-					>
-						{s.help}
-					</Text>
-				</MenuTouchOption>
 				<MenuTouchOption onPress={() => navigation.navigate('RateUs')}>
 					<Text
 						style={{

@@ -12,6 +12,7 @@ import {
 	queryGtQuizzesByPopularity,
 	queryGtQuizzesSuggested,
 	queryGetQuiz,
+	queryGetFollowingQuizzes,
 } from './querys/quizzes';
 import { shuffle } from '@utils/shuffle';
 
@@ -140,6 +141,17 @@ export const getSuggestedQuizzes = createAsyncThunk(
 	}
 );
 
+export const getFollowingQuizzes = createAsyncThunk(
+	'quiz/followingQuizzes',
+	async (payload, { getState }) => {
+		const client = getClient(getState());
+		const clientRequest = await client.request(queryGetFollowingQuizzes, {
+			english: payload,
+		});
+		return clientRequest.getFollowingQuizzes;
+	}
+);
+
 const quizSlice = createSlice({
 	name: 'quiz',
 	initialState: {
@@ -205,6 +217,9 @@ const quizSlice = createSlice({
 		},
 		[getSuggestedQuizzes.fulfilled]: (state, { payload }) => {
 			state.quizzes = payload.getSuggestedQuizzes;
+		},
+		[getFollowingQuizzes.fulfilled]: (state, { payload }) => {
+			state.quizzes = payload;
 		},
 	},
 });

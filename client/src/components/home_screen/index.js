@@ -14,6 +14,7 @@ import {
 	getRandomQuiz,
 	getQuizzesByPopularity,
 	getSuggestedQuizzes,
+	getFollowingQuizzes,
 	clearCurrentQuiz,
 } from '@redux/reducers/quizzes';
 import { getCategories, sortCategories } from '../../redux/reducers/categories';
@@ -66,7 +67,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 	const [notification, setNotification] = useState(false);
 	const responseListener = useRef();
 	const [quizzesLoading, setQuizzesLoading] = useState(false);
-	const [selector, setSelector] = useState('suggested');
+	const [selector, setSelector] = useState('feed');
 	const [route, setRoute] = useState('');
 	const [param, setParam] = useState('');
 
@@ -111,7 +112,7 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 		// dispatch(getQuizzes()).then(() => {
 		// 	setQuizzesLoading(false);
 		// });
-		dispatch(getSuggestedQuizzes(language === 'en')).then(() => {
+		dispatch(getFollowingQuizzes(language === 'en')).then(() => {
 			setQuizzesLoading(false);
 		});
 		dispatch(getFollowing());
@@ -199,6 +200,28 @@ const HomeScreen = ({ navigation, route: { playTheme } }) => {
 				/>
 				<View>
 					<SelectorContainer>
+						<SelectorButton
+							onPress={() => {
+								setQuizzesLoading(true);
+								setSelector('feed');
+								dispatch(
+									getFollowingQuizzes(language === 'en')
+								).then(() => {
+									setQuizzesLoading(false);
+								});
+							}}
+						>
+							<SelectorText
+								style={{
+									paddingBottom: 5,
+									borderBottomWidth:
+										selector === 'feed' ? 3 : 0,
+									borderBottomColor: theme.primary,
+								}}
+							>
+								{s.selector0}
+							</SelectorText>
+						</SelectorButton>
 						<SelectorButton
 							onPress={() => {
 								setQuizzesLoading(true);
@@ -361,7 +384,7 @@ const SelectorContainer = styled.View`
 `;
 
 const SelectorButton = styled.TouchableOpacity`
-	width: 50%;
+	width: 33%;
 	height: 65px;
 	border-bottom-width: 1px;
 	border-bottom-color: #ccc;
