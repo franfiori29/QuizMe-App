@@ -15,6 +15,7 @@ import SocialMedia from '@components/utils/SocialMedia';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import { ActivityIndicator } from 'react-native';
 
 const QuizIndex = ({ navigation, route: { params } }) => {
 	const { theme, language, vibration } = useSelector((state) => state.global);
@@ -39,14 +40,26 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 				contentContainerStyle={{ flexGrow: 1 }}
 				style={{ flex: 1, backgroundColor: theme.bg }}
 			>
-				<Spinner
+				{/* <Spinner
 					visible={!quiz || Object.keys(quiz).length === 0}
 					textContent={s.loading}
 					color={theme.white}
 					textStyle={{
 						color: theme.text,
 					}}
-				/>
+				/> */}
+				{(!quiz || Object.keys(quiz).length === 0) && (
+					<ActivityIndicator
+						size='large'
+						color={theme.primary}
+						style={{
+							position: 'absolute',
+							left: 0,
+							right: 0,
+							top: '50%',
+						}}
+					/>
+				)}
 				{!!quiz && Object.keys(quiz).length && !quiz.error ? (
 					<ContainerPpal animation='fadeIn'>
 						<ContainerTop>
