@@ -12,6 +12,8 @@ const users = [
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
 		notificationToken: 'ExponentPushToken[QobVLNO-iGjoP2_3Ey-Alx]',
 		following: [mongoose.Types.ObjectId('5959e34adf833e1451aa0001')],
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0000.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
@@ -27,6 +29,8 @@ const users = [
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0007'),
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
 		],
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0008.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0002'),
@@ -42,6 +46,8 @@ const users = [
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),
 			mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
 		],
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0002.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
@@ -53,6 +59,8 @@ const users = [
 		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 		followers: 3,
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0003.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0004'),
@@ -64,6 +72,8 @@ const users = [
 		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 		followers: 1,
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0004.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
@@ -75,6 +85,8 @@ const users = [
 		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 		followers: 2,
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0005.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0006'),
@@ -84,6 +96,8 @@ const users = [
 		lastName: 'Calisaya',
 		countryCode: 'AR',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0006.svg',
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0007'),
@@ -96,6 +110,8 @@ const users = [
 		validated: true,
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0002')],
 		followers: 1,
+		profilePic:
+			'https://avatars.dicebear.com/4.5/api/avataaars/5959e34adf833e1451aa0007.svg',
 	},
 ];
 
