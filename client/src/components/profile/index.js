@@ -31,7 +31,7 @@ const Profile = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	const { info: user, otherUser, following, followers } = useSelector(
-		(state) => state.user,
+		(state) => state.user
 	);
 	const [picture, setPicture] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const Profile = ({ navigation }) => {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`,
+				`The image is available for sharing at: ${picture.remoteUri}`
 			);
 			return;
 		}
@@ -101,6 +101,7 @@ const Profile = ({ navigation }) => {
 	};
 
 	if (!otherUser || !Object.keys(otherUser).length) setLoading(true);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>

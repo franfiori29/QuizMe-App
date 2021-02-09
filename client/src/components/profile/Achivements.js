@@ -12,7 +12,7 @@ import strings from './strings';
 const Achivements = () => {
 	const { theme, language } = useSelector((state) => state.global);
 	const { userQuizzes, completedQuiz, info, likedQuiz } = useSelector(
-		(state) => state.user,
+		(state) => state.user
 	);
 	const s = strings[language];
 	const Bronze = 'rgb(176,141,87)';
@@ -68,7 +68,7 @@ const Achivements = () => {
 					</AchivCard>
 				)}
 				{/* --------Creacion de Quizzes-------- */}
-				{userQuizzes.length >= 1 && (
+				{userQuizzes?.length >= 1 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Bronze} name='badge' size={50} />
@@ -86,7 +86,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{userQuizzes.length >= 5 && (
+				{userQuizzes?.length >= 5 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Silver} name='badge' size={50} />
@@ -104,7 +104,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{userQuizzes.length >= 10 && (
+				{userQuizzes?.length >= 10 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Gold} name='badge' size={50} />
@@ -122,7 +122,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{userQuizzes.length >= 25 && (
+				{userQuizzes?.length >= 25 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon
@@ -145,7 +145,7 @@ const Achivements = () => {
 					</AchivCard>
 				)}
 				{/* --------Quizzes jugadas-------- */}
-				{completedQuiz.length >= 1 && (
+				{completedQuiz?.length >= 1 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Bronze} name='badge' size={50} />
@@ -163,7 +163,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{completedQuiz.length >= 5 && (
+				{completedQuiz?.length >= 5 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Silver} name='badge' size={50} />
@@ -181,7 +181,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{completedQuiz.length >= 20 && (
+				{completedQuiz?.length >= 20 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Gold} name='badge' size={50} />
@@ -199,7 +199,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{completedQuiz.length >= 50 && (
+				{completedQuiz?.length >= 50 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon
@@ -222,7 +222,7 @@ const Achivements = () => {
 					</AchivCard>
 				)}
 				{/* ---------LikedQuiz-------- */}
-				{likedQuiz.length >= 1 && (
+				{likedQuiz?.length >= 1 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Bronze} name='badge' size={50} />
@@ -240,7 +240,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{likedQuiz.length >= 5 && (
+				{likedQuiz?.length >= 5 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Silver} name='badge' size={50} />
@@ -258,7 +258,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{likedQuiz.length >= 20 && (
+				{likedQuiz?.length >= 20 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon color={Gold} name='badge' size={50} />
@@ -276,7 +276,7 @@ const Achivements = () => {
 						</AchivInfo>
 					</AchivCard>
 				)}
-				{completedQuiz.length >= 50 && (
+				{completedQuiz?.length >= 50 && (
 					<AchivCard>
 						<View style={{ width: '50%' }}>
 							<Icon

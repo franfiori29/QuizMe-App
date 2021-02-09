@@ -209,6 +209,7 @@ const ButtonSignUp = styled.TouchableOpacity`
 	margin-bottom: 5px;
 	padding: 16px 70px;
 	border-radius: 5px;
+	margin-top: 20px;
 `;
 const Description = styled.Text`
 	color: rgba(255, 255, 255, 0.7);

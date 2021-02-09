@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Animated, Easing, Platform } from 'react-native';
-import { REACT_APP_API, CLIENT_ID, FACEBOOK_APP_ID } from '@root/env';
+import {
+	REACT_APP_API,
+	CLIENT_ID,
+	FACEBOOK_APP_ID,
+	CLIENT_ID_ANDROID,
+} from '@root/env';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,6 +27,7 @@ export default function Login({ navigation }) {
 		try {
 			const result = await Google.logInAsync({
 				androidClientId: CLIENT_ID,
+				androidStandaloneAppClientId: CLIENT_ID_ANDROID,
 				scopes: ['profile', 'email'],
 			});
 			if (result.type === 'success') {
