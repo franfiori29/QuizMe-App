@@ -129,6 +129,15 @@ export const queryGtQuizzesSuggested = gql`
 	${CardQuizInfo}
 `;
 
+export const queryGetFollowingQuizzes = gql`
+	query($english: Boolean) {
+		getFollowingQuizzes(english: $english) {
+			...CardQuizInfo
+		}
+	}
+	${CardQuizInfo}
+`;
+
 /* --- Mutations --- */
 export const mutationUpdateHighscore = gql`
 	mutation updateHighscore($quizId: ID!, $score: Int!) {

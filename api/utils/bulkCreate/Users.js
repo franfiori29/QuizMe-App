@@ -11,11 +11,7 @@ const users = [
 		role: 'ADMIN',
 		completedQuiz: [mongoose.Types.ObjectId('5959e34adf833e1451ac0000')],
 		notificationToken: 'ExponentPushToken[QobVLNO-iGjoP2_3Ey-Alx]',
-		following: [
-			mongoose.Types.ObjectId('5959e34adf833e1451aa0003'),
-			mongoose.Types.ObjectId('5959e34adf833e1451aa0004'),
-			mongoose.Types.ObjectId('5959e34adf833e1451aa0005'),
-		],
+		following: [mongoose.Types.ObjectId('5959e34adf833e1451aa0001')],
 	},
 	{
 		_id: mongoose.Types.ObjectId('5959e34adf833e1451aa0001'),

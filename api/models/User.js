@@ -33,7 +33,9 @@ const userSchema = new Schema(
 		isActive: { type: Boolean, default: true },
 		resetCode: { type: String, default: null },
 		notificationToken: { type: String },
-		following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+		following: [
+			{ type: Schema.Types.ObjectId, ref: 'User', default: null },
+		],
 		followers: { type: Number, default: 0 },
 	},
 	{ timestamps: true }

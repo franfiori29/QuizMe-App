@@ -18,6 +18,7 @@ import MailUpdate from '@components/user_menu/screens/MailUpdate';
 import PasswordUpdate from '@components/user_menu/screens/PasswordUpdate';
 import UpdateName from '@components/user_menu/screens/UpdateName';
 import Information from '@components/user_menu/screens/Information';
+import Subscriptions from '@components/user_menu/screens/Subscriptions';
 import PremiumScreen from '@components/user_menu/screens/PremiumScreen';
 import ValidateScreen from '@components/user_menu/screens/ValidateScreen';
 import Profile from '@components/profile';
@@ -117,6 +118,7 @@ const HomeRoutes = () => {
 				<Screen name='ValidateScreen' component={ValidateScreen} />
 				<Screen name='MailUpdate' component={MailUpdate} />
 				<Screen name='PasswordUpdate' component={PasswordUpdate} />
+				<Screen name='Subscriptions' component={Subscriptions} />
 				<Screen name='Information' component={Information} />
 				<Screen name='UpdateName' component={UpdateName} />
 				<Screen name='MyQuizzes' component={MyQuizzes} />

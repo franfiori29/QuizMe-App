@@ -35,7 +35,9 @@ module.exports = {
 			return foundUsers;
 		},
 		getFollowing: async (_, __, { user }) => {
-			const foundFollowing = await User.findById(user._id);
+			const foundFollowing = await User.findById(user._id).populate(
+				'following'
+			);
 			return foundFollowing.following;
 		},
 		getFollowers: async (_, __, { user }) => {
@@ -145,7 +147,7 @@ module.exports = {
 				{ _id: user._id },
 				{ $addToSet: { following: userId } },
 				{ new: true }
-			);
+			).populate('following');
 			await User.findOneAndUpdate(
 				{ _id: userId },
 				{ $inc: { followers: 1 } }

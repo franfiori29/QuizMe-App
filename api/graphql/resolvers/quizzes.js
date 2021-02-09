@@ -119,6 +119,14 @@ module.exports = {
 				})
 				.slice(0, 5);
 		},
+		getFollowingQuizzes: async (_, { english }, { user }) => {
+			const userFound = await User.findById(user._id);
+			let foundQuizzes = await Quiz.find({
+				language: english ? 'en' : 'es',
+				creatorId: { $in: userFound.following },
+			});
+			return foundQuizzes.sort(() => Math.random() - 0.5).slice(0, 5);
+		},
 		getCategoriesByInput: async (_, { input }) => {
 			const regex = new RegExp(input, 'i');
 			const foundCategories = await Category.find({

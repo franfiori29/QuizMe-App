@@ -51,7 +51,6 @@ export default function SignUp({ navigation }) {
 			.post(`${REACT_APP_API}/auth/register`, newUserRegister)
 			.then((newUser) => {
 				dispatch(setUserInfo(newUser.data));
-				console.log(newUser.data.firstName);
 				let template =
 					language === 'en' ? 'welcome.pug' : 'bienvenido.pug';
 				axios

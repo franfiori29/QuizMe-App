@@ -112,6 +112,7 @@ module.exports = gql`
 		): QueryInfo
 		searchByPopularity(english: Boolean): [QuizCard!]!
 		getSuggestedQuizzes(english: Boolean): [QuizCard!]!
+		getFollowingQuizzes(english: Boolean): [QuizCard!]!
 		getCategoriesByInput(input: String): [Category]!
 	}
 

@@ -26,7 +26,6 @@ export default function SendCode({ navigation }) {
 		axios
 			.put(`${REACT_APP_API}/auth/forgot`, { userEmail: data.userEmail })
 			.then((user) => {
-				//console.log(user.data);
 				let template =
 					language === 'en'
 						? 'recoverAccount.pug'

@@ -65,7 +65,12 @@ export const queryGetUsersByInput = gql`
 
 export const queryGetFollowing = gql`
 	{
-		getFollowing
+		getFollowing {
+			_id
+			firstName
+			lastName
+			email
+		}
 	}
 `;
 
@@ -155,7 +160,12 @@ export const mutationCreateValidation = gql`
 
 export const mutationFollowUser = gql`
 	mutation followUser($payload: ID!) {
-		followUser(userId: $payload)
+		followUser(userId: $payload) {
+			_id
+			firstName
+			lastName
+			email
+		}
 	}
 `;
 

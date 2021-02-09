@@ -33,6 +33,13 @@ module.exports = gql`
 		following: [ID]
 	}
 
+	type MinUser {
+		_id: ID
+		firstName: String
+		lastName: String
+		email: String
+	}
+
 	input UserInput {
 		_id: ID
 		firstName: String
@@ -52,7 +59,7 @@ module.exports = gql`
 		getCompletedQuizzes: [Quiz]
 		getUser(userId: ID!): User
 		getUsersByInput(input: String): [User]!
-		getFollowing: [ID]!
+		getFollowing: [MinUser]!
 		getFollowers: Int
 	}
 
@@ -67,7 +74,7 @@ module.exports = gql`
 		premiumUser: String!
 		setNotificationToken(token: String!): String!
 		sendNotification(message: String!, title: String!): String!
-		followUser(userId: ID!): [ID]!
+		followUser(userId: ID!): [MinUser]!
 		unfollowUser(userId: ID!): [ID]!
 	}
 `;
