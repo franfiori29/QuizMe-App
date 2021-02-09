@@ -14,6 +14,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/SimpleLineIcons';
 
 //Assets
+import logo from '@assets/logo.png';
 import strings from './strings';
 
 const PublicProfile = ({ navigation, route: { params } }) => {
@@ -22,7 +23,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 	const Gold = 'rgb(212,175,55)';
 	const { theme, language } = useSelector((state) => state.global);
 	const { otherUser, following, info: user } = useSelector(
-		(state) => state.user
+		(state) => state.user,
 	);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -68,16 +69,18 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 						}}
 					>
 						<UserImg
-							source={{
-								uri: otherUser.profilePic
-									? otherUser.profilePic
-									: 'https://picsum.photos/150/150',
-							}}
+							source={
+								otherUser.profilePic
+									? {
+											uri: otherUser.profilePic,
+									  }
+									: logo
+							}
 						/>
 						{params.userId !== user._id &&
 							(following.some(
 								(followingUser) =>
-									followingUser._id == params.userId
+									followingUser._id == params.userId,
 							) ? (
 								<TouchableOpacity
 									style={{
@@ -90,7 +93,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									}}
 									onPress={async () => {
 										await dispatch(
-											unfollowUser(params.userId)
+											unfollowUser(params.userId),
 										);
 										dispatch(getUserById(params.userId));
 									}}
@@ -118,7 +121,7 @@ const PublicProfile = ({ navigation, route: { params } }) => {
 									}}
 									onPress={async () => {
 										await dispatch(
-											followUser(params.userId)
+											followUser(params.userId),
 										);
 										dispatch(getUserById(params.userId));
 									}}

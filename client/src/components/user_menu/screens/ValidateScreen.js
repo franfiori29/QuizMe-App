@@ -29,11 +29,13 @@ const ValidateScreen = ({ navigation }) => {
 				/>
 				<IntroContainer>
 					<UserImg
-						source={{
-							uri:
-								user.profilePic ||
-								'https://picsum.photos/150/150',
-						}}
+						source={
+							user.profilePic
+								? {
+										uri: user.profilePic,
+								  }
+								: logo
+						}
 					/>
 					<IntroTitle>{s.title}</IntroTitle>
 				</IntroContainer>

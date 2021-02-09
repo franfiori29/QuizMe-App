@@ -21,7 +21,8 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 //Assets
 import strings from './strings';
-import { getUserById, getUserQuizzes } from '../../redux/reducers/user';
+import { getUserById } from '../../redux/reducers/user';
+import logo from '@assets/logo.png';
 
 const Profile = ({ navigation }) => {
 	const Bronze = 'rgb(176,141,87)';
@@ -30,7 +31,7 @@ const Profile = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { theme, language } = useSelector((state) => state.global);
 	const { info: user, otherUser, following, followers } = useSelector(
-		(state) => state.user
+		(state) => state.user,
 	);
 	const [picture, setPicture] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -45,7 +46,7 @@ const Profile = ({ navigation }) => {
 
 		if (permissionResult.granted === false) {
 			alert(
-				`The image is available for sharing at: ${picture.remoteUri}`
+				`The image is available for sharing at: ${picture.remoteUri}`,
 			);
 			return;
 		}
@@ -99,8 +100,7 @@ const Profile = ({ navigation }) => {
 		}
 	};
 
-	if (!otherUser || !Object.keys(otherUser).length)
-		return <Text>Loading...</Text>;
+	if (!otherUser || !Object.keys(otherUser).length) setLoading(true);
 	return (
 		<ThemeProvider theme={theme}>
 			<ScrollView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -114,11 +114,13 @@ const Profile = ({ navigation }) => {
 				<UserContainer>
 					<TouchableOpacity onPress={openImagePickerAsync}>
 						<UserImg
-							source={{
-								uri: user.profilePic
-									? user.profilePic
-									: 'https://picsum.photos/150/150',
-							}}
+							source={
+								user.profilePic
+									? {
+											uri: user.profilePic,
+									  }
+									: logo
+							}
 						/>
 						{loading && (
 							<View

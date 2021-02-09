@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import strings from './strings';
 import { getQuiz } from '@redux/reducers/quizzes';
 import { Vibrate } from '@utils/vibration';
+import logo from '@assets/logo.png';
 
 //Styles
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -12,8 +13,6 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import SocialMedia from '@components/utils/SocialMedia';
-import Spinner from 'react-native-loading-spinner-overlay';
-import { useFocusEffect } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import { ActivityIndicator } from 'react-native';
 
@@ -115,11 +114,15 @@ const QuizIndex = ({ navigation, route: { params } }) => {
 										borderRadius: 100,
 										marginLeft: 5,
 									}}
-									source={{
-										uri: quiz.creatorId.profilePic
-											? quiz.creatorId.profilePic
-											: 'https://picsum.photos/20/20',
-									}}
+									source={
+										quiz.creatorId.profilePic
+											? {
+													uri:
+														quiz.creatorId
+															.profilePic,
+											  }
+											: logo
+									}
 								/>
 							</TouchableOpacity>
 							<QuantityContainer>

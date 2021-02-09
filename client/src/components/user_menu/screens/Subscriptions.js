@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { getFollowing } from '../../../redux/reducers/user';
 
 //==> Components
 import NavBar from '@components/utils/NavBar';
@@ -9,7 +10,7 @@ import styled, { ThemeProvider } from 'styled-components/native';
 
 //Assets
 import strings from './strings/subscriptions';
-import { getFollowing } from '../../../redux/reducers/user';
+import logo from '@assets/logo.png';
 
 const Subscriptions = ({ navigation }) => {
 	const { language, theme } = useSelector((state) => state.global);
@@ -41,11 +42,13 @@ const Subscriptions = ({ navigation }) => {
 							}}
 						>
 							<UserImage
-								source={{
-									uri: user.profilePic
-										? user.profilePic
-										: 'https://picsum.photos/150/150',
-								}}
+								source={
+									user.profilePic
+										? {
+												uri: user.profilePic,
+										  }
+										: logo
+								}
 							/>
 							<UserInfo>
 								<UserName>

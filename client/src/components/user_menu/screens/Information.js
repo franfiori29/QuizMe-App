@@ -21,58 +21,82 @@ const Information = ({ navigation }) => {
 		{
 			name: 'Franco',
 			lastname: 'Ortiz',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQGhWnGoD7uBBQ/profile-displayphoto-shrink_800_800/0/1611889726552?e=1618444800&v=beta&t=ZDOrpLH7YP-dB_2F1V9OZwT2F5d2Eh5FL8kxxOtcibY',
+			},
 			linked: 'https://www.linkedin.com/in/franco-david-ortiz/',
 			git: 'https://github.com/Pakvothe',
 		},
 		{
 			name: 'Ignacio',
 			lastname: 'contreras',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQGk6KO2psK7Jg/profile-displayphoto-shrink_800_800/0/1610984126218?e=1618444800&v=beta&t=Evb2CWU7tywMIlGkmNnLuFpSzx9F0zXa8ram8aqsHP0',
+			},
 			linked: 'https://www.linkedin.com/in/ignacio-contreras/',
 			git: 'https://github.com/nc-devw',
 		},
 		{
 			name: 'Martin',
 			lastname: 'Spagnoulo',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQFDjnBNbUZlgw/profile-displayphoto-shrink_800_800/0/1610983501509?e=1618444800&v=beta&t=Gl5XVxY-s_CKralMN9lbUHVEwaR6An8F4FKNvA8wlYQ',
+			},
 			linked: 'https://www.linkedin.com/in/martin-sanchez-6973121b7/',
 			git: 'https://github.com/tinsanchez00',
 		},
 		{
 			name: 'Franco',
 			lastname: 'Fiori',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQFj5lElRrDpXA/profile-displayphoto-shrink_800_800/0/1610550870146?e=1618444800&v=beta&t=7nLOJdn2WkVPBQO86XcdC8pPcgjCKMNaWdGHWo-RMdM',
+			},
 			linked: 'https://www.linkedin.com/in/franco-fiori-fullstack/',
 			git: 'https://github.com/franfiori29',
 		},
 		{
 			name: 'Emiliano',
 			lastname: 'Alfonso',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQGAdal2Edxw_w/profile-displayphoto-shrink_800_800/0/1606584006040?e=1618444800&v=beta&t=tihDdn2vL7mOoPHkp8HhzAoZxTlmDLIZXtf-2l7NVE4',
+			},
 			linked: 'https://www.linkedin.com/in/emiliano-alfonso/',
 			git: 'https://github.com/Aglowkeys',
 		},
 		{
 			name: 'Ailin',
 			lastname: 'Nakaganeku',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4D03AQHX-UEMijZCmw/profile-displayphoto-shrink_800_800/0/1604450256656?e=1618444800&v=beta&t=6VCD3iMbtQfJsD_fRPR2BgxR2XO8VhAlfbkBaFa07yw',
+			},
 			linked: 'https://www.linkedin.com/in/ailinak/',
 			git: 'https://github.com/ailinnakaganeku',
 		},
 		{
 			name: 'Santiago',
 			lastname: 'Calisaya',
-			image: { uri: 'https://picsum.photos/100/100' },
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4D03AQHD4nSM6_5nbQ/profile-displayphoto-shrink_800_800/0/1542035446264?e=1618444800&v=beta&t=G4P5fJI0FP4OTtOBb7AZ1zFr3BIxnRMoNYbf3afMcJk',
+			},
 			linked: 'https://www.linkedin.com/in/ttiago7/',
 			git: 'https://github.com/ttiago7',
 		},
 		{
 			name: 'Bruno',
 			lastname: 'Gallardo',
-			image: { uri: 'https://picsum.photos/100/100' },
-			linked: 'https://www.linkedin.com/in/franco-david-ortiz/',
-			git: 'https://github.com/Pakvothe',
+			image: {
+				uri:
+					'https://media-exp1.licdn.com/dms/image/C4E03AQHABYBjq4PD8g/profile-displayphoto-shrink_800_800/0/1609805752074?e=1618444800&v=beta&t=YJImKFKmKz-wHQbRqCsSbQ1i2J_PBBKzOTDYp6Cw1mE',
+			},
+			linked: 'https://www.linkedin.com/in/bruno-gallardo-7bab23120/',
+			git: 'https://github.com/gallardobruno',
 		},
 	];
 
@@ -88,15 +112,7 @@ const Information = ({ navigation }) => {
 					icon2=''
 				/>
 				<Title>{s.title}</Title>
-				<Intro>
-					Lorem Ipsum is simply dummy text of the printing and
-					typesetting industry. Lorem Ipsum has been the industry's
-					standard dummy text ever since the 1500s, when an unknown
-					printer took a galley of type and scrambled it to make a
-					type specimen book. It has survived not only five centuries,
-					but also the leap into electronic typesetting, remaining
-					essentially unchanged.
-				</Intro>
+				<Intro>{s.intro}</Intro>
 
 				<Title style={{ marginBottom: 10 }}>{s.about}</Title>
 				<About>

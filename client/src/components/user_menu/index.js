@@ -29,10 +29,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 //Assets
 import strings from './strings';
+import logo from '@assets/logo.png';
 
 const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 	const { language, theme, sound, vibration } = useSelector(
-		(state) => state.global
+		(state) => state.global,
 	);
 	const { info: user, userQuizzes } = useSelector((state) => state.user);
 	const [ricky, setRicky] = useState(0);
@@ -70,7 +71,7 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 						style: 'cancel',
 					},
 				],
-				{ cancelable: false }
+				{ cancelable: false },
 			);
 		} else {
 			alert(s.logout);
@@ -136,11 +137,13 @@ const UserMenu = ({ navigation, route: { stopTheme, playTheme } }) => {
 				/>
 				<UserContainer>
 					<UserImg
-						source={{
-							uri:
-								user.profilePic ||
-								'https://picsum.photos/100/100',
-						}}
+						source={
+							user.profilePic
+								? {
+										uri: user.profilePic,
+								  }
+								: logo
+						}
 					/>
 					<View>
 						<View

@@ -4,7 +4,8 @@ import styled from 'styled-components/native';
 import strings from '@components/admin_panel/strings';
 import { activateUser, getUsers } from '../../../redux/reducers/user';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
+import logo from '@assets/logo.png';
 
 const UserCards = () => {
 	const dispatch = useDispatch();
@@ -18,11 +19,13 @@ const UserCards = () => {
 				users.map((user) => (
 					<UserCard key={user._id}>
 						<UserImg
-							source={{
-								uri:
-									user.profilePic ||
-									'https://picsum.photos/100/100',
-							}}
+							source={
+								user.profilePic
+									? {
+											uri: user.profilePic,
+									  }
+									: logo
+							}
 						/>
 						<UserInfo>
 							<View>
@@ -46,7 +49,7 @@ const UserCards = () => {
 											activateUser({
 												userId: user._id,
 												isActive: !user.isActive,
-											})
+											}),
 										);
 										dispatch(getUsers());
 									}}

@@ -47,7 +47,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 				searchInput,
 				categoryFilter: filter,
 				page: nextPage,
-			})
+			}),
 		).then(() => {
 			setLoading(false);
 			setPage((prev) => prev + 1);
@@ -255,11 +255,13 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 								}}
 							>
 								<UserImage
-									source={{
-										uri: user.profilePic
-											? user.profilePic
-											: 'https://picsum.photos/150/150',
-									}}
+									source={
+										user.profilePic
+											? {
+													uri: user.profilePic,
+											  }
+											: logo
+									}
 								/>
 								<UserInfo>
 									<UserName>
@@ -288,7 +290,7 @@ const SearchScreen = ({ navigation, route: { params } }) => {
 											if (!loadingMore) {
 												handleSearch(
 													categoryFilter,
-													page
+													page,
 												);
 												setLoadingMore(true);
 											}
@@ -343,7 +345,7 @@ const SearchInput = styled(DelayInput)`
 	border-radius: 5px;
 	border: 2px solid ${(props) => props.theme.primary};
 	font-size: 16px;
-	padding: 15px;
+	padding: 10px;
 	background-color: ${(props) => props.theme.bg};
 	color: ${(props) => props.theme.text};
 	margin: 10px 0;
