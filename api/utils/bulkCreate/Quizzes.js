@@ -604,8 +604,8 @@ const quizzes = [
 		title: 'Imperialism In India And China',
 		description: 'History Quiz',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://study.com/cimages/videopreview/videopreview-full/rma_going_into_battle_136455.jpg',
+		likes: 20,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0009'),
 		questions: [
@@ -631,7 +631,7 @@ const quizzes = [
 		description:
 			'Are you ready to the best quiz of Art? How well do you know about Art? Find out with this quiz.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
+			'https://image.shutterstock.com/image-vector/art-pop-illustration-popart-design-260nw-550002070.jpg',
 		likes: 0,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
 		questions: [
@@ -652,7 +652,7 @@ const quizzes = [
 		description:
 			'Interesting Quiz on arts and painting! Are you ready? Enjoy!',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
+			'https://cdn.quizzclub.com/trivia/2020-08/in-which-of-the-arts-were-the-works-of-zarh-pritchard-best-known.jpg',
 		likes: 0,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
@@ -672,8 +672,8 @@ const quizzes = [
 		title: 'Roman History 1',
 		description: 'Do you know about roman history',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://image.slidesharecdn.com/romanempire-160123093446/95/history-year-9-the-roman-empire-1-638.jpg',
+		likes: 15,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0009'),
 		questions: [
@@ -696,8 +696,8 @@ const quizzes = [
 		title: 'Roman History 2',
 		description: 'Do you know about roman history',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://www.francetoday.com/wp-content/uploads/2017/03/800px-Arenes_de_Nimes_panorama.jpg',
+		likes: 85,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0009'),
 		questions: [
@@ -721,8 +721,8 @@ const quizzes = [
 		description:
 			'How well do you know about Art? Do you suppose you can conquer this quiz? ',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://www.kazoart.com/blog/wp-content/uploads/2019/03/The-KISS-3-New-2-731x675.jpg',
+		likes: 95,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
 		questions: [
@@ -743,8 +743,8 @@ const quizzes = [
 		title: 'Cool Maths Quiz 1',
 		description: 'Are you an expert in Maths',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://www.chelsea.k12.mi.us/southmeadows/classrooms-and-support-services/files/images/maths.jpg',
+		likes: 324,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -766,8 +766,8 @@ const quizzes = [
 		title: 'Cool Maths Quiz 2',
 		description: 'Are you an expert in Maths',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://p3cdn4static.sharpschool.com/UserFiles/Servers/Server_770743/Image/Technology/Other%20Pictures/math.jpg',
+		likes: 125,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -789,8 +789,8 @@ const quizzes = [
 		title: 'Cool Maths Quiz 3',
 		description: 'Are you an expert in Maths',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://study.com/cimages/course-image/common-core-math-grade-7-expressions-equations-standards_186041_large.jpeg',
+		likes: 53,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0001'),
 		questions: [
@@ -810,8 +810,8 @@ const quizzes = [
 		title: 'Music Knowledge 1',
 		description: 'How much do you know about music',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://musicedhighlights.files.wordpress.com/2011/05/music-theory.jpg',
+		likes: 5,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0003'),
 		questions: [
@@ -834,8 +834,8 @@ const quizzes = [
 		title: 'Music Knowledge 2',
 		description: 'How much do you know about music',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://eindhovennews.com/wp-content/uploads/2017/03/effenaar-musicquiz-effenaar.jpg',
+		likes: 28,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0003'),
 		questions: [
@@ -858,8 +858,8 @@ const quizzes = [
 		title: 'Music Knowledge 3',
 		description: 'How much do you know about music',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://39zsbo2fj4og6a79534grq31-wpengine.netdna-ssl.com/wp-content/uploads/haydn-keyboard-sonata3-e.jpg',
+		likes: 27,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0003'),
 		questions: [
@@ -882,8 +882,8 @@ const quizzes = [
 		description:
 			'Welcome to the most difficult quiz of Art! Do you suppose you can conquer this quiz? Enjoy it!',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://images.immediate.co.uk/production/volatile/sites/3/2020/04/The_Scream-b902711-scaled.jpg',
+		likes: 98,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0008'),
 		questions: [
@@ -907,8 +907,8 @@ const quizzes = [
 		description:
 			'Lights! Camera! Action! Enter the world of cinema with these ultimate movie quizzes online that will challenge what you know. ',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://static.androidgame365.com/uploads/posts/2013-11/1384118973_movies-quiz.jpg',
+		likes: 128,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0005'),
 		questions: [
@@ -932,8 +932,8 @@ const quizzes = [
 		description:
 			'Lights! Camera! Action! Enter the world of cinema with these ultimate movie quizzes online that will challenge what you know.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://images.news18.com/ibnlive/uploads/2017/05/really-tough-movie-quiz.jpg',
+		likes: 359,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0005'),
 		questions: [
@@ -956,9 +956,8 @@ const quizzes = [
 		title: 'Movies Quiz III',
 		description:
 			'Lights! Camera! Action! Enter the world of cinema with these ultimate movie quizzes online that will challenge what you know.',
-		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+		image: 'https://i.ytimg.com/vi/VvIEcIwv7QA/hqdefault.jpg',
+		likes: 254,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0005'),
 		questions: [
@@ -979,8 +978,8 @@ const quizzes = [
 		description:
 			'Lights! Camera! Action! Enter the world of cinema with these ultimate movie quizzes online that will challenge what you know.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://hollywoodtheatre.org/media/images/The_Movie_Quiz_1920x1080.original.height-720.width-1280.png',
+		likes: 123,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0005'),
 		questions: [
@@ -1001,8 +1000,8 @@ const quizzes = [
 		description:
 			'Enhance your knowledge or learn something completely new by answering science quiz questions based on biology, chemistry, physiology, astronomy and more.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://www.rd.com/wp-content/uploads/2018/03/11-Science-Trivia-Questions-People-Always-Get-Wrong.jpg	',
+		likes: 342,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
 		questions: [
@@ -1023,8 +1022,8 @@ const quizzes = [
 		description:
 			'Enhance your knowledge or learn something completely new by answering science quiz questions based on biology, chemistry, physiology, astronomy and more.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://cdn.quizzclub.com/trivia/2020-03/which-of-these-scientists-uncovered-essential-mechanisms-of-biological-clocks.jpg',
+		likes: 222,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
 		questions: [
@@ -1045,8 +1044,8 @@ const quizzes = [
 		description:
 			'Enhance your knowledge or learn something completely new by answering science quiz questions based on biology, chemistry, physiology, astronomy and more.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://www.kidsworldfun.com/images/quiz/General-Science-Quiz.jpg',
+		likes: 17,
 		time: 15,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
 		questions: [
@@ -1067,8 +1066,8 @@ const quizzes = [
 		description:
 			'Enhance your knowledge or learn something completely new by answering science quiz questions based on biology, chemistry, physiology, astronomy and more.',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://icebreakerideas.com/wp-content/uploads/2019/09/Science-Trivia-e1606543578220.jpg',
+		likes: 73,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0002'),
 		questions: [
@@ -1090,8 +1089,8 @@ const quizzes = [
 		title: 'Odd Ones',
 		description: 'Can you find the one that doesnt belong',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://static.vecteezy.com/system/resources/previews/000/129/108/original/trivia-papper-background-illustration-vector.jpg',
+		likes: 132,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0012'),
 		questions: [
@@ -1114,8 +1113,8 @@ const quizzes = [
 		title: 'Sports Trivia 1',
 		description: 'Super fun trivia about sports',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://www.moresportsnow.com/wp-content/uploads/2018/02/mzl.iezldaqz-1024x700.png',
+		likes: 185,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0004'),
 		questions: [
@@ -1138,8 +1137,8 @@ const quizzes = [
 		title: 'Sports Trivia 2',
 		description: 'Super fun trivia about sports',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'https://icebreakerideas.com/wp-content/uploads/2019/11/Sports-Trivia-e1604468988783.jpg',
+		likes: 274,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0004'),
 		questions: [
@@ -1162,8 +1161,8 @@ const quizzes = [
 		title: 'Sports Trivia 3',
 		description: 'Super fun trivia about sports',
 		image:
-			'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/los-simpson-1564565325.jpg',
-		likes: 0,
+			'http://www.colleges-fenway.org/wp-content/uploads/2020/06/sports-trivia-logo.png',
+		likes: 11,
 		time: 20,
 		categoryId: mongoose.Types.ObjectId('5959e34adf833e1451ab0004'),
 		questions: [

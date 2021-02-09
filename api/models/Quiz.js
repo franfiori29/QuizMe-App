@@ -21,7 +21,7 @@ const quizSchema = new Schema(
 		questions: [
 			{ type: Schema.Types.ObjectId, ref: 'Question', required: true },
 		],
-		time: { type: Number, default: 10 },
+		time: { type: Number, default: 15 },
 		highScores: [
 			{
 				user: {
